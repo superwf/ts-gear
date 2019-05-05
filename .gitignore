@@ -1,2 +1,4 @@
 fixture
 node_modules
+*.vim
+./out

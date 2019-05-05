@@ -14,11 +14,13 @@
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "fs-extra": "^7.0.1",
+    "json-schema-to-typescript": "5.0.0",
     "lodash": "^4.17.5",
-    "node-fetch": "^1.7.3",
+    "node-fetch": "^2.4.1",
     "pont-engine": "^0.1.66",
     "prettier": "^1.17.0",
     "reserved-words": "^0.1.2",
+    "swagger-schema-official": "^2.0.0-bab6bed",
     "translation.js": "^0.7.5",
     "typescript": "^3.4.5"
   },
@@ -29,15 +31,22 @@
     "bin"
   ],
   "devDependencies": {
+    "@types/chalk": "^2.2.0",
     "@types/fs-extra": "^5.0.5",
     "@types/http-server": "^0.10.0",
+    "@types/jest": "^24.0.12",
+    "@types/json-schema": "^7.0.3",
     "@types/lodash": "^4.14.110",
     "@types/node": "^11.13.8",
+    "@types/node-fetch": "^2.3.3",
+    "@types/prettier": "^1.16.3",
     "cross-env": "^5.2.0",
     "http-server": "^0.11.1",
+    "jest": "^24.8.0",
     "lint-staged": "^8.1.0",
     "ts-jest": "^24.0.2",
-    "ts-node": "^8.1.0"
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0"
   },
   "keywords": [
     "pont",

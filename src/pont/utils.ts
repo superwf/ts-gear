@@ -2,6 +2,7 @@ import fetch from 'node-fetch'
 import * as path from 'path'
 import * as fs from 'fs-extra'
 import * as prettier from 'prettier'
+import { CONFIG_FILE, PROJECT_ROOT } from './constant'
 
 import * as ts from 'typescript'
 import { ResolveConfigOptions } from 'prettier'
@@ -432,9 +433,6 @@ export function hasChinese(str: string) {
     )
   )
 }
-
-const PROJECT_ROOT = isTest ? process.cwd() : `${process.cwd()}/fixture`
-const CONFIG_FILE = 'pont-config.json'
 
 export async function createManager(configFile = CONFIG_FILE) {
   const configPath = await lookForFiles(PROJECT_ROOT, configFile)
