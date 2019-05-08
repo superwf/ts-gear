@@ -18,7 +18,5 @@
     "baseUrl": ".",
     "noUnusedLocals": true,
     "strictPropertyInitialization": false
-  },
-  "include": ["src", "__tests__"],
-  "exclude": ["fixture"]
+  }
 }

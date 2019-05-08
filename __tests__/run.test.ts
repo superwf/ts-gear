@@ -12,7 +12,7 @@ describe('run', () => {
   it('with fixture', async () => {
     const definitions = await run(sample as JSONSchema)
     if (definitions) {
-      await fs.writeFileSync(`${outDir}/definitions.ts`, definitions.join(''))
+      fs.writeFileSync(`${outDir}/definitions.ts`, definitions.join(''))
     }
   })
 })
