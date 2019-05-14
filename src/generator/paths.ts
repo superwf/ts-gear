@@ -4,6 +4,7 @@ import { camelCase, isEmpty, upperFirst } from 'lodash'
 import { format } from 'prettier'
 import { IRequestMethod, JSONSchema } from '../interface'
 import { transformPathParameters } from '../util'
+import { generateResponseSchema } from './responseSchema'
 
 interface IRequest {
   /** http method */
@@ -156,25 +157,41 @@ export const generatePaths = async (schema: JSONSchema) => {
       }
       // console.log(interfaces.join(''))
 
+      let responseSchema = await generateResponseSchema(request.responses)
+      if (responseSchema) {
+        responseSchema = `<${responseSchema}>`
+      }
+      // if (request.responses[200] && request.responses[200].schema) {
+      //   console.log(request.responses[200])
+      //   responseSchema = `<${upperFirst(
+      //     request.responses[200].schema.title.replace(/[^a-z\d]/gi, ''),
+      //   )}>`
+      // }
+
       const tsFunction = `
       /** ${request.summary} */
       export const ${functionName} = (${paramString}) => {
-        return fetch(interceptRequest('${transformPathParameters(url)}'${
-        paramString ? ', param' : ''
-      })).then<${upperFirst(
-        request.responses[200].schema.title.replace(/[^a-z\d]/gi, ''),
-      )}>(interceptResponse)
+        const [ url, option ] = interceptRequest('${transformPathParameters(
+          url,
+        )}'${paramString ? ', param' : ''})
+        option.method = '${k}'
+        return fetch(url, option).then${responseSchema}(interceptResponse)
       }`
 
       requestFunctions.push(tsFunction)
 
-      console.log(tsFunction)
+      // console.log(tsFunction)
     }
   }
   const definitionKeys = Object.keys(
     schema.definitions ? schema.definitions : {},
   )
-  const definitionImports = definitionKeys.map(d => d.replace(/[^a-z\d]/gi, ''))
+  const definitionImports = definitionKeys.map(d => {
+    if (d.endsWith('[]')) {
+      return ''
+    }
+    return upperFirst(camelCase(d))
+  })
 
   return format(
     `

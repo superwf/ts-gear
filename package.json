@@ -11,6 +11,7 @@
     "test": "npx cross-env NODE_ENV=test npx ts-node src/cmd.ts"
   },
   "dependencies": {
+    "ast-traverse": "^0.1.1",
     "chalk": "^2.4.2",
     "commander": "^2.20.0",
     "fs-extra": "^7.0.1",
@@ -23,6 +24,7 @@
     "reserved-words": "^0.1.2",
     "swagger-schema-official": "^2.0.0-bab6bed",
     "translation.js": "^0.7.5",
+    "ts-morph": "^2.1.0",
     "typescript": "^3.4.5"
   },
   "files": [

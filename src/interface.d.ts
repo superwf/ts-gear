@@ -15,7 +15,18 @@ export interface IParameter {
 }
 
 interface IResponseSchema extends JSONSchema {
-  title: string
+  title?: string
+}
+
+interface IResponse {
+  200?: {
+    description: string
+    schema: IResponseSchema
+  }
+  [key: string]: {
+    description: string
+    schema?: JSONSchema
+  }
 }
 
 export interface IRequestMethod {
@@ -24,16 +35,15 @@ export interface IRequestMethod {
   operationId?: string
   produces: string[]
   tags: string[]
-  responses: {
-    200: {
-      description: string
-      schema: IResponseSchema
-    }
-    [key: string]: {
-      description: string
-      schema?: JSONSchema
-    }
-  }
+  responses: IResponse
   security?: any
   deprecated: boolean
+}
+
+// add title to definition
+export interface IDefinition extends JSONSchema {
+  title: string
+}
+export interface IDefinitions {
+  [k: string]: IDefinition
 }

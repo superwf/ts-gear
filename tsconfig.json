@@ -17,6 +17,7 @@
     "jsx": "react",
     "baseUrl": ".",
     "noUnusedLocals": true,
-    "strictPropertyInitialization": false
+    "strictPropertyInitialization": false,
+    "typeRoots": ["node_modules/@types", "typings"]
   }
 }

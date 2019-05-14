@@ -1,10 +1,10 @@
-import { parse$ref } from './generator/parseRef'
 import { generateDefinitions } from './generator/definitions'
 import { JSONSchema } from './interface'
+import { parseRef } from './util'
 
 /** deal the schema step by step */
 export const run = async (schema: JSONSchema) => {
-  const parsedSchema = await parse$ref(schema)
+  const parsedSchema = await parseRef(schema)
 
   // console.log(Object.keys(parsedSchema.definitions!))
 

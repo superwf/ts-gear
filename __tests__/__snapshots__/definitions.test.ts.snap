@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`generateDefinitions geterate primitive interface 1`] = `
+"export interface User {
+    id?: number;
+    username?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    phone?: string;
+    userStatus?: number;
+}
+"
+`;
+
+exports[`generateDefinitions geterate primitive interface 2`] = `
+"export interface Category {
+    id?: number;
+    name?: string;
+}
+"
+`;
+
+exports[`generateDefinitions geterate primitive interface 3`] = `
+"export interface Order {
+    id?: number;
+    petId?: number;
+    quantity?: number;
+    shipDate?: string;
+    status?: 'placed' | 'approved' | 'delivered';
+    complete?: boolean = false;
+}
+"
+`;
+
+exports[`generateDefinitions groupProperties 1`] = `
+Array [
+  "export interface Order {
+    id?: number;
+    petId?: number;
+    quantity?: number;
+    shipDate?: string;
+    status?: 'placed' | 'approved' | 'delivered';
+    complete?: boolean = false;
+}
+",
+  "export interface User {
+    id?: number;
+    username?: string;
+    firstName?: string;
+    lastName?: string;
+    email?: string;
+    password?: string;
+    phone?: string;
+    userStatus?: number;
+}
+",
+  "export interface Category {
+    id?: number;
+    name?: string;
+}
+",
+  "export interface Tag {
+    id?: number;
+    name?: string;
+}
+",
+  "export interface Pet {
+    id?: number;
+    name: string;
+    photoUrls: string[];
+    status?: 'available' | 'pending' | 'sold';
+    category: Category;
+    tags: Tag[];
+}
+",
+  "export interface ApiResponse {
+    code?: number;
+    type?: string;
+    message?: string;
+}
+",
+]
+`;

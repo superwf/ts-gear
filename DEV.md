@@ -6,15 +6,21 @@
 
 ## parse result json to usable object
 
+## result two file.
+
+### `interface.ts`, include the origin definitions part and all other interfaces.
+
 * parse all $refs
 
 * generate interface from definitions 
 
-* write definitions 
+* write definitions
 
-* generate query, body, path parameters interface 
+* use origin schema to generate query, body, path parameters interface and response schema interface.
 
-* write parameters interface
+* write all interface to definitions.ts file.
+
+### `fetch.ts` all request functions.
 
 * generate request function
 
