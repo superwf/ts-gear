@@ -1,19 +1,8 @@
 import { forEach, reduce } from 'lodash'
-import {
-  OptionalKind,
-  Project,
-  PropertySignatureStructure,
-  ScriptTarget,
-} from 'ts-morph'
+import { OptionalKind, PropertySignatureStructure, SourceFile } from 'ts-morph'
 import { JSONSchema } from './interface'
+import { compile } from './source'
 import { getDefinitionRef, getSafeDefinitionTitle } from './util'
-
-const project = new Project({
-  useVirtualFileSystem: true,
-  compilerOptions: {
-    target: ScriptTarget.ESNext,
-  },
-})
 
 interface IPrimitiveProperty {
   type: string
@@ -61,57 +50,49 @@ const transformPrimitiveProperty = (property: IPrimitiveProperty): string => {
   }
 }
 
-const virtualFileName = 'file.ts'
-const fs = project.getFileSystem()
-
 /** 生成一维原始类型的interface
  * */
 export const generatePrimitiveDefinition = async (
   definition: JSONSchema,
   title: string,
 ) => {
-  const sourceFile = project.createSourceFile(virtualFileName)
+  // const sourceFile = project.createSourceFile(virtualFileName)
 
-  if (definition.type === 'object') {
-    const inter = sourceFile.addInterface({
-      name: getSafeDefinitionTitle(title)[0],
-    })
-    inter.setIsExported(true)
-    forEach(definition.properties, (property, name) => {
-      const p: OptionalKind<PropertySignatureStructure> = {
-        name,
-        type: transformPrimitiveProperty(property as IPrimitiveProperty),
-        // initializer: property.default as string,
-        hasQuestionToken:
-          !definition.required || !definition.required.includes(name),
+  return compile((sourceFile: SourceFile) => {
+    if (definition.type === 'object') {
+      const inter = sourceFile.addInterface({
+        name: getSafeDefinitionTitle(title)[0],
+      })
+      inter.setIsExported(true)
+      forEach(definition.properties, (property, name) => {
+        const p: OptionalKind<PropertySignatureStructure> = {
+          name,
+          type: transformPrimitiveProperty(property as IPrimitiveProperty),
+          // initializer: property.default as string,
+          hasQuestionToken:
+            !definition.required || !definition.required.includes(name),
+        }
+        if ('default' in property) {
+          p.initializer = String(property.default)
+        }
+        if ('description' in property) {
+          p.docs = [String(property.description)]
+        }
+        inter.addProperty(p)
+        // addedProperty.setInitializer(property.default)
+      })
+      if (definition.description) {
+        inter.addJsDoc(definition.description)
       }
-      if ('default' in property) {
-        p.initializer = String(property.default)
-      }
-      if ('description' in property) {
-        p.docs = [String(property.description)]
-      }
-      inter.addProperty(p)
-      // addedProperty.setInitializer(property.default)
-    })
-    if (definition.description) {
-      inter.addJsDoc(definition.description)
+      // 有definition是原始类型的情况吗？
+    } else {
+      const t = sourceFile.addTypeAlias({
+        name: title,
+        type: transformPrimitiveProperty(definition as IPrimitiveProperty),
+      })
+      t.setIsExported(true)
     }
-    // 有definition是原始类型的情况吗？
-  } else {
-    const t = sourceFile.addTypeAlias({
-      name: title,
-      type: transformPrimitiveProperty(definition as IPrimitiveProperty),
-    })
-    t.setIsExported(true)
-  }
-  sourceFile.saveSync()
-
-  const result = fs.readFileSync('file.ts')
-
-  await sourceFile.deleteImmediately()
-
-  return result
+  })
 }
 
 /** 将definition的properties分为两组，一组是primitive，另一组是有$ref的类型 */
@@ -144,29 +125,22 @@ export const generateDefinition = async (
       primitiveDefinition,
       title,
     )
-
-    const sourceFile = project.createSourceFile(
-      virtualFileName,
-      primitiveInterface,
-    )
-    const inter = sourceFile.getInterfaces()[0]!
-    if (definition.description) {
-      inter.addJsDoc(definition.description)
-    }
-    refResult.forEach(r => {
-      // console.log(r)
-      const p = inter.addProperty({
-        name: getSafeDefinitionTitle(r.name)[0],
-        type: r.isArray ? `${r.type}[]` : r.type,
-      })
-      if (r.description) {
-        p.addJsDoc(r.description)
+    return compile((sourceFile: SourceFile) => {
+      const inter = sourceFile.getInterfaces()[0]!
+      if (definition.description) {
+        inter.addJsDoc(definition.description)
       }
-    })
-    sourceFile.saveSync()
-    const result = fs.readFileSync('file.ts')
-    await sourceFile.deleteImmediately()
-    return result
+      refResult.forEach(r => {
+        // console.log(r)
+        const p = inter.addProperty({
+          name: getSafeDefinitionTitle(r.name)[0],
+          type: r.isArray ? `${r.type}[]` : r.type,
+        })
+        if (r.description) {
+          p.addJsDoc(r.description)
+        }
+      })
+    }, primitiveInterface)
   }
 
   return generatePrimitiveDefinition(definition, title)

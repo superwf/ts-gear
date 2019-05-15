@@ -52,11 +52,11 @@ describe('generateDefinitions', () => {
         results.push(result)
       }
     }
-    console.log(results)
-    // expect(results).toMatchSnapshot()
+    // console.log(results)
+    expect(results).toMatchSnapshot()
   })
 
-  it.only('use price fixture for generate definition', async () => {
+  it('use price fixture for generate definition', async () => {
     const { definitions } = price
     const results: string[] = []
     for (const name in definitions) {
@@ -66,8 +66,8 @@ describe('generateDefinitions', () => {
         results.push(result)
       }
     }
-    console.log(results)
+    // console.log(results)
     fs.writeFileSync('./out/price.ts', results.join(''))
-    // expect(results).toMatchSnapshot()
+    expect(results).toMatchSnapshot()
   })
 })
