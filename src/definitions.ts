@@ -50,7 +50,7 @@ const transformPrimitiveProperty = (property: IPrimitiveProperty): string => {
   }
 }
 
-/** 生成一维原始类型的interface
+/** 生成一维property为原始类型的interface
  * */
 export const generatePrimitiveDefinition = async (
   definition: JSONSchema,

@@ -53,6 +53,11 @@ describe('generateDefinitions', () => {
       }
     }
     // console.log(results)
+    const outDir = './out/sample'
+    if (!fs.existsSync(outDir)) {
+      fs.mkdirSync(outDir)
+    }
+    fs.writeFileSync(`${outDir}/definitions.ts`, results.join('\n'))
     expect(results).toMatchSnapshot()
   })
 
