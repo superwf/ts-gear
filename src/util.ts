@@ -241,6 +241,30 @@ export const transformProperty = (property: JSONSchema): string => {
         return `{\n${obj}${additionalProps}\n}`
       }
       return 'any'
+    // 没见过后端真的用过这几个数据类型
+    // 参照https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/ 例子先处理一下
+    // oneOf, anyOf, allOf对应的应该是数组，每个成员有$ref
+    case 'oneOf':
+      if (Array.isArray(property.oneOf)) {
+        return property.oneOf.map(prop => transformProperty(prop)).join(' | ')
+      }
+      return 'any'
+    case 'anyOf':
+      if (Array.isArray(property.oneOf)) {
+        return `Partial<${property.oneOf
+          .map(prop => transformProperty(prop))
+          .join(' & ')}>`
+      }
+      return 'any'
+    case 'allOf':
+      if (Array.isArray(property.oneOf)) {
+        return `Required<${property.oneOf
+          .map(prop => transformProperty(prop))
+          .join(' & ')}>`
+      }
+      return 'any'
+    case 'not':
+      return 'any'
     default:
       throw new Error(`not valid json schema type: ${type}`)
   }
