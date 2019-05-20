@@ -194,18 +194,67 @@ export const getAllRef = (schema: JSONSchema) => {
 
 /** 将schema的type转换为ts的类型 */
 export const transformProperty = (property: JSONSchema): string => {
-  const { type, enum: enumValues, items, schema } = property
+  const {
+    type,
+    enum: enumValues,
+    items,
+    schema,
+    $ref,
+    oneOf,
+    anyOf,
+    allOf,
+    not,
+  } = property
   if (enumValues) {
     return `'${enumValues.join("' | '")}'`
   }
-  if (schema) {
-    if (schema.$ref) {
-      return getSafeDefinitionTitle(transform$refName(schema.$ref))[0]
-    }
-    if (schema.type) {
-      return transformProperty(schema)
-    }
+  if ($ref) {
+    return getSafeDefinitionTitle(transform$refName($ref))[0]
   }
+  if (schema) {
+    return transformProperty(schema)
+  }
+
+  // 没见过后端真的用过这几个数据类型
+  // 参照https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/ 例子先处理一下
+  // oneOf, anyOf, allOf对应的应该是数组，每个成员有$ref
+  // TODO 处理discriminator的情况
+  if (oneOf) {
+    if (Array.isArray(property.oneOf)) {
+      return property.oneOf.map(prop => transformProperty(prop)).join(' | ')
+    }
+    return 'any'
+  }
+
+  // 拥有任何一个对象中的任何一个属性即可
+  if (anyOf) {
+    if (Array.isArray(property.oneOf)) {
+      return `Partial<${property.oneOf
+        .map(prop => transformProperty(prop))
+        .join(' & ')}>`
+    }
+    return 'any'
+  }
+  // 必须拥有所有对象属性的并集
+  if (allOf) {
+    if (Array.isArray(property.oneOf)) {
+      return `Required<${property.oneOf
+        .map(prop => transformProperty(prop))
+        .join(' & ')}>`
+    }
+    return 'any'
+  }
+  // 原生类型可以用Exclude处理
+  // 其他用any
+  if (not) {
+    // 说明是原生类型
+    if (typeof not === 'string') {
+      // json schema里没有symbol，不用放进去
+      return `Exclude<number, string, object, boolean, null, undefined, ${not}>`
+    }
+    return `any`
+  }
+
   switch (type) {
     case 'string':
       return 'string'
@@ -240,30 +289,6 @@ export const transformProperty = (property: JSONSchema): string => {
         }
         return `{\n${obj}${additionalProps}\n}`
       }
-      return 'any'
-    // 没见过后端真的用过这几个数据类型
-    // 参照https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/ 例子先处理一下
-    // oneOf, anyOf, allOf对应的应该是数组，每个成员有$ref
-    case 'oneOf':
-      if (Array.isArray(property.oneOf)) {
-        return property.oneOf.map(prop => transformProperty(prop)).join(' | ')
-      }
-      return 'any'
-    case 'anyOf':
-      if (Array.isArray(property.oneOf)) {
-        return `Partial<${property.oneOf
-          .map(prop => transformProperty(prop))
-          .join(' & ')}>`
-      }
-      return 'any'
-    case 'allOf':
-      if (Array.isArray(property.oneOf)) {
-        return `Required<${property.oneOf
-          .map(prop => transformProperty(prop))
-          .join(' & ')}>`
-      }
-      return 'any'
-    case 'not':
       return 'any'
     default:
       throw new Error(`not valid json schema type: ${type}`)
