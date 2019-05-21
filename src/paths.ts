@@ -40,7 +40,7 @@ export const generatePaths = async (schema: JSONSchema) => {
       // let paramString = ''
       const functionName = `${action}${upperFirst(camelCase(url))}`
       let paramInterfaceName = ''
-      if (request.parameters) {
+      if (request.parameters && request.parameters.length > 0) {
         const parameterSchema = assembleRequestParam(request.parameters)
         // console.log(JSON.stringify(parameterSchema))
         paramInterfaceName = `I${upperFirst(functionName)}Param`
@@ -49,16 +49,14 @@ export const generatePaths = async (schema: JSONSchema) => {
             name: paramInterfaceName,
           })
           forEach<JSONSchema>(parameterSchema, (property, name) => {
-            // if (name === 'IGetApiPricingBlackListParam') {
             inter.addProperty({
               name,
               type: transformProperty(property),
-              hasQuestionToken: property.required.length === 0,
+              hasQuestionToken:
+                !property.required || property.required.length === 0,
             })
-            // }
           })
         })
-        // console.log(paramDefTsContent)
         tsContent.push(paramDefTsContent)
       }
       const response200Schema = request.responses[200]
@@ -108,17 +106,10 @@ export const generatePaths = async (schema: JSONSchema) => {
 
       tsContent.push(functTsContent)
     }
-
-    // let responseSchema = await generateResponseSchema(request.responses)
-    // if (responseSchema) {
-    //   responseSchema = `<${responseSchema}>`
-    // }
-
-    // requestFunctions.push(tsFunction)
   }
 
   // 生成paths文件需要的一些依赖
-  const dependents: string[] = getAllRef(schema)
+  const dependents: string[] = getAllRef(schema.paths)
   // 引依赖
   const importTsContent = await compile(source => {
     source.addImportDeclarations([
@@ -131,7 +122,7 @@ export const generatePaths = async (schema: JSONSchema) => {
             name: interceptResponse.name,
           },
         ],
-        moduleSpecifier: './interceptor',
+        moduleSpecifier: './fetchInterceptor',
       },
     ])
     source.addImportDeclarations([
@@ -144,7 +135,7 @@ export const generatePaths = async (schema: JSONSchema) => {
     ])
   })
   tsContent.unshift(importTsContent)
-  return tsContent
+  return tsContent.join('\n')
 
   // console.log(tsFunction)
   // const definitionKeys = Object.keys(

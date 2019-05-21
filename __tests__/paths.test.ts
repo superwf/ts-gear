@@ -16,6 +16,6 @@ describe('generatePaths', () => {
     if (!fs.existsSync(outDir)) {
       fs.mkdirSync(outDir)
     }
-    fs.writeFileSync(`${outDir}/paths.ts`, result.join('\n'))
+    fs.writeFileSync(`${outDir}/paths.ts`, result)
   })
 })

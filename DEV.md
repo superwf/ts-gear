@@ -1,27 +1,29 @@
 # dev steps
 
-## parse config file
+## 设计
 
-## fetch json schema from remote
+### 配置文件
 
-## parse result json to usable object
+* 使用`ts`文件作为配置文件，在配置时还能校验类型。
 
-## result two file.
+### 输出两个文件
 
-### `interface.ts`, include the origin definitions part and all other interfaces.
+* 所有数据结构定义，输出到`definitions.d.ts`.
 
-* parse all $refs
+* 所有fetch函数，输入到`fetch.ts`.
 
-* generate interface from definitions 
+## 解析本工具依赖的配置文件
 
-* write definitions
+* 获取远程swagger获取json地址
 
-* use origin schema to generate query, body, path parameters interface and response schema interface.
+* 获取用户配置的输出路径
 
-* write all interface to definitions.ts file.
+## 通过swagger地址fetch swagger的schema.
 
-### `fetch.ts` all request functions.
+## 先解析所有的definitions
 
-* generate request function
+## 将所有definitions写入`interface.d.ts`.
 
-* write request function
+## TODO
+
+* 在用户配置文件中添加一些其他的可配置参数，目前还没设计

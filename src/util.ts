@@ -55,12 +55,26 @@ export const parseRef = (schema: JSONSchema) => {
   return parser.dereference(schema) as Promise<JSONSchema>
 }
 
+/** 基础类型或由基础类型构成的数组 */
+export const isPrimitiveType = (type: string) => {
+  return ['number', 'string', 'boolean'].some(t => {
+    return type === t || type === `${t}[]`
+  })
+}
+
 /** 解析definitions中的title
  * @return [title, 带有泛型格式的title]
  * 例如 ['ReplyVOUser', 'ReplyVO<User>']
  * 例如List转换数组格式 ['ReplyVOListUser', 'ReplyVO<Array<User>>']
  * */
 export const getSafeDefinitionTitle = (title: string): [string, string] => {
+  if (
+    ['number', 'string', 'boolean'].some(t => {
+      return title === t || title === `${t}[]`
+    })
+  ) {
+    return [title, title]
+  }
   // 原始类型，非组合类型
   if (/^[a-z\[\]]+$/i.test(title)) {
     return [upperFirst(camelCase(title)), title]
@@ -169,6 +183,11 @@ export const hasRef = (schema: JSONSchema) => {
   }
 }
 
+/** 在一个项目里有$ref引用了definitins里的Long和Long[]的情况
+ * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
+ * 先这么处理一下
+ * 我始终认为$ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
+ * */
 const transform$refName = ($ref: string) => {
   const name = $ref.replace('#/definitions/', '')
   if (name === 'Long') {
@@ -185,14 +204,15 @@ export const getAllRef = (schema: JSONSchema) => {
   traverse(schema, ({ val, key }: { val: any; key: string }) => {
     if (key === '$ref' && typeof val === 'string') {
       const refName = getSafeDefinitionTitle(transform$refName(val))[0]
-      // console.log(val, refName)
-      refNames.add(refName)
+      if (!isPrimitiveType(refName)) {
+        refNames.add(refName)
+      }
     }
   })
   return Array.from(refNames)
 }
 
-/** 将schema的type转换为ts的类型 */
+/** 将schema转换为ts的类型 */
 export const transformProperty = (property: JSONSchema): string => {
   const {
     type,

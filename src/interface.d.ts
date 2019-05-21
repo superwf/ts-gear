@@ -67,3 +67,23 @@ interface IParameterSchema {
   body?: JSONSchema
   path?: JSONSchema
 }
+
+/** 用户配置文件定义 */
+export interface IUserConfig {
+  /** 项目输出文件夹，会在该文件夹下建立以每个项目名建立独立的文件夹
+   * 默认为 './service'
+   * */
+  dest: string
+
+  projects: Array<{
+    /** 项目名字，会在dest文件夹中创建该项目名称的目录 */
+    name: string
+    /** 读取swagger配置的路径，可以是本地json文件或远程swagger地址
+     * http开头的为远程地址
+     * 否则按本地文件读取
+     * */
+    source: string
+    /** 需要验证参数在这里添加 */
+    fetchOption?: RequestInit
+  }>
+}

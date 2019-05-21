@@ -1,5 +1,9 @@
 import { forEach, reduce } from 'lodash'
-import { OptionalKind, PropertySignatureStructure, SourceFile } from 'ts-morph'
+import {
+  OptionalKind,
+  PropertyDeclarationStructure,
+  SourceFile,
+} from 'ts-morph'
 import { JSONSchema } from './interface'
 import { compile } from './source'
 import { getDefinitionRef, getSafeDefinitionTitle } from './util'
@@ -16,16 +20,7 @@ interface IPrimitiveProperty {
   }
 }
 
-// type Omit<T, K> = Pick<T, Exclude<keyof T, K>>
-
-// interface IProperty extends Omit<IPrimitiveProperty, 'items'> {
-//   $ref?: string
-//   items?: {
-//     type?: string
-//     $ref: string
-//   }
-// }
-
+/** 转换简单原生类型 */
 const transformPrimitiveProperty = (property: IPrimitiveProperty): string => {
   const { type, enum: enumValue, items } = property
   if (enumValue) {
@@ -60,31 +55,36 @@ export const generatePrimitiveDefinition = async (
 
   return compile((sourceFile: SourceFile) => {
     if (definition.type === 'object') {
-      const inter = sourceFile.addInterface({
+      const klass = sourceFile.addClass({
         name: getSafeDefinitionTitle(title)[0],
       })
-      inter.setIsExported(true)
+      if (definition.description) {
+        klass.addJsDoc(definition.description)
+      }
+      klass.setIsExported(true)
       forEach(definition.properties, (property, name) => {
-        const p: OptionalKind<PropertySignatureStructure> = {
+        const p: OptionalKind<PropertyDeclarationStructure> = {
           name,
           type: transformPrimitiveProperty(property as IPrimitiveProperty),
           // initializer: property.default as string,
           hasQuestionToken:
             !definition.required || !definition.required.includes(name),
         }
+        // interface不能有初始化的值
+        // 考虑用class代替interface的话可以加上
         if ('default' in property) {
           p.initializer = String(property.default)
         }
         if ('description' in property) {
           p.docs = [String(property.description)]
         }
-        inter.addProperty(p)
+        klass.addProperty(p)
         // addedProperty.setInitializer(property.default)
       })
-      if (definition.description) {
-        inter.addJsDoc(definition.description)
-      }
+
       // 有definition是原始类型的情况吗？
+      // 虽然没见过
+      // 如果有的话按别名处理
     } else {
       const t = sourceFile.addTypeAlias({
         name: title,
@@ -102,6 +102,8 @@ export const generateDefinition = async (
 ) => {
   const refResult = getDefinitionRef(definition)
   if (refResult.length > 0) {
+    // 先将不是$ref类型的property统计好
+    // 生成只包含简单类型的结构
     const refNames = refResult.map(r => r.name)
     const primitiveDefinition = {
       ...definition,
@@ -126,19 +128,13 @@ export const generateDefinition = async (
       title,
     )
     return compile((sourceFile: SourceFile) => {
-      const inter = sourceFile.getInterfaces()[0]!
-      if (definition.description) {
-        inter.addJsDoc(definition.description)
-      }
+      const klass = sourceFile.getClasses()[0]!
       refResult.forEach(r => {
         // console.log(r)
-        const p = inter.addProperty({
-          name: getSafeDefinitionTitle(r.name)[0],
+        klass.addProperty({
+          name: r.name,
           type: r.isArray ? `${r.type}[]` : r.type,
         })
-        if (r.description) {
-          p.addJsDoc(r.description)
-        }
       })
     }, primitiveInterface)
   }
@@ -160,5 +156,5 @@ export const generateDefinitions = async (definitions: {
       results.push(result)
     }
   }
-  return results
+  return results.join('')
 }

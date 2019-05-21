@@ -26,5 +26,6 @@ export const compile = async (
   await sourceFile.save()
   const result = fs.readFileSync(virtualFileName)
   await sourceFile.deleteImmediately()
+  await project.removeSourceFile(sourceFile)
   return result
 }
