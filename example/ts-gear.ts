@@ -1,4 +1,4 @@
-import { IUserConfig } from 'src/interface'
+import { IUserConfig } from 'ts-gear/src/interface'
 
 const config: IUserConfig = {
   dest: './service',

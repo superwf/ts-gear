@@ -19,6 +19,8 @@ npm install ts-gear
 
 先在项目根目录下生成配置文件`ts-gear.ts`，配置文件使用ts，所以配置是带类型校验的。
 ```
+import { IUserConfig } from 'ts-gear/src/interface'
+
 const config: IUserConfig = {
   // 生成swagger配置ts文件的目录
   dest: './service',
@@ -31,7 +33,9 @@ const config: IUserConfig = {
     {
       name: 'sample',
       source: 'http://192.168.1.111/v2/api-docs',
-			// fetchOption 是可选项，按原生fetch可接收的参数配置
+			// fetchOption 是可选项，如果swagger接口有一些验证需求，
+      // 可以按原生fetch可接收的参数配置
+      // 如果验证很麻烦最好还是在浏览器上把swagger文档copy到一个本地json文件方便，只是做不到即时更新了。
       fetchOption: {
         header: {
 					Authorization: 'your token ...',
@@ -42,6 +46,8 @@ const config: IUserConfig = {
     },
   ],
 }
+
+export default config
 
 ```
 
@@ -75,6 +81,10 @@ npx tsg // 如果tsg名称被占用，用npx ts-gear
 * 使用[ts-morph](https://dsherret.github.io/ts-morph)简单的解析了一下ts语法。
 
 * [更多](./DEV.md)
+
+## 修订与反馈 Errata And Feedback
+
+我只是将我遇到的几个项目的swagger文档、swagger ui官方的pet例子，还有参考了一些swagger schema官方文档做为样例开发了这个程序。肯定有一些没有考虑到的情况。如果有可以改进或解析错误的情况，欢迎将不能解析的schema提issue。
 
 ## TODO
 
