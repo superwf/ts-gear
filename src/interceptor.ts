@@ -5,7 +5,9 @@ import * as URL from 'url'
 
 const jsonType = 'application/json'
 
-/** url query */
+/** url query
+ * 只支持一维结构的键值对或数组
+ * */
 export interface IQuery {
   [k: string]:
     | string
@@ -18,7 +20,9 @@ export interface IQuery {
 }
 
 /** url param in path
- * like /api/abc/:id
+ * 例如/api/abc/:id
+ * 如果是/:ids数组的情况
+ * 应先手动转成string再带入
  * */
 export interface IPath {
   [k: string]: string | number | undefined
@@ -66,6 +70,11 @@ class RequestError extends Error {
   }
 }
 
+/** 请求拦截器
+ * 每个请求的通用设置放到这里
+ * 如果请求体是普通对象，用json格式化并添加json的http header
+ * 如果请求体有formData项，自动添加成FormData
+ * */
 export function interceptRequest(
   url: string,
   option?: IRequestParameter,
@@ -93,6 +102,7 @@ export function interceptRequest(
     requestOption.body = option.body
   }
   // body 与 formData 不能同时存在
+  // 所以如果有formData时，直接想requestOption.body赋值即可
   if (option && option.formData) {
     const formData = new FormData()
     forEach(option.formData, (v: any, k: string) => {

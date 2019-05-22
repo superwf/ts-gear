@@ -1,8 +1,11 @@
-import RefParser from 'json-schema-ref-parser'
 import { forEach, forOwn, isObject, map, upperFirst } from 'lodash'
+import { resolve } from 'path'
 import { OptionalKind, PropertySignatureStructure, SourceFile } from 'ts-morph'
 import { JSONSchema } from './interface'
 import { compile } from './source'
+
+/** 当前项目的根路径，调用其他文件都以该路径为基准 */
+export const tsGearRoot = resolve(__dirname, '../')
 
 /**
  * lodash的camelCase在处理有非字符存在的时候的不一致行为，
@@ -23,11 +26,6 @@ const camelCase = (name: string) => {
   return name
 }
 
-/** replace non charator and and return a valid function name */
-export const getFunctionName = (v: string) => {
-  return camelCase(v)
-}
-
 /** replace non charator and and return interface name */
 export const getInterfaceName = (v: string) => {
   return `I${camelCase(v)}`
@@ -45,14 +43,6 @@ export const transformPathParameters = (v: string) => {
       return s
     })
     .join('/')
-}
-
-// parse all $ref property
-const parser = new RefParser()
-
-/** transform all $ref to plain schema */
-export const parseRef = (schema: JSONSchema) => {
-  return parser.dereference(schema) as Promise<JSONSchema>
 }
 
 /** 基础类型或由基础类型构成的数组 */
@@ -76,7 +66,7 @@ export const getSafeDefinitionTitle = (title: string): [string, string] => {
     return [title, title]
   }
   // 原始类型，非组合类型
-  if (/^[a-z\[\]]+$/i.test(title)) {
+  if (/^[a-z\[\]0-9]+$/i.test(title)) {
     return [upperFirst(camelCase(title)), title]
   }
 
@@ -85,7 +75,7 @@ export const getSafeDefinitionTitle = (title: string): [string, string] => {
   // title = title.replace(/«int»/g, '«number»')
   // title = title.replace(/«Long»/g, '«number»')
 
-  if (title.includes('«')) {
+  if (/[^a-z0-9]/i.test(title)) {
     let compositeTitle = title.replace(/«/g, '<').replace(/»/g, '>')
 
     // 将List转换为Array
@@ -199,17 +189,21 @@ const transform$refName = ($ref: string) => {
   return name
 }
 
+/** 获取所有$ref的引用
+ * 对象key是$ref的名字原始值，例如 #/defintions/name 的 name部分
+ * 对象value是 转换成程序可用名称的名字
+ * */
 export const getAllRef = (schema: JSONSchema) => {
-  const refNames: Set<string> = new Set()
+  const refNames: { [k: string]: string } = {}
   traverse(schema, ({ val, key }: { val: any; key: string }) => {
     if (key === '$ref' && typeof val === 'string') {
       const refName = getSafeDefinitionTitle(transform$refName(val))[0]
       if (!isPrimitiveType(refName)) {
-        refNames.add(refName)
+        refNames[val.replace('#/definitions/', '')] = refName
       }
     }
   })
-  return Array.from(refNames)
+  return refNames
 }
 
 /** 将schema转换为ts的类型 */

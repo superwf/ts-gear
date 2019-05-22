@@ -1,0 +1,3175 @@
+{
+  "swagger": "2.0",
+  "info": { "contact": {}, "license": {} },
+  "host": "192.168.1.11",
+  "basePath": "/",
+  "paths": {
+    "/api/pricing/auditFlow": {
+      "get": {
+        "tags": ["AuditFlow"],
+        "summary": "分页查询【规则审批流】",
+        "operationId": "listUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "auditStatusList",
+            "in": "query",
+            "description": "审批状态列表:1待审批 2驳回 3通过 4撤销",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int32" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "createrList",
+            "in": "query",
+            "description": "创建人ERP列表",
+            "required": false,
+            "type": "array",
+            "items": { "type": "string" },
+            "collectionFormat": "multi"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PageVO«AuditFlowListVO»»"
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/auditFlow/approval": {
+      "post": {
+        "tags": ["AuditFlow"],
+        "summary": "批量审批通过",
+        "operationId": "approvalBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ids",
+            "description": "id数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/auditFlow/reject": {
+      "post": {
+        "tags": ["AuditFlow"],
+        "summary": "批量审批通过",
+        "operationId": "rejectBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "ids",
+            "description": "id数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/auditFlow/type1/{id}": {
+      "get": {
+        "tags": ["AuditFlow"],
+        "summary": "查看审批流-部门跟价规则明细",
+        "operationId": "viewType1DetailUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "审批流id，dp_audit_header.id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«AuditFlowDeptFollowRuleDetailVO»"
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/blackList": {
+      "get": {
+        "tags": ["BlackList"],
+        "summary": "分页查询【黑名单】",
+        "operationId": "listUsingGET_1",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "品牌id",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "skuList",
+            "in": "query",
+            "description": "sku id列表",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«PageVO«BlackListVO»»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/blackList/add": {
+      "post": {
+        "tags": ["BlackList"],
+        "summary": "批量添加sku到黑名单",
+        "operationId": "addSkuUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "skuIds",
+            "description": "skuId数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/blackList/remove": {
+      "post": {
+        "tags": ["BlackList"],
+        "summary": "批量从黑名单移除sku",
+        "operationId": "removeSkuUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "skuIds",
+            "description": "skuId数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/deptFollowRule": {
+      "get": {
+        "tags": ["DeptFollowRule"],
+        "summary": "分页查询【部门跟价规则】",
+        "operationId": "listUsingGET_2",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "auditStatus",
+            "in": "query",
+            "description": "审批状态 0未提交 1待审批 2驳回 3通过",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 0
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PageVO«DeptFollowRuleListVO»»"
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["DeptFollowRule"],
+        "summary": "保存【部门跟价规则】",
+        "operationId": "saveUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deptFollowRuleAddUpdateDTO",
+            "description": "保存【部门跟价规则】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/deptFollowRule/submit": {
+      "post": {
+        "tags": ["DeptFollowRule"],
+        "summary": "提交审批【部门跟价规则】",
+        "operationId": "submitUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "deptFollowRuleAddUpdateDTO",
+            "description": "提交审批【部门跟价规则】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/deptFollowRule/validRule/{headerId}": {
+      "get": {
+        "tags": ["DeptFollowRule"],
+        "summary": "查看生效的【部门跟价规则】详情",
+        "operationId": "showValidRuleUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "headerId",
+            "in": "path",
+            "description": "【部门跟价规则】headerId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«DeptFollowRuleEditVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/deptFollowRule/{headerId}": {
+      "get": {
+        "tags": ["DeptFollowRule"],
+        "summary": "编辑【部门跟价规则】详情",
+        "operationId": "showUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "headerId",
+            "in": "path",
+            "description": "【部门跟价规则】headerId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«DeptFollowRuleEditVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["DeptFollowRule"],
+        "summary": "删除【部门跟价规则】",
+        "operationId": "deleteUsingDELETE",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "headerId",
+            "in": "path",
+            "description": "【部门跟价规则】headerId",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/followPool": {
+      "get": {
+        "tags": ["FollowPool"],
+        "summary": "分页查询【跟价池】",
+        "operationId": "listUsingGET_3",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "bandMode",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 0
+          },
+          {
+            "name": "bandType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "x-example": "sales"
+          },
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "品牌id",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fixedBand",
+            "in": "query",
+            "description": "固定band值列表",
+            "required": false,
+            "type": "string",
+            "x-example": "ABC"
+          },
+          {
+            "name": "floorBand",
+            "in": "query",
+            "description": "自定义band最低值",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "skuFilterType",
+            "in": "query",
+            "description": "SKU筛选:not_pub需审批、pub_success调价成功、pub_fail调价失败、no_suggest无建议",
+            "required": false,
+            "type": "string",
+            "x-example": "not_pub"
+          },
+          {
+            "name": "skuList",
+            "in": "query",
+            "description": "sku id列表",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "upperBand",
+            "in": "query",
+            "description": "自定义band最高值",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 50
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PageVO«FollowPoolListVO»»"
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/followPool/add": {
+      "post": {
+        "tags": ["FollowPool"],
+        "summary": "批量添加sku到跟价池",
+        "operationId": "addSkuUsingPOST_1",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "skuIds",
+            "description": "skuId数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/followPool/export": {
+      "get": {
+        "tags": ["FollowPool"],
+        "summary": "分页查询【跟价池】",
+        "operationId": "exportUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "bandMode",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 0
+          },
+          {
+            "name": "bandType",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "x-example": "sales"
+          },
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "品牌id",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "fixedBand",
+            "in": "query",
+            "description": "固定band值列表",
+            "required": false,
+            "type": "string",
+            "x-example": "ABC"
+          },
+          {
+            "name": "floorBand",
+            "in": "query",
+            "description": "自定义band最低值",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "skuFilterType",
+            "in": "query",
+            "description": "SKU筛选:not_pub需审批、pub_success调价成功、pub_fail调价失败、no_suggest无建议",
+            "required": false,
+            "type": "string",
+            "x-example": "not_pub"
+          },
+          {
+            "name": "skuList",
+            "in": "query",
+            "description": "sku id列表",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "upperBand",
+            "in": "query",
+            "description": "自定义band最高值",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 50
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/followPool/isAutoPub": {
+      "post": {
+        "tags": ["FollowPool"],
+        "summary": "批量更新是否自动发布价格",
+        "operationId": "updateIsAutoPubBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "poolIsAutoPubUpdateDTO",
+            "description": "批量更新是否自动发布价格",
+            "required": false,
+            "schema": { "$ref": "#/definitions/PoolIsAutoPubUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/followPool/remove": {
+      "post": {
+        "tags": ["FollowPool"],
+        "summary": "批量从跟价池移除sku",
+        "operationId": "removeSkuUsingPOST_1",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "skuIds",
+            "description": "skuId数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/manualAdjustPrice": {
+      "post": {
+        "tags": ["ManualAdjustPrice"],
+        "summary": "调价",
+        "operationId": "adjustUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "manualAdjustPriceAddDTO",
+            "description": "调价参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/ManualAdjustPriceAddDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/manualPublishPrice/pub": {
+      "post": {
+        "tags": ["ManualPublishPrice"],
+        "summary": "批量发布商品价格",
+        "operationId": "pubPriceBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "prIds",
+            "description": "调价单id列表",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long[]" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«List«PubPriceErrorVO»»" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/manualPublishPrice/reject": {
+      "post": {
+        "tags": ["ManualPublishPrice"],
+        "summary": "批量拒绝商品价格",
+        "operationId": "rejectPriceBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "prIds",
+            "description": "调价单id列表",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long[]" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/opponent": {
+      "get": {
+        "tags": ["Opponent"],
+        "summary": "通过分类获取友商信息",
+        "operationId": "getOppListUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "cidList",
+            "in": "query",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 2
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«List«OpponentVO»»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/promotion": {
+      "delete": {
+        "tags": ["promotion"],
+        "summary": "删除指定促销",
+        "operationId": "delPromoUsingDELETE",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "promoIds",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long[]" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/promotion/{skuId}": {
+      "get": {
+        "tags": ["promotion"],
+        "summary": "获取sku的促销信息",
+        "operationId": "loadPromotionDateUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "skuId",
+            "in": "path",
+            "description": "sku id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«PromotionListVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/userInputData": {
+      "get": {
+        "tags": ["UserInputData"],
+        "summary": "分页查询【用户录入数据】",
+        "operationId": "listUsingGET_4",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "品牌ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "skuList",
+            "in": "query",
+            "description": "sku过滤条件",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PageVO«UserInputDataListVO»»"
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["UserInputData"],
+        "summary": "新增、修改【用户录入数据】",
+        "operationId": "saveUsingPOST_1",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "userInputDataAddUpdateDTO",
+            "description": "新增、修改【用户录入数据】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/UserInputDataAddUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["UserInputData"],
+        "summary": "批量删除【用户录入数据】",
+        "operationId": "deleteBatchUsingDELETE",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "id数组",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Long" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«int»" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/userInputData/export": {
+      "get": {
+        "tags": ["UserInputData"],
+        "summary": "分页查询【用户录入数据】",
+        "operationId": "exportUsingGET_1",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "brandId",
+            "in": "query",
+            "description": "品牌ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "cid",
+            "in": "query",
+            "description": "品类ID",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 7057
+          },
+          {
+            "name": "deptId3",
+            "in": "query",
+            "description": "三级部门ID",
+            "required": true,
+            "type": "string",
+            "x-example": "0010001"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "level",
+            "in": "query",
+            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "skuList",
+            "in": "query",
+            "description": "sku过滤条件",
+            "required": false,
+            "type": "array",
+            "items": { "type": "integer", "format": "int64" },
+            "collectionFormat": "multi"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/userInputData/upload": {
+      "post": {
+        "tags": ["UserInputData"],
+        "summary": "导入【用户录入数据】",
+        "operationId": "uploadUsingPOST",
+        "consumes": ["multipart/form-data"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "file",
+            "in": "formData",
+            "description": "file",
+            "required": true,
+            "type": "file"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/userInputData/{id}": {
+      "get": {
+        "tags": ["UserInputData"],
+        "summary": "查看【用户录入数据】详情",
+        "operationId": "showUsingGET_1",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【用户录入数据】id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/ReplyVO«UserInputDataEditVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": { "type": "apiKey", "name": "TOKEN", "in": "header" }
+  },
+  "definitions": {
+    "AuditFlowDeptFollowRuleDetailVO": {
+      "type": "object",
+      "properties": {
+        "auditDetails": {
+          "type": "array",
+          "description": "流程审批记录",
+          "items": { "$ref": "#/definitions/AuditItemVO" }
+        },
+        "bandMode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "指定band设置方式，0固定band 1自定义band"
+        },
+        "bandType": {
+          "type": "string",
+          "example": "sales",
+          "description": "band类型，sales销量band；gmv销售额band；pv点击band"
+        },
+        "deptName": {
+          "type": "string",
+          "example": "文仪业务一部",
+          "description": "部门名称"
+        },
+        "followRuleCategoryList": {
+          "type": "array",
+          "description": "规则设置的品类",
+          "items": { "$ref": "#/definitions/FollowRuleCategoryVO" }
+        },
+        "followRuleItemList": {
+          "type": "array",
+          "description": "规则明细",
+          "items": { "$ref": "#/definitions/FollowRuleItem" }
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 10001,
+          "description": "审批流主键id"
+        },
+        "oppList": {
+          "type": "array",
+          "description": "可供选择的重点友商",
+          "items": { "$ref": "#/definitions/OpponentVO" }
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
+        },
+        "showApprovalBtn": {
+          "type": "boolean",
+          "example": true,
+          "description": "能否显示审批、拒绝按钮;true显示"
+        }
+      },
+      "title": "AuditFlowDeptFollowRuleDetailVO",
+      "description": "审批流明细-部门跟价规则展示对象"
+    },
+    "AuditFlowListVO": {
+      "type": "object",
+      "properties": {
+        "auditStatus": {
+          "type": "string",
+          "example": "待审批",
+          "description": "规则状态"
+        },
+        "cid2Name": {
+          "type": "string",
+          "example": "办公用品",
+          "description": "二级品类"
+        },
+        "cid3Name": {
+          "type": "string",
+          "example": "笔类，本册，便签",
+          "description": "三级品类"
+        },
+        "createdBy": {
+          "type": "string",
+          "example": "zhangsan",
+          "description": "创建人"
+        },
+        "createdTime": {
+          "type": "string",
+          "example": "2019-04-15 13:37:00",
+          "description": "创建时间"
+        },
+        "deptName": {
+          "type": "string",
+          "example": "文仪业务一部",
+          "description": "部门"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "审批流主键id"
+        },
+        "operatedTime": {
+          "type": "string",
+          "example": "2019-04-15 13:37:00",
+          "description": "更新时间"
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
+        },
+        "type": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "审批类型 1部门品类跟价规则，2sku跟价规则;查看明细时根据类型调用不同接口"
+        }
+      },
+      "title": "AuditFlowListVO",
+      "description": "【规则审批流】列表展示页面对象"
+    },
+    "AuditItemVO": {
+      "type": "object",
+      "properties": {
+        "auditErp": {
+          "type": "string",
+          "example": "zhangsan",
+          "description": "审批人ERP"
+        },
+        "auditStatus": {
+          "type": "string",
+          "example": "待审批",
+          "description": "审批状态：1待审批 2驳回 3通过 4撤销 5其他人通过 6其他人驳回"
+        },
+        "createdTime": {
+          "type": "string",
+          "example": "2017-05-18 20:48:05",
+          "description": "创建时间"
+        },
+        "operatedTime": {
+          "type": "string",
+          "example": "2017-05-18 20:48:05",
+          "description": "更新时间"
+        }
+      },
+      "title": "AuditItemVO"
+    },
+    "BlackListVO": {
+      "type": "object",
+      "properties": {
+        "addBlacklistBy": {
+          "type": "string",
+          "example": "zhangsan",
+          "description": "创建人"
+        },
+        "addBlacklistTime": {
+          "type": "string",
+          "example": "2019-04-24 16:54:00",
+          "description": "创建时间"
+        },
+        "brandName": {
+          "type": "string",
+          "example": "晨光",
+          "description": "品牌"
+        },
+        "categoryName": {
+          "type": "string",
+          "example": "一级-二级-三级",
+          "description": "品类"
+        },
+        "deptName": {
+          "type": "string",
+          "example": "一级-二级-三级",
+          "description": "部门"
+        },
+        "salerErp": {
+          "type": "string",
+          "example": "zhangsan",
+          "description": "采销ERP"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "sku id"
+        },
+        "skuName": {
+          "type": "string",
+          "example": "三只松鼠休闲零食",
+          "description": "sku名称"
+        }
+      },
+      "title": "BlackListVO",
+      "description": "【黑名单】列表展示对象"
+    },
+    "DeptFollowRuleAddUpdateDTO": {
+      "type": "object",
+      "properties": {
+        "_cidList": {
+          "type": "array",
+          "items": { "type": "integer", "format": "int64" }
+        },
+        "_deptIdList": { "type": "array", "items": { "type": "string" } },
+        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "bandMode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "指定band设置方式，0固定band 1自定义band"
+        },
+        "bandType": {
+          "type": "string",
+          "example": "sales",
+          "description": "band类型，sales销量band；gmv销售额band；pv点击band"
+        },
+        "cidList": {
+          "type": "array",
+          "example": [1, 2, 3, 4],
+          "description": "规则设置的品类id",
+          "items": { "type": "integer", "format": "int64" }
+        },
+        "followRuleItemList": {
+          "type": "array",
+          "description": "规则明细",
+          "items": { "$ref": "#/definitions/FollowRuleItem" }
+        },
+        "headerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "规则头表id"
+        },
+        "level": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2,
+          "description": "规则设置的品类层级:0-一级品类，1-二级品类，2-三级品类;仅能选择2级和3级"
+        }
+      },
+      "title": "DeptFollowRuleAddUpdateDTO",
+      "description": "提交审批、保存部门跟价规则参数实体"
+    },
+    "DeptFollowRuleEditVO": {
+      "type": "object",
+      "properties": {
+        "auditErps": {
+          "type": "string",
+          "example": "zhangsan,lisi,wangwu",
+          "description": "审批人字符串（提交状态的会展示该字段）"
+        },
+        "auditId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 10001,
+          "description": "审批流程id"
+        },
+        "auditStatus": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "审批状态:0未提交 1待审批 2驳回 3通过 4撤销"
+        },
+        "auditStatusName": {
+          "type": "string",
+          "example": "未提交",
+          "description": "审批状态:0未提交 1待审批 2驳回 3通过 4撤销"
+        },
+        "bandMode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "指定band设置方式，0固定band 1自定义band"
+        },
+        "bandType": {
+          "type": "string",
+          "example": "sales",
+          "description": "band类型，sales销量band；gmv销售额band；pv点击band"
+        },
+        "deptName": {
+          "type": "string",
+          "example": "文仪业务一部",
+          "description": "部门名称"
+        },
+        "followRuleCategoryList": {
+          "type": "array",
+          "description": "规则设置的品类",
+          "items": { "type": "string" }
+        },
+        "followRuleItemList": {
+          "type": "array",
+          "description": "规则明细",
+          "items": { "$ref": "#/definitions/FollowRuleItem" }
+        },
+        "headerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "规则头表id"
+        },
+        "oppList": {
+          "type": "array",
+          "description": "可供选择的重点友商",
+          "items": { "$ref": "#/definitions/OpponentVO" }
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
+        },
+        "showCancelBtn": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否显示'撤销审批'按钮，true显示"
+        },
+        "showSaveBtn": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否显示'保存规则'按钮，true显示"
+        },
+        "showSubmitBtn": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否显示'提交审批'按钮，true显示"
+        }
+      },
+      "title": "DeptFollowRuleEditVO",
+      "description": "【部门品类跟价规则】编辑查看展示对象"
+    },
+    "DeptFollowRuleListVO": {
+      "type": "object",
+      "properties": {
+        "auditStatusDesc": {
+          "type": "string",
+          "example": "通过",
+          "description": "审批状态"
+        },
+        "cidName2": {
+          "type": "string",
+          "example": "办公文具",
+          "description": "二级品类名称"
+        },
+        "cidName3": {
+          "type": "string",
+          "example": "笔类、本册/便签",
+          "description": "三级品类名称"
+        },
+        "createdTime": {
+          "type": "string",
+          "example": "2019-04-24 16:54:00",
+          "description": "创建时间"
+        },
+        "deptName": {
+          "type": "string",
+          "example": "文仪业务一部",
+          "description": "部门名称"
+        },
+        "headerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "规则头表"
+        },
+        "operateFlag": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否可编辑 true可以"
+        },
+        "operatedBy": {
+          "type": "string",
+          "example": "zhangsan",
+          "description": "最近操作人"
+        },
+        "operatedTime": {
+          "type": "string",
+          "example": "2019-04-24 16:54:00",
+          "description": "修改时间"
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
+        },
+        "validHeaderId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "生效的规则头表"
+        }
+      },
+      "title": "DeptFollowRuleListVO",
+      "description": "【部门品类跟价规则】列表展示对象"
+    },
+    "FollowDegreeParam": {
+      "type": "object",
+      "properties": {
+        "followObj": {
+          "type": "string",
+          "example": "OPP_page_price",
+          "description": "跟价对象(OPP_page_price:友商页面价,OPP_trans_price:友商成交价)"
+        },
+        "symbol": {
+          "type": "string",
+          "example": "+",
+          "description": "运算符:+:加，*:乘"
+        },
+        "value": {
+          "type": "number",
+          "example": 100.0,
+          "description": "计算值:选择乘以，后面输入框为（）%，可填写50%-150%范围(存储整数部分，去掉百分号)；选择加，后面输入框为（）元，可填写-20~20范围"
+        }
+      },
+      "title": "FollowDegreeParam"
+    },
+    "FollowPoolListVO": {
+      "type": "object",
+      "properties": {
+        "cbj": { "type": "number", "example": 80.0, "description": "仓报价" },
+        "dpPrice": {
+          "type": "number",
+          "example": 35.0,
+          "description": "最新建议价格"
+        },
+        "dpTime": {
+          "type": "string",
+          "example": "2019-05-04 00:58:00",
+          "description": "最新计算时间"
+        },
+        "erpPrice": {
+          "type": "number",
+          "example": 80.0,
+          "description": "京东价"
+        },
+        "explainInfo": {
+          "type": "string",
+          "example": "友商无货",
+          "description": "说明"
+        },
+        "giftPromCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "赠品促销的数量"
+        },
+        "gmvBand": {
+          "type": "string",
+          "example": "A",
+          "description": "销售额BAND"
+        },
+        "gpRate": {
+          "type": "integer",
+          "format": "int32",
+          "example": 5,
+          "description": "毛利率，页面直接展示+%即可"
+        },
+        "isAutoPub": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "自动发布价格开关是否打开:1打开"
+        },
+        "lastPubTime": {
+          "type": "string",
+          "example": "2019-05-04 00:58:00",
+          "description": "最近调价时间，页面使用"
+        },
+        "lowestOppName": {
+          "type": "string",
+          "example": "天猫",
+          "description": "友商最低价格平台名"
+        },
+        "lowestOppSkuPrice": {
+          "type": "number",
+          "example": 35.0,
+          "description": "友商最低价"
+        },
+        "lowestOppSkuUrl": {
+          "type": "string",
+          "example": "https://detail.tmall.com/item.htm?id=12905113259&skuId=24647771955",
+          "description": "友商最低价URL"
+        },
+        "packPromCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "套装促销的数量"
+        },
+        "prId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 100011,
+          "description": "最新价格计算结果id,通过价格时用"
+        },
+        "promCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "促销统计数，大于0的时候展示‘查看促销’功能"
+        },
+        "purchasePrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "进货价"
+        },
+        "realCost": {
+          "type": "number",
+          "example": 80.0,
+          "description": "真实成本"
+        },
+        "redPrice": {
+          "type": "number",
+          "example": 80.0,
+          "description": "页面价"
+        },
+        "showApprovalRejectBtn": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否显示'通过、拒绝'按钮，true显示"
+        },
+        "singlePromCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "单品促销的数量"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "sku id"
+        },
+        "skuName": {
+          "type": "string",
+          "example": "三只松鼠休闲零食",
+          "description": "sku名称"
+        },
+        "statusInfo": {
+          "type": "string",
+          "example": "需审批",
+          "description": "状态"
+        },
+        "stock": { "type": "number", "example": 1000.0, "description": "库存" },
+        "sumPromCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "总价促销的数量"
+        },
+        "topPromCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 70,
+          "description": "封顶促销的数量"
+        }
+      },
+      "title": "FollowPoolListVO",
+      "description": "【跟价池】列表展示对象"
+    },
+    "FollowRuleCategoryVO": {
+      "type": "object",
+      "properties": {
+        "cid1": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "一级品类id"
+        },
+        "cid2": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "二级品类id"
+        },
+        "cid3": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "三级品类id"
+        },
+        "cname1": {
+          "type": "string",
+          "example": "生活用品",
+          "description": "一级品类名"
+        },
+        "cname2": {
+          "type": "string",
+          "example": "尿裤湿巾",
+          "description": "二级品类名"
+        },
+        "cname3": {
+          "type": "string",
+          "example": "婴儿尿裤",
+          "description": "三级品类名"
+        }
+      },
+      "title": "FollowRuleCategoryVO",
+      "description": "【部门品类跟价规则-设置品类】编辑查看展示对象"
+    },
+    "FollowRuleItem": {
+      "type": "object",
+      "properties": {
+        "fixedBand": {
+          "type": "string",
+          "example": "ABC",
+          "description": "固定band值列表"
+        },
+        "floorBand": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "自定义band最低值"
+        },
+        "followDegreeParam": {
+          "description": "跟价程度",
+          "$ref": "#/definitions/FollowDegreeParam"
+        },
+        "oppIds": {
+          "type": "array",
+          "description": "跟价友商id列表",
+          "items": { "type": "integer", "format": "int64" }
+        },
+        "otherParam": {
+          "description": "其他约束",
+          "$ref": "#/definitions/OtherParam"
+        },
+        "riskParam": {
+          "description": "调价风险控制",
+          "$ref": "#/definitions/RiskParam"
+        },
+        "upperBand": {
+          "type": "integer",
+          "format": "int64",
+          "example": 50,
+          "description": "自定义band最高值"
+        }
+      },
+      "title": "FollowRuleItem",
+      "description": "跟价规则片对象"
+    },
+    "ManualAdjustPriceAddDTO": {
+      "type": "object",
+      "required": ["price", "scene", "skuId"],
+      "properties": {
+        "_cidList": {
+          "type": "array",
+          "items": { "type": "integer", "format": "int64" }
+        },
+        "_deptIdList": { "type": "array", "items": { "type": "string" } },
+        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "keepDay": {
+          "type": "integer",
+          "format": "int32",
+          "example": 7,
+          "description": "可维持天数",
+          "minimum": 0.0,
+          "maximum": 9.223372036854776e18,
+          "exclusiveMinimum": false,
+          "exclusiveMaximum": false
+        },
+        "price": {
+          "type": "number",
+          "example": 98.8,
+          "description": "调价价格"
+        },
+        "scene": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "调用场景 1比价详情，2价格模拟"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 10001,
+          "description": "商品id"
+        }
+      },
+      "title": "ManualAdjustPriceAddDTO",
+      "description": "手动调价参数定义"
+    },
+    "OpponentVO": {
+      "type": "object",
+      "properties": {
+        "oppoId": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1001,
+          "description": "友商平台id"
+        },
+        "oppoName": {
+          "type": "string",
+          "example": "天猫超市",
+          "description": "友商平台name"
+        },
+        "url": {
+          "type": "string",
+          "example": "http://www.taobao.com",
+          "description": "友商平台url"
+        }
+      },
+      "title": "OpponentVO",
+      "description": "友商信息实体类"
+    },
+    "OtherParam": {
+      "type": "object",
+      "properties": {
+        "adjustAmountLimit": {
+          "type": "number",
+          "example": 20.0,
+          "description": "调价金额不超过X元"
+        },
+        "adjustLowerLimit": {
+          "type": "number",
+          "example": 95.0,
+          "description": "超过调价幅度，不跟价:下调幅度X%"
+        },
+        "adjustUpperLimit": {
+          "type": "number",
+          "example": 95.0,
+          "description": "超过调价幅度，不跟价:上调幅度X%"
+        },
+        "exceedAdjustRangeNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "超过调价幅度，不跟价:true不跟价时adjustLowerLimit和adjustUpperLimit参数不允许为空"
+        },
+        "futureNotFollowDay": {
+          "type": "integer",
+          "format": "int32",
+          "example": 3,
+          "description": "未来有特殊促销时，不跟价:前X天不跟价"
+        },
+        "futureSpecialPromoNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "未来有特殊促销时，不跟价:true时不跟价"
+        },
+        "futureSpecialPromoTypeList": {
+          "type": "array",
+          "example": ["sum", "seckill"],
+          "description": "未来有特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销",
+          "items": { "type": "string" }
+        },
+        "inSpecialPromoNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "特殊促销时，不跟价:true时不跟价"
+        },
+        "inSpecialPromoTypeList": {
+          "type": "array",
+          "example": ["sum", "seckill"],
+          "description": "特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销",
+          "items": { "type": "string" }
+        },
+        "jdOutSafeStockNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "京东库存天数小于X天时，不跟价:true不跟价jdSafeStockDay必填"
+        },
+        "jdSafeStockDay": {
+          "type": "integer",
+          "format": "int32",
+          "example": 7,
+          "description": "京东安全库存天数(jdOutSafeStockNotFollow为true时必填)"
+        },
+        "notExceedAdjustAmount": {
+          "type": "boolean",
+          "example": true,
+          "description": "调价金额不超过X元：true不超过阀值adjustAmountLimit必填"
+        },
+        "onlyAdjustLower": {
+          "type": "boolean",
+          "example": true,
+          "description": "跟低不跟高：true跟低不跟高"
+        },
+        "operateBase": {
+          "type": "string",
+          "example": "abs",
+          "description": "价差小于一定程度，不跟价:percent-百分比;abs-绝对值"
+        },
+        "operateValue": {
+          "type": "number",
+          "example": 50.0,
+          "description": "价差小于一定程度，不跟价:阀值"
+        },
+        "oppOutStockNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "友商无货，不跟价:true不跟价"
+        },
+        "promoLimit": {
+          "type": "boolean",
+          "example": true,
+          "description": "跟价限购：true限购promoLimitNumber必填"
+        },
+        "promoLimitNumber": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "跟价限购：限购总库存X件"
+        },
+        "spreadLessRangeNotFollow": {
+          "type": "boolean",
+          "example": true,
+          "description": "价差小于一定程度，不跟价:true不跟价时operateBase和operateValue参数不允许为空"
+        }
+      },
+      "title": "OtherParam"
+    },
+    "PageVO«AuditFlowListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/AuditFlowListVO" }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«AuditFlowListVO»"
+    },
+    "PageVO«BlackListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/BlackListVO" }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«BlackListVO»"
+    },
+    "PageVO«DeptFollowRuleListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/DeptFollowRuleListVO" }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«DeptFollowRuleListVO»"
+    },
+    "PageVO«FollowPoolListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/FollowPoolListVO" }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«FollowPoolListVO»"
+    },
+    "PageVO«UserInputDataListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/UserInputDataListVO" }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«UserInputDataListVO»"
+    },
+    "PoolIsAutoPubUpdateDTO": {
+      "type": "object",
+      "properties": {
+        "_cidList": {
+          "type": "array",
+          "items": { "type": "integer", "format": "int64" }
+        },
+        "_deptIdList": { "type": "array", "items": { "type": "string" } },
+        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "isAutoPub": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "是否自动发布：1是,0否"
+        },
+        "skuList": {
+          "type": "array",
+          "example": "111324,111321",
+          "description": "sku 数组集合",
+          "items": { "type": "integer", "format": "int64" }
+        }
+      },
+      "title": "PoolIsAutoPubUpdateDTO",
+      "description": "是否自动发布价格更新参数实体"
+    },
+    "PromotionListVO": {
+      "type": "object",
+      "properties": {
+        "erpPrice": {
+          "type": "number",
+          "format": "double",
+          "example": 100.0,
+          "description": "京东ERP价格"
+        },
+        "name": {
+          "type": "string",
+          "example": "卡西欧（CASIO）TR750 系列相机包",
+          "description": "京东商品名称"
+        },
+        "price": {
+          "type": "number",
+          "format": "double",
+          "example": 99.0,
+          "description": "京东价格"
+        },
+        "promotions": {
+          "type": "array",
+          "description": "促销列表对象",
+          "items": { "$ref": "#/definitions/PromotionVO" }
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 100001,
+          "description": "京东sku,sku即为id"
+        }
+      },
+      "title": "PromotionListVO",
+      "description": "查看促销展示参数对象"
+    },
+    "PromotionVO": {
+      "type": "object",
+      "properties": {
+        "canDelete": {
+          "type": "boolean",
+          "description": "是否可以删除；true可删除"
+        },
+        "channel": {
+          "type": "string",
+          "example": "全渠道",
+          "description": "渠道"
+        },
+        "checkState": {
+          "type": "string",
+          "example": "完成",
+          "description": "审核状态"
+        },
+        "detailLink": {
+          "type": "string",
+          "example": "http://p.erp.jd.com/promotionUpgrade/auditPromo.action?promoId=219525797&promoType=view",
+          "description": "查看详情的链接地址"
+        },
+        "isDps": {
+          "type": "boolean",
+          "description": "是否DPS创建促销；true是"
+        },
+        "promoId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 100001,
+          "description": "促销id"
+        },
+        "promoInfo": {
+          "type": "string",
+          "example": "一口价￥218",
+          "description": "优惠信息"
+        },
+        "promoName": {
+          "type": "string",
+          "example": "品秒-5.20",
+          "description": "促销名称"
+        },
+        "promoTypeName": {
+          "type": "string",
+          "example": "单品",
+          "description": "类型"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 100001,
+          "description": "京东sku,sku即为id"
+        },
+        "timeBegin": {
+          "type": "string",
+          "example": "2018-05-20 00:00:00",
+          "description": "开始时间"
+        },
+        "timeEnd": {
+          "type": "string",
+          "example": "2018-05-20 23:59:59",
+          "description": "结束时间"
+        }
+      },
+      "title": "PromotionVO",
+      "description": "促销展示对象"
+    },
+    "PubPriceErrorVO": {
+      "type": "object",
+      "properties": {
+        "errMsg": {
+          "type": "string",
+          "example": "考虑价格合规性，非采销人员无法调整ERP价格",
+          "description": "错误信息"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 111324,
+          "description": "skuId"
+        }
+      },
+      "title": "PubPriceErrorVO",
+      "description": "手动发布价格返回sku具体错误信息"
+    },
+    "ReplyVO": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": { "type": "object", "description": "返回数据" },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO"
+    },
+    "ReplyVO«AuditFlowDeptFollowRuleDetailVO»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/AuditFlowDeptFollowRuleDetailVO"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«AuditFlowDeptFollowRuleDetailVO»"
+    },
+    "ReplyVO«DeptFollowRuleEditVO»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/DeptFollowRuleEditVO"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«DeptFollowRuleEditVO»"
+    },
+    "ReplyVO«List«OpponentVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回数据",
+          "items": { "$ref": "#/definitions/OpponentVO" }
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«List«OpponentVO»»"
+    },
+    "ReplyVO«List«PubPriceErrorVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "type": "array",
+          "description": "返回数据",
+          "items": { "$ref": "#/definitions/PubPriceErrorVO" }
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«List«PubPriceErrorVO»»"
+    },
+    "ReplyVO«PageVO«AuditFlowListVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«AuditFlowListVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«AuditFlowListVO»»"
+    },
+    "ReplyVO«PageVO«BlackListVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«BlackListVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«BlackListVO»»"
+    },
+    "ReplyVO«PageVO«DeptFollowRuleListVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«DeptFollowRuleListVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«DeptFollowRuleListVO»»"
+    },
+    "ReplyVO«PageVO«FollowPoolListVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«FollowPoolListVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«FollowPoolListVO»»"
+    },
+    "ReplyVO«PageVO«UserInputDataListVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«UserInputDataListVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«UserInputDataListVO»»"
+    },
+    "ReplyVO«PromotionListVO»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PromotionListVO"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PromotionListVO»"
+    },
+    "ReplyVO«UserInputDataEditVO»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/UserInputDataEditVO"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«UserInputDataEditVO»"
+    },
+    "ReplyVO«int»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": 0,
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "type": "integer",
+          "format": "int32",
+          "description": "返回数据"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«int»"
+    },
+    "RiskParam": {
+      "type": "object",
+      "properties": {
+        "maxPriceRate": {
+          "type": "number",
+          "example": 5.0,
+          "description": "最高价的"
+        },
+        "minGpRate": {
+          "type": "number",
+          "example": 10.0,
+          "description": "最低毛利率"
+        },
+        "minVenderPriceRate": {
+          "type": "number",
+          "example": 95.0,
+          "description": "厂商底价的"
+        }
+      },
+      "title": "RiskParam"
+    },
+    "UserInputDataAddUpdateDTO": {
+      "type": "object",
+      "properties": {
+        "fromData": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-03-05",
+          "description": "价格约束开始时间"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "主键id"
+        },
+        "maximumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "最高价"
+        },
+        "minimumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "底价"
+        },
+        "priceLimitType": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "价格约束类型:1供应商限价 2促销 3独家品 4其他"
+        },
+        "priceLimitWay": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "价格约束方式:1不低于限价 2不高于限价 3固定限价 4区间限价"
+        },
+        "realCost": {
+          "type": "number",
+          "example": 24.0,
+          "description": "真实成本"
+        },
+        "remark": {
+          "type": "string",
+          "example": "满20-5",
+          "description": "备注"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "sku id"
+        },
+        "toData": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-03-08",
+          "description": "价格约束结束时间"
+        }
+      },
+      "title": "UserInputDataAddUpdateDTO",
+      "description": "新增、更新【用户录入数据】的参数"
+    },
+    "UserInputDataEditVO": {
+      "type": "object",
+      "properties": {
+        "fromData": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-03-05",
+          "description": "价格约束开始时间"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "主键id"
+        },
+        "maximumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "最高价"
+        },
+        "minimumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "底价"
+        },
+        "priceLimitType": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "价格约束类型:1供应商限价 2促销 3独家品 4其他"
+        },
+        "priceLimitWay": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "价格约束方式:1不低于限价 2不高于限价 3固定限价 4区间限价"
+        },
+        "realCost": {
+          "type": "number",
+          "example": 24.0,
+          "description": "真实成本"
+        },
+        "remark": {
+          "type": "string",
+          "example": "满20-5",
+          "description": "备注"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "sku id"
+        },
+        "toData": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2019-03-08",
+          "description": "价格约束结束时间"
+        }
+      },
+      "title": "UserInputDataEditVO",
+      "description": "【用户录入数据】编辑对象"
+    },
+    "UserInputDataListVO": {
+      "type": "object",
+      "properties": {
+        "brandName": {
+          "type": "string",
+          "example": "晨光",
+          "description": "品牌名称"
+        },
+        "categoryInfo": {
+          "type": "string",
+          "example": "图书-教育-少儿",
+          "description": "分类名称"
+        },
+        "cbj": { "type": "number", "example": 24.0, "description": "仓报价" },
+        "fromData": {
+          "type": "string",
+          "example": "2019-03-05",
+          "description": "价格约束开始时间"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "主键id，删除和编辑时用"
+        },
+        "marketPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "定价（图书专用）"
+        },
+        "maximumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "最高价"
+        },
+        "minimumPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "底价"
+        },
+        "priceLimitTypeDesc": {
+          "type": "string",
+          "example": "供应商限价",
+          "description": "价格约束类型"
+        },
+        "priceLimitWayDesc": {
+          "type": "string",
+          "example": "固定约束",
+          "description": "价格约束方式"
+        },
+        "purchasePrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "进货价"
+        },
+        "realCost": {
+          "type": "number",
+          "example": 24.0,
+          "description": "真实成本"
+        },
+        "redPrice": {
+          "type": "number",
+          "example": 24.0,
+          "description": "京东价"
+        },
+        "remark": {
+          "type": "string",
+          "example": "满20-5",
+          "description": "备注"
+        },
+        "skuId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "sku id"
+        },
+        "skuName": {
+          "type": "string",
+          "example": "晨光黑色碳素笔",
+          "description": "商品名"
+        },
+        "toData": {
+          "type": "string",
+          "example": "2019-03-08",
+          "description": "价格约束结束时间"
+        }
+      },
+      "title": "UserInputDataListVO",
+      "description": "【用户录入数据】列表展示对象"
+    }
+  }
+}

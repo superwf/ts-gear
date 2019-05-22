@@ -1,29 +1,35 @@
-# dev steps
+# 开发过程
 
 ## 设计
 
 ### 配置文件
 
-* 使用`ts`文件作为配置文件，在配置时还能校验类型。
+* 使用`ts`文件作为配置文件，用户填写配置时还能校验配置数据的类型。
 
-### 输出两个文件
+* 通过ts-node直接调用`src/run.ts`运行。
 
-* 所有数据结构定义，输出到`definitions.d.ts`.
+## 每个项目的swagger schema支持两种获取方式
 
-* 所有fetch函数，输入到`fetch.ts`.
+* 获取远程swagger获取json地址，source以http开头。
 
-## 解析本工具依赖的配置文件
+* 获取本地json文件schema。
 
-* 获取远程swagger获取json地址
+## 输出
 
-* 获取用户配置的输出路径
+* 将所有`definitions`写入`definitions.ts`。
 
-## 通过swagger地址fetch swagger的schema.
+* 将所有`paths`写入`paths.ts`，包括每个请求方法，参数与返回值结构。
 
-## 先解析所有的definitions
+* 收集所有`paths`中的$ref依赖
+  开发过程中发现有些$ref在definitions没有对应项，都按any别名处理。
 
-## 将所有definitions写入`interface.d.ts`.
+* 最初想用fxios或axios作为请求库，但感觉尽量少依赖工具，直接用原生`fetch`依赖更少。
 
-## TODO
+   interceptRequest，负责处理请求前的数据加工
+   * 将请求参数中的路由参数替换到url中
+   * 如果请求体是普通对象，用json格式化并添加json的http header
+   * 如果请求体有formData项，自动添加成FormData
 
-* 在用户配置文件中添加一些其他的可配置参数，目前还没设计
+   interceptResponse，负责处理请求前的数据加工
+
+* 每个项目配套一个独立的`interceptor.ts`，起到每个请求方法请求前、后的数据加工作用。

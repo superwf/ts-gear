@@ -41,7 +41,8 @@ interface IResponse {
 /** swagger paths内每个http请求详情对应的结构 */
 export interface IRequestDetail {
   parameters?: IParameter[]
-  summary: string
+  summary?: string
+  description?: string
   operationId?: string
   produces: string[]
   tags: string[]
@@ -56,16 +57,17 @@ interface IRequest {
 }
 
 /** swagger "paths" */
-interface IPaths {
+export interface IPaths {
   /** api url path */
   [k: string]: IRequest
 }
 
 /** 每个请求的json schema定义的parameters的住装数据结构 */
-interface IParameterSchema {
+export interface IParameterSchema {
   query?: JSONSchema
   body?: JSONSchema
   path?: JSONSchema
+  formData?: JSONSchema
 }
 
 /** 用户配置文件定义 */

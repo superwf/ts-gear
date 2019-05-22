@@ -54,11 +54,12 @@ const addParamProperty = (
 }
 
 /** 将paths里的各种请求参数组装成IParameterSchema的结构 */
-const assembleRequestParam = (parameters: IParameter[]): IParameterSchema => {
+export const assembleRequestParam = (
+  parameters: IParameter[],
+): IParameterSchema => {
   const schema: IParameterSchema = {}
   parameters.forEach(parameter => {
     addParamProperty(parameter, schema)
   })
   return schema
 }
-export default assembleRequestParam

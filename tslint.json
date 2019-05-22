@@ -82,26 +82,10 @@
     "jsx-boolean-value": [true, "never"],
     "jsx-no-multiline-js": false,
     "object-literal-sort-keys": [false],
-    "no-implicit-dependencies": [
-      true,
-      [
-        "api",
-        "tool",
-        "component",
-        "page",
-        "store",
-        "extendStore",
-        "style",
-        "mixin",
-        "locale",
-        "service",
-        "src",
-        "fixture"
-      ]
-    ]
+    "no-implicit-dependencies": [true, ["src"]]
   },
   "linterOptions": {
     "include": ["src"],
-    "exclude": ["node_modules", "service/**"]
+    "exclude": ["node_modules"]
   }
 }

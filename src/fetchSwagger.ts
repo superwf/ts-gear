@@ -14,9 +14,13 @@ export const fetchSwaggerJSONSchema = async (
   init?: RequestInit,
 ) => {
   if (url.startsWith('http')) {
-    info('start fetching')
+    info(`start fetching ${url}`)
     const res = await fetch(url, init)
-    return res.json()
+    const text = await res.text()
+    info(`fetching ${url} done`)
+    // info(JSON.stringify(init))
+    // console.log(await res.text())
+    return JSON.parse(text)
   }
   // json文件直接require
   if (!url.endsWith('.json')) {

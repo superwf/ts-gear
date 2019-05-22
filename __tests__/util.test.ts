@@ -1,19 +1,10 @@
-import fixture from '../fixture/price.json'
-import { JSONSchema } from '../src/interface'
 import {
-  getDefinitionRef,
-  getFunctionName,
   getGenericTypeName,
   getSafeDefinitionTitle,
+  transformPathParameters,
 } from '../src/util'
 
 describe('util', () => {
-  it('getFunctionName', () => {
-    expect(getFunctionName('/api/abc')).toBe('apiAbc')
-    expect(getFunctionName(' /api/abc ')).toBe('apiAbc')
-    expect(getFunctionName('/api/abc/{abc}')).toBe('apiAbcAbc')
-  })
-
   it('getSafeDefinitionTitle', () => {
     // const title = 'ReplyVO«List«DeptFollowRuleEditVO»»'
 
@@ -41,13 +32,14 @@ describe('util', () => {
     expect(getGenericTypeName('ReplyVO<Abc<Def>>')).toEqual(['ReplyVO', 'Abc'])
   })
 
-  it.only('getDefinitionRef', () => {
-    const f = fixture.definitions['ReplyVO«List«PubPriceErrorVO»»']
-    // expect(getDefinitionRef(f as JSONSchema)[0]).toBe(true)
+  it('transformPathParameters', () => {
+    expect(transformPathParameters('/api/user/{id}')).toBe('/api/user/:id')
+    expect(transformPathParameters('/api/user/{action}/{id}')).toBe(
+      '/api/user/:action/:id',
+    )
 
-    console.log(getDefinitionRef(f as JSONSchema))
-
-    // const f1 = fixture.definitions.UserInputDataListVO
-    // expect(getDefinitionRef(f1 as JSONSchema)[0]).toBe(false)
+    expect(transformPathParameters('/api/user/{id}/edit/{role}')).toBe(
+      '/api/user/:id/edit/:role',
+    )
   })
 })

@@ -12,11 +12,12 @@ pont是法语，桥。
 
 ```sh
 yarn install ts-gear
+npm install ts-gear
 ```
 
 ## 使用
 
-先在项目根目录下生成配置文件`.ts-gear.ts`，配置文件使用ts，所以配置是带类型校验的。
+先在项目根目录下生成配置文件`ts-gear.ts`，配置文件使用ts，所以配置是带类型校验的。
 ```
 const config: IUserConfig = {
   // 生成swagger配置ts文件的目录
@@ -30,6 +31,14 @@ const config: IUserConfig = {
     {
       name: 'sample',
       source: 'http://192.168.1.111/v2/api-docs',
+			// fetchOption 是可选项，按原生fetch可接收的参数配置
+      fetchOption: {
+        header: {
+					Authorization: 'your token ...',
+					...
+        }
+				...
+      }
     },
   ],
 }
@@ -39,12 +48,13 @@ const config: IUserConfig = {
 执行
 
 ```sh
-npx tsg // 如果tsg名称被占用，用npx tsgear
+npx tsg // 如果tsg名称被占用，用npx ts-gear
 ```
 
 以上面的配置文件为例子
 会生成如下文件结构
-```
+
+```sh
 ▾ service/
   ▾ pet/
       definitions.ts
@@ -62,7 +72,7 @@ npx tsg // 如果tsg名称被占用，用npx tsgear
 
 * 最开始想增强pont拿来就用，在看pont源码的过程中感觉有些pont里的源码理解不了，应该是没有遇到pont作者当时遇到的schema结构大概是理解不了的，就全重写了。
 
-* 使用`ts-morph`简单的解析了一下ts语法。
+* 使用[ts-morph](https://dsherret.github.io/ts-morph)简单的解析了一下ts语法。
 
 * [更多](./DEV.md)
 

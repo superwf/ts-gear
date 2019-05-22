@@ -5,10 +5,9 @@ import { fetchSwaggerJSONSchema } from './fetchSwagger'
 import { IUserConfig, JSONSchema } from './interface'
 import { generatePaths } from './paths'
 import prettierWrite from './prettierWrite'
+import { tsGearRoot } from './util'
 
-const cwd = process.cwd()
-
-const interceptorFilePath = resolve(__dirname, 'fetchInterceptor.ts')
+const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
 /** get user config
  * fetch schema
@@ -16,7 +15,10 @@ const interceptorFilePath = resolve(__dirname, 'fetchInterceptor.ts')
  * write ts file
  * */
 export const run = async () => {
-  const config = require(join(cwd, '.ts-gear.ts')).default as IUserConfig
+  const cwd = process.cwd()
+  console.log(join(cwd, 'ts-gear.ts'))
+
+  const config = require(join(cwd, 'ts-gear.ts')).default as IUserConfig
   // 建立dest文件夹
   const dest = join(cwd, config.dest)
   if (!existsSync(dest)) {
@@ -34,28 +36,26 @@ export const run = async () => {
     }
 
     // 获取swagger schema
-    const schema = await fetchSwaggerJSONSchema(
-      join(cwd, project.source),
-      project.fetchOption,
-    )
+    const source = project.source.startsWith('http')
+      ? project.source
+      : join(cwd, project.source)
+    const schema = await fetchSwaggerJSONSchema(source, project.fetchOption)
     // 生成definitions
     const definitions = await generateDefinitions(schema.definitions)
     const definitionsPath = join(projectPath, 'definitions.ts')
-    prettierWrite(definitionsPath, definitions)
+    await prettierWrite(definitionsPath, definitions)
 
     // 生成paths内函数
     const pathsContent = await generatePaths(schema as JSONSchema)
     const pathsPath = join(projectPath, 'paths.ts')
-    prettierWrite(pathsPath, pathsContent)
+    await prettierWrite(pathsPath, pathsContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次
     // 这个文件可能会写入一些请求的配置
     // 不应该被覆盖
-    const projectInterceptorFile = join(projectPath, 'fetchInterceptor.ts')
+    const projectInterceptorFile = join(projectPath, 'interceptor.ts')
     if (!existsSync(projectInterceptorFile)) {
       copyFileSync(interceptorFilePath, projectInterceptorFile)
     }
   }
 }
-
-run()

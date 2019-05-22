@@ -1,11 +1,11 @@
 import { exec } from 'child_process'
 import { resolve } from 'path'
 
-const runFilePath = resolve(__dirname, '../src/run.ts')
+const mainFilePath = resolve(__dirname, '../src/main.ts')
 
-// console.log(`npx ts-node ${runFilePath}`)
+/** 直接使用ts-node调用，带类型校验 */
 exec(
-  `npx ts-node ${runFilePath}`,
+  `npx ts-node ${mainFilePath}`,
   (err, stdout: string | Buffer, stderr: string | Buffer) => {
     console.log(stdout)
     console.log(stderr)

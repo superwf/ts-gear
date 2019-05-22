@@ -1,15 +1,14 @@
 // import { JSONSchema4TypeName } from 'json-schema'
-import { camelCase, forEach, upperFirst } from 'lodash'
+import { camelCase, forEach, remove, upperFirst } from 'lodash'
 import { join } from 'path'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
-import assembleRequestParam from './assembleRequestParam'
+import { assembleRequestParam } from './assembleRequestParam'
 import { interceptRequest, interceptResponse } from './interceptor'
 // import { generateDefinition } from './definitions'
 // import { format } from 'prettier'
 import { IPaths, JSONSchema } from './interface'
 import { compile } from './source'
-// import { generateResponseSchema } from './responseSchema'
-import { getAllRef, transformProperty } from './util'
+import { getAllRef, transformPathParameters, transformProperty } from './util'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
 // const assembleRequestParam = () => {}
@@ -76,7 +75,7 @@ export const generatePaths = async (schema: JSONSchema) => {
           statements: `
             const [ url, option ] = ${interceptRequest.name}('${join(
             basePath,
-            String(url),
+            transformPathParameters(String(url)),
           )}'${paramInterfaceName ? ', param' : ''})
             option.method = '${action}'
             return fetch(url, option).then${
@@ -92,26 +91,25 @@ export const generatePaths = async (schema: JSONSchema) => {
             },
           ]
         }
+        if (request.summary || request.description) {
+          functionData.docs = [
+            remove<string>(
+              [request.summary || '', request.description || ''],
+              s => !!s,
+            ).join('\n'),
+          ]
+        }
         source.addFunction(functionData)
       })
-      // `
-      // /** ${request.summary} */
-      // export const ${functionName} = (${paramString}) => {
-      //   const [ url, option ] = interceptRequest('${transformPathParameters(
-      //     url,
-      //   )}'${paramString ? ', param' : ''})
-      //   option.method = '${action}'
-      //   return fetch(url, option).then${responseSchema}(interceptResponse)
-      // }`
 
       tsContent.push(functTsContent)
     }
   }
 
   // 生成paths文件需要的一些依赖
-  const dependents: string[] = getAllRef(schema.paths)
-  // 引依赖
+  const dependents: { [k: string]: string } = getAllRef(schema.paths)
   const importTsContent = await compile(source => {
+    // 添加interptor拦截器依赖
     source.addImportDeclarations([
       {
         namedImports: [
@@ -122,35 +120,40 @@ export const generatePaths = async (schema: JSONSchema) => {
             name: interceptResponse.name,
           },
         ],
-        moduleSpecifier: './fetchInterceptor',
+        moduleSpecifier: './interceptor',
       },
     ])
+    // 是否存在在definitions中没定义的$ref
+    const depententsNotInDefinitions: string[] = []
     source.addImportDeclarations([
       {
-        namedImports: dependents.map(name => ({
-          name,
-        })),
+        namedImports: Object.keys(dependents).reduce<Array<{ name: string }>>(
+          (r, $ref) => {
+            if (schema.definitions && $ref in schema.definitions) {
+              r.push({
+                name: dependents[$ref],
+              })
+            } else {
+              depententsNotInDefinitions.push(dependents[$ref])
+            }
+            return r
+          },
+          [],
+        ),
         moduleSpecifier: './definitions',
       },
     ])
+    // 如果存在在definitions中没定义的$ref
+    // 全都定义成any的别名
+    if (depententsNotInDefinitions.length > 0) {
+      source.addTypeAliases(
+        depententsNotInDefinitions.map(def => ({
+          name: def,
+          type: 'any',
+        })),
+      )
+    }
   })
   tsContent.unshift(importTsContent)
   return tsContent.join('\n')
-
-  // console.log(tsFunction)
-  // const definitionKeys = Object.keys(
-  //   schema.definitions ? schema.definitions : {},
-  // )
-  // const definitionImports = definitionKeys.map(d => {
-  //   if (d.endsWith('[]')) {
-  //     return ''
-  //   }
-  //   return upperFirst(camelCase(d))
-  // })
-
-  // return `
-  // import { ${definitionImports.join(',')} } from './definitions'
-  // import { interceptRequest, interceptResponse } from './fetchInterceptor'
-
-  // ${interfaces.join('')}${requestFunctions.join('')}`
 }
