@@ -19,8 +19,14 @@ export const fetchSwaggerJSONSchema = async (
     const text = await res.text()
     info(`fetching ${url} done`)
     // info(JSON.stringify(init))
-    // console.log(await res.text())
-    return JSON.parse(text)
+    try {
+      return JSON.parse(text)
+    } catch {
+      console.log(text)
+      // 有可能由于单引号，json校验失败不能解析
+      // 如果还是出错就throw出来吧
+      return eval(`(${text})`)
+    }
   }
   // json文件直接require
   if (!url.endsWith('.json')) {

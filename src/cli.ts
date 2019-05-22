@@ -10,7 +10,9 @@ const tsConfigPath = resolve(__dirname, '../tsconfig.json')
 exec(
   `npx ts-node --project ${tsConfigPath} ${mainFilePath}`,
   (err, stdout: string | Buffer, stderr: string | Buffer) => {
-    console.log('stdout:', stdout)
-    console.error('stderr:', stderr)
+    // console.log('stdout:', stdout)
+    if (stderr) {
+      console.error('stderr:', stderr)
+    }
   },
 )
