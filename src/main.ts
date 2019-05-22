@@ -1,3 +1,3 @@
-import { run } from 'src/run'
+import { run } from './run'
 
 run()
