@@ -1,7 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`generateDefinitions geterate primitive interface 1`] = `
-"export interface User {
+exports[`generateDefinitions geterate pet definitions 1`] = `
+"export class Order {
+    id?: number;
+    petId?: number;
+    quantity?: number;
+    shipDate?: string;
+    /**
+     * Order Status
+     */
+    status?: 'placed' | 'approved' | 'delivered';
+    complete?: boolean = false;
+}
+export class User {
     id?: number;
     username?: string;
     firstName?: string;
@@ -14,71 +25,15 @@ exports[`generateDefinitions geterate primitive interface 1`] = `
      */
     userStatus?: number;
 }
-"
-`;
-
-exports[`generateDefinitions geterate primitive interface 2`] = `
-"export interface Category {
+export class Category {
     id?: number;
     name?: string;
 }
-"
-`;
-
-exports[`generateDefinitions geterate primitive interface 3`] = `
-"export interface Order {
-    id?: number;
-    petId?: number;
-    quantity?: number;
-    shipDate?: string;
-    /**
-     * Order Status
-     */
-    status?: 'placed' | 'approved' | 'delivered';
-    complete?: boolean = false;
-}
-"
-`;
-
-exports[`generateDefinitions use pet fixture for generate definition 1`] = `
-Array [
-  "export interface Order {
-    id?: number;
-    petId?: number;
-    quantity?: number;
-    shipDate?: string;
-    /**
-     * Order Status
-     */
-    status?: 'placed' | 'approved' | 'delivered';
-    complete?: boolean = false;
-}
-",
-  "export interface User {
-    id?: number;
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    phone?: string;
-    /**
-     * User Status
-     */
-    userStatus?: number;
-}
-",
-  "export interface Category {
+export class Tag {
     id?: number;
     name?: string;
 }
-",
-  "export interface Tag {
-    id?: number;
-    name?: string;
-}
-",
-  "export interface Pet {
+export class Pet {
     id?: number;
     name: string;
     photoUrls: string[];
@@ -89,147 +44,19 @@ Array [
     category: Category;
     tags: Tag[];
 }
-",
-  "export interface ApiResponse {
+export class ApiResponse {
     code?: number;
     type?: string;
     message?: string;
 }
-",
-]
+"
 `;
 
-exports[`generateDefinitions use price fixture for generate definition 1`] = `
-Array [
-  "/**
- * 新增【sku参与活动】的参数
- */
-export interface ActivitySkuAddDTO {
-    _cidList?: number[];
-    _deptIdList?: string[];
-    _salerErp?: string[];
-    /**
-     * 活动id
-     */
-    activityId: number;
-    /**
-     * 活动URL，绝对路径
-     */
-    activityUrl: string;
-    /**
-     * 活动结束时间
-     */
-    endTime: string;
-    /**
-     * 商品id
-     */
-    skuId: number;
-    /**
-     * 活动开始时间
-     */
-    startTime: string;
-}
-",
-  "/**
- * 【sku参与活动】列表展示对象
- */
-export interface ActivitySkuListVO {
-    /**
-     * 活动id
-     */
-    activityId?: number;
-    /**
-     * 活动URL，绝对路径
-     */
-    activityUrl?: string;
-    /**
-     * 活动结束时间
-     */
-    endTime?: string;
-    /**
-     * 主键ID
-     */
-    id?: number;
-    /**
-     * 商品id
-     */
-    skuId?: number;
-    /**
-     * 活动开始时间
-     */
-    startTime?: string;
-}
-",
-  "/**
- * 【sku参与活动】详情展示对象
- */
-export interface ActivitySkuShowVO {
-    /**
-     * 活动id
-     */
-    activityId?: number;
-    /**
-     * 活动URL，绝对路径
-     */
-    activityUrl?: string;
-    /**
-     * 活动结束时间
-     */
-    endTime?: string;
-    /**
-     * 主键ID
-     */
-    id?: number;
-    /**
-     * 商品id
-     */
-    skuId?: number;
-    /**
-     * 活动开始时间
-     */
-    startTime?: string;
-}
-",
-  "/**
- * 修改【sku参与活动】的参数
- */
-export interface ActivitySkuUpdateDTO {
-    _cidList?: number[];
-    _deptIdList?: string[];
-    _salerErp?: string[];
-    /**
-     * 活动id
-     */
-    activityId: number;
-    /**
-     * 活动URL，绝对路径
-     */
-    activityUrl: string;
-    /**
-     * 活动结束时间
-     */
-    endTime: string;
-    /**
-     * 主键ID
-     */
-    id: number;
-    /**
-     * 商品id
-     */
-    skuId: number;
-    /**
-     * 活动开始时间
-     */
-    startTime: string;
-}
-",
-  "/**
+exports[`generateDefinitions projectA 1`] = `
+"/**
  * 审批流明细-部门跟价规则展示对象
  */
-/**
- * 审批流明细-部门跟价规则展示对象
- */
-export interface AuditFlowDeptFollowRuleDetailVO {
+export class AuditFlowDeptFollowRuleDetailVO {
     /**
      * 指定band设置方式，0固定band 1自定义band
      */
@@ -259,11 +86,10 @@ export interface AuditFlowDeptFollowRuleDetailVO {
     followRuleItemList: FollowRuleItem[];
     oppList: OpponentVO[];
 }
-",
-  "/**
+/**
  * 【规则审批流】列表展示页面对象
  */
-export interface AuditFlowListVO {
+export class AuditFlowListVO {
     /**
      * 规则状态
      */
@@ -305,8 +131,7 @@ export interface AuditFlowListVO {
      */
     type?: number;
 }
-",
-  "export interface AuditItemVO {
+export class AuditItemVO {
     /**
      * 审批人ERP
      */
@@ -324,11 +149,10 @@ export interface AuditFlowListVO {
      */
     operatedTime?: string;
 }
-",
-  "/**
+/**
  * 【黑名单】列表展示对象
  */
-export interface BlackListVO {
+export class BlackListVO {
     /**
      * 创建人
      */
@@ -362,14 +186,10 @@ export interface BlackListVO {
      */
     skuName?: string;
 }
-",
-  "/**
- * 提交审批、保存部门跟价规则参数实体
- */
 /**
  * 提交审批、保存部门跟价规则参数实体
  */
-export interface DeptFollowRuleAddUpdateDTO {
+export class DeptFollowRuleAddUpdateDTO {
     _cidList?: number[];
     _deptIdList?: string[];
     _salerErp?: string[];
@@ -395,14 +215,10 @@ export interface DeptFollowRuleAddUpdateDTO {
     level?: number;
     followRuleItemList: FollowRuleItem[];
 }
-",
-  "/**
- * 【部门品类跟价规则】编辑查看展示对象
- */
 /**
  * 【部门品类跟价规则】编辑查看展示对象
  */
-export interface DeptFollowRuleEditVO {
+export class DeptFollowRuleEditVO {
     /**
      * 审批人字符串（提交状态的会展示该字段）
      */
@@ -432,6 +248,10 @@ export interface DeptFollowRuleEditVO {
      */
     deptName?: string;
     /**
+     * 规则设置的品类
+     */
+    followRuleCategoryList?: string[];
+    /**
      * 规则头表id
      */
     headerId?: number;
@@ -451,15 +271,13 @@ export interface DeptFollowRuleEditVO {
      * 是否显示'提交审批'按钮，true显示
      */
     showSubmitBtn?: boolean;
-    followRuleCategoryList: FollowRuleCategoryVO[];
     followRuleItemList: FollowRuleItem[];
     oppList: OpponentVO[];
 }
-",
-  "/**
+/**
  * 【部门品类跟价规则】列表展示对象
  */
-export interface DeptFollowRuleListVO {
+export class DeptFollowRuleListVO {
     /**
      * 审批状态
      */
@@ -505,8 +323,7 @@ export interface DeptFollowRuleListVO {
      */
     validHeaderId?: number;
 }
-",
-  "export interface FollowDegreeParam {
+export class FollowDegreeParam {
     /**
      * 跟价对象(OPP_page_price:友商页面价,OPP_trans_price:友商成交价)
      */
@@ -520,11 +337,10 @@ export interface DeptFollowRuleListVO {
      */
     value?: number;
 }
-",
-  "/**
+/**
  * 【跟价池】列表展示对象
  */
-export interface FollowPoolListVO {
+export class FollowPoolListVO {
     /**
      * 仓报价
      */
@@ -634,11 +450,10 @@ export interface FollowPoolListVO {
      */
     topPromCount?: number;
 }
-",
-  "/**
+/**
  * 【部门品类跟价规则-设置品类】编辑查看展示对象
  */
-export interface FollowRuleCategoryVO {
+export class FollowRuleCategoryVO {
     /**
      * 一级品类id
      */
@@ -664,14 +479,10 @@ export interface FollowRuleCategoryVO {
      */
     cname3?: string;
 }
-",
-  "/**
- * 跟价规则片对象
- */
 /**
  * 跟价规则片对象
  */
-export interface FollowRuleItem {
+export class FollowRuleItem {
     /**
      * 固定band值列表
      */
@@ -692,11 +503,10 @@ export interface FollowRuleItem {
     otherParam: OtherParam;
     riskParam: RiskParam;
 }
-",
-  "/**
+/**
  * 手动调价参数定义
  */
-export interface ManualAdjustPriceAddDTO {
+export class ManualAdjustPriceAddDTO {
     _cidList?: number[];
     _deptIdList?: string[];
     _salerErp?: string[];
@@ -717,11 +527,10 @@ export interface ManualAdjustPriceAddDTO {
      */
     skuId: number;
 }
-",
-  "/**
+/**
  * 友商信息实体类
  */
-export interface OpponentVO {
+export class OpponentVO {
     /**
      * 友商平台id
      */
@@ -735,8 +544,7 @@ export interface OpponentVO {
      */
     url?: string;
 }
-",
-  "export interface OtherParam {
+export class OtherParam {
     /**
      * 调价金额不超过X元
      */
@@ -814,36 +622,7 @@ export interface OpponentVO {
      */
     spreadLessRangeNotFollow?: boolean;
 }
-",
-  "export interface PageVOActivitySkuListVO {
-    /**
-     * 总条数
-     */
-    entityCount: number;
-    /**
-     * 开始序号
-     */
-    firstEntityIndex: number;
-    /**
-     * 结束序号
-     */
-    lastEntityIndex: number;
-    /**
-     * 总页数
-     */
-    pageCount: number;
-    /**
-     * 页码
-     */
-    pageNo: number;
-    /**
-     * 每页条数
-     */
-    pageSize: number;
-    entities: ActivitySkuListVO[];
-}
-",
-  "export interface PageVOAuditFlowListVO {
+export class PageVOAuditFlowListVO {
     /**
      * 总条数
      */
@@ -870,8 +649,7 @@ export interface OpponentVO {
     pageSize: number;
     entities: AuditFlowListVO[];
 }
-",
-  "export interface PageVOBlackListVO {
+export class PageVOBlackListVO {
     /**
      * 总条数
      */
@@ -898,8 +676,7 @@ export interface OpponentVO {
     pageSize: number;
     entities: BlackListVO[];
 }
-",
-  "export interface PageVODeptFollowRuleListVO {
+export class PageVODeptFollowRuleListVO {
     /**
      * 总条数
      */
@@ -926,8 +703,7 @@ export interface OpponentVO {
     pageSize: number;
     entities: DeptFollowRuleListVO[];
 }
-",
-  "export interface PageVOFollowPoolListVO {
+export class PageVOFollowPoolListVO {
     /**
      * 总条数
      */
@@ -954,8 +730,7 @@ export interface OpponentVO {
     pageSize: number;
     entities: FollowPoolListVO[];
 }
-",
-  "export interface PageVOUserInputDataListVO {
+export class PageVOUserInputDataListVO {
     /**
      * 总条数
      */
@@ -982,11 +757,10 @@ export interface OpponentVO {
     pageSize: number;
     entities: UserInputDataListVO[];
 }
-",
-  "/**
+/**
  * 是否自动发布价格更新参数实体
  */
-export interface PoolIsAutoPubUpdateDTO {
+export class PoolIsAutoPubUpdateDTO {
     _cidList?: number[];
     _deptIdList?: string[];
     _salerErp?: string[];
@@ -999,14 +773,10 @@ export interface PoolIsAutoPubUpdateDTO {
      */
     skuList?: number[];
 }
-",
-  "/**
- * 查看促销展示参数对象
- */
 /**
  * 查看促销展示参数对象
  */
-export interface PromotionListVO {
+export class PromotionListVO {
     /**
      * 京东ERP价格
      */
@@ -1025,11 +795,10 @@ export interface PromotionListVO {
     skuId?: number;
     promotions: PromotionVO[];
 }
-",
-  "/**
+/**
  * 促销展示对象
  */
-export interface PromotionVO {
+export class PromotionVO {
     /**
      * 是否可以删除；true可删除
      */
@@ -1079,11 +848,10 @@ export interface PromotionVO {
      */
     timeEnd?: string;
 }
-",
-  "/**
+/**
  * 手动发布价格返回sku具体错误信息
  */
-export interface PubPriceErrorVO {
+export class PubPriceErrorVO {
     /**
      * 错误信息
      */
@@ -1093,8 +861,7 @@ export interface PubPriceErrorVO {
      */
     skuId?: number;
 }
-",
-  "export interface ReplyVO {
+export class ReplyVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1108,20 +875,7 @@ export interface PubPriceErrorVO {
      */
     message: string;
 }
-",
-  "export interface ReplyVOActivitySkuShowVO {
-    /**
-     * 响应代码【0正确,非0错误】
-     */
-    code: string;
-    /**
-     * 结果描述
-     */
-    message: string;
-    data: ActivitySkuShowVO;
-}
-",
-  "export interface ReplyVOAuditFlowDeptFollowRuleDetailVO {
+export class ReplyVOAuditFlowDeptFollowRuleDetailVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1132,8 +886,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: AuditFlowDeptFollowRuleDetailVO;
 }
-",
-  "export interface ReplyVODeptFollowRuleEditVO {
+export class ReplyVODeptFollowRuleEditVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1144,8 +897,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: DeptFollowRuleEditVO;
 }
-",
-  "export interface ReplyVOListOpponentVO {
+export class ReplyVOListOpponentVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1156,8 +908,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: OpponentVO[];
 }
-",
-  "export interface ReplyVOListPubPriceErrorVO {
+export class ReplyVOListPubPriceErrorVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1168,20 +919,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PubPriceErrorVO[];
 }
-",
-  "export interface ReplyVOPageVOActivitySkuListVO {
-    /**
-     * 响应代码【0正确,非0错误】
-     */
-    code: string;
-    /**
-     * 结果描述
-     */
-    message: string;
-    data: PageVOActivitySkuListVO;
-}
-",
-  "export interface ReplyVOPageVOAuditFlowListVO {
+export class ReplyVOPageVOAuditFlowListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1192,8 +930,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PageVOAuditFlowListVO;
 }
-",
-  "export interface ReplyVOPageVOBlackListVO {
+export class ReplyVOPageVOBlackListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1204,8 +941,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PageVOBlackListVO;
 }
-",
-  "export interface ReplyVOPageVODeptFollowRuleListVO {
+export class ReplyVOPageVODeptFollowRuleListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1216,8 +952,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PageVODeptFollowRuleListVO;
 }
-",
-  "export interface ReplyVOPageVOFollowPoolListVO {
+export class ReplyVOPageVOFollowPoolListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1228,8 +963,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PageVOFollowPoolListVO;
 }
-",
-  "export interface ReplyVOPageVOUserInputDataListVO {
+export class ReplyVOPageVOUserInputDataListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1240,8 +974,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PageVOUserInputDataListVO;
 }
-",
-  "export interface ReplyVOPromotionListVO {
+export class ReplyVOPromotionListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1252,8 +985,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: PromotionListVO;
 }
-",
-  "export interface ReplyVOUserInputDataEditVO {
+export class ReplyVOUserInputDataEditVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1264,8 +996,7 @@ export interface PubPriceErrorVO {
     message: string;
     data: UserInputDataEditVO;
 }
-",
-  "export interface ReplyVOint {
+export class ReplyVOint {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1279,8 +1010,7 @@ export interface PubPriceErrorVO {
      */
     message: string;
 }
-",
-  "export interface RiskParam {
+export class RiskParam {
     /**
      * 最高价的
      */
@@ -1294,11 +1024,10 @@ export interface PubPriceErrorVO {
      */
     minVenderPriceRate?: number;
 }
-",
-  "/**
+/**
  * 新增、更新【用户录入数据】的参数
  */
-export interface UserInputDataAddUpdateDTO {
+export class UserInputDataAddUpdateDTO {
     /**
      * 价格约束开始时间
      */
@@ -1340,11 +1069,10 @@ export interface UserInputDataAddUpdateDTO {
      */
     toData?: string;
 }
-",
-  "/**
+/**
  * 【用户录入数据】编辑对象
  */
-export interface UserInputDataEditVO {
+export class UserInputDataEditVO {
     /**
      * 价格约束开始时间
      */
@@ -1386,11 +1114,10 @@ export interface UserInputDataEditVO {
      */
     toData?: string;
 }
-",
-  "/**
+/**
  * 【用户录入数据】列表展示对象
  */
-export interface UserInputDataListVO {
+export class UserInputDataListVO {
     /**
      * 品牌名称
      */
@@ -1460,20 +1187,17 @@ export interface UserInputDataListVO {
      */
     toData?: string;
 }
-",
-]
+"
 `;
 
-exports[`generateDefinitions use sample fixture for generate definition 1`] = `
-Array [
-  "export interface CisMatchInfoDTO {
+exports[`generateDefinitions projectB 1`] = `
+"export class CisMatchInfoDTO {
     jdSkuId: number;
     opponentId: number;
     opponentSkuUrl?: string;
     uuid?: string;
 }
-",
-  "export interface CisSkuDTO {
+export class CisSkuDTO {
     brandId?: number[];
     cid?: number[];
     cidLevel?: number;
@@ -1490,14 +1214,10 @@ Array [
     skuId?: number[];
     startIndex?: number;
 }
-",
-  "/**
- * 【比价sku】列表展示对象
- */
 /**
  * 【比价sku】列表展示对象
  */
-export interface CisSkuListVO {
+export class CisSkuListVO {
     /**
      * 页面基线价
      */
@@ -1593,14 +1313,10 @@ export interface CisSkuListVO {
     uv?: number;
     opponentMin: OpponentSkuShowVO;
 }
-",
-  "/**
- * 【比价sku】详情展示对象
- */
 /**
  * 【比价sku】详情展示对象
  */
-export interface CisSkuShowVO {
+export class CisSkuShowVO {
     /**
      * 页面基线价
      */
@@ -1696,16 +1412,14 @@ export interface CisSkuShowVO {
     uv?: number;
     opponentMin: OpponentSkuShowVO;
 }
-",
-  "export interface ConfigVO {
+export class ConfigVO {
     hour?: number;
     num?: number;
 }
-",
-  "/**
+/**
  * 匹配【友商sku】的参数
  */
-export interface OpponentMatchDTO {
+export class OpponentMatchDTO {
     /**
      * 友商Id
      */
@@ -1715,11 +1429,10 @@ export interface OpponentMatchDTO {
      */
     opponentSkuId: string;
 }
-",
-  "/**
+/**
  * 【友商sku】列表展示对象
  */
-export interface OpponentSkuListVO {
+export class OpponentSkuListVO {
     /**
      * 重点友商标记
      */
@@ -1773,11 +1486,10 @@ export interface OpponentSkuListVO {
      */
     url?: string;
 }
-",
-  "/**
+/**
  * 【友商sku】详情展示对象
  */
-export interface OpponentSkuShowVO {
+export class OpponentSkuShowVO {
     /**
      * 重点友商标记
      */
@@ -1835,11 +1547,10 @@ export interface OpponentSkuShowVO {
      */
     url?: string;
 }
-",
-  "/**
+/**
  * 【友商】详情展示对象
  */
-export interface OpponentVO {
+export class OpponentVO {
     /**
      * 友商Id
      */
@@ -1849,8 +1560,7 @@ export interface OpponentVO {
      */
     opponentName?: string;
 }
-",
-  "export interface PageVOCisSkuListVO {
+export class PageVOCisSkuListVO {
     /**
      * 总条数
      */
@@ -1877,8 +1587,7 @@ export interface OpponentVO {
     pageSize: number;
     entities: CisSkuListVO[];
 }
-",
-  "export interface PriceHisDetailVO {
+export class PriceHisDetailVO {
     /**
      * 商品价格更新时间
      */
@@ -1888,8 +1597,7 @@ export interface OpponentVO {
      */
     price?: number;
 }
-",
-  "export interface PriceHistoryVO {
+export class PriceHistoryVO {
     /**
      * 友商ID
      */
@@ -1904,8 +1612,7 @@ export interface OpponentVO {
     sku?: string;
     prices: PriceHisDetailVO[];
 }
-",
-  "export interface ReplyVOCisSkuShowVO {
+export class ReplyVOCisSkuShowVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1916,8 +1623,7 @@ export interface OpponentVO {
     message: string;
     data: CisSkuShowVO;
 }
-",
-  "export interface ReplyVOConfigVO {
+export class ReplyVOConfigVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1928,8 +1634,7 @@ export interface OpponentVO {
     message: string;
     data: ConfigVO;
 }
-",
-  "export interface ReplyVOListOpponentSkuListVO {
+export class ReplyVOListOpponentSkuListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1940,8 +1645,7 @@ export interface OpponentVO {
     message: string;
     data: OpponentSkuListVO[];
 }
-",
-  "export interface ReplyVOListOpponentVO {
+export class ReplyVOListOpponentVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1952,8 +1656,7 @@ export interface OpponentVO {
     message: string;
     data: OpponentVO[];
 }
-",
-  "export interface ReplyVOListPriceHistoryVO {
+export class ReplyVOListPriceHistoryVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1964,8 +1667,7 @@ export interface OpponentVO {
     message: string;
     data: PriceHistoryVO[];
 }
-",
-  "export interface ReplyVOPageVOCisSkuListVO {
+export class ReplyVOPageVOCisSkuListVO {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1976,8 +1678,7 @@ export interface OpponentVO {
     message: string;
     data: PageVOCisSkuListVO;
 }
-",
-  "export interface ReplyVOVoid {
+export class ReplyVOVoid {
     /**
      * 响应代码【0正确,非0错误】
      */
@@ -1987,20 +1688,3207 @@ export interface OpponentVO {
      */
     message: string;
 }
-",
-  "/**
- * 匹配【京东sku】的参数
- */
 /**
  * 匹配【京东sku】的参数
  */
-export interface SkuMatchDTO {
+export class SkuMatchDTO {
     /**
      * 京东sku
      */
     skuId: number;
     opponent: OpponentMatchDTO[];
 }
-",
-]
+"
+`;
+
+exports[`generateDefinitions projectC 1`] = `
+"/**
+ * 【品牌展示】品牌展示对象
+ */
+export class BrandVO {
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名
+     */
+    brandName?: string;
+}
+/**
+ * 图表、列表结果对象
+ */
+export class ChartResultVOPriceCompeteChartListVO {
+    dtime?: string;
+    dtype?: string;
+    chartData: PriceCompeteChartListVO[];
+}
+/**
+ * 图表、列表结果对象
+ */
+export class ChartResultVOPriceHonestChartListVO {
+    dtime?: string;
+    dtype?: string;
+    chartData: PriceHonestChartListVO[];
+}
+/**
+ * 图表、列表结果对象
+ */
+export class ChartResultVOPriceWaveChartListVO {
+    dtime?: string;
+    dtype?: string;
+    chartData: PriceWaveChartListVO[];
+}
+export class Maplongboolean {
+}
+export class MarkdownPriceCalcDetailVO {
+    /**
+     * 预测gmv
+     */
+    gmv?: number;
+    /**
+     * 预测毛利
+     */
+    gp?: number;
+    /**
+     * 价格说明
+     */
+    priceDesc?: string;
+    /**
+     * 价格类型
+     */
+    priceType?: string;
+    /**
+     * 预测日均销量
+     */
+    saleQtty?: number;
+    /**
+     * 建议价格
+     */
+    suggestPrice?: number;
+}
+export class MarkdownPriceCalcVO {
+    /**
+     * 无建议价格时的提示信息
+     */
+    calcWarnMsg?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    markdownPriceCalcDetailVOS: MarkdownPriceCalcDetailVO[];
+}
+export class MarkdownSaleSimulateDetailVO {
+    /**
+     * 平均日销量
+     */
+    avgQtty?: number;
+    /**
+     * 剔除优惠券后的成交价
+     */
+    dealPrice?: number;
+    /**
+     * 最高日销量
+     */
+    maxQtty?: number;
+    /**
+     * 最低日销量
+     */
+    minQtty?: number;
+}
+export class MarkdownSaleSimulateVO {
+    /**
+     * skuId
+     */
+    skuId?: number;
+    markdownSaleSimulateDetailVOS: MarkdownSaleSimulateDetailVO[];
+    points: SkuHistoryDTO[];
+}
+export class MarkdownTrendSimulateDetailVO {
+    /**
+     * 日期排序，即第几天
+     */
+    dtOrder?: number;
+    /**
+     * 待清理量
+     */
+    waitQtty?: number;
+}
+export class MarkdownTrendSimulateVO {
+    /**
+     * 近28天平均成交价
+     */
+    avgDealPrice28?: number;
+    /**
+     * 近28天日均销量
+     */
+    avgSales28?: number;
+    /**
+     * 预计清滞天数
+     */
+    finishDays?: number;
+    /**
+     * 预计日均销量
+     */
+    forecastAvgSales?: number;
+    /**
+     * 价格上下限的均值
+     */
+    meanPrice?: number;
+    /**
+     * 近28天最低成交价
+     */
+    minDealPrice28?: number;
+    /**
+     * 用户输入的模拟价格
+     */
+    pointPrice?: number;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 引擎返回的建议价格
+     */
+    suggestPrice?: number;
+    simulateTrend: MarkdownTrendSimulateDetailVO[];
+}
+export class PageVOPromoAnalysisPromoSkuVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: PromoAnalysisPromoSkuVO[];
+}
+export class PageVOPromoAnalysisPromoVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: PromoAnalysisPromoVO[];
+}
+export class PageVOPromoAnalysisSkuVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: PromoAnalysisSkuVO[];
+}
+export class PageVOPromoSimulateDetailVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: PromoSimulateDetailVO[];
+}
+export class PageVOReportTaskInstanceVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: ReportTaskInstanceVO[];
+}
+export class PageVOReportTaskListVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: ReportTaskListVO[];
+}
+export class PageVOSimulateSkuVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: SimulateSkuVO[];
+}
+export class PageVOSkuBlacklistListVO {
+    /**
+     * 总条数
+     */
+    entityCount: number;
+    /**
+     * 开始序号
+     */
+    firstEntityIndex: number;
+    /**
+     * 结束序号
+     */
+    lastEntityIndex: number;
+    /**
+     * 总页数
+     */
+    pageCount: number;
+    /**
+     * 页码
+     */
+    pageNo: number;
+    /**
+     * 每页条数
+     */
+    pageSize: number;
+    entities: SkuBlacklistListVO[];
+}
+/**
+ * 【价格竞争力-整体趋势】图表、列表展示对象
+ */
+export class PriceCompeteChartListVO {
+    /**
+     * 平均价高幅度
+     */
+    avgPriceHighDegree?: number;
+    /**
+     * 平均价低幅度
+     */
+    avgPriceLowDegree?: number;
+    /**
+     * 品牌ID
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类ID
+     */
+    cid?: number;
+    /**
+     * 品类名称
+     */
+    cidName?: string;
+    /**
+     * 部门ID
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 日期分区
+     */
+    dtime?: string;
+    /**
+     * 持平个数
+     */
+    flatNum?: number;
+    /**
+     * 持平占比
+     */
+    flatRate?: number;
+    /**
+     * 匹配率
+     */
+    matchRate?: number;
+    /**
+     * 匹配商品数
+     */
+    matchSkuNum?: number;
+    /**
+     * 价格竞争力指数
+     */
+    priceCompetePoint?: number;
+    /**
+     * 价高个数
+     */
+    priceHighNum?: number;
+    /**
+     * 价高占比
+     */
+    priceHighRate?: number;
+    /**
+     * 价低个数
+     */
+    priceLowNum?: number;
+    /**
+     * 价低占比
+     */
+    priceLowRate?: number;
+    /**
+     * 自营上柜商品数
+     */
+    saleSkuNum?: number;
+    /**
+     * 采销erp
+     */
+    salerErp?: string;
+    /**
+     * 采销姓名
+     */
+    salerName?: string;
+}
+/**
+ * 【价格竞争力-实时数据(汇总)】数据展示对象
+ */
+export class PriceCompeteSumVO {
+    /**
+     * 平均价高幅度
+     */
+    avgPriceHighDegree?: number;
+    /**
+     * 数据更新时间
+     */
+    dtime?: string;
+    /**
+     * 持平商品数
+     */
+    flatSkuNum?: number;
+    /**
+     * 持平商品数占比
+     */
+    flatSkuRate?: number;
+    /**
+     * 匹配率
+     */
+    matchRate?: number;
+    /**
+     * 匹配商品数
+     */
+    matchSkuNum?: number;
+    /**
+     * 价高商品数
+     */
+    priceHighSkuNum?: number;
+    /**
+     * 价高商品数占比
+     */
+    priceHighSkuRate?: number;
+    /**
+     * 价低商品数
+     */
+    priceLowSkuNum?: number;
+    /**
+     * 价低占比
+     */
+    priceLowSkuRate?: number;
+    /**
+     * 自营上柜商品数
+     */
+    saleSkuNum?: number;
+}
+/**
+ * 品牌下钻列表项
+ */
+export class PriceEcAnalysisBrandVO {
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 部门id
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * GMV和毛利双提升潜力商品数
+     */
+    doubleCount?: number;
+    /**
+     * GMV提升潜力商品数
+     */
+    gmvCount?: number;
+    /**
+     * 毛利提升潜力商品数
+     */
+    gpCount?: number;
+    /**
+     * 其他数
+     */
+    otherCount?: number;
+    /**
+     * 有销售潜力的商品占比
+     */
+    potentialRate?: number;
+    /**
+     * sku总数
+     */
+    skuCount?: number;
+}
+/**
+ * 品类下钻列表项
+ */
+export class PriceEcAnalysisCatVO {
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * GMV和毛利双提升潜力商品数
+     */
+    doubleCount?: number;
+    /**
+     * GMV提升潜力商品数
+     */
+    gmvCount?: number;
+    /**
+     * 毛利提升潜力商品数
+     */
+    gpCount?: number;
+    /**
+     * 其他数
+     */
+    otherCount?: number;
+    /**
+     * 有销售潜力的商品占比
+     */
+    potentialRate?: number;
+    /**
+     * sku总数
+     */
+    skuCount?: number;
+}
+/**
+ * 部门下钻列表项
+ */
+export class PriceEcAnalysisDeptVO {
+    /**
+     * 部门id
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * GMV和毛利双提升潜力商品数
+     */
+    doubleCount?: number;
+    /**
+     * GMV提升潜力商品数
+     */
+    gmvCount?: number;
+    /**
+     * 毛利提升潜力商品数
+     */
+    gpCount?: number;
+    /**
+     * 其他数
+     */
+    otherCount?: number;
+    /**
+     * 有销售潜力的商品占比
+     */
+    potentialRate?: number;
+    /**
+     * sku总数
+     */
+    skuCount?: number;
+}
+/**
+ * 首页指标
+ */
+export class PriceEcAnalysisHomeIndexVO {
+    /**
+     * GMV和毛利双提升潜力商品数
+     */
+    doubleCount?: number;
+    /**
+     * 有价格弹性的商品数
+     */
+    ecCount?: number;
+    /**
+     * 价格弹性高的商品数
+     */
+    ecHighCount?: number;
+    /**
+     * 价格弹性低的商品数
+     */
+    ecLowCount?: number;
+    /**
+     * GMV提升潜力商品数
+     */
+    gmvCount?: number;
+    /**
+     * 毛利提升潜力商品数
+     */
+    gpCount?: number;
+    /**
+     * 有销售潜力的商品数
+     */
+    potentialCount?: number;
+    /**
+     * 数据更新日期
+     */
+    updatedDate?: string;
+}
+/**
+ * 采销下钻列表项
+ */
+export class PriceEcAnalysisSalerVO {
+    /**
+     * GMV和毛利双提升潜力商品数
+     */
+    doubleCount?: number;
+    /**
+     * GMV提升潜力商品数
+     */
+    gmvCount?: number;
+    /**
+     * 毛利提升潜力商品数
+     */
+    gpCount?: number;
+    /**
+     * 其他数
+     */
+    otherCount?: number;
+    /**
+     * 有销售潜力的商品占比
+     */
+    potentialRate?: number;
+    /**
+     * 采销erp
+     */
+    salerErp?: string;
+    /**
+     * 采销姓名
+     */
+    salerName?: string;
+    /**
+     * sku总数
+     */
+    skuCount?: number;
+}
+/**
+ * top项
+ */
+export class PriceEcAnalysisTopItemVO {
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 仓报价
+     */
+    cost?: number;
+    /**
+     * 弹性标签【1高,0低】
+     */
+    ecBand?: string;
+    /**
+     * 7天GMV
+     */
+    gmv?: number;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 7天毛利
+     */
+    gp?: number;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 页面价(红价)
+     */
+    redPrice?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 7天销量
+     */
+    sales?: number;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+}
+/**
+ * 3个top1
+ */
+export class PriceEcAnalysisTopVO {
+    doubleItem: PriceEcAnalysisTopItemVO;
+    gmvItem: PriceEcAnalysisTopItemVO;
+    gpItem: PriceEcAnalysisTopItemVO;
+}
+/**
+ * 【价格诚信度】图表、列表展示对象
+ */
+export class PriceHonestChartListVO {
+    /**
+     * 平均提价幅度(x>=10%)
+     */
+    avgUpPriceDegree?: number;
+    /**
+     * 品牌ID
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类ID
+     */
+    cid?: number;
+    /**
+     * 品类名称
+     */
+    cidName?: string;
+    /**
+     * 部门ID
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 日期分区
+     */
+    dtime?: string;
+    /**
+     * 未提价个数(x<=0%)
+     */
+    notUpPromoPriceNum?: number;
+    /**
+     * 参加促销个数
+     */
+    promoNum?: number;
+    /**
+     * 促销参与率
+     */
+    promoRate?: number;
+    /**
+     * 参加促销商品数
+     */
+    promoSkuNum?: number;
+    /**
+     * 促销提价个数(0%<x<10%)
+     */
+    promoUpPriceNumDown?: number;
+    /**
+     * 促销提价个数(x>=10%)
+     */
+    promoUpPriceNumUp?: number;
+    /**
+     * 促销提价占比(x>=10%)
+     */
+    promoUpPriceRate?: number;
+    /**
+     * 自营上柜商品数
+     */
+    saleSkuNum?: number;
+    /**
+     * 采销erp
+     */
+    salerErp?: string;
+    /**
+     * 采销姓名
+     */
+    salerName?: string;
+}
+/**
+ * 【价格诚信度-T+1数据(商品)】列表展示对象
+ */
+export class PriceHonestSkuListVO {
+    /**
+     * 常规价(基线价)
+     */
+    baselinePrice?: number;
+    /**
+     * 品牌ID
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 销量额Band
+     */
+    gmvBand?: string;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 促销ID列表
+     */
+    promoIds?: string;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 页面价(红价)
+     */
+    redPrice?: number;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 提价幅度
+     */
+    upPriceDegree?: number;
+    promoResultList: PriceHonestSkuPromoListVO[];
+}
+/**
+ * 【价格诚信度-T+1数据(商品)】促销信息
+ */
+export class PriceHonestSkuPromoListVO {
+    beginTime?: string;
+    endTime?: string;
+    extType?: number;
+    promoDescription?: string;
+    promoId?: number;
+    promoName?: string;
+    promoType?: number;
+}
+/**
+ * 【价格诚信度】看板详情展示对象
+ */
+export class PriceHonestSumVO {
+    /**
+     * 数据统计时间
+     */
+    dtime?: string;
+    /**
+     * 促销参与率
+     */
+    promoRate?: number;
+    /**
+     * 参加促销商品数
+     */
+    promoSkuNum?: number;
+    /**
+     * 促销提价占比(x>=10%)
+     */
+    promoUpPriceRate?: number;
+    /**
+     * 促销提价商品数
+     */
+    promoUpPriceSkuNum?: number;
+    /**
+     * 自营上柜商品数
+     */
+    saleSkuNum?: number;
+    /**
+     * 不加权提价幅度(x>=10%)
+     */
+    upPriceDegree?: number;
+}
+/**
+ * 【价格波动性-整体趋势】图表、列表展示对象
+ */
+export class PriceWaveChartListVO {
+    /**
+     * （调价次数=0）个数
+     */
+    adjustPriceNum1?: number;
+    /**
+     * （0<调价次数<=5）个数
+     */
+    adjustPriceNum2?: number;
+    /**
+     * （调价次数>5）个数
+     */
+    adjustPriceNum3?: number;
+    /**
+     * （调价次数=0）占比
+     */
+    adjustPriceNumRate1?: number;
+    /**
+     * （0<调价次数<=5）占比
+     */
+    adjustPriceNumRate2?: number;
+    /**
+     * （调价次数>5）占比
+     */
+    adjustPriceNumRate3?: number;
+    /**
+     * 品牌ID
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类ID
+     */
+    cid?: number;
+    /**
+     * 品类名称
+     */
+    cidName?: string;
+    /**
+     * 部门ID
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 日期分区
+     */
+    dtime?: string;
+    /**
+     * 价格波动指数
+     */
+    priceWaveRate?: number;
+    /**
+     * 自营上柜个数
+     */
+    saleNum?: number;
+    /**
+     * 采销erp
+     */
+    salerErp?: string;
+    /**
+     * 采销姓名
+     */
+    salerName?: string;
+}
+/**
+ * 【价格波动性-T+1数据(商品)】列表展示对象
+ */
+export class PriceWaveSkuListVO {
+    /**
+     * 调价次数
+     */
+    adjustPriceTotalNum?: number;
+    /**
+     * 品牌ID
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 仓报价
+     */
+    cost?: number;
+    /**
+     * 弹性
+     */
+    ec?: number;
+    /**
+     * 弹性标签
+     */
+    ecTag?: string;
+    /**
+     * 销量额Band
+     */
+    gmvBand?: string;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 人工调价次数
+     */
+    personAdjustPriceNum?: number;
+    /**
+     * 潜力类型
+     */
+    potentialType?: string;
+    /**
+     * 潜力类型描述
+     */
+    potentialTypeDesc?: string;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 页面价(红价)
+     */
+    redPrice?: number;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 系统定价次数
+     */
+    sysAdjustPriceNum?: number;
+    /**
+     * 系统跟价次数
+     */
+    sysFollowPriceNum?: number;
+}
+/**
+ * 【价格波动性-T+1数据(汇总)】数据展示对象
+ */
+export class PriceWaveSumVO {
+    /**
+     * 调价sku数量
+     */
+    adjustPriceSkuNum?: number;
+    /**
+     * 平均每个SKU的调价次数
+     */
+    avgSkuUpPriceNum?: number;
+    /**
+     * 平均调价幅度
+     */
+    avgUpPriceDegree?: number;
+    /**
+     * 数据统计结束时间
+     */
+    dtimeEnd?: string;
+    /**
+     * 数据统计开始时间
+     */
+    dtimeStart?: string;
+    /**
+     * 人工调价次数
+     */
+    personAdjustPriceNum?: number;
+    /**
+     * 人工调价总次数
+     */
+    personAdjustPriceTotalNum?: number;
+    /**
+     * 自营上柜商品数
+     */
+    saleSkuNum?: number;
+    /**
+     * 系统定价次数
+     */
+    sysAdjustPriceNum?: number;
+    /**
+     * 系统定价总次数
+     */
+    sysAdjustPriceTotalNum?: number;
+    /**
+     * 系统跟价次数
+     */
+    sysFollowPriceNum?: number;
+    /**
+     * 系统跟价总次数
+     */
+    sysFollowPriceTotalNum?: number;
+    /**
+     * 调价商品数
+     */
+    upPriceSkuNum?: number;
+    /**
+     * （调价1-5次）商品个数
+     */
+    upPriceSkuNum1?: number;
+    /**
+     * （调价5次以上）商品个数
+     */
+    upPriceSkuNum2?: number;
+    /**
+     * 调价sku占比
+     */
+    upPriceSkuRate?: number;
+}
+/**
+ * 促销GMV分析
+ */
+export class PromoAnalysisChart1VO {
+    list: PromoAnalysisChartPieItemVO[];
+}
+/**
+ * 有效促销效果分析
+ */
+export class PromoAnalysisChart2VO {
+    list: PromoAnalysisChartBarItemVO[];
+}
+/**
+ * 有效促销提升效果下钻
+ */
+export class PromoAnalysisChart3VO {
+    list: PromoAnalysisChartPieItemVO[];
+}
+/**
+ * 瀑布图列表项
+ */
+export class PromoAnalysisChartBarItemVO {
+    /**
+     * 平均折扣力度
+     */
+    avgDiscount?: number;
+    /**
+     * 基线GMV
+     */
+    baselineGmv?: number;
+    /**
+     * 蚕食GMV
+     */
+    cannGmv?: number;
+    /**
+     * 折扣GMV
+     */
+    discountGmv?: number;
+    /**
+     * 光环GMV
+     */
+    haloGmv?: number;
+    /**
+     * 促销类型中文
+     */
+    name?: string;
+    /**
+     * 净提升gmv
+     */
+    pureIncremental?: number;
+    /**
+     * 净提升率
+     */
+    pureIncrementalRate?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+    /**
+     * 促销类型
+     */
+    type?: number;
+    /**
+     * 提升GMV
+     */
+    upliftGmv?: number;
+    children: PromoAnalysisChartBarItemVO[];
+}
+/**
+ * 饼图列表项
+ */
+export class PromoAnalysisChartPieItemVO {
+    /**
+     * GMV
+     */
+    gmv?: number;
+    /**
+     * GMV占比
+     */
+    gmvRate?: number;
+    /**
+     * 促销类型中文
+     */
+    name?: string;
+    /**
+     * 销量
+     */
+    sales?: number;
+    /**
+     * 促销类型
+     */
+    type?: number;
+    children: PromoAnalysisChartPieItemVO[];
+}
+/**
+ * 明细分析图表VO
+ */
+export class PromoAnalysisChartVO {
+    /**
+     * 最新更新日期
+     */
+    lastUpdate?: string;
+    chart1: PromoAnalysisChart1VO;
+    chart2: PromoAnalysisChart2VO;
+    chart3: PromoAnalysisChart3VO;
+}
+/**
+ * 首页指标
+ */
+export class PromoAnalysisHomeIndexVO {
+    /**
+     * 数据统计时间-结束
+     */
+    endTime?: string;
+    /**
+     * 促销提升率
+     */
+    incrementalRate?: number;
+    /**
+     * 促销个数
+     */
+    promoCount?: number;
+    /**
+     * 无效促销个数
+     */
+    promoInvalidCount?: number;
+    /**
+     * 负提升促销个数
+     */
+    promoNegativeCount?: number;
+    /**
+     * 正提升促销个数
+     */
+    promoPositiveCount?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+    /**
+     * 参加促销商品数
+     */
+    skuCount?: number;
+    /**
+     * 无效商品数
+     */
+    skuInvalidCount?: number;
+    /**
+     * 负提升商品数
+     */
+    skuNegativeCount?: number;
+    /**
+     * 正提升商品数
+     */
+    skuPositiveCount?: number;
+    /**
+     * 数据统计时间-开始
+     */
+    startTime?: string;
+}
+/**
+ * 促销下钻结果集
+ */
+export class PromoAnalysisPromoResultVO {
+    page: PageVOPromoAnalysisPromoVO;
+    sum: PromoAnalysisSumVO;
+}
+/**
+ * 促销SKU下钻列表项
+ */
+export class PromoAnalysisPromoSkuVO {
+    /**
+     * 平均页面价
+     */
+    avgRedPrice?: number;
+    /**
+     * 常规价
+     */
+    baselinePrice?: number;
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 件单价
+     */
+    itemPrice?: number;
+    /**
+     * 是否提价做促销
+     */
+    priceHike?: boolean;
+    /**
+     * 促销标记(商品表现)【1无效促销、2正提升、3负提升】
+     */
+    promoFlag?: string;
+    /**
+     * 促销GMV
+     */
+    promoGmv?: number;
+    /**
+     * 净提升率
+     */
+    pureIncrementalRate?: number;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 销量
+     */
+    sales?: number;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+}
+/**
+ * 促销下钻列表项
+ */
+export class PromoAnalysisPromoVO {
+    /**
+     * 创建人ERP
+     */
+    createdBy?: string;
+    /**
+     * 数据结束时间
+     */
+    dataEndTime?: string;
+    /**
+     * 数据开始时间
+     */
+    dataStartTime?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 父单量
+     */
+    parentQtty?: number;
+    /**
+     * 促销结束时间
+     */
+    promoEndTime?: string;
+    /**
+     * 促销GMV
+     */
+    promoGmv?: number;
+    /**
+     * 促销GMV占比
+     */
+    promoGmvRate?: number;
+    /**
+     * 促销id
+     */
+    promoId?: number;
+    /**
+     * 活动名称
+     */
+    promoName?: string;
+    /**
+     * 促销开始时间
+     */
+    promoStartTime?: string;
+    /**
+     * 促销状态值
+     */
+    promoStatus?: number;
+    /**
+     * 促销状态描述
+     */
+    promoStatusDesc?: string;
+    /**
+     * 促销子类型
+     */
+    promoSubType?: number;
+    /**
+     * 促销子类型描述
+     */
+    promoSubTypeDesc?: string;
+    /**
+     * 促销类型
+     */
+    promoType?: number;
+    /**
+     * 促销类型描述
+     */
+    promoTypeDesc?: string;
+    /**
+     * 净提升率
+     */
+    pureIncrementalRate?: number;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+    /**
+     * 客单价
+     */
+    singlePrice?: number;
+    /**
+     * 提报商品数
+     */
+    skuCount?: number;
+    /**
+     * 无效商品数
+     */
+    skuInvalidCount?: number;
+    /**
+     * 负提升商品数(黑名单)
+     */
+    skuNegativeCount?: number;
+    /**
+     * 门槛
+     */
+    threshold?: string;
+    /**
+     * 门槛优惠描述
+     */
+    thresholdDesc?: string;
+    /**
+     * 总GMV
+     */
+    totalGmv?: number;
+    /**
+     * UV
+     */
+    uv?: number;
+    /**
+     * UV价值
+     */
+    uvValue?: number;
+}
+/**
+ * 促销下钻结果集
+ */
+export class PromoAnalysisSkuResultVO {
+    page: PageVOPromoAnalysisSkuVO;
+    sum: PromoAnalysisSumVO;
+}
+/**
+ * SKU下钻列表项
+ */
+export class PromoAnalysisSkuVO {
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 部门id
+     */
+    deptId?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 件单价
+     */
+    itemPrice?: number;
+    /**
+     * 参加促销次数
+     */
+    promoCount?: number;
+    /**
+     * 促销GMV
+     */
+    promoGmv?: number;
+    /**
+     * 促销GMV占比
+     */
+    promoGmvRate?: number;
+    /**
+     * 无效促销次数
+     */
+    promoInvalidCount?: number;
+    /**
+     * 负提升(黑名单)促销次数
+     */
+    promoNegativeCount?: number;
+    /**
+     * 净提升率
+     */
+    pureIncrementalRate?: number;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 销量
+     */
+    sales?: number;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+    /**
+     * 总GMV
+     */
+    totalGmv?: number;
+}
+/**
+ * 促销分析汇总VO
+ */
+export class PromoAnalysisSumVO {
+    /**
+     * 净提升率
+     */
+    pureIncrementalRate?: number;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * ROI
+     */
+    roi?: number;
+}
+/**
+ * 部门树状结构
+ */
+export class PromoDeptTreeVO {
+    /**
+     * 部门级别
+     */
+    level?: number;
+    /**
+     * 部门名称
+     */
+    name?: string;
+    children: PromoDeptTreeVO[];
+}
+/**
+ * 查询【是否叠加其他促销风险】的参数
+ */
+export class PromoOverlayRiskDTO {
+    /**
+     * 结束日期
+     */
+    endDate: string;
+    /**
+     * 当前促销类型
+     */
+    promoType: number;
+    /**
+     * skuId列表
+     */
+    skuIds: number[];
+    /**
+     * 开始日期
+     */
+    startDate: string;
+}
+export class PromoResponse {
+    adWord?: string;
+    checkState?: number;
+    deleteState?: boolean;
+    levelMember?: number;
+    promoExtType?: number;
+    promoId?: number;
+    promoName?: string;
+    promoState?: number;
+    promoType?: number;
+    remark?: string;
+    source?: number;
+    timeBegin?: string;
+    timeEnd?: string;
+}
+/**
+ * 选品明细
+ */
+export class PromoRoDetailVO {
+    /**
+     * 基线价格(常规价)
+     */
+    baselinePrice?: number;
+    /**
+     * 黑名单率
+     */
+    blacklistRate?: number;
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 成本(仓报价)
+     */
+    cost?: number;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 提价幅度
+     */
+    hikeRatio?: number;
+    /**
+     * 是否有提价风险
+     */
+    hikeRisk?: boolean;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 京东价(erp价)
+     */
+    jdPrice?: number;
+    /**
+     * 是否有叠加其他促销风险
+     */
+    overlayRisk?: boolean;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * 页面价(红价)
+     */
+    redPrice?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+    /**
+     * 库存
+     */
+    stock?: number;
+    /**
+     * 库存周转天数
+     */
+    stockTurnoverDay?: string;
+}
+export class PromoRoQO {
+    _blackFilter?: boolean;
+    _cidList?: number[];
+    _deptIdList?: string[];
+    _enabled?: number;
+    _saleStatus?: number;
+    _salerErp?: string[];
+    brandId?: number[];
+    cid?: number[];
+    cidLevel?: number;
+    deptId?: string;
+    deptLevel?: number;
+    endDate: string;
+    endIndex?: number;
+    exportEmail?: string;
+    gmvBand?: string[];
+    ifFindOverlayRisk?: boolean;
+    pageNo?: number;
+    pageSize?: number;
+    plan: number;
+    promoSubType1: number;
+    promoSubType2?: number;
+    promoSubTypeEnum1?: 'SUB_1_0' | 'SUB_1_8' | 'SUB_1_1' | 'SUB_1_4' | 'SUB_1_10' | 'SUB_1_16' | 'SUB_1_101' | 'SUB_1_103' | 'SUB_1_106' | 'SUB_1_107' | 'SUB_1_999' | 'SUB_1_104' | 'SUB_10_0' | 'SUB_10_1' | 'SUB_10_2' | 'SUB_10_3' | 'SUB_10_4' | 'SUB_10_5' | 'SUB_10_6' | 'SUB_10_13' | 'SUB_10_14' | 'SUB_10_15' | 'SUB_10_115' | 'SUB_10_16' | 'SUB_10_17' | 'SUB_10_20' | 'SUB_10_21' | 'SUB_10_22' | 'SUB_10_23' | 'SUB_10_24' | 'SUB_4_4' | 'SUB_4_3' | 'SUB_4_2' | 'SUB_6_0' | 'SUB_6_1' | 'SUB_6_2' | 'SUB_6_3' | 'SUB_6_5' | 'SUB_6_4' | 'SUB_2_0' | 'SUB_2_3';
+    promoSubTypeEnum2?: 'SUB_1_0' | 'SUB_1_8' | 'SUB_1_1' | 'SUB_1_4' | 'SUB_1_10' | 'SUB_1_16' | 'SUB_1_101' | 'SUB_1_103' | 'SUB_1_106' | 'SUB_1_107' | 'SUB_1_999' | 'SUB_1_104' | 'SUB_10_0' | 'SUB_10_1' | 'SUB_10_2' | 'SUB_10_3' | 'SUB_10_4' | 'SUB_10_5' | 'SUB_10_6' | 'SUB_10_13' | 'SUB_10_14' | 'SUB_10_15' | 'SUB_10_115' | 'SUB_10_16' | 'SUB_10_17' | 'SUB_10_20' | 'SUB_10_21' | 'SUB_10_22' | 'SUB_10_23' | 'SUB_10_24' | 'SUB_4_4' | 'SUB_4_3' | 'SUB_4_2' | 'SUB_6_0' | 'SUB_6_1' | 'SUB_6_2' | 'SUB_6_3' | 'SUB_6_5' | 'SUB_6_4' | 'SUB_2_0' | 'SUB_2_3';
+    promoType1: number;
+    promoType2?: number;
+    pvBand?: string[];
+    salesBand?: string[];
+    skuId?: string;
+    startDate: string;
+    startIndex?: number;
+    threshold1?: string;
+    threshold2?: string;
+}
+/**
+ * 选品建议结果集
+ */
+export class PromoRoVO {
+    blackSize?: number;
+    fakeSize?: number;
+    whiteSize?: number;
+    blacklist: PromoRoDetailVO[];
+    fakelist: PromoRoDetailVO[];
+    whitelist: PromoRoDetailVO[];
+}
+/**
+ * 效果模拟明细
+ */
+export class PromoSimulateDetailVO {
+    /**
+     * 基线销售额
+     */
+    baselineGmv?: number;
+    /**
+     * 基线价格(常规价)
+     */
+    baselinePrice?: number;
+    /**
+     * 基线销量
+     */
+    baselineSales?: number;
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 成本(仓报价)
+     */
+    cost?: number;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 销售额模拟
+     */
+    gmvSimulation?: number;
+    /**
+     * 毛利额模拟
+     */
+    gpSimulation?: number;
+    /**
+     * 提价幅度
+     */
+    hikeRatio?: number;
+    /**
+     * 是否有提价风险
+     */
+    hikeRisk?: boolean;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 京东价(erp价)
+     */
+    jdPrice?: number;
+    /**
+     * 是否有叠加其他促销风险
+     */
+    overlayRisk?: boolean;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 真实折扣力度
+     */
+    realDiscount?: number;
+    /**
+     * 页面价(红价)
+     */
+    redPrice?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * 销量模拟
+     */
+    salesSimulation?: number;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+    /**
+     * 库存
+     */
+    stock?: number;
+    /**
+     * 库存周转天数
+     */
+    stockTurnoverDay?: string;
+}
+/**
+ * 效果模拟汇总
+ */
+export class PromoSimulateTotalVO {
+    /**
+     * 销售额模拟
+     */
+    gmvSimulation?: number;
+    /**
+     * 销量模拟
+     */
+    salesSimulation?: number;
+}
+export class ReplyVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 返回数据
+     */
+    data?: any;
+    /**
+     * 结果描述
+     */
+    message: string;
+}
+export class ReplyVOChartResultVOPriceCompeteChartListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: ChartResultVOPriceCompeteChartListVO;
+}
+export class ReplyVOChartResultVOPriceHonestChartListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: ChartResultVOPriceHonestChartListVO;
+}
+export class ReplyVOChartResultVOPriceWaveChartListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: ChartResultVOPriceWaveChartListVO;
+}
+export class ReplyVOListPriceEcAnalysisBrandVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisBrandVO[];
+}
+export class ReplyVOListPriceEcAnalysisCatVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisCatVO[];
+}
+export class ReplyVOListPriceEcAnalysisDeptVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisDeptVO[];
+}
+export class ReplyVOListPriceEcAnalysisSalerVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisSalerVO[];
+}
+export class ReplyVOListPriceHonestSkuListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceHonestSkuListVO[];
+}
+export class ReplyVOListPriceWaveSkuListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceWaveSkuListVO[];
+}
+export class ReplyVOListPromoResponse {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoResponse[];
+}
+export class ReplyVOListSaleSimulateTableVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: SaleSimulateTableVO[];
+}
+export class ReplyVOListSelectOptionVOint {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: SelectOptionVOint[];
+}
+export class ReplyVOListSkuHistoryDTO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: SkuHistoryDTO[];
+}
+export class ReplyVOListTopBrandListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: TopBrandListVO[];
+}
+export class ReplyVOMaplongboolean {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 返回数据
+     */
+    data?: any;
+    /**
+     * 结果描述
+     */
+    message: string;
+}
+export class ReplyVOMarkdownPriceCalcVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: MarkdownPriceCalcVO;
+}
+export class ReplyVOMarkdownSaleSimulateVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: MarkdownSaleSimulateVO;
+}
+export class ReplyVOMarkdownTrendSimulateVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: MarkdownTrendSimulateVO;
+}
+export class ReplyVOPageVOPromoAnalysisPromoSkuVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOPromoAnalysisPromoSkuVO;
+}
+export class ReplyVOPageVOPromoSimulateDetailVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOPromoSimulateDetailVO;
+}
+export class ReplyVOPageVOReportTaskInstanceVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOReportTaskInstanceVO;
+}
+export class ReplyVOPageVOReportTaskListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOReportTaskListVO;
+}
+export class ReplyVOPageVOSimulateSkuVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOSimulateSkuVO;
+}
+export class ReplyVOPageVOSkuBlacklistListVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PageVOSkuBlacklistListVO;
+}
+export class ReplyVOPriceCompeteSumVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceCompeteSumVO;
+}
+export class ReplyVOPriceEcAnalysisHomeIndexVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisHomeIndexVO;
+}
+export class ReplyVOPriceEcAnalysisTopVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceEcAnalysisTopVO;
+}
+export class ReplyVOPriceHonestSumVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceHonestSumVO;
+}
+export class ReplyVOPriceWaveSumVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PriceWaveSumVO;
+}
+export class ReplyVOPromoAnalysisChartVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoAnalysisChartVO;
+}
+export class ReplyVOPromoAnalysisHomeIndexVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoAnalysisHomeIndexVO;
+}
+export class ReplyVOPromoAnalysisPromoResultVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoAnalysisPromoResultVO;
+}
+export class ReplyVOPromoAnalysisSkuResultVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoAnalysisSkuResultVO;
+}
+export class ReplyVOPromoAnalysisSumVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoAnalysisSumVO;
+}
+export class ReplyVOPromoRoVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoRoVO;
+}
+export class ReplyVOPromoSimulateTotalVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoSimulateTotalVO;
+}
+export class ReplyVOReportTaskShowVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: ReportTaskShowVO;
+}
+export class ReplyVOSaleSimulateVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: SaleSimulateVO;
+}
+export class ReplyVOSetPromoDeptTreeVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: PromoDeptTreeVO[];
+}
+export class ReplyVOSimulateSkuVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+    data: SimulateSkuVO;
+}
+export class ReplyVOVoid {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 结果描述
+     */
+    message: string;
+}
+export class ReplyVOint {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    code: string;
+    /**
+     * 返回数据
+     */
+    data?: number;
+    /**
+     * 结果描述
+     */
+    message: string;
+}
+/**
+ * 报表任务重试查询参数对象
+ */
+export class ReportRetryQO {
+    taskId: number;
+}
+/**
+ * 新增【报表任务】的参数
+ */
+export class ReportTaskAddDTO {
+    /**
+     * 开始日期
+     */
+    beginDate?: string;
+    /**
+     * 抄送人
+     */
+    ccMail?: string;
+    /**
+     * 部门联合id
+     */
+    deptUnionId: string;
+    /**
+     * 状态
+     */
+    enabled?: number;
+    /**
+     * 结束日期
+     */
+    endDate?: string;
+    /**
+     * 友商联合id
+     */
+    opponentUnionId?: string;
+    /**
+     * 对标价格
+     */
+    priceType?: number;
+    /**
+     * 发送时间
+     */
+    sendTime?: string;
+    /**
+     * 模版类型
+     */
+    templateType?: number;
+    /**
+     * 时间维度
+     */
+    timeType?: number;
+    /**
+     * 定期模式
+     */
+    timingType?: number;
+    /**
+     * 收件人
+     */
+    toMail?: string;
+}
+/**
+ * 任务配置删除查询参数
+ */
+export class ReportTaskDeleteQO {
+    /**
+     * taskId集合
+     */
+    taskId?: number[];
+}
+/**
+ * 【报表任务实例表】详情展示对象
+ */
+export class ReportTaskInstanceVO {
+    /**
+     * 任务开始时间
+     */
+    beginTime?: string;
+    /**
+     * 任务结束时间
+     */
+    endTime?: string;
+    /**
+     * 主键，自增id
+     */
+    id?: number;
+    /**
+     * 计划执行时间
+     */
+    planTime?: string;
+    /**
+     * 备注
+     */
+    remark?: string;
+    /**
+     * 执行状态(0 等待 1 正在运行 2 成功 3 失败 4 取消)
+     */
+    status?: string;
+    /**
+     * 任务Id
+     */
+    taskId?: number;
+    /**
+     * 运行类型（0 自动 1 手动）
+     */
+    type?: string;
+}
+/**
+ * 【报表任务】列表展示对象
+ */
+export class ReportTaskListVO {
+    /**
+     * 开始日期
+     */
+    beginDate?: string;
+    /**
+     * 抄送人
+     */
+    ccMail?: string;
+    /**
+     * 创建人【最大长度20】
+     */
+    createdBy?: string;
+    /**
+     * 创建时间【yyyy-MM-dd HH:mm:ss】
+     */
+    createdTime?: string;
+    /**
+     * 部门名称
+     */
+    deptName?: string;
+    /**
+     * 部门联合id
+     */
+    deptUnionId?: string;
+    /**
+     * 状态
+     */
+    enabled?: number;
+    /**
+     * 结束日期
+     */
+    endDate?: string;
+    /**
+     * 主键ID
+     */
+    id?: number;
+    /**
+     * 修改人【最大长度20】
+     */
+    operatedBy?: string;
+    /**
+     * 修改时间【yyyy-MM-dd HH:mm:ss】
+     */
+    operatedTime?: string;
+    /**
+     * 对标友商
+     */
+    opponentName?: string;
+    /**
+     * 友商编码
+     */
+    opponentUnionId?: string;
+    /**
+     * 发送时间
+     */
+    sendTime?: string;
+    /**
+     * 模版类型
+     */
+    templateType?: number;
+    /**
+     * 时间维度
+     */
+    timeType?: number;
+    timingType?: number;
+    /**
+     * 收件人
+     */
+    toMail?: string;
+}
+/**
+ * 【报表任务】详情展示对象
+ */
+export class ReportTaskShowVO {
+    /**
+     * 开始日期
+     */
+    beginDate?: string;
+    /**
+     * 抄送人
+     */
+    ccMail?: string;
+    /**
+     * 部门联合id
+     */
+    deptUnionId?: string;
+    /**
+     * 状态
+     */
+    enabled?: number;
+    /**
+     * 结束日期
+     */
+    endDate?: string;
+    /**
+     * 主键ID
+     */
+    id?: number;
+    /**
+     * 友商联合id
+     */
+    opponentUnionId?: string;
+    /**
+     * 对标价格
+     */
+    priceType?: string;
+    /**
+     * 发送时间
+     */
+    sendTime?: string;
+    /**
+     * 模版类型
+     */
+    templateType?: number;
+    /**
+     * 时间维度
+     */
+    timeType?: number;
+    /**
+     * 定期模式
+     */
+    timingType?: number;
+    /**
+     * 收件人
+     */
+    toMail?: string;
+}
+/**
+ * 修改【报表任务】的参数
+ */
+export class ReportTaskUpdateDTO {
+    /**
+     * 开始日期
+     */
+    beginDate?: string;
+    /**
+     * 抄送人
+     */
+    ccMail?: string;
+    /**
+     * 部门联合id
+     */
+    deptUnionId: string;
+    /**
+     * 状态
+     */
+    enabled?: number;
+    /**
+     * 结束日期
+     */
+    endDate?: string;
+    /**
+     * 主键ID
+     */
+    id: number;
+    /**
+     * 友商联合id
+     */
+    opponentUnionId?: string;
+    /**
+     * 对标价格
+     */
+    priceType?: number;
+    /**
+     * 发送时间
+     */
+    sendTime?: string;
+    /**
+     * 模版类型
+     */
+    templateType?: number;
+    /**
+     * 时间维度
+     */
+    timeType?: number;
+    /**
+     * 定期模式
+     */
+    timingType?: number;
+    /**
+     * 收件人
+     */
+    toMail?: string;
+}
+export class SaleSimulateDetailVO {
+    /**
+     * 成交价
+     */
+    dealPrice?: number;
+    /**
+     * pv
+     */
+    pv?: number;
+    /**
+     * 销量
+     */
+    saleQtty?: number;
+    /**
+     * 区分是否为用户选择的点
+     */
+    type?: number;
+}
+export class SaleSimulateTableVO {
+    /**
+     * 日均成交价
+     */
+    avgDealPrice?: number;
+    /**
+     * 日均gmv
+     */
+    avgGmv?: number;
+    /**
+     * 日均毛利
+     */
+    avgGp?: number;
+    /**
+     * 日均单量
+     */
+    avgOrdQtty?: number;
+    /**
+     * 日均销量
+     */
+    avgSaleQtty?: number;
+    /**
+     * 真实成交价范围
+     */
+    dealPriceRange?: string;
+    /**
+     * 日均pv转化率
+     */
+    pvConversionRate?: number;
+    /**
+     * pv范围
+     */
+    pvRange?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 日均Uv转化率
+     */
+    uvConversionRate?: number;
+}
+export class SaleSimulateVO {
+    /**
+     * 仓报价
+     */
+    cbj?: number;
+    /**
+     * 扩展时间后的最大pv
+     */
+    maxPv?: number;
+    /**
+     * 扩展时间后的的最小pv
+     */
+    minPv?: number;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    drawPoints: SaleSimulateDetailVO[];
+    lineData: SaleSimulateDetailVO[];
+}
+export class SelectOptionVOint {
+    label?: string;
+    value?: number;
+}
+export class SimulateSkuVO {
+    /**
+     * 近28天平均成交价
+     */
+    avgMonthDealPrice?: number;
+    /**
+     * 近28天日均销量
+     */
+    avgMonthSaleQtty?: number;
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 仓报价，实时获取
+     */
+    cbj?: number;
+    /**
+     * 品类id
+     */
+    cid?: number;
+    /**
+     * 一级品类id
+     */
+    cid1?: number;
+    /**
+     * 二级品类id
+     */
+    cid2?: number;
+    /**
+     * 三级品类id
+     */
+    cid3?: number;
+    /**
+     * 品类名称
+     */
+    cname?: string;
+    /**
+     * 一级品类名称
+     */
+    cname1?: string;
+    /**
+     * 二级品类名称
+     */
+    cname2?: string;
+    /**
+     * 三级品类名称
+     */
+    cname3?: string;
+    /**
+     * 日调价次数
+     */
+    dayAdjustPriceNum?: number;
+    /**
+     * 弹性
+     */
+    ec?: number;
+    /**
+     * 价格敏感度
+     */
+    ecTag?: string;
+    /**
+     * 京东价，实时获取
+     */
+    erpPrice?: number;
+    /**
+     * 近7天gmv
+     */
+    gmv7?: number;
+    /**
+     * 销售额Band
+     */
+    gmvBand?: string;
+    /**
+     * 近7天毛利
+     */
+    gp7?: number;
+    /**
+     * 商品图片路径
+     */
+    imgPath?: string;
+    /**
+     * 近28天最低成交价
+     */
+    minMonthDealPrice?: number;
+    /**
+     * 月调价次数
+     */
+    monthAdjustPriceNum?: number;
+    /**
+     * 近一个自然月调价次数
+     */
+    naturalMonthAdjustPriceNum?: number;
+    /**
+     * 定价潜力
+     */
+    potentialType?: string;
+    /**
+     * 定价潜力说明
+     */
+    potentialTypeDesc?: string;
+    /**
+     * 点击Band
+     */
+    pvBand?: string;
+    /**
+     * 页面价，实时获取
+     */
+    redPrice?: number;
+    /**
+     * 近7天销量
+     */
+    saleQtty7?: number;
+    /**
+     * 采销ERP
+     */
+    salerErp?: string;
+    /**
+     * 销量Band
+     */
+    salesBand?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+    /**
+     * 商品名称
+     */
+    skuName?: string;
+    /**
+     * 全国库存，实时获取
+     */
+    stockQtty?: number;
+    /**
+     * 周调价次数
+     */
+    weekAdjustPriceNum?: number;
+}
+/**
+ * 新增【sku黑名单设置】的参数
+ */
+export class SkuBlacklistAddDTO {
+    /**
+     * skuId
+     */
+    skuId?: number[];
+}
+/**
+ * 【sku黑名单设置】删除查询参数
+ */
+export class SkuBlacklistDeleteQO {
+    /**
+     * skuId集合
+     */
+    skuId?: number[];
+}
+/**
+ * 【sku黑名单设置】列表展示对象
+ */
+export class SkuBlacklistListVO {
+    /**
+     * 配置人
+     */
+    createdBy?: string;
+    createdTime?: string;
+    /**
+     * 操作时间
+     */
+    createdTimeStr?: string;
+    /**
+     * 一级部门名称
+     */
+    deptName1?: string;
+    /**
+     * 二级部门名称
+     */
+    deptName2?: string;
+    /**
+     * 三级部门名称
+     */
+    deptName3?: string;
+    /**
+     * skuId
+     */
+    skuId?: number;
+}
+export class SkuHistoryDTO {
+    avgRedPrice?: number;
+    dealPrice?: number;
+    dt?: string;
+    lastRedPrice?: number;
+    maxRedPrice?: number;
+    minRedPrice?: number;
+    ordQtty?: number;
+    pv?: number;
+    regularPrice?: number;
+    saleQtty?: number;
+    skuId?: number;
+    uv?: number;
+}
+/**
+ * 新增【重点品牌监控设置】的参数
+ */
+export class TopBrandAddDTO {
+    brands: BrandVO[];
+}
+/**
+ * 重点品牌监控删除参数对象
+ */
+export class TopBrandDeleteQO {
+    id: number;
+}
+/**
+ * 【重点监控品牌配置】列表展示对象
+ */
+export class TopBrandListVO {
+    /**
+     * 品牌id
+     */
+    brandId?: number;
+    /**
+     * 品牌名称
+     */
+    brandName?: string;
+    /**
+     * 主键，自动递增
+     */
+    id?: number;
+}
+"
 `;

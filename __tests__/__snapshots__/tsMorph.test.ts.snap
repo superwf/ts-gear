@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`compile function 1`] = `
+"export function myFunc(param: number) {
+
+          const [ url, option ] = interceptRequest(param)
+          option.method = 'get'
+          return fetch(url, option).then<Reply>(interceptResponse)
+            
+}
+"
+`;
+
+exports[`compile interface 1`] = `
+"interface ITest {
+    a: {
+                  name: string
+                  age: number
+              };
+}
+"
+`;
