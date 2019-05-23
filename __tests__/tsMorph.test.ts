@@ -12,10 +12,10 @@ describe('compile', () => {
       }`,
       })
     })
-    console.log(tsTemplate)
+    expect(tsTemplate).toMatchSnapshot()
   })
 
-  it.only('function', async () => {
+  it('function', async () => {
     const tsTemplate = await compile(source => {
       source.addFunction({
         name: 'myFunc',
@@ -33,6 +33,6 @@ describe('compile', () => {
         `,
       })
     })
-    console.log(tsTemplate)
+    expect(tsTemplate).toMatchSnapshot()
   })
 })

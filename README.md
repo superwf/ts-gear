@@ -90,4 +90,6 @@ npx tsg // 如果tsg名称被占用，用npx ts-gear
 
 * 将`ReplyVO«ConfigVO»`转换成泛型的格式`ReplyVO<ConfigVO>`，是一个优化点，可以使数据结构更优雅更有关联性，但暂时没有也可以用。
 
-* 处理oneOf, allOf, anyOf, not里可能有的discriminator情况。
+* 处理`oneOf, allOf, anyOf, not`里可能有的`discriminator`情况。
+
+* 添加`responses`中200之外的其它类型，添加到`fetch.then<T1, T2>，T2`的位置上。

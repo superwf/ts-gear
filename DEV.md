@@ -22,6 +22,7 @@
 
 * 收集所有`paths`中的$ref依赖
   开发过程中发现有些$ref在definitions没有对应项，都按any别名处理。
+  在每个请求函数中，将baseURL与接口url拼接。因为考虑跨域问题，没有将host也自动加上。
 
 * 最初想用fxios或axios作为请求库，但感觉尽量少依赖工具，直接用原生`fetch`依赖更少。
 

@@ -6,6 +6,7 @@ const config: IUserConfig = {
     {
       name: 'pet',
       source: 'fixture/pet.json',
+      // source: 'http://petstore.swagger.io/v2/swagger.json',
     },
     {
       name: 'projectA',

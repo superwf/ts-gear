@@ -1,5 +1,5 @@
 // import { JSONSchema4TypeName } from 'json-schema'
-import { camelCase, forEach, remove, upperFirst } from 'lodash'
+import { camelCase, forEach, get, remove, upperFirst } from 'lodash'
 import { join } from 'path'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 import { assembleRequestParam } from './assembleRequestParam'
@@ -18,9 +18,6 @@ export const generatePaths = async (schema: JSONSchema) => {
   const { basePath } = schema
 
   let url: keyof IPaths
-  // const interfaces: string[] = []
-  // const requestFunctions: string[] = []
-  // console.log(paths)
   const tsContent: string[] = []
   for (url in paths) {
     if (!paths.hasOwnProperty(url)) {
@@ -58,14 +55,24 @@ export const generatePaths = async (schema: JSONSchema) => {
         })
         tsContent.push(paramDefTsContent)
       }
-      const response200Schema = request.responses[200]
-      let responseInterfaceName = ''
+
+      let responseType = ''
+
+      // 如果有200存在的$ref定义，则直接返回该$ref对应的type
+      const response200Schema = get(request.responses, '200.schema.$ref', null)
       if (response200Schema) {
-        responseInterfaceName = `I${upperFirst(functionName)}Response`
-        const responseTsContent = `type ${responseInterfaceName} = ${transformProperty(
-          response200Schema,
-        )}`
-        tsContent.push(responseTsContent)
+        responseType = transformProperty(request.responses[200]!)
+        // 否则可能是response中行内定义的数据结构
+        // 再单独生成一个type
+      } else {
+        const response200 = get(request.responses, '200', null)
+        if (response200) {
+          responseType = `${upperFirst(functionName)}Response`
+          const responseTsContent = `type ${responseType} = ${transformProperty(
+            response200,
+          )}`
+          tsContent.push(responseTsContent)
+        }
       }
 
       const functTsContent = await compile(source => {
@@ -79,7 +86,7 @@ export const generatePaths = async (schema: JSONSchema) => {
           )}'${paramInterfaceName ? ', param' : ''})
             option.method = '${action}'
             return fetch(url, option).then${
-              responseInterfaceName ? '<' + responseInterfaceName + '>' : ''
+              responseType ? '<' + responseType + '>' : ''
             }(${interceptResponse.name})
           `,
         }
