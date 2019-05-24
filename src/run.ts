@@ -18,7 +18,7 @@ export const run = async () => {
   const cwd = process.cwd()
   // console.log(join(cwd, 'ts-gear.ts'))
 
-  const config = require(join(cwd, 'ts-gear.ts')).default as IUserConfig
+  const config = require(join(cwd, 'ts-gear.js')) as IUserConfig
   // 建立dest文件夹
   const dest = join(cwd, config.dest)
   if (!existsSync(dest)) {

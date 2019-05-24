@@ -1,16 +1,16 @@
 {
   "name": "ts-gear",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "swagger to typescript",
   "main": "lib/index.js",
   "typings": "src/index.ts",
   "bin": {
-    "tsg": "bin/cli.js",
-    "ts-gear": "bin/cli.js"
+    "tsg": "bin/main.js",
+    "ts-gear": "bin/main.js"
   },
   "scripts": {
     "test": "npx cross-env NODE_ENV=test npx jest __tests__/run.ts",
-    "prepublish": "npx cross-env tsc src/cli.ts --outDir bin && chmod +x bin/cli.js"
+    "prepublish": "npx cross-env tsc src/*.ts --outDir bin && chmod +x bin/main.js"
   },
   "dependencies": {
     "chalk": "^2.4.2",

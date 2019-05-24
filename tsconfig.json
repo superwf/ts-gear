@@ -15,6 +15,7 @@
     "noEmit": true,
     "sourceMap": true,
     "jsx": "react",
+    "outDir": "bin",
     "baseUrl": ".",
     "noUnusedLocals": true,
     "typeRoots": ["node_modules/@types", "typings"],
@@ -22,5 +23,6 @@
     "paths": {
       "src/*": ["src/*"]
     }
-  }
+  },
+  "include": ["src"]
 }

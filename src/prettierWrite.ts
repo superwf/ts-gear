@@ -1,4 +1,4 @@
-import cosmiconfig from 'cosmiconfig'
+import cosmiconfig = require('cosmiconfig')
 import { writeFileSync } from 'fs'
 import { format } from 'prettier'
 // import defaultPrettierConfig from '../prettier.config'

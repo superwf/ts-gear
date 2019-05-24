@@ -1,6 +1,4 @@
-import { IUserConfig } from 'ts-gear/src/interface'
-
-const config: IUserConfig = {
+const config = {
   dest: './service',
   projects: [
     {
@@ -23,4 +21,4 @@ const config: IUserConfig = {
   ],
 }
 
-export default config
+module.exports = config

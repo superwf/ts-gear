@@ -23,15 +23,15 @@ export interface IParameter {
   schema?: JSONSchema
 }
 
-interface IResponseSchema extends JSONSchema {
-  title?: string
-}
+// interface IResponseSchema extends JSONSchema {
+//   title?: string
+// }
 
 interface IResponse {
-  200?: {
-    description: string
-    schema: IResponseSchema
-  }
+  // '200'?: {
+  //   description: string
+  //   schema: IResponseSchema
+  // }
   [key: string]: {
     description: string
     schema?: JSONSchema

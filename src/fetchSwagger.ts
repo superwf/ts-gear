@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-fetch'
+import fetch = require('isomorphic-fetch')
 import { error, info } from './log'
 
 /**

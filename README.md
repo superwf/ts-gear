@@ -17,11 +17,9 @@ npm install ts-gear
 
 ## 使用
 
-先在项目根目录下生成配置文件`ts-gear.ts`，配置文件使用ts，所以配置是带类型校验的。
+先在项目根目录下生成配置文件`ts-gear.js`。
 ```
-import { IUserConfig } from 'ts-gear/src/interface'
-
-const config: IUserConfig = {
+const config = {
   // 生成swagger配置ts文件的目录
   dest: './service',
   // projects是项目的数组
@@ -47,7 +45,7 @@ const config: IUserConfig = {
   ],
 }
 
-export default config
+module.exports = config
 
 ```
 
