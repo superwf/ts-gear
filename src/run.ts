@@ -11,12 +11,12 @@ const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
 /** get user config
  * fetch schema
- * get ts template content
+ * parse schema to ts template content
  * write ts file
  * */
 export const run = async () => {
   const cwd = process.cwd()
-  console.log(join(cwd, 'ts-gear.ts'))
+  // console.log(join(cwd, 'ts-gear.ts'))
 
   const config = require(join(cwd, 'ts-gear.ts')).default as IUserConfig
   // 建立dest文件夹

@@ -1,5 +1,15 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`compile class 1`] = `
+"class MyClass {
+    public a: {
+                  name: string
+                  age: number
+              };
+}
+"
+`;
+
 exports[`compile function 1`] = `
 "export function myFunc(param: number) {
 

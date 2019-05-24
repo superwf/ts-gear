@@ -2,6 +2,7 @@ import { forEach, reduce } from 'lodash'
 import {
   OptionalKind,
   PropertyDeclarationStructure,
+  Scope,
   SourceFile,
 } from 'ts-morph'
 import { JSONSchema } from './interface'
@@ -66,6 +67,7 @@ export const generatePrimitiveDefinition = async (
         const p: OptionalKind<PropertyDeclarationStructure> = {
           name,
           type: transformPrimitiveProperty(property as IPrimitiveProperty),
+          scope: Scope.Public,
           // initializer: property.default as string,
           hasQuestionToken:
             !definition.required || !definition.required.includes(name),
@@ -79,7 +81,6 @@ export const generatePrimitiveDefinition = async (
           p.docs = [String(property.description)]
         }
         klass.addProperty(p)
-        // addedProperty.setInitializer(property.default)
       })
 
       // 有definition是原始类型的情况吗？

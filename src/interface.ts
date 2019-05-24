@@ -68,6 +68,7 @@ export interface IParameterSchema {
   body?: JSONSchema
   path?: JSONSchema
   formData?: JSONSchema
+  header?: JSONSchema
 }
 
 /** 用户配置文件定义 */
