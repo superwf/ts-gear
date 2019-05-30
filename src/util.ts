@@ -1,9 +1,7 @@
-import { forEach, map, upperFirst } from 'lodash'
+import { map, upperFirst } from 'lodash'
 import { resolve } from 'path'
 import traverse = require('traverse')
-import { OptionalKind, PropertySignatureStructure, SourceFile } from 'ts-morph'
 import { IRef, ISchemaNode, JSONSchema } from './interface'
-import { compile } from './source'
 
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
 export const tsGearRoot = resolve(__dirname, '../')
@@ -46,13 +44,6 @@ export const transformPathParameters = (v: string) => {
     .join('/')
 }
 
-/** 基础类型或由基础类型构成的数组 */
-export const isPrimitiveType = (type: string) => {
-  return ['number', 'string', 'boolean'].some(t => {
-    return type === t || type === `${t}[]`
-  })
-}
-
 /** 解析definitions中的title
  * @return [title, 带有泛型格式的title]
  * 例如 ['ReplyVOUser', 'ReplyVO<User>']
@@ -74,7 +65,6 @@ export const getSafeDefinitionTitle = (title: string): [string, string] => {
   // 一些可能的类型转换预处理
   // TODO 不完善，之后遇到再添加
   // title = title.replace(/«int»/g, '«number»')
-  // title = title.replace(/«Long»/g, '«number»')
 
   if (/[^a-z0-9]/i.test(title)) {
     let compositeTitle = title.replace(/«/g, '<').replace(/»/g, '>')
@@ -110,7 +100,7 @@ export const getGenericTypeName = (title: string): string[] => {
 export const traverseSchema = (
   obj: { [k: string]: any },
   func: (v: ISchemaNode) => void,
-) => {
+): void => {
   traverse(obj).forEach(function(this: any, value: any) {
     // schema是从json来的应该没有circular
     // 既然可以检查就还是校验一下
@@ -127,7 +117,7 @@ export const traverseSchema = (
   })
 }
 
-/** return the $refs paths
+/** 收集所有$ref
  * */
 export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
   // let has = false
@@ -151,22 +141,23 @@ export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
  * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
  * 先这么处理一下~~
  * 后来经过多次交流，确认Long是后端swagger配置错了，不再对Long做处理
- * 我始终认为$ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
+ *
+ * $ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
  * */
 const transform$refName = ($ref: string) => $ref.replace('#/definitions/', '')
 
 /** 获取所有$ref的引用
- * 对象key是$ref的名字原始值，例如 #/defintions/name 的 name部分
- * 对象value是 转换成程序可用名称的名字
+ * 返回对象
+ * key是$ref的名字原始值，例如 #/defintions/name 的 name部分
+ * value是 转换成程序可用名称的名字
  * */
 export const getAllRef = (schema: JSONSchema) => {
   const refNames: { [k: string]: string } = {}
   traverseSchema(schema, ({ value, key }) => {
     if (key === '$ref' && typeof value === 'string') {
+      const keyInDefinitions = transform$refName(value)
       const refName = getSafeDefinitionTitle(transform$refName(value))[0]
-      if (!isPrimitiveType(refName)) {
-        refNames[value.replace('#/definitions/', '')] = refName
-      }
+      refNames[keyInDefinitions] = refName
     }
   })
   return refNames
@@ -226,6 +217,7 @@ export const transformProperty = (property: JSONSchema): string => {
   }
   // 原生类型可以用Exclude处理
   // 其他用any
+  // TODO 这段估计有错误，有测试用例再说
   if (not) {
     // 说明是原生类型
     if (typeof not === 'string') {
@@ -273,48 +265,4 @@ export const transformProperty = (property: JSONSchema): string => {
     default:
       throw new Error(`not valid json schema type: ${type}`)
   }
-}
-
-/** 生产inline的interface结构 */
-export const generatePrimitiveInterface = async (
-  definition: JSONSchema,
-  title: string,
-) => {
-  // const sourceFile = project.createSourceFile(virtualFileName)
-
-  return compile((sourceFile: SourceFile) => {
-    if (definition.type === 'object') {
-      const inter = sourceFile.addInterface({
-        name: getSafeDefinitionTitle(title)[0],
-      })
-      inter.setIsExported(true)
-      forEach(definition.properties, (property, name) => {
-        const p: OptionalKind<PropertySignatureStructure> = {
-          name,
-          type: transformProperty(property as JSONSchema),
-          // initializer: property.default as string,
-          hasQuestionToken:
-            !definition.required || !definition.required.includes(name),
-        }
-        if ('default' in property) {
-          p.initializer = String(property.default)
-        }
-        if ('description' in property) {
-          p.docs = [String(property.description)]
-        }
-        inter.addProperty(p)
-        // addedProperty.setInitializer(property.default)
-      })
-      if (definition.description) {
-        inter.addJsDoc(definition.description)
-      }
-      // 有definition是原始类型的情况吗？
-    } else {
-      const t = sourceFile.addTypeAlias({
-        name: title,
-        type: transformProperty(definition as JSONSchema),
-      })
-      t.setIsExported(true)
-    }
-  })
 }
