@@ -132,9 +132,10 @@ export const generateDefinition = async (
       const klass = sourceFile.getClasses()[0]!
       refResult.forEach(r => {
         // console.log(r)
+        const isArray = r.path[r.path.length - 2] === 'items'
         klass.addProperty({
           name: r.name,
-          type: r.isArray ? `${r.type}[]` : r.type,
+          type: isArray ? `${r.type}[]` : r.type,
         })
       })
     }, primitiveInterface)

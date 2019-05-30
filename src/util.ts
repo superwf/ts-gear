@@ -1,7 +1,8 @@
-import { forEach, forOwn, isObject, map, upperFirst } from 'lodash'
+import { forEach, map, upperFirst } from 'lodash'
 import { resolve } from 'path'
+import traverse = require('traverse')
 import { OptionalKind, PropertySignatureStructure, SourceFile } from 'ts-morph'
-import { JSONSchema } from './interface'
+import { IRef, ISchemaNode, JSONSchema } from './interface'
 import { compile } from './source'
 
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
@@ -102,92 +103,57 @@ export const getGenericTypeName = (title: string): string[] => {
 
 /**
  * 递归处理对象值
- * 比如预先将所有int/Long转换成number
+ * 主要用来处理swagger schema中的paths与definitions
+ * @param {object} 对象，一般为json schema
+ * @param {funnction} 在递归中处理每个节点的函数
  * */
-export const traverse = (
+export const traverseSchema = (
   obj: { [k: string]: any },
-  func: any,
-  paths?: string[],
+  func: (v: ISchemaNode) => void,
 ) => {
-  if (!paths) {
-    paths = []
-  }
-  forOwn(obj, (val, key) => {
-    if (Array.isArray(val) && key !== 'required') {
-      val.forEach(el => {
-        traverse(el, func, [...paths!, key])
-      })
+  traverse(obj).forEach(function(this: any, value: any) {
+    // schema是从json来的应该没有circular
+    // 既然可以检查就还是校验一下
+    if (this.circular || !this.key || this.key === 'required') {
       return
     }
-    if (isObject(val)) {
-      traverse(val, func, [...paths!, key])
-      return
+    const node = {
+      value,
+      key: this.key,
+      parent: (this.parent || {}).node,
+      path: this.path,
     }
-    if (!!func) {
-      func({ val, obj, key }, paths)
-    }
+    func(node)
   })
-}
-
-interface IRefResult {
-  type: string
-  paths: string[]
-  name: string
-  description?: string
-  isArray: boolean
 }
 
 /** return the $refs paths
  * */
-export const getDefinitionRef = (schema: JSONSchema): IRefResult[] => {
+export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
   // let has = false
-  const result: IRefResult[] = []
-  // const refPaths: string[][] = []
-  traverse(schema, ({ val, obj, key }: any, paths: string[]) => {
+  const result: IRef[] = []
+  traverseSchema(schema, ({ value, parent, key, path }) => {
     if (key === '$ref') {
+      // console.log(key, path, path[path.length - 2] === 'items')
       result.push({
-        type: getSafeDefinitionTitle(val.replace('#/definitions/', ''))[0],
-        paths,
-        name: paths[1],
-        isArray: paths[paths.length - 1] === 'items',
-        description: val.description,
+        type: getSafeDefinitionTitle(value.replace('#/definitions/', ''))[0],
+        path,
+        name: path[1],
+        // isArray: path[path.length - 2] === 'items',
+        description: value.description,
       })
     }
   })
   return result
 }
 
-/** return true if has $ref
- * */
-export const hasRef = (schema: JSONSchema) => {
-  // 一旦有$ref，则利用throw中断traverse
-  try {
-    traverse(schema, ({ val, obj, key }: any) => {
-      if (key === '$ref') {
-        throw new Error('has $ref')
-      }
-    })
-    return false
-  } catch (e) {
-    return true
-  }
-}
-
-/** 在一个项目里有$ref引用了definitins里的Long和Long[]的情况
+/** ~~在一个项目里有$REF引用了DEFINITINS里的lONG和lONG[]的情况
  * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
- * 先这么处理一下
+ * 先这么处理一下~~
+ * 后来经过多次交流，确认Long是后端swagger配置错了，不再对Long做处理
  * 我始终认为$ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
  * */
-const transform$refName = ($ref: string) => {
-  const name = $ref.replace('#/definitions/', '')
-  if (name === 'Long') {
-    return 'number'
-  }
-  if (name === 'Long[]') {
-    return 'number[]'
-  }
-  return name
-}
+const transform$refName = ($ref: string) => $ref.replace('#/definitions/', '')
 
 /** 获取所有$ref的引用
  * 对象key是$ref的名字原始值，例如 #/defintions/name 的 name部分
@@ -195,11 +161,11 @@ const transform$refName = ($ref: string) => {
  * */
 export const getAllRef = (schema: JSONSchema) => {
   const refNames: { [k: string]: string } = {}
-  traverse(schema, ({ val, key }: { val: any; key: string }) => {
-    if (key === '$ref' && typeof val === 'string') {
-      const refName = getSafeDefinitionTitle(transform$refName(val))[0]
+  traverseSchema(schema, ({ value, key }) => {
+    if (key === '$ref' && typeof value === 'string') {
+      const refName = getSafeDefinitionTitle(transform$refName(value))[0]
       if (!isPrimitiveType(refName)) {
-        refNames[val.replace('#/definitions/', '')] = refName
+        refNames[value.replace('#/definitions/', '')] = refName
       }
     }
   })

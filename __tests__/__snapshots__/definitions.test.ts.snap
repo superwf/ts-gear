@@ -53,7 +53,10 @@ export class ApiResponse {
 `;
 
 exports[`generateDefinitions projectA 1`] = `
-"/**
+"export class AuditFlowDTO {
+    public ids?: number[];
+}
+/**
  * 审批流明细-部门跟价规则展示对象
  */
 export class AuditFlowDeptFollowRuleDetailVO {
@@ -66,9 +69,17 @@ export class AuditFlowDeptFollowRuleDetailVO {
      */
     public bandType?: string;
     /**
+     * 规则设置的品类
+     */
+    public categoryNameList?: string[];
+    /**
      * 部门名称
      */
     public deptName?: string;
+    /**
+     * 规则头表id
+     */
+    public headerId?: number;
     /**
      * 审批流主键id
      */
@@ -82,7 +93,6 @@ export class AuditFlowDeptFollowRuleDetailVO {
      */
     public showApprovalBtn?: boolean;
     auditDetails: AuditItemVO[];
-    followRuleCategoryList: FollowRuleCategoryVO[];
     followRuleItemList: FollowRuleItem[];
     oppList: OpponentVO[];
 }
@@ -93,7 +103,11 @@ export class AuditFlowListVO {
     /**
      * 规则状态
      */
-    public auditStatus?: string;
+    public auditStatus?: number;
+    /**
+     * 一级品类
+     */
+    public cid1Name?: string;
     /**
      * 二级品类
      */
@@ -139,7 +153,7 @@ export class AuditItemVO {
     /**
      * 审批状态：1待审批 2驳回 3通过 4撤销 5其他人通过 6其他人驳回
      */
-    public auditStatus?: string;
+    public auditStatus?: number;
     /**
      * 创建时间
      */
@@ -148,6 +162,12 @@ export class AuditItemVO {
      * 更新时间
      */
     public operatedTime?: string;
+}
+/**
+ * 黑名单增加删除参数实体
+ */
+export class BlackListAddDeleteDTO {
+    public skuIds?: number[];
 }
 /**
  * 【黑名单】列表展示对象
@@ -190,9 +210,11 @@ export class BlackListVO {
  * 提交审批、保存部门跟价规则参数实体
  */
 export class DeptFollowRuleAddUpdateDTO {
-    public _cidList?: number[];
-    public _deptIdList?: string[];
-    public _salerErp?: string[];
+    public _cid1s?: number[];
+    public _cid2s?: number[];
+    public _cid3s?: number[];
+    public _dept3Ids?: string[];
+    public _salerErps?: string[];
     /**
      * 指定band设置方式，0固定band 1自定义band
      */
@@ -206,13 +228,21 @@ export class DeptFollowRuleAddUpdateDTO {
      */
     public cidList?: number[];
     /**
+     * 三级部门id
+     */
+    public deptId3?: string;
+    /**
      * 规则头表id
      */
     public headerId?: number;
     /**
-     * 规则设置的品类层级:0-一级品类，1-二级品类，2-三级品类;仅能选择2级和3级
+     * 规则设置的品类层级:1-一级品类，2-二级品类，3-三级品类;仅能选择2级和3级
      */
     public level?: number;
+    /**
+     * 规则名称
+     */
+    public ruleName?: string;
     followRuleItemList: FollowRuleItem[];
 }
 /**
@@ -244,13 +274,13 @@ export class DeptFollowRuleEditVO {
      */
     public bandType?: string;
     /**
+     * 规则设置的品类
+     */
+    public categoryNameList?: string[];
+    /**
      * 部门名称
      */
     public deptName?: string;
-    /**
-     * 规则设置的品类
-     */
-    public followRuleCategoryList?: string[];
     /**
      * 规则头表id
      */
@@ -322,6 +352,37 @@ export class DeptFollowRuleListVO {
      * 生效的规则头表
      */
     public validHeaderId?: number;
+}
+/**
+ * 【部门品类跟价规则】查看展示对象
+ */
+export class DeptFollowRuleViewVO {
+    /**
+     * 指定band设置方式，0固定band 1自定义band
+     */
+    public bandMode?: number;
+    /**
+     * band类型，sales销量band；gmv销售额band；pv点击band
+     */
+    public bandType?: string;
+    /**
+     * 规则设置的品类
+     */
+    public categoryNameList?: string[];
+    /**
+     * 部门名称
+     */
+    public deptName?: string;
+    /**
+     * 规则头表id
+     */
+    public headerId?: number;
+    /**
+     * 规则名称
+     */
+    public ruleName?: string;
+    followRuleItemList: FollowRuleItem[];
+    oppList: OpponentVO[];
 }
 export class FollowDegreeParam {
     /**
@@ -451,33 +512,18 @@ export class FollowPoolListVO {
     public topPromCount?: number;
 }
 /**
- * 【部门品类跟价规则-设置品类】编辑查看展示对象
+ * 自动定价组添加和删除SKU操作参数实体
  */
-export class FollowRuleCategoryVO {
+export class FollowPoolSkuAddDeleteDTO {
+    public _cid1s?: number[];
+    public _cid2s?: number[];
+    public _cid3s?: number[];
+    public _dept3Ids?: string[];
+    public _salerErps?: string[];
     /**
-     * 一级品类id
+     * 自动定价组添加或删除skuid列表
      */
-    public cid1?: number;
-    /**
-     * 二级品类id
-     */
-    public cid2?: number;
-    /**
-     * 三级品类id
-     */
-    public cid3?: number;
-    /**
-     * 一级品类名
-     */
-    public cname1?: string;
-    /**
-     * 二级品类名
-     */
-    public cname2?: string;
-    /**
-     * 三级品类名
-     */
-    public cname3?: string;
+    public skuIds?: number[];
 }
 /**
  * 跟价规则片对象
@@ -507,9 +553,11 @@ export class FollowRuleItem {
  * 手动调价参数定义
  */
 export class ManualAdjustPriceAddDTO {
-    public _cidList?: number[];
-    public _deptIdList?: string[];
-    public _salerErp?: string[];
+    public _cid1s?: number[];
+    public _cid2s?: number[];
+    public _cid3s?: number[];
+    public _dept3Ids?: string[];
+    public _salerErps?: string[];
     /**
      * 可维持天数
      */
@@ -546,7 +594,7 @@ export class OpponentVO {
 }
 export class OtherParam {
     /**
-     * 调价金额不超过X元
+     * 调价金额超过X元
      */
     public adjustAmountLimit?: number;
     /**
@@ -557,6 +605,10 @@ export class OtherParam {
      * 超过调价幅度，不跟价:上调幅度X%
      */
     public adjustUpperLimit?: number;
+    /**
+     * 调价金额超过X元：true超过阀值adjustAmountLimit必填
+     */
+    public exceedAdjustAmount?: boolean;
     /**
      * 超过调价幅度，不跟价:true不跟价时adjustLowerLimit和adjustUpperLimit参数不允许为空
      */
@@ -589,10 +641,6 @@ export class OtherParam {
      * 京东安全库存天数(jdOutSafeStockNotFollow为true时必填)
      */
     public jdSafeStockDay?: number;
-    /**
-     * 调价金额不超过X元：true不超过阀值adjustAmountLimit必填
-     */
-    public notExceedAdjustAmount?: boolean;
     /**
      * 跟低不跟高：true跟低不跟高
      */
@@ -761,9 +809,11 @@ export class PageVOUserInputDataListVO {
  * 是否自动发布价格更新参数实体
  */
 export class PoolIsAutoPubUpdateDTO {
-    public _cidList?: number[];
-    public _deptIdList?: string[];
-    public _salerErp?: string[];
+    public _cid1s?: number[];
+    public _cid2s?: number[];
+    public _cid3s?: number[];
+    public _dept3Ids?: string[];
+    public _salerErps?: string[];
     /**
      * 是否自动发布：1是,0否
      */
@@ -772,6 +822,15 @@ export class PoolIsAutoPubUpdateDTO {
      * sku 数组集合
      */
     public skuList?: number[];
+}
+/**
+ * 促销删除请求实体
+ */
+export class PromotionDeleteDTO {
+    /**
+     * 待删除促销id列表
+     */
+    public promoIds?: number[];
 }
 /**
  * 查看促销展示参数对象
@@ -849,17 +908,13 @@ export class PromotionVO {
     public timeEnd?: string;
 }
 /**
- * 手动发布价格返回sku具体错误信息
+ * 商品通过和拒绝价格实体
  */
-export class PubPriceErrorVO {
+export class PublishPricingDTO {
     /**
-     * 错误信息
+     * 价格计算调价单calcId串
      */
-    public errMsg?: string;
-    /**
-     * skuId
-     */
-    public skuId?: number;
+    public calcIds?: number[];
 }
 export class ReplyVO {
     /**
@@ -897,6 +952,17 @@ export class ReplyVODeptFollowRuleEditVO {
     public message: string;
     data: DeptFollowRuleEditVO;
 }
+export class ReplyVODeptFollowRuleViewVO {
+    /**
+     * 响应代码【0正确,非0错误】
+     */
+    public code: string;
+    /**
+     * 结果描述
+     */
+    public message: string;
+    data: DeptFollowRuleViewVO;
+}
 export class ReplyVOListOpponentVO {
     /**
      * 响应代码【0正确,非0错误】
@@ -907,17 +973,6 @@ export class ReplyVOListOpponentVO {
      */
     public message: string;
     data: OpponentVO[];
-}
-export class ReplyVOListPubPriceErrorVO {
-    /**
-     * 响应代码【0正确,非0错误】
-     */
-    public code: string;
-    /**
-     * 结果描述
-     */
-    public message: string;
-    data: PubPriceErrorVO[];
 }
 export class ReplyVOPageVOAuditFlowListVO {
     /**
@@ -1068,6 +1123,12 @@ export class UserInputDataAddUpdateDTO {
      * 价格约束结束时间
      */
     public toData?: string;
+}
+/**
+ * 用户输入数据删除参数实体
+ */
+export class UserInputDataDeleteDTO {
+    public skuIds?: number[];
 }
 /**
  * 【用户录入数据】编辑对象

@@ -345,12 +345,18 @@ export function deleteUserUsername(param: IDeleteUserUsernameParam) {
 
 exports[`generatePaths projectA paths 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
-import { ReplyVOPageVOAuditFlowListVO, ReplyVO, ReplyVOAuditFlowDeptFollowRuleDetailVO, ReplyVOPageVOBlackListVO, ReplyVOPageVODeptFollowRuleListVO, DeptFollowRuleAddUpdateDTO, ReplyVODeptFollowRuleEditVO, ReplyVOPageVOFollowPoolListVO, PoolIsAutoPubUpdateDTO, ManualAdjustPriceAddDTO, ReplyVOListPubPriceErrorVO, ReplyVOListOpponentVO, ReplyVOPromotionListVO, ReplyVOPageVOUserInputDataListVO, UserInputDataAddUpdateDTO, ReplyVOint, ReplyVOUserInputDataEditVO } from \\"./definitions\\";
+import { ReplyVOPageVOAuditFlowListVO, AuditFlowDTO, ReplyVO, ReplyVOAuditFlowDeptFollowRuleDetailVO, ReplyVOPageVOBlackListVO, BlackListAddDeleteDTO, ReplyVOPageVODeptFollowRuleListVO, DeptFollowRuleAddUpdateDTO, ReplyVODeptFollowRuleViewVO, ReplyVODeptFollowRuleEditVO, ReplyVOPageVOFollowPoolListVO, FollowPoolSkuAddDeleteDTO, PoolIsAutoPubUpdateDTO, ManualAdjustPriceAddDTO, ReplyVOListOpponentVO, PromotionDeleteDTO, ReplyVOPromotionListVO, PublishPricingDTO, ReplyVOPageVOUserInputDataListVO, UserInputDataAddUpdateDTO, UserInputDataDeleteDTO, ReplyVOint, ReplyVOUserInputDataEditVO } from \\"./definitions\\";
 
 interface IGetApiPricingAuditFlowParam {
     query?: {
         auditStatusList?: Array<number>
         createrList?: Array<string>
+        endIndex?: number
+        pageNo?: number
+        pageSize?: number
+        ruleType?: number
+        sortSign?: string
+        startIndex?: number
         };
 }
 
@@ -366,8 +372,8 @@ export function getApiPricingAuditFlow(param: IGetApiPricingAuditFlowParam) {
 }
 
 interface IPostApiPricingAuditFlowApprovalParam {
-    body?: {
-        ids?: number
+    body: {
+        auditFlowDTO: AuditFlowDTO
         };
 }
 
@@ -383,8 +389,8 @@ export function postApiPricingAuditFlowApproval(param: IPostApiPricingAuditFlowA
 }
 
 interface IPostApiPricingAuditFlowRejectParam {
-    body?: {
-        ids?: number
+    body: {
+        auditFlowDTO: AuditFlowDTO
         };
 }
 
@@ -399,18 +405,36 @@ export function postApiPricingAuditFlowReject(param: IPostApiPricingAuditFlowRej
               
 }
 
-interface IGetApiPricingAuditFlowType1IdParam {
+interface IPostApiPricingAuditFlowTakeBackParam {
+    body: {
+        auditFlowDTO: AuditFlowDTO
+        };
+}
+
+/**
+ * 批量取回
+ */
+export function postApiPricingAuditFlowTakeBack(param: IPostApiPricingAuditFlowTakeBackParam) {
+
+                const [ url, option ] = interceptRequest('/api/pricing/auditFlow/takeBack', param)
+                option.method = 'post'
+                return fetch(url, option).then<ReplyVO>(interceptResponse)
+              
+}
+
+interface IGetApiPricingAuditFlowTypeTypeIdParam {
     path?: {
         id?: number
+        type?: number
         };
 }
 
 /**
  * 查看审批流-部门跟价规则明细
  */
-export function getApiPricingAuditFlowType1Id(param: IGetApiPricingAuditFlowType1IdParam) {
+export function getApiPricingAuditFlowTypeTypeId(param: IGetApiPricingAuditFlowTypeTypeIdParam) {
 
-                const [ url, option ] = interceptRequest('/api/pricing/auditFlow/type1/:id', param)
+                const [ url, option ] = interceptRequest('/api/pricing/auditFlow/type/:type/:id', param)
                 option.method = 'get'
                 return fetch(url, option).then<ReplyVOAuditFlowDeptFollowRuleDetailVO>(interceptResponse)
               
@@ -426,6 +450,7 @@ interface IGetApiPricingBlackListParam {
         pageNo?: number
         pageSize?: number
         skuList?: Array<number>
+        sortSign?: string
         startIndex?: number
         };
 }
@@ -442,8 +467,8 @@ export function getApiPricingBlackList(param: IGetApiPricingBlackListParam) {
 }
 
 interface IPostApiPricingBlackListAddParam {
-    body?: {
-        skuIds?: number
+    body: {
+        blackListAddDeleteDTO: BlackListAddDeleteDTO
         };
 }
 
@@ -459,8 +484,8 @@ export function postApiPricingBlackListAdd(param: IPostApiPricingBlackListAddPar
 }
 
 interface IPostApiPricingBlackListRemoveParam {
-    body?: {
-        skuIds?: number
+    body: {
+        blackListAddDeleteDTO: BlackListAddDeleteDTO
         };
 }
 
@@ -484,6 +509,7 @@ interface IGetApiPricingDeptFollowRuleParam {
         level?: number
         pageNo?: number
         pageSize?: number
+        sortSign?: string
         startIndex?: number
         };
 }
@@ -546,7 +572,7 @@ export function getApiPricingDeptFollowRuleValidRuleHeaderId(param: IGetApiPrici
 
                 const [ url, option ] = interceptRequest('/api/pricing/deptFollowRule/validRule/:headerId', param)
                 option.method = 'get'
-                return fetch(url, option).then<ReplyVODeptFollowRuleEditVO>(interceptResponse)
+                return fetch(url, option).then<ReplyVODeptFollowRuleViewVO>(interceptResponse)
               
 }
 
@@ -599,6 +625,7 @@ interface IGetApiPricingFollowPoolParam {
         pageSize?: number
         skuFilterType?: string
         skuList?: Array<number>
+        sortSign?: string
         startIndex?: number
         upperBand?: number
         };
@@ -616,8 +643,8 @@ export function getApiPricingFollowPool(param: IGetApiPricingFollowPoolParam) {
 }
 
 interface IPostApiPricingFollowPoolAddParam {
-    body?: {
-        skuIds?: number
+    body: {
+        followPoolSkuAddDeleteDTO: FollowPoolSkuAddDeleteDTO
         };
 }
 
@@ -647,6 +674,7 @@ interface IGetApiPricingFollowPoolExportParam {
         pageSize?: number
         skuFilterType?: string
         skuList?: Array<number>
+        sortSign?: string
         startIndex?: number
         upperBand?: number
         };
@@ -681,8 +709,8 @@ export function postApiPricingFollowPoolIsAutoPub(param: IPostApiPricingFollowPo
 }
 
 interface IPostApiPricingFollowPoolRemoveParam {
-    body?: {
-        skuIds?: number
+    body: {
+        followPoolSkuAddDeleteDTO: FollowPoolSkuAddDeleteDTO
         };
 }
 
@@ -714,44 +742,11 @@ export function postApiPricingManualAdjustPrice(param: IPostApiPricingManualAdju
               
 }
 
-interface IPostApiPricingManualPublishPricePubParam {
-    body?: {
-        prIds?: number[]
-        };
-}
-
-/**
- * 批量发布商品价格
- */
-export function postApiPricingManualPublishPricePub(param: IPostApiPricingManualPublishPricePubParam) {
-
-                const [ url, option ] = interceptRequest('/api/pricing/manualPublishPrice/pub', param)
-                option.method = 'post'
-                return fetch(url, option).then<ReplyVOListPubPriceErrorVO>(interceptResponse)
-              
-}
-
-interface IPostApiPricingManualPublishPriceRejectParam {
-    body?: {
-        prIds?: number[]
-        };
-}
-
-/**
- * 批量拒绝商品价格
- */
-export function postApiPricingManualPublishPriceReject(param: IPostApiPricingManualPublishPriceRejectParam) {
-
-                const [ url, option ] = interceptRequest('/api/pricing/manualPublishPrice/reject', param)
-                option.method = 'post'
-                return fetch(url, option).then<ReplyVO>(interceptResponse)
-              
-}
-
 interface IGetApiPricingOpponentParam {
     query?: {
         cidList?: Array<number>
         level?: number
+        sortSign?: string
         };
 }
 
@@ -767,8 +762,8 @@ export function getApiPricingOpponent(param: IGetApiPricingOpponentParam) {
 }
 
 interface IDeleteApiPricingPromotionParam {
-    body?: {
-        promoIds?: number[]
+    body: {
+        promotionDeleteDTO: PromotionDeleteDTO
         };
 }
 
@@ -800,6 +795,40 @@ export function getApiPricingPromotionSkuId(param: IGetApiPricingPromotionSkuIdP
               
 }
 
+interface IPostApiPricingPublishPricingPubPriceParam {
+    body?: {
+        publishPricingDTO?: PublishPricingDTO
+        };
+}
+
+/**
+ * 批量发布商品价格
+ */
+export function postApiPricingPublishPricingPubPrice(param: IPostApiPricingPublishPricingPubPriceParam) {
+
+                const [ url, option ] = interceptRequest('/api/pricing/publishPricing/pubPrice', param)
+                option.method = 'post'
+                return fetch(url, option).then<ReplyVO>(interceptResponse)
+              
+}
+
+interface IPostApiPricingPublishPricingRejectPriceParam {
+    body?: {
+        publishPricingDTO?: PublishPricingDTO
+        };
+}
+
+/**
+ * 批量拒绝商品价格
+ */
+export function postApiPricingPublishPricingRejectPrice(param: IPostApiPricingPublishPricingRejectPriceParam) {
+
+                const [ url, option ] = interceptRequest('/api/pricing/publishPricing/rejectPrice', param)
+                option.method = 'post'
+                return fetch(url, option).then<ReplyVO>(interceptResponse)
+              
+}
+
 interface IGetApiPricingUserInputDataParam {
     query: {
         brandId?: number
@@ -810,6 +839,7 @@ interface IGetApiPricingUserInputDataParam {
         pageNo?: number
         pageSize?: number
         skuList?: Array<number>
+        sortSign?: string
         startIndex?: number
         };
 }
@@ -843,8 +873,8 @@ export function postApiPricingUserInputData(param: IPostApiPricingUserInputDataP
 }
 
 interface IDeleteApiPricingUserInputDataParam {
-    body?: {
-        id?: number
+    body: {
+        userInputDataDeleteDTO: UserInputDataDeleteDTO
         };
 }
 
@@ -869,6 +899,7 @@ interface IGetApiPricingUserInputDataExportParam {
         pageNo?: number
         pageSize?: number
         skuList?: Array<number>
+        sortSign?: string
         startIndex?: number
         };
 }

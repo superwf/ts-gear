@@ -472,6 +472,11 @@
   resolved "http://registry.m.jd.com/@types/stack-utils/download/@types/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha1-CoUdO9lkmPolwzq3J47TvWXwbD4=
 
+"@types/traverse@^0.6.25-alpha":
+  version "0.6.25-alpha"
+  resolved "http://registry.m.jd.com/@types/traverse/download/@types/traverse-0.6.25-alpha.tgz#6027bf790696cbafd4a137f50eb506815e50f855"
+  integrity sha1-YCe/eQaWy6/UoTf1DrUGgV5Q+FU=
+
 "@types/yargs@^12.0.2", "@types/yargs@^12.0.9":
   version "12.0.12"
   resolved "http://registry.m.jd.com/@types/yargs/download/@types/yargs-12.0.12.tgz#45dd1d0638e8c8f153e87d296907659296873916"
@@ -4324,6 +4329,11 @@ translation.js@^0.7.5:
     "@types/node" "^9.3.0"
     blueimp-md5 "^2.10.0"
     tslib "^1.8.1"
+
+traverse@^0.6.6:
+  version "0.6.6"
+  resolved "http://registry.m.jd.com/traverse/download/traverse-0.6.6.tgz#cbdf560fd7b9af632502fed40f918c157ea97137"
+  integrity sha1-y99WD9e5r2MlAv7UD5GMFX6pcTc=
 
 trim-right@^1.0.1:
   version "1.0.1"

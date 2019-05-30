@@ -2,19 +2,38 @@ import { JSONSchema4 } from 'json-schema'
 
 export type JSONSchema = JSONSchema4
 
-// add title to definition
-export interface IDefinition extends JSONSchema {
-  title: string
-}
-export interface IDefinitions {
-  [k: string]: IDefinition
+/** json schema每个节点traverse结构 */
+export interface ISchemaNode {
+  value: any
+  key: string
+  parent: any
+  path: string[]
 }
 
-export type HttpMethods = 'get' | 'post' | 'delete' | 'put'
+/** 从schema中处理过的ref数据的结构 */
+export interface IRef {
+  /** 对应definitions中的每项的key的名字，去掉了`#/definitions/`之后的部分 */
+  type: string
+  /** 在schema中对象的路径 */
+  path: string[]
+  /** 该ref所在properties的名字,
+   * 例如
+      "properties": {
+        "category": {
+          "$ref": "#/definitions/Category"
+        },
+      }
+      中的"category"
+   * */
+  name: string
+  /** 对应的注释，如果有的话 */
+  description?: string
+}
 
+/** 每个请求参数的原始schema结构 */
 export interface IParameter {
   name: string
-  in: 'query' | 'body' | 'path'
+  in: keyof IParameterSchema
   description: string
   required: boolean
   type: string
@@ -53,7 +72,7 @@ export interface IRequestDetail {
 
 interface IRequest {
   /** http method */
-  [k: string]: IRequestDetail
+  [path: string]: IRequestDetail
 }
 
 /** swagger "paths" */

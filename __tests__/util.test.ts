@@ -2,6 +2,7 @@ import {
   getGenericTypeName,
   getSafeDefinitionTitle,
   transformPathParameters,
+  traverseSchema,
 } from '../src/util'
 
 describe('util', () => {
@@ -41,5 +42,29 @@ describe('util', () => {
     expect(transformPathParameters('/api/user/{id}/edit/{role}')).toBe(
       '/api/user/:id/edit/:role',
     )
+  })
+
+  it('traverse', () => {
+    const fn = jest.fn()
+    const obj1 = { a: 1 }
+    traverseSchema(obj1, fn)
+    expect(fn).toHaveBeenCalledTimes(1)
+    expect(fn).toHaveBeenLastCalledWith({
+      value: 1,
+      parent: obj1,
+      key: 'a',
+      path: ['a'],
+    })
+
+    fn.mockReset()
+    const obj2 = { a: { b: 2 } }
+    traverseSchema(obj2, fn)
+    expect(fn).toHaveBeenCalledTimes(2)
+    expect(fn).toHaveBeenLastCalledWith({
+      value: 2,
+      parent: obj2.a,
+      key: 'b',
+      path: ['a', 'b'],
+    })
   })
 })

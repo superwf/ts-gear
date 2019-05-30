@@ -10,22 +10,29 @@ pont是法语，桥。
 经常使用该工具，可以很方便的感知后端接口定义的变化。
 ## install
 
-```sh
+```bash
 yarn install ts-gear
+// or
 npm install ts-gear
 ```
 
 ## 使用
 
 先在项目根目录下生成配置文件`ts-gear.js`。
-```
+
+[关于配置文件格式选型](https://wangfan.bj.cn/?p=1476)
+
+```javascript
 const config = {
   // 生成swagger配置ts文件的目录
   dest: './service',
   // projects是项目的数组
   projects: [
     {
+      // 每个项目的英文名，在dest指定的文件夹内会生成该项目名对应的文件夹
+      // 必须使用合法的路径名
       name: 'pet',
+      // source可以是本地文件或swagger doc的接口(以http开头)
       source: '__tests__/fixture/pet.json',
     },
     {
@@ -51,14 +58,14 @@ module.exports = config
 
 执行
 
-```sh
+```bash
 npx tsg // 如果tsg名称被占用，用npx ts-gear
 ```
 
 以上面的配置文件为例子
 会生成如下文件结构
 
-```sh
+```bash
 ▾ service/
   ▾ pet/
       definitions.ts

@@ -1,8 +1,48 @@
 {
   "swagger": "2.0",
-  "info": { "contact": {}, "license": {} },
-  "host": "192.168.1.11",
+  "info": {
+    "contact": {},
+    "license": {}
+  },
   "basePath": "/",
+  "tags": [
+    {
+      "name": "AuditFlow",
+      "description": "规则审批流"
+    },
+    {
+      "name": "BlackList",
+      "description": "黑名单"
+    },
+    {
+      "name": "DeptFollowRule",
+      "description": "部门跟价规则"
+    },
+    {
+      "name": "FollowPool",
+      "description": "跟价池"
+    },
+    {
+      "name": "ManualAdjustPrice",
+      "description": "手动调价"
+    },
+    {
+      "name": "Opponent",
+      "description": "匹配友商"
+    },
+    {
+      "name": "PublishPricing",
+      "description": "采销人工通过拒绝发布价格接口"
+    },
+    {
+      "name": "UserInputData",
+      "description": "用户录入数据接口"
+    },
+    {
+      "name": "promotion",
+      "description": "促销"
+    }
+  ],
   "paths": {
     "/api/pricing/auditFlow": {
       "get": {
@@ -17,7 +57,10 @@
             "description": "审批状态列表:1待审批 2驳回 3通过 4撤销",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int32" },
+            "items": {
+              "type": "integer",
+              "format": "int32"
+            },
             "collectionFormat": "multi"
           },
           {
@@ -26,8 +69,61 @@
             "description": "创建人ERP列表",
             "required": false,
             "type": "array",
-            "items": { "type": "string" },
+            "items": {
+              "type": "string"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "ruleType",
+            "in": "query",
+            "description": "审批类型",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -37,11 +133,21 @@
               "$ref": "#/definitions/ReplyVO«PageVO«AuditFlowListVO»»"
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -55,23 +161,39 @@
         "parameters": [
           {
             "in": "body",
-            "name": "ids",
-            "description": "id数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "auditFlowDTO",
+            "description": "auditFlowDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuditFlowDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -85,27 +207,89 @@
         "parameters": [
           {
             "in": "body",
-            "name": "ids",
-            "description": "id数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "auditFlowDTO",
+            "description": "auditFlowDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuditFlowDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
-    "/api/pricing/auditFlow/type1/{id}": {
+    "/api/pricing/auditFlow/takeBack": {
+      "post": {
+        "tags": ["AuditFlow"],
+        "summary": "批量取回",
+        "operationId": "takeBackBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "auditFlowDTO",
+            "description": "auditFlowDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/AuditFlowDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/auditFlow/type/{type}/{id}": {
       "get": {
         "tags": ["AuditFlow"],
         "summary": "查看审批流-部门跟价规则明细",
@@ -119,6 +303,14 @@
             "required": false,
             "type": "integer",
             "format": "int64"
+          },
+          {
+            "name": "type",
+            "in": "path",
+            "description": "规则类型",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
           }
         ],
         "responses": {
@@ -128,11 +320,21 @@
               "$ref": "#/definitions/ReplyVO«AuditFlowDeptFollowRuleDetailVO»"
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -179,7 +381,7 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
             "format": "int64",
@@ -213,8 +415,17 @@
             "description": "sku id列表",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "startIndex",
@@ -227,13 +438,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«PageVO«BlackListVO»»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PageVO«BlackListVO»»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -247,23 +470,39 @@
         "parameters": [
           {
             "in": "body",
-            "name": "skuIds",
-            "description": "skuId数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "blackListAddDeleteDTO",
+            "description": "blackListAddDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BlackListAddDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -277,23 +516,39 @@
         "parameters": [
           {
             "in": "body",
-            "name": "skuIds",
-            "description": "skuId数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "blackListAddDeleteDTO",
+            "description": "blackListAddDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/BlackListAddDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -340,10 +595,10 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
-            "format": "int64",
+            "format": "int32",
             "x-example": 1
           },
           {
@@ -369,6 +624,12 @@
             "x-example": 20
           },
           {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
             "name": "startIndex",
             "in": "query",
             "required": false,
@@ -383,11 +644,21 @@
               "$ref": "#/definitions/ReplyVO«PageVO«DeptFollowRuleListVO»»"
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       },
       "post": {
@@ -402,20 +673,36 @@
             "name": "deptFollowRuleAddUpdateDTO",
             "description": "保存【部门跟价规则】参数",
             "required": false,
-            "schema": { "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO" }
+            "schema": {
+              "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -432,20 +719,36 @@
             "name": "deptFollowRuleAddUpdateDTO",
             "description": "提交审批【部门跟价规则】参数",
             "required": false,
-            "schema": { "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO" }
+            "schema": {
+              "$ref": "#/definitions/DeptFollowRuleAddUpdateDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -468,13 +771,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«DeptFollowRuleEditVO»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«DeptFollowRuleViewVO»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -497,13 +812,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«DeptFollowRuleEditVO»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«DeptFollowRuleEditVO»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       },
       "delete": {
@@ -524,13 +851,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "204": { "description": "No Content" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -609,7 +948,7 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
             "format": "int64",
@@ -651,8 +990,17 @@
             "description": "sku id列表",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "startIndex",
@@ -678,11 +1026,21 @@
               "$ref": "#/definitions/ReplyVO«PageVO«FollowPoolListVO»»"
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -696,23 +1054,39 @@
         "parameters": [
           {
             "in": "body",
-            "name": "skuIds",
-            "description": "skuId数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "followPoolSkuAddDeleteDTO",
+            "description": "followPoolSkuAddDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FollowPoolSkuAddDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -791,7 +1165,7 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
             "format": "int64",
@@ -833,8 +1207,17 @@
             "description": "sku id列表",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "startIndex",
@@ -856,13 +1239,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -879,20 +1274,36 @@
             "name": "poolIsAutoPubUpdateDTO",
             "description": "批量更新是否自动发布价格",
             "required": false,
-            "schema": { "$ref": "#/definitions/PoolIsAutoPubUpdateDTO" }
+            "schema": {
+              "$ref": "#/definitions/PoolIsAutoPubUpdateDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -906,23 +1317,39 @@
         "parameters": [
           {
             "in": "body",
-            "name": "skuIds",
-            "description": "skuId数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "followPoolSkuAddDeleteDTO",
+            "description": "followPoolSkuAddDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/FollowPoolSkuAddDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -939,80 +1366,36 @@
             "name": "manualAdjustPriceAddDTO",
             "description": "调价参数",
             "required": false,
-            "schema": { "$ref": "#/definitions/ManualAdjustPriceAddDTO" }
+            "schema": {
+              "$ref": "#/definitions/ManualAdjustPriceAddDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
-        "deprecated": false
-      }
-    },
-    "/api/pricing/manualPublishPrice/pub": {
-      "post": {
-        "tags": ["ManualPublishPrice"],
-        "summary": "批量发布商品价格",
-        "operationId": "pubPriceBatchUsingPOST",
-        "consumes": ["application/json"],
-        "produces": ["*/*"],
-        "parameters": [
+        "security": [
           {
-            "in": "body",
-            "name": "prIds",
-            "description": "调价单id列表",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long[]" }
+            "Authorization": ["global"]
           }
         ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«List«PubPriceErrorVO»»" }
-          },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
-        },
-        "security": [{ "Authorization": ["global"] }],
-        "deprecated": false
-      }
-    },
-    "/api/pricing/manualPublishPrice/reject": {
-      "post": {
-        "tags": ["ManualPublishPrice"],
-        "summary": "批量拒绝商品价格",
-        "operationId": "rejectPriceBatchUsingPOST",
-        "consumes": ["application/json"],
-        "produces": ["*/*"],
-        "parameters": [
-          {
-            "in": "body",
-            "name": "prIds",
-            "description": "调价单id列表",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long[]" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
-          },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
-        },
-        "security": [{ "Authorization": ["global"] }],
         "deprecated": false
       }
     },
@@ -1028,7 +1411,10 @@
             "in": "query",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
           },
           {
@@ -1038,18 +1424,36 @@
             "type": "integer",
             "format": "int32",
             "x-example": 2
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«List«OpponentVO»»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«List«OpponentVO»»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1062,21 +1466,36 @@
         "parameters": [
           {
             "in": "body",
-            "name": "promoIds",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long[]" }
+            "name": "promotionDeleteDTO",
+            "description": "promotionDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/PromotionDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "204": { "description": "No Content" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1099,13 +1518,117 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«PromotionListVO»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«PromotionListVO»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/publishPricing/pubPrice": {
+      "post": {
+        "tags": ["PublishPricing"],
+        "summary": "批量发布商品价格",
+        "operationId": "pubPriceManuallyBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "publishPricingDTO",
+            "description": "批量通过价格-调价单id数组",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/PublishPricingDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
+        "deprecated": false
+      }
+    },
+    "/api/pricing/publishPricing/rejectPrice": {
+      "post": {
+        "tags": ["PublishPricing"],
+        "summary": "批量拒绝商品价格",
+        "operationId": "rejectPriceManuallyBatchUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "publishPricingDTO",
+            "description": "批量拒绝价格-调价单id数组",
+            "required": false,
+            "schema": {
+              "$ref": "#/definitions/PublishPricingDTO"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
+          },
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
+        },
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1152,7 +1675,7 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
             "format": "int64",
@@ -1186,8 +1709,17 @@
             "description": "sku过滤条件",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "startIndex",
@@ -1204,11 +1736,21 @@
               "$ref": "#/definitions/ReplyVO«PageVO«UserInputDataListVO»»"
             }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       },
       "post": {
@@ -1223,20 +1765,36 @@
             "name": "userInputDataAddUpdateDTO",
             "description": "新增、修改【用户录入数据】参数",
             "required": false,
-            "schema": { "$ref": "#/definitions/UserInputDataAddUpdateDTO" }
+            "schema": {
+              "$ref": "#/definitions/UserInputDataAddUpdateDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       },
       "delete": {
@@ -1247,22 +1805,36 @@
         "parameters": [
           {
             "in": "body",
-            "name": "id",
-            "description": "id数组",
-            "required": false,
-            "schema": { "$ref": "#/definitions/Long" }
+            "name": "userInputDataDeleteDTO",
+            "description": "userInputDataDeleteDTO",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/UserInputDataDeleteDTO"
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«int»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«int»"
+            }
           },
-          "204": { "description": "No Content" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1309,7 +1881,7 @@
           {
             "name": "level",
             "in": "query",
-            "description": "品类级别:0-一级品类，1-二级品类，2-三级品类",
+            "description": "品类级别:1-一级品类，2-二级品类，3-三级品类",
             "required": false,
             "type": "integer",
             "format": "int64",
@@ -1343,8 +1915,17 @@
             "description": "sku过滤条件",
             "required": false,
             "type": "array",
-            "items": { "type": "integer", "format": "int64" },
+            "items": {
+              "type": "integer",
+              "format": "int64"
+            },
             "collectionFormat": "multi"
+          },
+          {
+            "name": "sortSign",
+            "in": "query",
+            "required": false,
+            "type": "string"
           },
           {
             "name": "startIndex",
@@ -1357,13 +1938,25 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1386,14 +1979,28 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO"
+            }
           },
-          "201": { "description": "Created" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "201": {
+            "description": "Created"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     },
@@ -1416,28 +2023,59 @@
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«UserInputDataEditVO»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«UserInputDataEditVO»"
+            }
           },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          },
+          "404": {
+            "description": "Not Found"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": ["global"]
+          }
+        ],
         "deprecated": false
       }
     }
   },
   "securityDefinitions": {
-    "Authorization": { "type": "apiKey", "name": "TOKEN", "in": "header" }
+    "Authorization": {
+      "type": "apiKey",
+      "name": "TOKEN",
+      "in": "header"
+    }
   },
   "definitions": {
+    "AuditFlowDTO": {
+      "type": "object",
+      "properties": {
+        "ids": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "AuditFlowDTO"
+    },
     "AuditFlowDeptFollowRuleDetailVO": {
       "type": "object",
       "properties": {
         "auditDetails": {
           "type": "array",
           "description": "流程审批记录",
-          "items": { "$ref": "#/definitions/AuditItemVO" }
+          "items": {
+            "$ref": "#/definitions/AuditItemVO"
+          }
         },
         "bandMode": {
           "type": "integer",
@@ -1450,20 +2088,30 @@
           "example": "sales",
           "description": "band类型，sales销量band；gmv销售额band；pv点击band"
         },
+        "categoryNameList": {
+          "type": "array",
+          "description": "规则设置的品类",
+          "items": {
+            "type": "string"
+          }
+        },
         "deptName": {
           "type": "string",
           "example": "文仪业务一部",
           "description": "部门名称"
         },
-        "followRuleCategoryList": {
-          "type": "array",
-          "description": "规则设置的品类",
-          "items": { "$ref": "#/definitions/FollowRuleCategoryVO" }
-        },
         "followRuleItemList": {
           "type": "array",
           "description": "规则明细",
-          "items": { "$ref": "#/definitions/FollowRuleItem" }
+          "items": {
+            "$ref": "#/definitions/FollowRuleItem"
+          }
+        },
+        "headerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "规则头表id"
         },
         "id": {
           "type": "integer",
@@ -1474,7 +2122,9 @@
         "oppList": {
           "type": "array",
           "description": "可供选择的重点友商",
-          "items": { "$ref": "#/definitions/OpponentVO" }
+          "items": {
+            "$ref": "#/definitions/OpponentVO"
+          }
         },
         "ruleName": {
           "type": "string",
@@ -1494,9 +2144,15 @@
       "type": "object",
       "properties": {
         "auditStatus": {
-          "type": "string",
+          "type": "integer",
+          "format": "int32",
           "example": "待审批",
           "description": "规则状态"
+        },
+        "cid1Name": {
+          "type": "string",
+          "example": "办公用品",
+          "description": "一级品类"
         },
         "cid2Name": {
           "type": "string",
@@ -1515,6 +2171,7 @@
         },
         "createdTime": {
           "type": "string",
+          "format": "date-time",
           "example": "2019-04-15 13:37:00",
           "description": "创建时间"
         },
@@ -1531,6 +2188,7 @@
         },
         "operatedTime": {
           "type": "string",
+          "format": "date-time",
           "example": "2019-04-15 13:37:00",
           "description": "更新时间"
         },
@@ -1558,7 +2216,8 @@
           "description": "审批人ERP"
         },
         "auditStatus": {
-          "type": "string",
+          "type": "integer",
+          "format": "int32",
           "example": "待审批",
           "description": "审批状态：1待审批 2驳回 3通过 4撤销 5其他人通过 6其他人驳回"
         },
@@ -1574,6 +2233,20 @@
         }
       },
       "title": "AuditItemVO"
+    },
+    "BlackListAddDeleteDTO": {
+      "type": "object",
+      "properties": {
+        "skuIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "BlackListAddDeleteDTO",
+      "description": "黑名单增加删除参数实体"
     },
     "BlackListVO": {
       "type": "object",
@@ -1626,12 +2299,39 @@
     "DeptFollowRuleAddUpdateDTO": {
       "type": "object",
       "properties": {
-        "_cidList": {
+        "_cid1s": {
           "type": "array",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "_deptIdList": { "type": "array", "items": { "type": "string" } },
-        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "_cid2s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_cid3s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_dept3Ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_salerErps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "bandMode": {
           "type": "integer",
           "format": "int32",
@@ -1647,12 +2347,22 @@
           "type": "array",
           "example": [1, 2, 3, 4],
           "description": "规则设置的品类id",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "deptId3": {
+          "type": "string",
+          "example": 304,
+          "description": "三级部门id"
         },
         "followRuleItemList": {
           "type": "array",
           "description": "规则明细",
-          "items": { "$ref": "#/definitions/FollowRuleItem" }
+          "items": {
+            "$ref": "#/definitions/FollowRuleItem"
+          }
         },
         "headerId": {
           "type": "integer",
@@ -1664,7 +2374,12 @@
           "type": "integer",
           "format": "int32",
           "example": 2,
-          "description": "规则设置的品类层级:0-一级品类，1-二级品类，2-三级品类;仅能选择2级和3级"
+          "description": "规则设置的品类层级:1-一级品类，2-二级品类，3-三级品类;仅能选择2级和3级"
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
         }
       },
       "title": "DeptFollowRuleAddUpdateDTO",
@@ -1706,20 +2421,24 @@
           "example": "sales",
           "description": "band类型，sales销量band；gmv销售额band；pv点击band"
         },
+        "categoryNameList": {
+          "type": "array",
+          "description": "规则设置的品类",
+          "items": {
+            "type": "string"
+          }
+        },
         "deptName": {
           "type": "string",
           "example": "文仪业务一部",
           "description": "部门名称"
         },
-        "followRuleCategoryList": {
-          "type": "array",
-          "description": "规则设置的品类",
-          "items": { "type": "string" }
-        },
         "followRuleItemList": {
           "type": "array",
           "description": "规则明细",
-          "items": { "$ref": "#/definitions/FollowRuleItem" }
+          "items": {
+            "$ref": "#/definitions/FollowRuleItem"
+          }
         },
         "headerId": {
           "type": "integer",
@@ -1730,7 +2449,9 @@
         "oppList": {
           "type": "array",
           "description": "可供选择的重点友商",
-          "items": { "$ref": "#/definitions/OpponentVO" }
+          "items": {
+            "$ref": "#/definitions/OpponentVO"
+          }
         },
         "ruleName": {
           "type": "string",
@@ -1820,6 +2541,61 @@
       "title": "DeptFollowRuleListVO",
       "description": "【部门品类跟价规则】列表展示对象"
     },
+    "DeptFollowRuleViewVO": {
+      "type": "object",
+      "properties": {
+        "bandMode": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "指定band设置方式，0固定band 1自定义band"
+        },
+        "bandType": {
+          "type": "string",
+          "example": "sales",
+          "description": "band类型，sales销量band；gmv销售额band；pv点击band"
+        },
+        "categoryNameList": {
+          "type": "array",
+          "description": "规则设置的品类",
+          "items": {
+            "type": "string"
+          }
+        },
+        "deptName": {
+          "type": "string",
+          "example": "文仪业务一部",
+          "description": "部门名称"
+        },
+        "followRuleItemList": {
+          "type": "array",
+          "description": "规则明细",
+          "items": {
+            "$ref": "#/definitions/FollowRuleItem"
+          }
+        },
+        "headerId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1001,
+          "description": "规则头表id"
+        },
+        "oppList": {
+          "type": "array",
+          "description": "可供选择的重点友商",
+          "items": {
+            "$ref": "#/definitions/OpponentVO"
+          }
+        },
+        "ruleName": {
+          "type": "string",
+          "example": "文仪业务一部+二级：办公文具",
+          "description": "规则名称"
+        }
+      },
+      "title": "DeptFollowRuleViewVO",
+      "description": "【部门品类跟价规则】查看展示对象"
+    },
     "FollowDegreeParam": {
       "type": "object",
       "properties": {
@@ -1844,7 +2620,11 @@
     "FollowPoolListVO": {
       "type": "object",
       "properties": {
-        "cbj": { "type": "number", "example": 80.0, "description": "仓报价" },
+        "cbj": {
+          "type": "number",
+          "example": 80.0,
+          "description": "仓报价"
+        },
         "dpPrice": {
           "type": "number",
           "example": 35.0,
@@ -1968,7 +2748,11 @@
           "example": "需审批",
           "description": "状态"
         },
-        "stock": { "type": "number", "example": 1000.0, "description": "库存" },
+        "stock": {
+          "type": "number",
+          "example": 1000.0,
+          "description": "库存"
+        },
         "sumPromCount": {
           "type": "integer",
           "format": "int32",
@@ -1985,45 +2769,53 @@
       "title": "FollowPoolListVO",
       "description": "【跟价池】列表展示对象"
     },
-    "FollowRuleCategoryVO": {
+    "FollowPoolSkuAddDeleteDTO": {
       "type": "object",
       "properties": {
-        "cid1": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1001,
-          "description": "一级品类id"
+        "_cid1s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "cid2": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1001,
-          "description": "二级品类id"
+        "_cid2s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "cid3": {
-          "type": "integer",
-          "format": "int64",
-          "example": 1001,
-          "description": "三级品类id"
+        "_cid3s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "cname1": {
-          "type": "string",
-          "example": "生活用品",
-          "description": "一级品类名"
+        "_dept3Ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "cname2": {
-          "type": "string",
-          "example": "尿裤湿巾",
-          "description": "二级品类名"
+        "_salerErps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
         },
-        "cname3": {
-          "type": "string",
-          "example": "婴儿尿裤",
-          "description": "三级品类名"
+        "skuIds": {
+          "type": "array",
+          "description": "自动定价组添加或删除skuid列表",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       },
-      "title": "FollowRuleCategoryVO",
-      "description": "【部门品类跟价规则-设置品类】编辑查看展示对象"
+      "title": "FollowPoolSkuAddDeleteDTO",
+      "description": "自动定价组添加和删除SKU操作参数实体"
     },
     "FollowRuleItem": {
       "type": "object",
@@ -2046,7 +2838,10 @@
         "oppIds": {
           "type": "array",
           "description": "跟价友商id列表",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
         "otherParam": {
           "description": "其他约束",
@@ -2070,12 +2865,39 @@
       "type": "object",
       "required": ["price", "scene", "skuId"],
       "properties": {
-        "_cidList": {
+        "_cid1s": {
           "type": "array",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "_deptIdList": { "type": "array", "items": { "type": "string" } },
-        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "_cid2s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_cid3s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_dept3Ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_salerErps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "keepDay": {
           "type": "integer",
           "format": "int32",
@@ -2136,7 +2958,7 @@
         "adjustAmountLimit": {
           "type": "number",
           "example": 20.0,
-          "description": "调价金额不超过X元"
+          "description": "调价金额超过X元"
         },
         "adjustLowerLimit": {
           "type": "number",
@@ -2147,6 +2969,11 @@
           "type": "number",
           "example": 95.0,
           "description": "超过调价幅度，不跟价:上调幅度X%"
+        },
+        "exceedAdjustAmount": {
+          "type": "boolean",
+          "example": true,
+          "description": "调价金额超过X元：true超过阀值adjustAmountLimit必填"
         },
         "exceedAdjustRangeNotFollow": {
           "type": "boolean",
@@ -2168,7 +2995,9 @@
           "type": "array",
           "example": ["sum", "seckill"],
           "description": "未来有特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "inSpecialPromoNotFollow": {
           "type": "boolean",
@@ -2179,7 +3008,9 @@
           "type": "array",
           "example": ["sum", "seckill"],
           "description": "特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销",
-          "items": { "type": "string" }
+          "items": {
+            "type": "string"
+          }
         },
         "jdOutSafeStockNotFollow": {
           "type": "boolean",
@@ -2191,11 +3022,6 @@
           "format": "int32",
           "example": 7,
           "description": "京东安全库存天数(jdOutSafeStockNotFollow为true时必填)"
-        },
-        "notExceedAdjustAmount": {
-          "type": "boolean",
-          "example": true,
-          "description": "调价金额不超过X元：true不超过阀值adjustAmountLimit必填"
         },
         "onlyAdjustLower": {
           "type": "boolean",
@@ -2251,7 +3077,9 @@
         "entities": {
           "type": "array",
           "description": "数据列表",
-          "items": { "$ref": "#/definitions/AuditFlowListVO" }
+          "items": {
+            "$ref": "#/definitions/AuditFlowListVO"
+          }
         },
         "entityCount": {
           "type": "integer",
@@ -2307,7 +3135,9 @@
         "entities": {
           "type": "array",
           "description": "数据列表",
-          "items": { "$ref": "#/definitions/BlackListVO" }
+          "items": {
+            "$ref": "#/definitions/BlackListVO"
+          }
         },
         "entityCount": {
           "type": "integer",
@@ -2363,7 +3193,9 @@
         "entities": {
           "type": "array",
           "description": "数据列表",
-          "items": { "$ref": "#/definitions/DeptFollowRuleListVO" }
+          "items": {
+            "$ref": "#/definitions/DeptFollowRuleListVO"
+          }
         },
         "entityCount": {
           "type": "integer",
@@ -2419,7 +3251,9 @@
         "entities": {
           "type": "array",
           "description": "数据列表",
-          "items": { "$ref": "#/definitions/FollowPoolListVO" }
+          "items": {
+            "$ref": "#/definitions/FollowPoolListVO"
+          }
         },
         "entityCount": {
           "type": "integer",
@@ -2475,7 +3309,9 @@
         "entities": {
           "type": "array",
           "description": "数据列表",
-          "items": { "$ref": "#/definitions/UserInputDataListVO" }
+          "items": {
+            "$ref": "#/definitions/UserInputDataListVO"
+          }
         },
         "entityCount": {
           "type": "integer",
@@ -2519,12 +3355,39 @@
     "PoolIsAutoPubUpdateDTO": {
       "type": "object",
       "properties": {
-        "_cidList": {
+        "_cid1s": {
           "type": "array",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         },
-        "_deptIdList": { "type": "array", "items": { "type": "string" } },
-        "_salerErp": { "type": "array", "items": { "type": "string" } },
+        "_cid2s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_cid3s": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        },
+        "_dept3Ids": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "_salerErps": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
         "isAutoPub": {
           "type": "integer",
           "format": "int32",
@@ -2533,13 +3396,31 @@
         },
         "skuList": {
           "type": "array",
-          "example": "111324,111321",
           "description": "sku 数组集合",
-          "items": { "type": "integer", "format": "int64" }
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       },
       "title": "PoolIsAutoPubUpdateDTO",
       "description": "是否自动发布价格更新参数实体"
+    },
+    "PromotionDeleteDTO": {
+      "type": "object",
+      "properties": {
+        "promoIds": {
+          "type": "array",
+          "example": [1111, 2222],
+          "description": "待删除促销id列表",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "PromotionDeleteDTO",
+      "description": "促销删除请求实体"
     },
     "PromotionListVO": {
       "type": "object",
@@ -2564,7 +3445,9 @@
         "promotions": {
           "type": "array",
           "description": "促销列表对象",
-          "items": { "$ref": "#/definitions/PromotionVO" }
+          "items": {
+            "$ref": "#/definitions/PromotionVO"
+          }
         },
         "skuId": {
           "type": "integer",
@@ -2643,23 +3526,21 @@
       "title": "PromotionVO",
       "description": "促销展示对象"
     },
-    "PubPriceErrorVO": {
+    "PublishPricingDTO": {
       "type": "object",
       "properties": {
-        "errMsg": {
-          "type": "string",
-          "example": "考虑价格合规性，非采销人员无法调整ERP价格",
-          "description": "错误信息"
-        },
-        "skuId": {
-          "type": "integer",
-          "format": "int64",
-          "example": 111324,
-          "description": "skuId"
+        "calcIds": {
+          "type": "array",
+          "example": [1111, 2222],
+          "description": "价格计算调价单calcId串",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
         }
       },
-      "title": "PubPriceErrorVO",
-      "description": "手动发布价格返回sku具体错误信息"
+      "title": "PublishPricingDTO",
+      "description": "商品通过和拒绝价格实体"
     },
     "ReplyVO": {
       "type": "object",
@@ -2667,10 +3548,13 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
-        "data": { "type": "object", "description": "返回数据" },
+        "data": {
+          "type": "object",
+          "description": "返回数据"
+        },
         "message": {
           "type": "string",
           "example": "success",
@@ -2685,7 +3569,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2706,7 +3590,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2721,19 +3605,42 @@
       },
       "title": "ReplyVO«DeptFollowRuleEditVO»"
     },
+    "ReplyVO«DeptFollowRuleViewVO»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "000000",
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/DeptFollowRuleViewVO"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«DeptFollowRuleViewVO»"
+    },
     "ReplyVO«List«OpponentVO»»": {
       "type": "object",
       "required": ["code", "message"],
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
           "type": "array",
           "description": "返回数据",
-          "items": { "$ref": "#/definitions/OpponentVO" }
+          "items": {
+            "$ref": "#/definitions/OpponentVO"
+          }
         },
         "message": {
           "type": "string",
@@ -2743,35 +3650,13 @@
       },
       "title": "ReplyVO«List«OpponentVO»»"
     },
-    "ReplyVO«List«PubPriceErrorVO»»": {
-      "type": "object",
-      "required": ["code", "message"],
-      "properties": {
-        "code": {
-          "type": "string",
-          "example": 0,
-          "description": "响应代码【0正确,非0错误】"
-        },
-        "data": {
-          "type": "array",
-          "description": "返回数据",
-          "items": { "$ref": "#/definitions/PubPriceErrorVO" }
-        },
-        "message": {
-          "type": "string",
-          "example": "success",
-          "description": "结果描述"
-        }
-      },
-      "title": "ReplyVO«List«PubPriceErrorVO»»"
-    },
     "ReplyVO«PageVO«AuditFlowListVO»»": {
       "type": "object",
       "required": ["code", "message"],
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2792,7 +3677,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2813,7 +3698,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2834,7 +3719,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2855,7 +3740,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2876,7 +3761,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2897,7 +3782,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -2918,7 +3803,7 @@
       "properties": {
         "code": {
           "type": "string",
-          "example": 0,
+          "example": "000000",
           "description": "响应代码【0正确,非0错误】"
         },
         "data": {
@@ -3018,6 +3903,20 @@
       "title": "UserInputDataAddUpdateDTO",
       "description": "新增、更新【用户录入数据】的参数"
     },
+    "UserInputDataDeleteDTO": {
+      "type": "object",
+      "properties": {
+        "skuIds": {
+          "type": "array",
+          "items": {
+            "type": "integer",
+            "format": "int64"
+          }
+        }
+      },
+      "title": "UserInputDataDeleteDTO",
+      "description": "用户输入数据删除参数实体"
+    },
     "UserInputDataEditVO": {
       "type": "object",
       "properties": {
@@ -3094,7 +3993,11 @@
           "example": "图书-教育-少儿",
           "description": "分类名称"
         },
-        "cbj": { "type": "number", "example": 24.0, "description": "仓报价" },
+        "cbj": {
+          "type": "number",
+          "example": 24.0,
+          "description": "仓报价"
+        },
         "fromData": {
           "type": "string",
           "example": "2019-03-05",

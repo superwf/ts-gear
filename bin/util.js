@@ -125,7 +125,9 @@ exports.getGenericTypeName = function (title) {
 };
 /**
  * 递归处理对象值
- * 比如预先将所有int/Long转换成number
+ * 主要用来处理swagger schema中的paths与definitions
+ * @param {object} 对象，一般为json schema
+ * @param {funnction} 在递归中处理每个节点的函数
  * */
 exports.traverse = function (obj, func, paths) {
     if (!paths) {
@@ -184,21 +186,13 @@ exports.hasRef = function (schema) {
         return true;
     }
 };
-/** 在一个项目里有$ref引用了definitins里的Long和Long[]的情况
+/** ~~在一个项目里有$REF引用了DEFINITINS里的lONG和lONG[]的情况
  * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
- * 先这么处理一下
+ * 先这么处理一下~~
+ * 后来确认Long是后端swagger配置错了，不再对Long做处理
  * 我始终认为$ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
  * */
-var transform$refName = function ($ref) {
-    var name = $ref.replace('#/definitions/', '');
-    if (name === 'Long') {
-        return 'number';
-    }
-    if (name === 'Long[]') {
-        return 'number[]';
-    }
-    return name;
-};
+var transform$refName = function ($ref) { return $ref.replace('#/definitions/', ''); };
 /** 获取所有$ref的引用
  * 对象key是$ref的名字原始值，例如 #/defintions/name 的 name部分
  * 对象value是 转换成程序可用名称的名字
