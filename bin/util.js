@@ -112,7 +112,7 @@ exports.getDefinitionRef = function (schema) {
         if (key === '$ref') {
             // console.log(key, path, path[path.length - 2] === 'items')
             result.push({
-                type: exports.getSafeDefinitionTitle(value.replace('#/definitions/', ''))[0],
+                type: exports.getSafeDefinitionTitle(transform$refName(value))[0],
                 path: path,
                 name: path[1],
                 // isArray: path[path.length - 2] === 'items',
@@ -189,6 +189,7 @@ exports.transformProperty = function (property) {
     }
     // 原生类型可以用Exclude处理
     // 其他用any
+    // TODO 这段估计有错误，有测试用例再说
     if (not) {
         // 说明是原生类型
         if (typeof not === 'string') {

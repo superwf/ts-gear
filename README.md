@@ -5,19 +5,7 @@
 inspired by [pont](https://github.com/alibaba/pont)，pont是法语，桥。
 编程用英语，所以还是自己起了个`ts-gear`的英文名，ts是typescript与swagger的组合，gear寓意通过这个工具像齿轮一样，将前后端紧密的结合在一起，构成一架严密运转的机器。
 
-<div style="margin-bottom: 1rem;">
-<span style="font-size: 3rem; position: relative; top: -6px; left: 24px;">
-<b style="font-size: 2rem; vertical-align: text-top;">swagger</b>⚙
-</span>
-<span style="display: inline-block; position: relative; width: 4rem;font-size: 2rem; vertical-align: super;">
-⚙
-<b style="position: absolute; font-size: 1rem; top: 2rem; left: -1rem; white-space: nowrap;">ts-gear</b>
-</span>
-<span style="font-size: 3rem; position: relative; left: -50px; top: -6px;">
-⚙
-<b style="font-size: 2rem; vertical-align: text-top;">typescript</b>
-</span>
-</div>
+![](./logo.png)
 
 经常使用该工具，可以很方便的感知后端接口定义的变化。
 

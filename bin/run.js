@@ -97,7 +97,7 @@ exports.run = function () { return __awaiter(_this, void 0, void 0, function () 
                 return [4 /*yield*/, paths_1.generatePaths(schema)];
             case 5:
                 pathsContent = _c.sent();
-                pathsPath = path_1.join(projectPath, 'paths.ts');
+                pathsPath = path_1.join(projectPath, 'request.ts');
                 return [4 /*yield*/, prettierWrite_1["default"](pathsPath, pathsContent)
                     // 每个项目的拦截器文件只在第一次生成时copy一次
                     // 这个文件可能会写入一些请求的配置

@@ -36,7 +36,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 exports.__esModule = true;
-// import { JSONSchema4TypeName } from 'json-schema'
 var lodash_1 = require("lodash");
 var path_1 = require("path");
 var assembleRequestParam_1 = require("./assembleRequestParam");
@@ -66,7 +65,7 @@ exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void
                 }
                 path = paths[url];
                 _loop_1 = function (action) {
-                    var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, response200Schema, response200, responseTsContent, functTsContent;
+                    var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, response200$ref, response200, responseTsContent, functionTsContent;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -98,8 +97,8 @@ exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void
                                 _a.label = 2;
                             case 2:
                                 responseType = '';
-                                response200Schema = lodash_1.get(request.responses, '200.schema.$ref', null);
-                                if (response200Schema) {
+                                response200$ref = lodash_1.get(request.responses, '200.schema.$ref', null);
+                                if (response200$ref) {
                                     responseType = util_1.transformProperty(request.responses[200]);
                                     // 否则可能是response中行内定义的数据结构
                                     // 再单独生成一个type
@@ -116,6 +115,9 @@ exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void
                                         var functionData = {
                                             name: functionName,
                                             isExported: true,
+                                            // 把basePath加上
+                                            // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
+                                            // 如果需要加在interceptor里每个项目自行处理添加
                                             statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + path_1.join(basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
                                         };
                                         if (paramInterfaceName) {
@@ -134,8 +136,8 @@ exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void
                                         source.addFunction(functionData);
                                     })];
                             case 3:
-                                functTsContent = _a.sent();
-                                tsContent.push(functTsContent);
+                                functionTsContent = _a.sent();
+                                tsContent.push(functionTsContent);
                                 return [2 /*return*/];
                         }
                     });

@@ -92,6 +92,7 @@ function interceptRequest(url, option) {
     // 所以如果有formData时，直接给requestOption.body赋值即可
     if (option && option.formData) {
         var formData_1 = new FormData();
+        // 这种上传文件的情况，应该只有一维的键值对应，只用forEach处理第一层数据
         lodash_1.forEach(option.formData, function (v, k) {
             formData_1.append(k, v);
         });
@@ -100,7 +101,9 @@ function interceptRequest(url, option) {
     return [url, requestOption];
 }
 exports.interceptRequest = interceptRequest;
-/** transform response code here */
+/** 根据response的header处理各种返回数据
+ * 目前只是转了json和text两种，需要其他自行添加
+ * */
 function interceptResponse(res) {
     if (!res.ok) {
         throw new InterceptError("response not ok, status: " + res.status + ", " + res.statusText + ", url: " + res.url, interceptResponse);
