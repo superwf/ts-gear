@@ -1,6 +1,6 @@
 {
   "name": "ts-gear",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "swagger to typescript",
   "main": "lib/index.js",
   "typings": "src/index.ts",
@@ -25,7 +25,6 @@
     "translation.js": "^0.7.5",
     "traverse": "^0.6.6",
     "ts-morph": "^2.1.0",
-    "ts-node": "^8.1.0",
     "typescript": "^3.4.5"
   },
   "files": [

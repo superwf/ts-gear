@@ -1,4 +1,2 @@
 node_modules
 *.vim
-out
-example/service

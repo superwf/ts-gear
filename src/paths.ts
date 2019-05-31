@@ -1,11 +1,8 @@
-// import { JSONSchema4TypeName } from 'json-schema'
 import { camelCase, forEach, get, remove, upperFirst } from 'lodash'
 import { join } from 'path'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 import { assembleRequestParam } from './assembleRequestParam'
 import { interceptRequest, interceptResponse } from './interceptor'
-// import { generateDefinition } from './definitions'
-// import { format } from 'prettier'
 import { IPaths, JSONSchema } from './interface'
 import { compile } from './source'
 import { getAllRef, transformPathParameters, transformProperty } from './util'
@@ -59,8 +56,8 @@ export const generatePaths = async (schema: JSONSchema) => {
       let responseType = ''
 
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
-      const response200Schema = get(request.responses, '200.schema.$ref', null)
-      if (response200Schema) {
+      const response200$ref = get(request.responses, '200.schema.$ref', null)
+      if (response200$ref) {
         responseType = transformProperty(request.responses[200]!)
         // 否则可能是response中行内定义的数据结构
         // 再单独生成一个type
@@ -75,10 +72,13 @@ export const generatePaths = async (schema: JSONSchema) => {
         }
       }
 
-      const functTsContent = await compile(source => {
+      const functionTsContent = await compile(source => {
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
           isExported: true,
+          // 把basePath加上
+          // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
+          // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
             const [ url, option ] = ${interceptRequest.name}('${join(
             basePath,
@@ -109,7 +109,7 @@ export const generatePaths = async (schema: JSONSchema) => {
         source.addFunction(functionData)
       })
 
-      tsContent.push(functTsContent)
+      tsContent.push(functionTsContent)
     }
   }
 

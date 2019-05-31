@@ -47,7 +47,7 @@ export const run = async () => {
 
     // 生成paths内函数
     const pathsContent = await generatePaths(schema as JSONSchema)
-    const pathsPath = join(projectPath, 'paths.ts')
+    const pathsPath = join(projectPath, 'request.ts')
     await prettierWrite(pathsPath, pathsContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次

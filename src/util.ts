@@ -126,7 +126,7 @@ export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
     if (key === '$ref') {
       // console.log(key, path, path[path.length - 2] === 'items')
       result.push({
-        type: getSafeDefinitionTitle(value.replace('#/definitions/', ''))[0],
+        type: getSafeDefinitionTitle(transform$refName(value))[0],
         path,
         name: path[1],
         // isArray: path[path.length - 2] === 'items',

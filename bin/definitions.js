@@ -143,9 +143,10 @@ exports.generateDefinition = function (definition, title) { return __awaiter(_th
                         var klass = sourceFile.getClasses()[0];
                         refResult.forEach(function (r) {
                             // console.log(r)
+                            var isArray = r.path[r.path.length - 2] === 'items';
                             klass.addProperty({
                                 name: r.name,
-                                type: r.isArray ? r.type + "[]" : r.type
+                                type: isArray ? r.type + "[]" : r.type
                             });
                         });
                     }, primitiveInterface)];

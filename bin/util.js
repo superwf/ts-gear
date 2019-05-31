@@ -1,44 +1,8 @@
 "use strict";
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-var __generator = (this && this.__generator) || function (thisArg, body) {
-    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
-    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
-    function verb(n) { return function (v) { return step([n, v]); }; }
-    function step(op) {
-        if (f) throw new TypeError("Generator is already executing.");
-        while (_) try {
-            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
-            if (y = 0, t) op = [op[0] & 2, t.value];
-            switch (op[0]) {
-                case 0: case 1: t = op; break;
-                case 4: _.label++; return { value: op[1], done: false };
-                case 5: _.label++; y = op[1]; op = [0]; continue;
-                case 7: op = _.ops.pop(); _.trys.pop(); continue;
-                default:
-                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
-                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
-                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
-                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
-                    if (t[2]) _.ops.pop();
-                    _.trys.pop(); continue;
-            }
-            op = body.call(thisArg, _);
-        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
-        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
-    }
-};
-var _this = this;
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var path_1 = require("path");
-var source_1 = require("./source");
+var traverse = require("traverse");
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
 exports.tsGearRoot = path_1.resolve(__dirname, '../');
 /**
@@ -76,12 +40,6 @@ exports.transformPathParameters = function (v) {
     })
         .join('/');
 };
-/** 基础类型或由基础类型构成的数组 */
-exports.isPrimitiveType = function (type) {
-    return ['number', 'string', 'boolean'].some(function (t) {
-        return type === t || type === t + "[]";
-    });
-};
 /** 解析definitions中的title
  * @return [title, 带有泛型格式的title]
  * 例如 ['ReplyVOUser', 'ReplyVO<User>']
@@ -100,7 +58,6 @@ exports.getSafeDefinitionTitle = function (title) {
     // 一些可能的类型转换预处理
     // TODO 不完善，之后遇到再添加
     // title = title.replace(/«int»/g, '«number»')
-    // title = title.replace(/«Long»/g, '«number»')
     if (/[^a-z0-9]/i.test(title)) {
         var compositeTitle = title.replace(/«/g, '<').replace(/»/g, '>');
         // 将List转换为Array
@@ -129,83 +86,63 @@ exports.getGenericTypeName = function (title) {
  * @param {object} 对象，一般为json schema
  * @param {funnction} 在递归中处理每个节点的函数
  * */
-exports.traverse = function (obj, func, paths) {
-    if (!paths) {
-        paths = [];
-    }
-    lodash_1.forOwn(obj, function (val, key) {
-        if (Array.isArray(val) && key !== 'required') {
-            val.forEach(function (el) {
-                exports.traverse(el, func, paths.concat([key]));
-            });
+exports.traverseSchema = function (obj, func) {
+    traverse(obj).forEach(function (value) {
+        // schema是从json来的应该没有circular
+        // 既然可以检查就还是校验一下
+        if (this.circular || !this.key || this.key === 'required') {
             return;
         }
-        if (lodash_1.isObject(val)) {
-            exports.traverse(val, func, paths.concat([key]));
-            return;
-        }
-        if (!!func) {
-            func({ val: val, obj: obj, key: key }, paths);
-        }
+        var node = {
+            value: value,
+            key: this.key,
+            parent: (this.parent || {}).node,
+            path: this.path
+        };
+        func(node);
     });
 };
-/** return the $refs paths
+/** 收集所有$ref
  * */
 exports.getDefinitionRef = function (schema) {
     // let has = false
     var result = [];
-    // const refPaths: string[][] = []
-    exports.traverse(schema, function (_a, paths) {
-        var val = _a.val, obj = _a.obj, key = _a.key;
+    exports.traverseSchema(schema, function (_a) {
+        var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
         if (key === '$ref') {
+            // console.log(key, path, path[path.length - 2] === 'items')
             result.push({
-                type: exports.getSafeDefinitionTitle(val.replace('#/definitions/', ''))[0],
-                paths: paths,
-                name: paths[1],
-                isArray: paths[paths.length - 1] === 'items',
-                description: val.description
+                type: exports.getSafeDefinitionTitle(value.replace('#/definitions/', ''))[0],
+                path: path,
+                name: path[1],
+                // isArray: path[path.length - 2] === 'items',
+                description: value.description
             });
         }
     });
     return result;
 };
-/** return true if has $ref
- * */
-exports.hasRef = function (schema) {
-    // 一旦有$ref，则利用throw中断traverse
-    try {
-        exports.traverse(schema, function (_a) {
-            var val = _a.val, obj = _a.obj, key = _a.key;
-            if (key === '$ref') {
-                throw new Error('has $ref');
-            }
-        });
-        return false;
-    }
-    catch (e) {
-        return true;
-    }
-};
 /** ~~在一个项目里有$REF引用了DEFINITINS里的lONG和lONG[]的情况
  * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
  * 先这么处理一下~~
- * 后来确认Long是后端swagger配置错了，不再对Long做处理
- * 我始终认为$ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
+ * 后来经过多次交流，确认Long是后端swagger配置错了，不再对Long做处理
+ *
+ * $ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
  * */
 var transform$refName = function ($ref) { return $ref.replace('#/definitions/', ''); };
 /** 获取所有$ref的引用
- * 对象key是$ref的名字原始值，例如 #/defintions/name 的 name部分
- * 对象value是 转换成程序可用名称的名字
+ * 返回对象
+ * key是$ref的名字原始值，例如 #/defintions/name 的 name部分
+ * value是 转换成程序可用名称的名字
  * */
 exports.getAllRef = function (schema) {
     var refNames = {};
-    exports.traverse(schema, function (_a) {
-        var val = _a.val, key = _a.key;
-        if (key === '$ref' && typeof val === 'string') {
-            var refName = exports.getSafeDefinitionTitle(transform$refName(val))[0];
-            if (!exports.isPrimitiveType(refName)) {
-                refNames[val.replace('#/definitions/', '')] = refName;
-            }
+    exports.traverseSchema(schema, function (_a) {
+        var value = _a.value, key = _a.key;
+        if (key === '$ref' && typeof value === 'string') {
+            var keyInDefinitions = transform$refName(value);
+            var refName = exports.getSafeDefinitionTitle(transform$refName(value))[0];
+            refNames[keyInDefinitions] = refName;
         }
     });
     return refNames;
@@ -298,44 +235,3 @@ exports.transformProperty = function (property) {
             throw new Error("not valid json schema type: " + type);
     }
 };
-/** 生产inline的interface结构 */
-exports.generatePrimitiveInterface = function (definition, title) { return __awaiter(_this, void 0, void 0, function () {
-    return __generator(this, function (_a) {
-        // const sourceFile = project.createSourceFile(virtualFileName)
-        return [2 /*return*/, source_1.compile(function (sourceFile) {
-                if (definition.type === 'object') {
-                    var inter_1 = sourceFile.addInterface({
-                        name: exports.getSafeDefinitionTitle(title)[0]
-                    });
-                    inter_1.setIsExported(true);
-                    lodash_1.forEach(definition.properties, function (property, name) {
-                        var p = {
-                            name: name,
-                            type: exports.transformProperty(property),
-                            // initializer: property.default as string,
-                            hasQuestionToken: !definition.required || !definition.required.includes(name)
-                        };
-                        if ('default' in property) {
-                            p.initializer = String(property["default"]);
-                        }
-                        if ('description' in property) {
-                            p.docs = [String(property.description)];
-                        }
-                        inter_1.addProperty(p);
-                        // addedProperty.setInitializer(property.default)
-                    });
-                    if (definition.description) {
-                        inter_1.addJsDoc(definition.description);
-                    }
-                    // 有definition是原始类型的情况吗？
-                }
-                else {
-                    var t = sourceFile.addTypeAlias({
-                        name: title,
-                        type: exports.transformProperty(definition)
-                    });
-                    t.setIsExported(true);
-                }
-            })];
-    });
-}); };

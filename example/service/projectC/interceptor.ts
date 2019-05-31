@@ -1,4 +1,4 @@
-/** 该文件只生产一次，之后可根据项目自行更改，不会被覆盖 */
+/** transform the transform url or option code here */
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 import * as URL from 'url'
@@ -36,7 +36,7 @@ export interface IRequestParameter {
   formData?: any
 }
 
-/** 将query与path参数都挂到url上去
+/** transform path and query parameter
  * transform parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) to '/api/abc/123?name=def'
  * */
 export const parseUrl = (url: string, option?: IRequestParameter): string => {
@@ -63,7 +63,7 @@ export const parseUrl = (url: string, option?: IRequestParameter): string => {
   return url
 }
 
-class InterceptError extends Error {
+class RequestError extends Error {
   constructor(message: string, hideStackFunc: any) {
     super(message)
     Error.captureStackTrace(this, hideStackFunc)
@@ -84,7 +84,7 @@ export function interceptRequest(
   } catch (e) {
     // skip this function
     // throw error to above stack, at fetch caller function position
-    throw new InterceptError(e.message, interceptRequest)
+    throw new RequestError(e.message, interceptRequest)
   }
   const requestOption: RequestInit = {
     // add the default request option here
@@ -102,10 +102,9 @@ export function interceptRequest(
     requestOption.body = option.body
   }
   // body 与 formData 不能同时存在
-  // 所以如果有formData时，直接给requestOption.body赋值即可
+  // 所以如果有formData时，直接想requestOption.body赋值即可
   if (option && option.formData) {
     const formData = new FormData()
-    // 这种上传文件的情况，应该只有一维的键值对应，只用forEach处理第一层数据
     forEach(option.formData, (v: any, k: string) => {
       formData.append(k, v)
     })
@@ -114,28 +113,7 @@ export function interceptRequest(
   return [url, requestOption]
 }
 
-/** 根据response的header处理各种返回数据
- * 目前只是转了json和text两种，需要其他自行添加
- * */
+/** transform the transform response code here */
 export function interceptResponse<T>(res: Response) {
-  if (!res.ok) {
-    throw new InterceptError(
-      `response not ok, status: ${res.status}, ${res.statusText}, url: ${
-        res.url
-      }`,
-      interceptResponse,
-    )
-  }
-  const contentType = res.headers.get('Content-Type')
-  if (contentType) {
-    if (contentType.includes(jsonType)) {
-      return res.json() as Promise<T>
-    }
-
-    if (contentType.includes('text/plain')) {
-      return res.text() as Promise<string>
-    }
-    // 在此处添加处理更多的response类型
-  }
-  return res
+  return res.json() as Promise<T>
 }
