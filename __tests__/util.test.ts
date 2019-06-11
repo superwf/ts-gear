@@ -1,12 +1,27 @@
 import {
   getGenericTypeName,
   getSafeDefinitionTitle,
+  getUniqName,
+  initializeSchema,
   transformPathParameters,
+  translateAsync,
   traverseSchema,
+  trimDefinitionPrefix,
 } from '../src/util'
 
 describe('util', () => {
-  it('getSafeDefinitionTitle', () => {
+  it.only('initializeSchema', async () => {
+    const pontFixture = require('../example/fixture/pontFixture.json')
+    await initializeSchema(pontFixture)
+  })
+
+  it('trimDefinitionPrefix remove `#/definitions/`', () => {
+    expect(trimDefinitionPrefix('#/definitions/abcdef')).toBe('abcdef')
+    expect(trimDefinitionPrefix('#/definitions/中文VO')).toBe('中文VO')
+    expect(trimDefinitionPrefix('xxx中文VO')).toBe('xxx中文VO')
+  })
+
+  it.skip('getSafeDefinitionTitle', () => {
     // const title = 'ReplyVO«List«DeptFollowRuleEditVO»»'
 
     expect(getSafeDefinitionTitle('PageVO')).toEqual(['PageVO', 'PageVO'])
@@ -66,5 +81,29 @@ describe('util', () => {
       key: 'b',
       path: ['a', 'b'],
     })
+  })
+
+  it('translateAsync', async () => {
+    const cn = '输出参数'
+    const word = await translateAsync(cn)
+    // expect(word).toBe(cn)
+    expect(word).toEqual('OutputParameters')
+  })
+
+  it('getUniqName', () => {
+    const definitions = {
+      AB: true,
+      AB1: true,
+      AB2: true,
+    }
+
+    expect(
+      getUniqName('AB', (key, num) => {
+        if (!num) {
+          return Reflect.has(definitions, key)
+        }
+        return Reflect.has(definitions, key + num)
+      }),
+    ).toBe('AB3')
   })
 })

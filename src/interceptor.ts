@@ -31,9 +31,10 @@ export interface IPath {
 /** request parameter option */
 export interface IRequestParameter {
   query?: IQuery
-  path?: IPath
   body?: any
+  path?: IPath
   formData?: any
+  header?: any
 }
 
 /** 将query与path参数都挂到url上去
@@ -96,6 +97,7 @@ export function interceptRequest(
     if (isPlainObject(body)) {
       requestOption.headers = {
         'Content-Type': jsonType,
+        ...option.header,
       }
       body = JSON.stringify(body)
     }

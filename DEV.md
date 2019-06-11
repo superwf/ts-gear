@@ -16,6 +16,18 @@
 
 * 获取本地json文件schema。
 
+## 格式化
+
+* 将所有`$ref`与`definitions`中的键的名称统一化
+
+  * pont的fixture中有中文definitions的情况，添加翻译中文部分为英文。
+
+  * 去除所有空格。
+
+  * 找到没有definitions中对应值的$ref的type，标记为any。
+
+  * 生成新的schema对象数，其中所有的`$ref`与`definitions`的key都是转换好的，之后的操作在该新对象上进行，原始数据不需要再访问。
+
 ## 输出
 
 * 将所有`definitions`写入`definitions.ts`。

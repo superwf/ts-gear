@@ -7,7 +7,7 @@ import {
 } from 'ts-morph'
 import { JSONSchema } from './interface'
 import { compile } from './source'
-import { getDefinitionRef, getSafeDefinitionTitle } from './util'
+import { getAllRefsInDefinitions, getSafeDefinitionTitle } from './util'
 
 interface IPrimitiveProperty {
   type: string
@@ -101,7 +101,7 @@ export const generateDefinition = async (
   definition: JSONSchema,
   title: string,
 ) => {
-  const refResult = getDefinitionRef(definition)
+  const refResult = getAllRefsInDefinitions(definition)
   if (refResult.length > 0) {
     // 先将不是$ref类型的property统计好
     // 生成只包含简单类型的结构
@@ -151,12 +151,10 @@ export const generateDefinitions = async (definitions: {
   [k: string]: JSONSchema
 }) => {
   const results: string[] = []
-  for (const name in definitions) {
-    if (definitions.hasOwnProperty(name)) {
-      const d = definitions[name]
-      const result = await generateDefinition(d as JSONSchema, name)
-      results.push(result)
-    }
+  for (const name of Object.getOwnPropertyNames(definitions)) {
+    const d = definitions[name]
+    const result = await generateDefinition(d as JSONSchema, name)
+    results.push(result)
   }
   return results.join('')
 }

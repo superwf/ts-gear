@@ -452,15 +452,15 @@
   resolved "http://registry.m.jd.com/@types/node/download/@types/node-11.11.6.tgz#df929d1bb2eee5afdda598a41930fe50b43eaa6a"
   integrity sha1-35KdG7Lu5a/dpZikGTD+ULQ+qmo=
 
+"@types/node@^11.13.7":
+  version "11.13.13"
+  resolved "http://registry.m.jd.com/@types/node/download/@types/node-11.13.13.tgz#a3d2a8a908ce322f24f0f8c88160b44c7dd5c452"
+  integrity sha1-o9KoqQjOMi8k8PjIgWC0TH3VxFI=
+
 "@types/node@^11.13.8":
   version "11.13.8"
   resolved "http://registry.m.jd.com/@types/node/download/@types/node-11.13.8.tgz#e5d71173c95533be9842b2c798978f095f912aab"
   integrity sha1-5dcRc8lVM76YQrLHmJePCV+RKqs=
-
-"@types/node@^9.3.0":
-  version "9.6.47"
-  resolved "http://registry.m.jd.com/@types/node/download/@types/node-9.6.47.tgz#655b4a1cc52c8ab08f48cc055061990d6846bc97"
-  integrity sha1-ZVtKHMUsirCPSMwFUGGZDWhGvJc=
 
 "@types/prettier@^1.16.3":
   version "1.16.3"
@@ -1111,6 +1111,11 @@ date-fns@^1.27.2:
   version "1.30.1"
   resolved "http://registry.m.jd.com/date-fns/download/date-fns-1.30.1.tgz#2e71bf0b119153dbb4cc4e88d9ea5acfb50dc05c"
   integrity sha1-LnG/CxGRU9u0zE6I2epaz7UNwFw=
+
+dateformat@3.0.2:
+  version "3.0.2"
+  resolved "http://registry.m.jd.com/dateformat/download/dateformat-3.0.2.tgz#9a4df4bff158ac2f34bc637abdb15471607e1659"
+  integrity sha1-mk30v/FYrC80vGN6vbFUcWB+Flk=
 
 debug@^2.2.0, debug@^2.3.3:
   version "2.6.9"
@@ -2376,6 +2381,16 @@ jest-haste-map@^24.8.0:
   optionalDependencies:
     fsevents "^1.2.7"
 
+jest-html-reporter@^2.5.0:
+  version "2.5.0"
+  resolved "http://registry.m.jd.com/jest-html-reporter/download/jest-html-reporter-2.5.0.tgz#74a1c9bdd9ddac902dc50d81eeb78f9b962cdfec"
+  integrity sha1-dKHJvdndrJAtxQ2B7rePm5Ys3+w=
+  dependencies:
+    dateformat "3.0.2"
+    mkdirp "0.5.1"
+    strip-ansi "3.0.1"
+    xmlbuilder "8.2.2"
+
 jest-jasmine2@^24.8.0:
   version "24.8.0"
   resolved "http://registry.m.jd.com/jest-jasmine2/download/jest-jasmine2-24.8.0.tgz#a9c7e14c83dd77d8b15e820549ce8987cc8cd898"
@@ -3054,7 +3069,7 @@ mixin-deep@^1.2.0:
     for-in "^1.0.2"
     is-extendable "^1.0.1"
 
-mkdirp@0.5.x, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
+mkdirp@0.5.1, mkdirp@0.5.x, mkdirp@0.x, mkdirp@^0.5.0, mkdirp@^0.5.1:
   version "0.5.1"
   resolved "http://registry.m.jd.com/mkdirp/download/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   integrity sha1-MAV0OOrGz3+MR2fzhkjWaX11yQM=
@@ -4149,7 +4164,7 @@ stringify-object@^3.2.2:
     is-obj "^1.0.1"
     is-regexp "^1.0.0"
 
-strip-ansi@^3.0.0, strip-ansi@^3.0.1:
+strip-ansi@3.0.1, strip-ansi@^3.0.0, strip-ansi@^3.0.1:
   version "3.0.1"
   resolved "http://registry.m.jd.com/strip-ansi/download/strip-ansi-3.0.1.tgz#6a385fb8853d952d5ff05d0e8aaf94278dc63dcf"
   integrity sha1-ajhfuIU9lS1f8F0Oiq+UJ43GPc8=
@@ -4315,15 +4330,15 @@ tr46@^1.0.1:
   dependencies:
     punycode "^2.1.0"
 
-translation.js@^0.7.5:
-  version "0.7.5"
-  resolved "http://registry.m.jd.com/translation.js/download/translation.js-0.7.5.tgz#97e871d78318770930773f297fffb40c4209b053"
-  integrity sha1-l+hx14MYdwkwdz8pf/+0DEIJsFM=
+translation.js@^0.7.8:
+  version "0.7.8"
+  resolved "http://registry.m.jd.com/translation.js/download/translation.js-0.7.8.tgz#55203426ddd7cb4db7b093a6777edc004ae214fa"
+  integrity sha1-VSA0Jt3Xy023sJOmd37cAEriFPo=
   dependencies:
     "@types/blueimp-md5" "^2.7.0"
-    "@types/node" "^9.3.0"
+    "@types/node" "^11.13.7"
     blueimp-md5 "^2.10.0"
-    tslib "^1.8.1"
+    tslib "^1.9.3"
 
 traverse@^0.6.6:
   version "0.6.6"
@@ -4373,6 +4388,11 @@ tslib@^1.8.0, tslib@^1.8.1, tslib@^1.9.0:
   version "1.9.3"
   resolved "http://registry.m.jd.com/tslib/download/tslib-1.9.3.tgz#d7e4dd79245d85428c4d7e4822a79917954ca286"
   integrity sha1-1+TdeSRdhUKMTX5IIqeZF5VMooY=
+
+tslib@^1.9.3:
+  version "1.10.0"
+  resolved "http://registry.m.jd.com/tslib/download/tslib-1.10.0.tgz#c3c19f95973fb0a62973fb09d90d961ee43e5c8a"
+  integrity sha1-w8GflZc/sKYpc/sJ2Q2WHuQ+XIo=
 
 tslint-config-prettier@^1.18.0:
   version "1.18.0"
@@ -4676,6 +4696,11 @@ xml-name-validator@^3.0.0:
   version "3.0.0"
   resolved "http://registry.m.jd.com/xml-name-validator/download/xml-name-validator-3.0.0.tgz#6ae73e06de4d8c6e47f9fb181f78d648ad457c6a"
   integrity sha1-auc+Bt5NjG5H+fsYH3jWSK1FfGo=
+
+xmlbuilder@8.2.2:
+  version "8.2.2"
+  resolved "http://registry.m.jd.com/xmlbuilder/download/xmlbuilder-8.2.2.tgz#69248673410b4ba42e1a6136551d2922335aa773"
+  integrity sha1-aSSGc0ELS6QuGmE2VR0pIjNap3M=
 
 "y18n@^3.2.1 || ^4.0.0":
   version "4.0.0"

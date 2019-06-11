@@ -1,6 +1,5 @@
 import { JSONSchema4TypeName } from 'json-schema'
 import { IParameter, IParameterSchema, JSONSchema } from './interface'
-// import { getSafeDefinitionTitle } from './util'
 
 // 参照
 // https://swagger.io/docs/specification/data-models/data-types/

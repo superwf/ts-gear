@@ -127,7 +127,7 @@ exports.generateDefinition = function (definition, title) { return __awaiter(_th
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
-                refResult = util_1.getDefinitionRef(definition);
+                refResult = util_1.getAllRefsInDefinitions(definition);
                 if (!(refResult.length > 0)) return [3 /*break*/, 2];
                 refNames_1 = refResult.map(function (r) { return r.name; });
                 primitiveDefinition = __assign({}, definition, { properties: lodash_1.reduce(definition.properties, function (r, v, k) {
@@ -158,26 +158,22 @@ exports.generateDefinition = function (definition, title) { return __awaiter(_th
  * 解析整个definitions
  * */
 exports.generateDefinitions = function (definitions) { return __awaiter(_this, void 0, void 0, function () {
-    var results, _a, _b, _i, name_1, d, result;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var results, _i, _a, name_1, d, result;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
             case 0:
                 results = [];
-                _a = [];
-                for (_b in definitions)
-                    _a.push(_b);
-                _i = 0;
-                _c.label = 1;
+                _i = 0, _a = Object.getOwnPropertyNames(definitions);
+                _b.label = 1;
             case 1:
                 if (!(_i < _a.length)) return [3 /*break*/, 4];
                 name_1 = _a[_i];
-                if (!definitions.hasOwnProperty(name_1)) return [3 /*break*/, 3];
                 d = definitions[name_1];
                 return [4 /*yield*/, exports.generateDefinition(d, name_1)];
             case 2:
-                result = _c.sent();
+                result = _b.sent();
                 results.push(result);
-                _c.label = 3;
+                _b.label = 3;
             case 3:
                 _i++;
                 return [3 /*break*/, 1];

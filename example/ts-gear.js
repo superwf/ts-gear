@@ -18,6 +18,10 @@ const config = {
       name: 'projectC',
       source: 'fixture/projectC.json',
     },
+    {
+      name: 'projectPont',
+      source: 'fixture/pontFixture.json',
+    },
   ],
 }
 

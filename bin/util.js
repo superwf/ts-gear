@@ -40,20 +40,22 @@ exports.transformPathParameters = function (v) {
     })
         .join('/');
 };
-/** 解析definitions中的title
- * @return [title, 带有泛型格式的title]
- * 例如 ['ReplyVOUser', 'ReplyVO<User>']
- * 例如List转换数组格式 ['ReplyVOListUser', 'ReplyVO<Array<User>>']
+/** 解析definitions中的每个对象的名称
+ * title 可能是`#/definitions/xxxx`，或去掉了`#/definitionsd/`之后的`xxxx`部分
+ * @return [可以作为合法变量名的title, 带有泛型格式的title, title原始值]
+ * 例如 Reply«VO«User»» ['ReplyVOUser', 'ReplyVO<User>', 'Reply«VO«User»»']
+ * 将List转换为Array，
+ * 例如 ReplyVO«List«User»» ['ReplyVOListUser', 'ReplyVO<Array<User>>', 'ReplyVO«List«User»»']
  * */
 exports.getSafeDefinitionTitle = function (title) {
-    if (['number', 'string', 'boolean'].some(function (t) {
-        return title === t || title === t + "[]";
-    })) {
-        return [title, title];
+    var originTitle = title;
+    var definitonPrefix = '#/definitions/';
+    if (title.startsWith(definitonPrefix)) {
+        title = title.replace(definitonPrefix, '');
     }
-    // 原始类型，非组合类型
-    if (/^[a-z\[\]0-9]+$/i.test(title)) {
-        return [lodash_1.upperFirst(camelCase(title)), title];
+    // 没有泛型的简单类型，全部由字母组成的类型名称
+    if (/^[a-z0-9_\-]+$/i.test(title)) {
+        return [lodash_1.upperFirst(camelCase(title)), title, originTitle];
     }
     // 一些可能的类型转换预处理
     // TODO 不完善，之后遇到再添加
@@ -64,7 +66,7 @@ exports.getSafeDefinitionTitle = function (title) {
         if (compositeTitle.includes('List<')) {
             compositeTitle = compositeTitle.replace(/([^a-z])?List/g, '$1Array');
         }
-        return [title.replace(/[^a-z\d]/gi, ''), compositeTitle];
+        return [title.replace(/[^a-z\d]/gi, ''), compositeTitle, originTitle];
     }
     throw new Error(title + " is not valid");
 };
@@ -102,9 +104,9 @@ exports.traverseSchema = function (obj, func) {
         func(node);
     });
 };
-/** 收集所有$ref
+/** 收集swagger schema中`definitions`中的所有`$ref`
  * */
-exports.getDefinitionRef = function (schema) {
+exports.getAllRefsInDefinitions = function (schema) {
     // let has = false
     var result = [];
     exports.traverseSchema(schema, function (_a) {
@@ -112,8 +114,9 @@ exports.getDefinitionRef = function (schema) {
         if (key === '$ref') {
             // console.log(key, path, path[path.length - 2] === 'items')
             result.push({
-                type: exports.getSafeDefinitionTitle(transform$refName(value))[0],
+                type: exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix(value))[0],
                 path: path,
+                // 见过的样例中中的所有definitions中的properties都只有一层属性，复杂属性的结构都会用$ref表示，因此path[1]可以表示该`properties`下的属性名字
                 name: path[1],
                 // isArray: path[path.length - 2] === 'items',
                 description: value.description
@@ -122,14 +125,12 @@ exports.getDefinitionRef = function (schema) {
     });
     return result;
 };
-/** ~~在一个项目里有$REF引用了DEFINITINS里的lONG和lONG[]的情况
- * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
- * 先这么处理一下~~
- * 后来经过多次交流，确认Long是后端swagger配置错了，不再对Long做处理
- *
- * $ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
+/**
+ * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
  * */
-var transform$refName = function ($ref) { return $ref.replace('#/definitions/', ''); };
+exports.trimDefinitionPrefix = function ($ref) {
+    return $ref.replace('#/definitions/', '');
+};
 /** 获取所有$ref的引用
  * 返回对象
  * key是$ref的名字原始值，例如 #/defintions/name 的 name部分
@@ -140,8 +141,8 @@ exports.getAllRef = function (schema) {
     exports.traverseSchema(schema, function (_a) {
         var value = _a.value, key = _a.key;
         if (key === '$ref' && typeof value === 'string') {
-            var keyInDefinitions = transform$refName(value);
-            var refName = exports.getSafeDefinitionTitle(transform$refName(value))[0];
+            var keyInDefinitions = exports.trimDefinitionPrefix(value);
+            var refName = exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix(value))[0];
             refNames[keyInDefinitions] = refName;
         }
     });
@@ -154,7 +155,7 @@ exports.transformProperty = function (property) {
         return "'" + enumValues.join("' | '") + "'";
     }
     if ($ref) {
-        return exports.getSafeDefinitionTitle(transform$refName($ref))[0];
+        return exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix($ref))[0];
     }
     if (schema) {
         return exports.transformProperty(schema);

@@ -51,4 +51,24 @@ describe('compile', () => {
     })
     expect(tsTemplate).toMatchSnapshot()
   })
+
+  it.only('structure', async () => {
+    const tsTemplate = await compile(
+      source => {
+        const a = source.getInterfaces()[0]
+        console.log(a.getStructure())
+        a.addProperty({
+          name: 'c',
+        })
+      },
+      `
+      interface A {
+        b: {
+          name: string
+        }
+      }
+      `,
+    )
+    console.log(tsTemplate)
+  })
 })

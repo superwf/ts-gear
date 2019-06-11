@@ -81,9 +81,7 @@ function interceptRequest(url, option) {
         // add application/json header when body is plain object
         // and auto json stringify the body
         if (lodash_1.isPlainObject(body)) {
-            requestOption.headers = {
-                'Content-Type': jsonType
-            };
+            requestOption.headers = __assign({ 'Content-Type': jsonType }, option.header);
             body = JSON.stringify(body);
         }
         requestOption.body = option.body;

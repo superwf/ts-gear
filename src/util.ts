@@ -1,4 +1,12 @@
-import { map, upperFirst } from 'lodash'
+import {
+  fromPairs,
+  map,
+  memoize,
+  MemoizedFunction,
+  uniq,
+  upperFirst,
+} from 'lodash'
+const { youdao, baidu, google } = require('translation.js')
 import { resolve } from 'path'
 import traverse = require('traverse')
 import { IRef, ISchemaNode, JSONSchema } from './interface'
@@ -44,22 +52,21 @@ export const transformPathParameters = (v: string) => {
     .join('/')
 }
 
-/** 解析definitions中的title
- * @return [title, 带有泛型格式的title]
- * 例如 ['ReplyVOUser', 'ReplyVO<User>']
- * 例如List转换数组格式 ['ReplyVOListUser', 'ReplyVO<Array<User>>']
+/** 解析definitions中的每个对象的名称
+ * title 可能是`#/definitions/xxxx`，或去掉了`#/definitionsd/`之后的`xxxx`部分
+ * @return [可以作为合法变量名的title, 带有泛型格式的title, title原始值]
+ * 例如 Reply«VO«User»» ['ReplyVOUser', 'ReplyVO<User>', 'Reply«VO«User»»']
+ * 将List转换为Array，
+ * 例如 ReplyVO«List«User»» ['ReplyVOListUser', 'ReplyVO<Array<User>>', 'ReplyVO«List«User»»']
  * */
-export const getSafeDefinitionTitle = (title: string): [string, string] => {
-  if (
-    ['number', 'string', 'boolean'].some(t => {
-      return title === t || title === `${t}[]`
-    })
-  ) {
-    return [title, title]
-  }
-  // 原始类型，非组合类型
-  if (/^[a-z\[\]0-9]+$/i.test(title)) {
-    return [upperFirst(camelCase(title)), title]
+export const getSafeDefinitionTitle = (
+  title: string,
+): [string, string, string] => {
+  const originTitle = title
+  title = trimDefinitionPrefix(title)
+  // 没有泛型的简单类型，全部由字母组成的类型名称
+  if (/^[a-z0-9_\-]+$/i.test(title)) {
+    return [upperFirst(camelCase(title)), title, originTitle]
   }
 
   // 一些可能的类型转换预处理
@@ -73,9 +80,69 @@ export const getSafeDefinitionTitle = (title: string): [string, string] => {
     if (compositeTitle.includes('List<')) {
       compositeTitle = compositeTitle.replace(/([^a-z])?List/g, '$1Array')
     }
-    return [title.replace(/[^a-z\d]/gi, ''), compositeTitle]
+    return [title.replace(/[^a-z\d]/gi, ''), compositeTitle, originTitle]
   }
   throw new Error(`${title} is not valid`)
+}
+
+/** 初始化整个schema
+ * 针对所有definitions的key，与所有$ref
+ * 放在traverseSchema中运行
+ * * 翻译
+ * * 去空格与不能作为变量名的非法字符
+ * * 首字母大写
+ * */
+export const initializeSchema = async (schema: JSONSchema) => {
+  // copy some translate part from pont src/scripts/base.ts
+  const cnReg = /[\u4e00-\u9fa5]/
+
+  const NotInDefinitions: string[] = []
+
+  let cnWords: string[] = []
+  const definitions = schema.definitions!
+
+  traverseSchema(schema, async ({ value, parent, key, path }) => {
+    if (key === '$ref' && typeof value === 'string') {
+      value = trimDefinitionPrefix(value)
+      // 将所有#/definitions/前缀去掉，之后就不用再处理了
+      parent.$ref = value
+      if (cnReg.test(value)) {
+        cnWords.push(value)
+      }
+    }
+  })
+  Reflect.ownKeys(definitions).forEach(key => {
+    if (typeof key === 'string' && cnReg.test(key)) {
+      cnWords.push(key)
+    }
+  })
+  cnWords = uniq(cnWords)
+
+  const cnEnPairs = await Promise.all(
+    uniq(cnWords).map(async (word, key) => {
+      return [cnWords[key], await translateAsync(word)]
+    }),
+  )
+  const cnMapToEn = fromPairs(cnEnPairs)
+  console.log(cnMapToEn)
+
+  // 再次通过两轮循环替换成中文
+  Reflect.ownKeys(definitions).forEach(key => {
+    if (typeof key === 'string' && Reflect.has(cnMapToEn, key)) {
+      definitions[cnMapToEn[key]] = definitions[key]
+      Reflect.deleteProperty(definitions, key)
+    }
+  })
+  traverseSchema(schema, async ({ value, parent, key, path }) => {
+    if (key === '$ref' && typeof value === 'string') {
+      if (Reflect.has(cnMapToEn, value)) {
+        parent.$ref = cnMapToEn[value]
+      }
+      if (!Reflect.has(definitions, parent.$ref)) {
+        NotInDefinitions.push(parent.$ref)
+      }
+    }
+  })
 }
 
 /**
@@ -117,17 +184,18 @@ export const traverseSchema = (
   })
 }
 
-/** 收集所有$ref
+/** 收集swagger schema中`definitions`中的所有`$ref`
  * */
-export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
+export const getAllRefsInDefinitions = (schema: JSONSchema): IRef[] => {
   // let has = false
   const result: IRef[] = []
   traverseSchema(schema, ({ value, parent, key, path }) => {
     if (key === '$ref') {
       // console.log(key, path, path[path.length - 2] === 'items')
       result.push({
-        type: getSafeDefinitionTitle(transform$refName(value))[0],
+        type: getSafeDefinitionTitle(trimDefinitionPrefix(value))[0],
         path,
+        // 见过的样例中中的所有definitions中的properties都只有一层属性，复杂属性的结构都会用$ref表示，因此path[1]可以表示该`properties`下的属性名字
         name: path[1],
         // isArray: path[path.length - 2] === 'items',
         description: value.description,
@@ -137,14 +205,11 @@ export const getDefinitionRef = (schema: JSONSchema): IRef[] => {
   return result
 }
 
-/** ~~在一个项目里有$REF引用了DEFINITINS里的lONG和lONG[]的情况
- * 但definitions里没有Long和Long[]的定义，我认为一定是swagger配置错误了，但java那边说Long是原生类型，框架自动转换过来的。
- * 先这么处理一下~~
- * 后来经过多次交流，确认Long是后端swagger配置错了，不再对Long做处理
- *
- * $ref里的引用，在definitions中必须有对应的定义，否则应该按throw处理。
+/**
+ * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
  * */
-const transform$refName = ($ref: string) => $ref.replace('#/definitions/', '')
+export const trimDefinitionPrefix = ($ref: string) =>
+  $ref.replace('#/definitions/', '')
 
 /** 获取所有$ref的引用
  * 返回对象
@@ -155,8 +220,8 @@ export const getAllRef = (schema: JSONSchema) => {
   const refNames: { [k: string]: string } = {}
   traverseSchema(schema, ({ value, key }) => {
     if (key === '$ref' && typeof value === 'string') {
-      const keyInDefinitions = transform$refName(value)
-      const refName = getSafeDefinitionTitle(transform$refName(value))[0]
+      const keyInDefinitions = trimDefinitionPrefix(value)
+      const refName = getSafeDefinitionTitle(trimDefinitionPrefix(value))[0]
       refNames[keyInDefinitions] = refName
     }
   })
@@ -164,7 +229,9 @@ export const getAllRef = (schema: JSONSchema) => {
 }
 
 /** 将schema转换为ts的类型 */
-export const transformProperty = (property: JSONSchema): string => {
+export const transformProperty = async (
+  property: JSONSchema,
+): Promise<string> => {
   const {
     type,
     enum: enumValues,
@@ -180,7 +247,7 @@ export const transformProperty = (property: JSONSchema): string => {
     return `'${enumValues.join("' | '")}'`
   }
   if ($ref) {
-    return getSafeDefinitionTitle(transform$refName($ref))[0]
+    return getSafeDefinitionTitle(trimDefinitionPrefix($ref))[0]
   }
   if (schema) {
     return transformProperty(schema)
@@ -265,4 +332,49 @@ export const transformProperty = (property: JSONSchema): string => {
     default:
       throw new Error(`not valid json schema type: ${type}`)
   }
+}
+
+const translateEngines = [youdao, baidu, google]
+
+/** 将一些definitinos与$ref中的中文翻印成可作为变量名的英文 */
+export const translateAsync: ((
+  text: string,
+  index?: number,
+) => Promise<string>) &
+  MemoizedFunction = memoize(async (text: string, engineIndex: number = 0) => {
+  if (engineIndex >= translateEngines.length) {
+    throw new Error('translate error, all translate engine can not access')
+  }
+
+  const index = engineIndex
+
+  try {
+    const res = await translateEngines[index].translate(text)
+    return res.result[0]
+      .split(' ')
+      .map(upperFirst)
+      .join('')
+
+    // return enKey;
+  } catch (err) {
+    return translateAsync(text, index + 1)
+  }
+})
+
+/** 生成唯一的名字
+ * 如果已经存在则名称后面的数字累加
+ * 搭配翻译功能用，因为翻译完的英文很可能重复
+ * */
+export const getUniqName = (
+  text: string,
+  exist: (t: string, acc?: number) => boolean,
+  accumulator?: number,
+): string => {
+  if (!exist(text, accumulator)) {
+    return text + accumulator
+  }
+  if (!accumulator) {
+    accumulator = 0
+  }
+  return getUniqName(text, exist, accumulator + 1)
 }

@@ -1,6 +1,5 @@
 "use strict";
 exports.__esModule = true;
-// import { getSafeDefinitionTitle } from './util'
 // 参照
 // https://swagger.io/docs/specification/data-models/data-types/
 // interface IProperty {
