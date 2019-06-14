@@ -248,6 +248,14 @@
           "format": "int32"
         }
       }
+    },
+    "ResultListMap": {
+      "type": "object",
+      "properties": {
+        "description": {
+          "type": "string"
+        }
+      }
     }
   }
 }

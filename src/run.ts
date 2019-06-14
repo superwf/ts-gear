@@ -1,11 +1,14 @@
 import { copyFileSync, existsSync, mkdirSync } from 'fs'
 import { join, resolve } from 'path'
-import { generateDefinitions } from './definitions'
+import {
+  transform$RefsNotInDefinitions,
+  transformDefinitionsToTypescript,
+} from './definitions'
 import { fetchSwaggerJSONSchema } from './fetchSwagger'
 import { IUserConfig, JSONSchema } from './interface'
 import { generatePaths } from './paths'
 import prettierWrite from './prettierWrite'
-import { tsGearRoot } from './util'
+import { initializeSchema, tsGearRoot } from './util'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
@@ -40,13 +43,21 @@ export const run = async () => {
       ? project.source
       : join(cwd, project.source)
     const schema = await fetchSwaggerJSONSchema(source, project.fetchOption)
+    const { $refsNotInDefinitions, $refsInPaths } = await initializeSchema(
+      schema,
+    )
+    const $refsTypes = await transform$RefsNotInDefinitions(
+      $refsNotInDefinitions,
+    )
     // 生成definitions
-    const definitions = await generateDefinitions(schema.definitions)
+    const definitions = await transformDefinitionsToTypescript(
+      schema.definitions,
+    )
     const definitionsPath = join(projectPath, 'definitions.ts')
-    await prettierWrite(definitionsPath, definitions)
+    await prettierWrite(definitionsPath, definitions + $refsTypes)
 
     // 生成paths内函数
-    const pathsContent = await generatePaths(schema as JSONSchema)
+    const pathsContent = await generatePaths(schema as JSONSchema, $refsInPaths)
     const pathsPath = join(projectPath, 'request.ts')
     await prettierWrite(pathsPath, pathsContent)
 

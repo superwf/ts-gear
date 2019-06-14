@@ -1,7 +1,44 @@
 "use strict";
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = op[0] & 2 ? y["return"] : op[0] ? y["throw"] || ((t = y["return"]) && t.call(y), 0) : y.next) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [op[0] & 2, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+var _this = this;
 exports.__esModule = true;
 var lodash_1 = require("lodash");
 var path_1 = require("path");
+var translation_js_1 = require("translation.js");
 var traverse = require("traverse");
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
 exports.tsGearRoot = path_1.resolve(__dirname, '../');
@@ -14,74 +51,142 @@ exports.tsGearRoot = path_1.resolve(__dirname, '../');
  * 这个自定义的camelCase统一该行为
  *  */
 var camelCase = function (name) {
-    var nonCharatorReg = /[^a-z0-9]/i;
-    if (nonCharatorReg.test(name)) {
+    var invalidVariableCharatorReg = /[^a-z0-9]/i;
+    if (invalidVariableCharatorReg.test(name)) {
         return name
             .split(/[^a-z0-9]/i)
             .map(function (n) { return lodash_1.upperFirst(n); })
             .join('');
     }
-    return name;
+    return lodash_1.upperFirst(name);
 };
-/** replace non charator and and return interface name */
-exports.getInterfaceName = function (v) {
-    return "I" + camelCase(v);
-};
-/** replace /abc/{id} to /abc/:id */
+/** transform /abc/{id} to /abc/:id */
 exports.transformPathParameters = function (v) {
-    return v
-        .split('/')
-        .map(function (s) {
-        var reg = /[{}]/g;
-        if (reg.test(s)) {
-            return ":" + s.replace(reg, '');
-        }
-        return s;
-    })
-        .join('/');
+    if (v.includes('{')) {
+        return v
+            .split('/')
+            .map(function (s) {
+            var reg = /[{}]/g;
+            if (reg.test(s)) {
+                return ":" + s.replace(reg, '');
+            }
+            return s;
+        })
+            .join('/');
+    }
+    return v;
 };
-/** 解析definitions中的每个对象的名称
- * title 可能是`#/definitions/xxxx`，或去掉了`#/definitionsd/`之后的`xxxx`部分
- * @return [可以作为合法变量名的title, 带有泛型格式的title, title原始值]
- * 例如 Reply«VO«User»» ['ReplyVOUser', 'ReplyVO<User>', 'Reply«VO«User»»']
- * 将List转换为Array，
- * 例如 ReplyVO«List«User»» ['ReplyVOListUser', 'ReplyVO<Array<User>>', 'ReplyVO«List«User»»']
+/** 初始化整个schema
+ * 针对所有definitions的key，与所有$ref
+ * 放在traverseSchema中运行
+ * * 翻译
+ * * 去空格与不能作为变量名的非法字符
+ * * 首字母大写
  * */
-exports.getSafeDefinitionTitle = function (title) {
-    var originTitle = title;
-    var definitonPrefix = '#/definitions/';
-    if (title.startsWith(definitonPrefix)) {
-        title = title.replace(definitonPrefix, '');
-    }
-    // 没有泛型的简单类型，全部由字母组成的类型名称
-    if (/^[a-z0-9_\-]+$/i.test(title)) {
-        return [lodash_1.upperFirst(camelCase(title)), title, originTitle];
-    }
-    // 一些可能的类型转换预处理
-    // TODO 不完善，之后遇到再添加
-    // title = title.replace(/«int»/g, '«number»')
-    if (/[^a-z0-9]/i.test(title)) {
-        var compositeTitle = title.replace(/«/g, '<').replace(/»/g, '>');
-        // 将List转换为Array
-        if (compositeTitle.includes('List<')) {
-            compositeTitle = compositeTitle.replace(/([^a-z])?List/g, '$1Array');
+exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, void 0, function () {
+    var cnReg, $refsNotInDefinitions, $refsInPaths, cnWords, definitions, cnMapToEn, cnEnPairs, nameConfictMap;
+    var _this = this;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                cnReg = /[\u4e00-\u9fa5]/;
+                $refsNotInDefinitions = new Set();
+                $refsInPaths = new Set();
+                cnWords = [];
+                definitions = schema.definitions;
+                exports.traverseSchema(schema, function (_a) {
+                    var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
+                    return __awaiter(_this, void 0, void 0, function () {
+                        return __generator(this, function (_b) {
+                            if (key === '$ref' && typeof value === 'string') {
+                                value = exports.trimDefinitionPrefix(value);
+                                // 将所有#/definitions/前缀去掉，之后就不用再处理了
+                                parent.$ref = value;
+                                if (cnReg.test(value)) {
+                                    cnWords.push(value);
+                                }
+                            }
+                            return [2 /*return*/];
+                        });
+                    });
+                });
+                Object.getOwnPropertyNames(definitions).forEach(function (key) {
+                    if (cnReg.test(key)) {
+                        cnWords.push(key);
+                    }
+                });
+                cnWords = lodash_1.uniq(cnWords);
+                cnMapToEn = {};
+                if (!cnWords) return [3 /*break*/, 2];
+                return [4 /*yield*/, Promise.all(cnWords.map(function (word, key) { return __awaiter(_this, void 0, void 0, function () {
+                        var _a;
+                        return __generator(this, function (_b) {
+                            switch (_b.label) {
+                                case 0:
+                                    _a = [cnWords[key]];
+                                    return [4 /*yield*/, exports.translateAsync(word)];
+                                case 1: return [2 /*return*/, _a.concat([_b.sent()])];
+                            }
+                        });
+                    }); }))];
+            case 1:
+                cnEnPairs = _a.sent();
+                cnMapToEn = lodash_1.fromPairs(cnEnPairs);
+                return [3 /*break*/, 3];
+            case 2:
+                cnMapToEn = {};
+                _a.label = 3;
+            case 3:
+                nameConfictMap = {};
+                // 再次通过两轮循环将$ref与definitions的key替换成中文
+                Object.getOwnPropertyNames(definitions).forEach(function (key) {
+                    var newKey = Reflect.has(cnMapToEn, key)
+                        ? camelCase(cnMapToEn[key])
+                        : camelCase(key);
+                    if (newKey !== key) {
+                        var uniqNewKey = exports.getUniqName(newKey, function (name) {
+                            return Reflect.has(definitions, name);
+                        });
+                        if (uniqNewKey !== newKey) {
+                            nameConfictMap[newKey] = uniqNewKey;
+                        }
+                        definitions[uniqNewKey] = definitions[key];
+                        Reflect.deleteProperty(definitions, key);
+                    }
+                });
+                exports.traverseSchema(schema, function (_a) {
+                    var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
+                    return __awaiter(_this, void 0, void 0, function () {
+                        var newKey;
+                        return __generator(this, function (_b) {
+                            if (key === '$ref' && typeof value === 'string') {
+                                newKey = Reflect.has(cnMapToEn, value)
+                                    ? camelCase(cnMapToEn[value])
+                                    : camelCase(value);
+                                if (newKey !== value) {
+                                    if (Reflect.has(nameConfictMap, newKey)) {
+                                        newKey = nameConfictMap[newKey];
+                                    }
+                                    parent.$ref = newKey;
+                                }
+                                if (!Reflect.has(definitions, parent.$ref)) {
+                                    $refsNotInDefinitions.add(parent.$ref);
+                                }
+                                if (path[0] === 'paths') {
+                                    $refsInPaths.add(parent.$ref);
+                                }
+                            }
+                            return [2 /*return*/];
+                        });
+                    });
+                });
+                return [2 /*return*/, {
+                        $refsNotInDefinitions: Array.from($refsNotInDefinitions),
+                        $refsInPaths: Array.from($refsInPaths)
+                    }];
         }
-        return [title.replace(/[^a-z\d]/gi, ''), compositeTitle, originTitle];
-    }
-    throw new Error(title + " is not valid");
-};
-/**
- * 从组合类型中获取泛型类型的名称
- * */
-exports.getGenericTypeName = function (title) {
-    if (title.includes('<')) {
-        var result = title.match(/\w+</g);
-        if (result) {
-            return result.map(function (t) { return t.replace('<', ''); });
-        }
-    }
-    return [];
-};
+    });
+}); };
 /**
  * 递归处理对象值
  * 主要用来处理swagger schema中的paths与definitions
@@ -104,49 +209,11 @@ exports.traverseSchema = function (obj, func) {
         func(node);
     });
 };
-/** 收集swagger schema中`definitions`中的所有`$ref`
- * */
-exports.getAllRefsInDefinitions = function (schema) {
-    // let has = false
-    var result = [];
-    exports.traverseSchema(schema, function (_a) {
-        var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
-        if (key === '$ref') {
-            // console.log(key, path, path[path.length - 2] === 'items')
-            result.push({
-                type: exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix(value))[0],
-                path: path,
-                // 见过的样例中中的所有definitions中的properties都只有一层属性，复杂属性的结构都会用$ref表示，因此path[1]可以表示该`properties`下的属性名字
-                name: path[1],
-                // isArray: path[path.length - 2] === 'items',
-                description: value.description
-            });
-        }
-    });
-    return result;
-};
 /**
  * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
  * */
 exports.trimDefinitionPrefix = function ($ref) {
     return $ref.replace('#/definitions/', '');
-};
-/** 获取所有$ref的引用
- * 返回对象
- * key是$ref的名字原始值，例如 #/defintions/name 的 name部分
- * value是 转换成程序可用名称的名字
- * */
-exports.getAllRef = function (schema) {
-    var refNames = {};
-    exports.traverseSchema(schema, function (_a) {
-        var value = _a.value, key = _a.key;
-        if (key === '$ref' && typeof value === 'string') {
-            var keyInDefinitions = exports.trimDefinitionPrefix(value);
-            var refName = exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix(value))[0];
-            refNames[keyInDefinitions] = refName;
-        }
-    });
-    return refNames;
 };
 /** 将schema转换为ts的类型 */
 exports.transformProperty = function (property) {
@@ -155,7 +222,7 @@ exports.transformProperty = function (property) {
         return "'" + enumValues.join("' | '") + "'";
     }
     if ($ref) {
-        return exports.getSafeDefinitionTitle(exports.trimDefinitionPrefix($ref))[0];
+        return $ref;
     }
     if (schema) {
         return exports.transformProperty(schema);
@@ -188,15 +255,8 @@ exports.transformProperty = function (property) {
         }
         return 'any';
     }
-    // 原生类型可以用Exclude处理
-    // 其他用any
-    // TODO 这段估计有错误，有测试用例再说
+    // 这个做不到覆盖所有情况，用any，更省心
     if (not) {
-        // 说明是原生类型
-        if (typeof not === 'string') {
-            // json schema里没有symbol，不用放进去
-            return "Exclude<number, string, object, boolean, null, undefined, " + not + ">";
-        }
         return "any";
     }
     switch (type) {
@@ -211,9 +271,12 @@ exports.transformProperty = function (property) {
         case 'integer':
         case 'number':
             return 'number';
-        // 按array一定有items处理
         case 'array':
-            return "Array<" + exports.transformProperty(items) + ">";
+            // array可以没有items，但在同级有$ref
+            if ($ref) {
+                return $ref + "[]";
+            }
+            return exports.transformProperty(items) + "[]";
         case 'object':
             var properties = property.properties, additionalProperties = property.additionalProperties, required_1 = property.required;
             if (properties) {
@@ -236,4 +299,59 @@ exports.transformProperty = function (property) {
         default:
             throw new Error("not valid json schema type: " + type);
     }
+};
+var translateEngines = [translation_js_1.youdao, translation_js_1.baidu, translation_js_1.google];
+/** 将一些definitinos与$ref中的中文翻印成可作为变量名的英文
+ * 使用memoize避免重复翻译
+ * */
+exports.translateAsync = lodash_1.memoize(function (text, engineIndex) {
+    if (engineIndex === void 0) { engineIndex = 0; }
+    return __awaiter(_this, void 0, void 0, function () {
+        var index, res, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (engineIndex >= translateEngines.length) {
+                        throw new Error('translate error, all translate engine can not access');
+                    }
+                    index = engineIndex;
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, translateEngines[index].translate(text)];
+                case 2:
+                    res = _a.sent();
+                    return [2 /*return*/, res.result[0]
+                            .split(' ')
+                            .map(lodash_1.upperFirst)
+                            .join('')
+                        // return enKey;
+                    ];
+                case 3:
+                    err_1 = _a.sent();
+                    return [2 /*return*/, exports.translateAsync(text, index + 1)];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+});
+/** 生成唯一的名字
+ * 如果已经存在则名称后面的数字累加
+ * 搭配翻译功能用，因为翻译完的英文很可能重复
+ * */
+exports.getUniqName = function (text, exist, accumulator) {
+    if (!accumulator) {
+        if (!exist(text)) {
+            return text;
+        }
+        accumulator = 1;
+    }
+    else {
+        var newText = "" + text + accumulator;
+        if (!exist(newText)) {
+            return newText;
+        }
+        accumulator += 1;
+    }
+    return exports.getUniqName(text, exist, accumulator);
 };

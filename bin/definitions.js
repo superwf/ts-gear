@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
@@ -47,118 +36,83 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 exports.__esModule = true;
-var lodash_1 = require("lodash");
+// import { forEach, reduce } from 'lodash'
 var ts_morph_1 = require("ts-morph");
 var source_1 = require("./source");
 var util_1 = require("./util");
-/** 转换简单原生类型 */
-var transformPrimitiveProperty = function (property) {
-    var type = property.type, enumValue = property["enum"], items = property.items;
-    if (enumValue) {
-        return "'" + enumValue.join("' | '") + "'";
-    }
-    switch (type) {
-        case 'string':
-            return 'string';
-        case 'boolean':
-            return 'boolean';
-        case 'null':
-            return 'null';
-        case 'integer':
-        case 'number':
-            return 'number';
-        case 'object':
-            return 'any';
-        case 'array':
-            return transformPrimitiveProperty(items) + "[]";
-        default:
-            throw new Error("not primitive type: " + type);
-    }
-};
 /** 生成一维property为原始类型的interface
  * */
-exports.generatePrimitiveDefinition = function (definition, title) { return __awaiter(_this, void 0, void 0, function () {
+exports.transformDefinitionToTsClass = function (definition, title) { return __awaiter(_this, void 0, void 0, function () {
     return __generator(this, function (_a) {
-        // const sourceFile = project.createSourceFile(virtualFileName)
         return [2 /*return*/, source_1.compile(function (sourceFile) {
                 if (definition.type === 'object') {
-                    var klass_1 = sourceFile.addClass({
-                        name: util_1.getSafeDefinitionTitle(title)[0]
-                    });
-                    if (definition.description) {
-                        klass_1.addJsDoc(definition.description);
+                    if (definition.properties) {
+                        var klass = sourceFile.addClass({
+                            name: title
+                        });
+                        if (definition.description) {
+                            klass.addJsDoc(definition.description);
+                        }
+                        klass.setIsExported(true);
+                        for (var _i = 0, _a = Object.getOwnPropertyNames(definition.properties); _i < _a.length; _i++) {
+                            var name_1 = _a[_i];
+                            var property = definition.properties[name_1];
+                            var klassStructure = {
+                                name: name_1,
+                                type: util_1.transformProperty(property),
+                                scope: ts_morph_1.Scope.Public,
+                                // initializer: property.default as string,
+                                hasQuestionToken: !definition.required || !definition.required.includes(name_1)
+                            };
+                            // interface不能有初始化的值
+                            // 考虑用class代替interface的话可以加上
+                            if (Reflect.has(property, 'default')) {
+                                klassStructure.initializer = String(property["default"]);
+                            }
+                            if (Reflect.has(property, 'description')) {
+                                klassStructure.docs = [String(property.description)];
+                            }
+                            klass.addProperty(klassStructure);
+                        }
+                        // 没有properties，会有additionalProperties
                     }
-                    klass_1.setIsExported(true);
-                    lodash_1.forEach(definition.properties, function (property, name) {
-                        var p = {
-                            name: name,
-                            type: transformPrimitiveProperty(property),
-                            scope: ts_morph_1.Scope.Public,
-                            // initializer: property.default as string,
-                            hasQuestionToken: !definition.required || !definition.required.includes(name)
+                    else if (definition.additionalProperties) {
+                        // ts-morph的class没有addIndexSignature，改用interface
+                        var interFace = sourceFile.addInterface({
+                            name: title
+                        });
+                        var additionalProperties = definition.additionalProperties;
+                        interFace.setIsExported(true);
+                        var interfaceStructure = {
+                            keyName: 'key',
+                            keyType: 'string',
+                            returnType: util_1.transformProperty(additionalProperties)
                         };
-                        // interface不能有初始化的值
-                        // 考虑用class代替interface的话可以加上
-                        if ('default' in property) {
-                            p.initializer = String(property["default"]);
+                        if (Reflect.has(additionalProperties, 'description')) {
+                            interfaceStructure.docs = [String(additionalProperties.description)];
                         }
-                        if ('description' in property) {
-                            p.docs = [String(property.description)];
-                        }
-                        klass_1.addProperty(p);
-                    });
-                    // 有definition是原始类型的情况吗？
-                    // 虽然没见过
-                    // 如果有的话按别名处理
+                        interFace.addIndexSignature(interfaceStructure);
+                    }
                 }
                 else {
                     var t = sourceFile.addTypeAlias({
                         name: title,
-                        type: transformPrimitiveProperty(definition)
+                        type: util_1.transformProperty(definition)
                     });
                     t.setIsExported(true);
                 }
-            })];
-    });
-}); };
-/** 将definition的properties分为两组，一组是primitive，另一组是有$ref的类型 */
-exports.generateDefinition = function (definition, title) { return __awaiter(_this, void 0, void 0, function () {
-    var refResult, refNames_1, primitiveDefinition, primitiveInterface;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0:
-                refResult = util_1.getAllRefsInDefinitions(definition);
-                if (!(refResult.length > 0)) return [3 /*break*/, 2];
-                refNames_1 = refResult.map(function (r) { return r.name; });
-                primitiveDefinition = __assign({}, definition, { properties: lodash_1.reduce(definition.properties, function (r, v, k) {
-                        if (!refNames_1.includes(k)) {
-                            r[k] = v;
-                        }
-                        return r;
-                    }, {}) });
-                return [4 /*yield*/, exports.generatePrimitiveDefinition(primitiveDefinition, title)];
-            case 1:
-                primitiveInterface = _a.sent();
-                return [2 /*return*/, source_1.compile(function (sourceFile) {
-                        var klass = sourceFile.getClasses()[0];
-                        refResult.forEach(function (r) {
-                            // console.log(r)
-                            var isArray = r.path[r.path.length - 2] === 'items';
-                            klass.addProperty({
-                                name: r.name,
-                                type: isArray ? r.type + "[]" : r.type
-                            });
-                        });
-                    }, primitiveInterface)];
-            case 2: return [2 /*return*/, exports.generatePrimitiveDefinition(definition, title)];
-        }
+            })
+            /**
+             * 解析整个definitions
+             * */
+        ];
     });
 }); };
 /**
  * 解析整个definitions
  * */
-exports.generateDefinitions = function (definitions) { return __awaiter(_this, void 0, void 0, function () {
-    var results, _i, _a, name_1, d, result;
+exports.transformDefinitionsToTypescript = function (definitions) { return __awaiter(_this, void 0, void 0, function () {
+    var results, _i, _a, name_2, definition, result;
     return __generator(this, function (_b) {
         switch (_b.label) {
             case 0:
@@ -167,9 +121,9 @@ exports.generateDefinitions = function (definitions) { return __awaiter(_this, v
                 _b.label = 1;
             case 1:
                 if (!(_i < _a.length)) return [3 /*break*/, 4];
-                name_1 = _a[_i];
-                d = definitions[name_1];
-                return [4 /*yield*/, exports.generateDefinition(d, name_1)];
+                name_2 = _a[_i];
+                definition = definitions[name_2];
+                return [4 /*yield*/, exports.transformDefinitionToTsClass(definition, name_2)];
             case 2:
                 result = _b.sent();
                 results.push(result);
@@ -177,7 +131,24 @@ exports.generateDefinitions = function (definitions) { return __awaiter(_this, v
             case 3:
                 _i++;
                 return [3 /*break*/, 1];
-            case 4: return [2 /*return*/, results.join('')];
+            case 4: return [2 /*return*/, results.join('\n')];
         }
+    });
+}); };
+/** 将所有$refsNames添加为any的别名 */
+exports.transform$RefsNotInDefinitions = function ($refNames) { return __awaiter(_this, void 0, void 0, function () {
+    return __generator(this, function (_a) {
+        if ($refNames.length > 0) {
+            return [2 /*return*/, source_1.compile(function (sourceFile) {
+                    $refNames.forEach(function (name) {
+                        var t = sourceFile.addTypeAlias({
+                            name: name,
+                            type: 'any'
+                        });
+                        t.setIsExported(true);
+                    });
+                })];
+        }
+        return [2 /*return*/, ''];
     });
 }); };

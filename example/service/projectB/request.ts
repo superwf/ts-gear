@@ -1,15 +1,15 @@
 import { interceptRequest, interceptResponse } from './interceptor'
 import {
-  ReplyVOListOpponentVO,
-  ReplyVOPageVOCisSkuListVO,
-  ReplyVOListPriceHistoryVO,
   CisMatchInfoDTO,
+  CisSkuDTO,
+  ReplyVOCisSkuShowVO,
+  ReplyVOConfigVO,
+  ReplyVOListOpponentSkuListVO,
+  ReplyVOListOpponentVO,
+  ReplyVOListPriceHistoryVO,
+  ReplyVOPageVOCisSkuListVO,
   ReplyVOVoid,
   SkuMatchDTO,
-  ReplyVOListOpponentSkuListVO,
-  CisSkuDTO,
-  ReplyVOConfigVO,
-  ReplyVOCisSkuShowVO,
 } from './definitions'
 
 interface IGetApiCompetitionOpponentParam {
@@ -32,13 +32,13 @@ export function getApiCompetitionOpponent(
 interface IGetApiCompetitionSkuParam {
   query?: {
     blackListStatus?: boolean
-    brandId?: Array<number>
-    cid?: Array<number>
+    brandId?: number[]
+    cid?: number[]
     cidLevel?: number
-    deptId?: Array<string>
+    deptId?: string[]
     deptLevel?: number
     endIndex?: number
-    gmvBand?: Array<string>
+    gmvBand?: string[]
     matchStatus?: boolean
     monitorStatus?: boolean
     orderBy?: string
@@ -47,12 +47,12 @@ interface IGetApiCompetitionSkuParam {
     pageSize?: number
     priceTag?: number
     priceType?: number
-    pvBand?: Array<string>
+    pvBand?: string[]
     salerErp?: string
-    salerErps?: Array<string>
-    salesBand?: Array<string>
+    salerErps?: string[]
+    salesBand?: string[]
     skuId?: string
-    skuIds?: Array<number>
+    skuIds?: number[]
     skuName?: string
     startIndex?: number
   }
@@ -169,13 +169,13 @@ export function getApiCompetitionSkuMatchSkuId(
 interface IGetApiCompetitionSkuMonitorParam {
   query?: {
     blackListStatus?: boolean
-    brandId?: Array<number>
-    cid?: Array<number>
+    brandId?: number[]
+    cid?: number[]
     cidLevel?: number
-    deptId?: Array<string>
+    deptId?: string[]
     deptLevel?: number
     endIndex?: number
-    gmvBand?: Array<string>
+    gmvBand?: string[]
     matchStatus?: boolean
     monitorStatus?: boolean
     orderBy?: string
@@ -184,12 +184,12 @@ interface IGetApiCompetitionSkuMonitorParam {
     pageSize?: number
     priceTag?: number
     priceType?: number
-    pvBand?: Array<string>
+    pvBand?: string[]
     salerErp?: string
-    salerErps?: Array<string>
-    salesBand?: Array<string>
+    salerErps?: string[]
+    salesBand?: string[]
     skuId?: string
-    skuIds?: Array<number>
+    skuIds?: number[]
     skuName?: string
     startIndex?: number
   }

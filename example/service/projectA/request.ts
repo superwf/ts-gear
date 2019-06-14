@@ -1,34 +1,34 @@
-import { interceptRequest, interceptResponse } from './interceptor'
 import {
-  ReplyVOPageVOAuditFlowListVO,
   AuditFlowDTO,
+  BlackListAddDeleteDTO,
+  DeptFollowRuleAddUpdateDTO,
+  FollowPoolSkuAddDeleteDTO,
+  ManualAdjustPriceAddDTO,
+  PoolIsAutoPubUpdateDTO,
+  PromotionDeleteDTO,
+  PublishPricingDTO,
   ReplyVO,
   ReplyVOAuditFlowDeptFollowRuleDetailVO,
-  ReplyVOPageVOBlackListVO,
-  BlackListAddDeleteDTO,
-  ReplyVOPageVODeptFollowRuleListVO,
-  DeptFollowRuleAddUpdateDTO,
-  ReplyVODeptFollowRuleViewVO,
   ReplyVODeptFollowRuleEditVO,
-  ReplyVOPageVOFollowPoolListVO,
-  FollowPoolSkuAddDeleteDTO,
-  PoolIsAutoPubUpdateDTO,
-  ManualAdjustPriceAddDTO,
+  ReplyVODeptFollowRuleViewVO,
+  ReplyVOInt,
   ReplyVOListOpponentVO,
-  PromotionDeleteDTO,
-  ReplyVOPromotionListVO,
-  PublishPricingDTO,
+  ReplyVOPageVOAuditFlowListVO,
+  ReplyVOPageVOBlackListVO,
+  ReplyVOPageVODeptFollowRuleListVO,
+  ReplyVOPageVOFollowPoolListVO,
   ReplyVOPageVOUserInputDataListVO,
+  ReplyVOPromotionListVO,
+  ReplyVOUserInputDataEditVO,
   UserInputDataAddUpdateDTO,
   UserInputDataDeleteDTO,
-  ReplyVOint,
-  ReplyVOUserInputDataEditVO,
 } from './definitions'
+import { interceptRequest, interceptResponse } from './interceptor'
 
 interface IGetApiPricingAuditFlowParam {
   query?: {
-    auditStatusList?: Array<number>
-    createrList?: Array<string>
+    auditStatusList?: number[]
+    createrList?: string[]
     endIndex?: number
     pageNo?: number
     pageSize?: number
@@ -138,7 +138,7 @@ interface IGetApiPricingBlackListParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: Array<number>
+    skuList?: number[]
     sortSign?: string
     startIndex?: number
   }
@@ -325,7 +325,7 @@ interface IGetApiPricingFollowPoolParam {
     pageNo?: number
     pageSize?: number
     skuFilterType?: string
-    skuList?: Array<number>
+    skuList?: number[]
     sortSign?: string
     startIndex?: number
     upperBand?: number
@@ -374,7 +374,7 @@ interface IGetApiPricingFollowPoolExportParam {
     pageNo?: number
     pageSize?: number
     skuFilterType?: string
-    skuList?: Array<number>
+    skuList?: number[]
     sortSign?: string
     startIndex?: number
     upperBand?: number
@@ -457,7 +457,7 @@ export function postApiPricingManualAdjustPrice(
 
 interface IGetApiPricingOpponentParam {
   query?: {
-    cidList?: Array<number>
+    cidList?: number[]
     level?: number
     sortSign?: string
   }
@@ -555,7 +555,7 @@ interface IGetApiPricingUserInputDataParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: Array<number>
+    skuList?: number[]
     sortSign?: string
     startIndex?: number
   }
@@ -605,7 +605,7 @@ export function deleteApiPricingUserInputData(
 ) {
   const [url, option] = interceptRequest('/api/pricing/userInputData', param)
   option.method = 'delete'
-  return fetch(url, option).then<ReplyVOint>(interceptResponse)
+  return fetch(url, option).then<ReplyVOInt>(interceptResponse)
 }
 
 interface IGetApiPricingUserInputDataExportParam {
@@ -617,7 +617,7 @@ interface IGetApiPricingUserInputDataExportParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: Array<number>
+    skuList?: number[]
     sortSign?: string
     startIndex?: number
   }

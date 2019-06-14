@@ -65,7 +65,7 @@ exports.fetchSwaggerJSONSchema = function (url, init) { return __awaiter(_this, 
                     return [2 /*return*/, JSON.parse(text)];
                 }
                 catch (_b) {
-                    console.log(text);
+                    log_1.error(text);
                     // 有可能由于单引号，json校验失败不能解析
                     // 如果还是出错就throw出来吧
                     return [2 /*return*/, eval("(" + text + ")")];

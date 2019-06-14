@@ -1,19 +1,5 @@
 "use strict";
 exports.__esModule = true;
-// 参照
-// https://swagger.io/docs/specification/data-models/data-types/
-// interface IProperty {
-//   type: string
-//   format?: string
-//   enum?: string[]
-//   items?: {
-//     type?: string
-//     $ref?: string
-//   }
-//   properties?: {
-//     [k: string]: IProperty
-//   }
-// }
 /** 将parameters中的成员添加到对应的query, body, path对象中 */
 var addParamProperty = function (parameter, parameterSchema) {
     var property = {};

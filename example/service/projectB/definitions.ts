@@ -4,6 +4,7 @@ export class CisMatchInfoDTO {
   public opponentSkuUrl?: string
   public uuid?: string
 }
+
 export class CisSkuDTO {
   public brandId?: number[]
   public cid?: number[]
@@ -21,6 +22,7 @@ export class CisSkuDTO {
   public skuId?: number[]
   public startIndex?: number
 }
+
 /**
  * 【比价sku】列表展示对象
  */
@@ -70,6 +72,7 @@ export class CisSkuListVO {
    * 监控状态
    */
   public monitorStatus?: boolean
+  public opponentMin?: OpponentSkuShowVO
   /**
    * 价格标签
    */
@@ -118,8 +121,8 @@ export class CisSkuListVO {
    * uv
    */
   public uv?: number
-  opponentMin: OpponentSkuShowVO
 }
+
 /**
  * 【比价sku】详情展示对象
  */
@@ -169,6 +172,7 @@ export class CisSkuShowVO {
    * 监控状态
    */
   public monitorStatus?: boolean
+  public opponentMin?: OpponentSkuShowVO
   /**
    * 价格标签
    */
@@ -217,12 +221,13 @@ export class CisSkuShowVO {
    * uv
    */
   public uv?: number
-  opponentMin: OpponentSkuShowVO
 }
+
 export class ConfigVO {
   public hour?: number
   public num?: number
 }
+
 /**
  * 匹配【友商sku】的参数
  */
@@ -236,6 +241,7 @@ export class OpponentMatchDTO {
    */
   public opponentSkuId: string
 }
+
 /**
  * 【友商sku】列表展示对象
  */
@@ -293,6 +299,7 @@ export class OpponentSkuListVO {
    */
   public url?: string
 }
+
 /**
  * 【友商sku】详情展示对象
  */
@@ -354,6 +361,7 @@ export class OpponentSkuShowVO {
    */
   public url?: string
 }
+
 /**
  * 【友商】详情展示对象
  */
@@ -367,7 +375,50 @@ export class OpponentVO {
    */
   public opponentName?: string
 }
+
+export class PriceHisDetailVO {
+  /**
+   * 商品价格更新时间
+   */
+  public date?: string
+  /**
+   * 价格
+   */
+  public price?: number
+}
+
+export class PriceHistoryVO {
+  /**
+   * 友商ID
+   */
+  public opponentId?: number
+  /**
+   * 友商名称
+   */
+  public opponentName?: string
+  public prices?: PriceHisDetailVO[]
+  /**
+   * 商品编码,含京东自己
+   */
+  public sku?: string
+}
+
+/**
+ * 匹配【京东sku】的参数
+ */
+export class SkuMatchDTO {
+  public opponent?: OpponentMatchDTO[]
+  /**
+   * 京东sku
+   */
+  public skuId: number
+}
+
 export class PageVOCisSkuListVO {
+  /**
+   * 数据列表
+   */
+  public entities: CisSkuListVO[]
   /**
    * 总条数
    */
@@ -392,99 +443,98 @@ export class PageVOCisSkuListVO {
    * 每页条数
    */
   public pageSize: number
-  entities: CisSkuListVO[]
 }
-export class PriceHisDetailVO {
-  /**
-   * 商品价格更新时间
-   */
-  public date?: string
-  /**
-   * 价格
-   */
-  public price?: number
-}
-export class PriceHistoryVO {
-  /**
-   * 友商ID
-   */
-  public opponentId?: number
-  /**
-   * 友商名称
-   */
-  public opponentName?: string
-  /**
-   * 商品编码,含京东自己
-   */
-  public sku?: string
-  prices: PriceHisDetailVO[]
-}
+
 export class ReplyVOCisSkuShowVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: CisSkuShowVO
+  /**
    * 结果描述
    */
   public message: string
-  data: CisSkuShowVO
 }
+
 export class ReplyVOConfigVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: ConfigVO
+  /**
    * 结果描述
    */
   public message: string
-  data: ConfigVO
 }
+
 export class ReplyVOListOpponentSkuListVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: OpponentSkuListVO[]
+  /**
    * 结果描述
    */
   public message: string
-  data: OpponentSkuListVO[]
 }
+
 export class ReplyVOListOpponentVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: OpponentVO[]
+  /**
    * 结果描述
    */
   public message: string
-  data: OpponentVO[]
 }
+
 export class ReplyVOListPriceHistoryVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: PriceHistoryVO[]
+  /**
    * 结果描述
    */
   public message: string
-  data: PriceHistoryVO[]
 }
+
 export class ReplyVOPageVOCisSkuListVO {
   /**
    * 响应代码【0正确,非0错误】
    */
   public code: string
   /**
+   * 返回数据
+   */
+  public data?: PageVOCisSkuListVO
+  /**
    * 结果描述
    */
   public message: string
-  data: PageVOCisSkuListVO
 }
+
 export class ReplyVOVoid {
   /**
    * 响应代码【0正确,非0错误】
@@ -494,14 +544,4 @@ export class ReplyVOVoid {
    * 结果描述
    */
   public message: string
-}
-/**
- * 匹配【京东sku】的参数
- */
-export class SkuMatchDTO {
-  /**
-   * 京东sku
-   */
-  public skuId: number
-  opponent: OpponentMatchDTO[]
 }

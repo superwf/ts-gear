@@ -9,6 +9,7 @@ export class Order {
   public status?: 'placed' | 'approved' | 'delivered'
   public complete?: boolean = false
 }
+
 export class User {
   public id?: number
   public username?: string
@@ -22,25 +23,29 @@ export class User {
    */
   public userStatus?: number
 }
+
 export class Category {
   public id?: number
   public name?: string
 }
+
 export class Tag {
   public id?: number
   public name?: string
 }
+
 export class Pet {
   public id?: number
+  public category?: Category
   public name: string
   public photoUrls: string[]
+  public tags?: Tag[]
   /**
    * pet status in the store
    */
   public status?: 'available' | 'pending' | 'sold'
-  category: Category
-  tags: Tag[]
 }
+
 export class ApiResponse {
   public code?: number
   public type?: string

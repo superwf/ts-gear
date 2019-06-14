@@ -1,10 +1,15 @@
 export class AuditFlowDTO {
   public ids?: number[]
 }
+
 /**
  * 审批流明细-部门跟价规则展示对象
  */
 export class AuditFlowDeptFollowRuleDetailVO {
+  /**
+   * 流程审批记录
+   */
+  public auditDetails?: AuditItemVO[]
   /**
    * 指定band设置方式，0固定band 1自定义band
    */
@@ -22,6 +27,10 @@ export class AuditFlowDeptFollowRuleDetailVO {
    */
   public deptName?: string
   /**
+   * 规则明细
+   */
+  public followRuleItemList?: FollowRuleItem[]
+  /**
    * 规则头表id
    */
   public headerId?: number
@@ -30,6 +39,10 @@ export class AuditFlowDeptFollowRuleDetailVO {
    */
   public id?: number
   /**
+   * 可供选择的重点友商
+   */
+  public oppList?: OpponentVO[]
+  /**
    * 规则名称
    */
   public ruleName?: string
@@ -37,10 +50,8 @@ export class AuditFlowDeptFollowRuleDetailVO {
    * 能否显示审批、拒绝按钮;true显示
    */
   public showApprovalBtn?: boolean
-  auditDetails: AuditItemVO[]
-  followRuleItemList: FollowRuleItem[]
-  oppList: OpponentVO[]
 }
+
 /**
  * 【规则审批流】列表展示页面对象
  */
@@ -90,6 +101,7 @@ export class AuditFlowListVO {
    */
   public type?: number
 }
+
 export class AuditItemVO {
   /**
    * 审批人ERP
@@ -108,12 +120,14 @@ export class AuditItemVO {
    */
   public operatedTime?: string
 }
+
 /**
  * 黑名单增加删除参数实体
  */
 export class BlackListAddDeleteDTO {
   public skuIds?: number[]
 }
+
 /**
  * 【黑名单】列表展示对象
  */
@@ -151,6 +165,7 @@ export class BlackListVO {
    */
   public skuName?: string
 }
+
 /**
  * 提交审批、保存部门跟价规则参数实体
  */
@@ -177,6 +192,10 @@ export class DeptFollowRuleAddUpdateDTO {
    */
   public deptId3?: string
   /**
+   * 规则明细
+   */
+  public followRuleItemList?: FollowRuleItem[]
+  /**
    * 规则头表id
    */
   public headerId?: number
@@ -188,8 +207,8 @@ export class DeptFollowRuleAddUpdateDTO {
    * 规则名称
    */
   public ruleName?: string
-  followRuleItemList: FollowRuleItem[]
 }
+
 /**
  * 【部门品类跟价规则】编辑查看展示对象
  */
@@ -227,9 +246,17 @@ export class DeptFollowRuleEditVO {
    */
   public deptName?: string
   /**
+   * 规则明细
+   */
+  public followRuleItemList?: FollowRuleItem[]
+  /**
    * 规则头表id
    */
   public headerId?: number
+  /**
+   * 可供选择的重点友商
+   */
+  public oppList?: OpponentVO[]
   /**
    * 规则名称
    */
@@ -246,9 +273,8 @@ export class DeptFollowRuleEditVO {
    * 是否显示'提交审批'按钮，true显示
    */
   public showSubmitBtn?: boolean
-  followRuleItemList: FollowRuleItem[]
-  oppList: OpponentVO[]
 }
+
 /**
  * 【部门品类跟价规则】列表展示对象
  */
@@ -298,6 +324,7 @@ export class DeptFollowRuleListVO {
    */
   public validHeaderId?: number
 }
+
 /**
  * 【部门品类跟价规则】查看展示对象
  */
@@ -319,16 +346,23 @@ export class DeptFollowRuleViewVO {
    */
   public deptName?: string
   /**
+   * 规则明细
+   */
+  public followRuleItemList?: FollowRuleItem[]
+  /**
    * 规则头表id
    */
   public headerId?: number
   /**
+   * 可供选择的重点友商
+   */
+  public oppList?: OpponentVO[]
+  /**
    * 规则名称
    */
   public ruleName?: string
-  followRuleItemList: FollowRuleItem[]
-  oppList: OpponentVO[]
 }
+
 export class FollowDegreeParam {
   /**
    * 跟价对象(OPP_page_price:友商页面价,OPP_trans_price:友商成交价)
@@ -343,6 +377,7 @@ export class FollowDegreeParam {
    */
   public value?: number
 }
+
 /**
  * 【跟价池】列表展示对象
  */
@@ -456,6 +491,7 @@ export class FollowPoolListVO {
    */
   public topPromCount?: number
 }
+
 /**
  * 自动定价组添加和删除SKU操作参数实体
  */
@@ -470,6 +506,7 @@ export class FollowPoolSkuAddDeleteDTO {
    */
   public skuIds?: number[]
 }
+
 /**
  * 跟价规则片对象
  */
@@ -483,17 +520,27 @@ export class FollowRuleItem {
    */
   public floorBand?: number
   /**
+   * 跟价程度
+   */
+  public followDegreeParam?: FollowDegreeParam
+  /**
    * 跟价友商id列表
    */
   public oppIds?: number[]
   /**
+   * 其他约束
+   */
+  public otherParam?: OtherParam
+  /**
+   * 调价风险控制
+   */
+  public riskParam?: RiskParam
+  /**
    * 自定义band最高值
    */
   public upperBand?: number
-  followDegreeParam: FollowDegreeParam
-  otherParam: OtherParam
-  riskParam: RiskParam
 }
+
 /**
  * 手动调价参数定义
  */
@@ -520,6 +567,7 @@ export class ManualAdjustPriceAddDTO {
    */
   public skuId: number
 }
+
 /**
  * 友商信息实体类
  */
@@ -537,6 +585,7 @@ export class OpponentVO {
    */
   public url?: string
 }
+
 export class OtherParam {
   /**
    * 调价金额超过X元
@@ -615,141 +664,7 @@ export class OtherParam {
    */
   public spreadLessRangeNotFollow?: boolean
 }
-export class PageVOAuditFlowListVO {
-  /**
-   * 总条数
-   */
-  public entityCount: number
-  /**
-   * 开始序号
-   */
-  public firstEntityIndex: number
-  /**
-   * 结束序号
-   */
-  public lastEntityIndex: number
-  /**
-   * 总页数
-   */
-  public pageCount: number
-  /**
-   * 页码
-   */
-  public pageNo: number
-  /**
-   * 每页条数
-   */
-  public pageSize: number
-  entities: AuditFlowListVO[]
-}
-export class PageVOBlackListVO {
-  /**
-   * 总条数
-   */
-  public entityCount: number
-  /**
-   * 开始序号
-   */
-  public firstEntityIndex: number
-  /**
-   * 结束序号
-   */
-  public lastEntityIndex: number
-  /**
-   * 总页数
-   */
-  public pageCount: number
-  /**
-   * 页码
-   */
-  public pageNo: number
-  /**
-   * 每页条数
-   */
-  public pageSize: number
-  entities: BlackListVO[]
-}
-export class PageVODeptFollowRuleListVO {
-  /**
-   * 总条数
-   */
-  public entityCount: number
-  /**
-   * 开始序号
-   */
-  public firstEntityIndex: number
-  /**
-   * 结束序号
-   */
-  public lastEntityIndex: number
-  /**
-   * 总页数
-   */
-  public pageCount: number
-  /**
-   * 页码
-   */
-  public pageNo: number
-  /**
-   * 每页条数
-   */
-  public pageSize: number
-  entities: DeptFollowRuleListVO[]
-}
-export class PageVOFollowPoolListVO {
-  /**
-   * 总条数
-   */
-  public entityCount: number
-  /**
-   * 开始序号
-   */
-  public firstEntityIndex: number
-  /**
-   * 结束序号
-   */
-  public lastEntityIndex: number
-  /**
-   * 总页数
-   */
-  public pageCount: number
-  /**
-   * 页码
-   */
-  public pageNo: number
-  /**
-   * 每页条数
-   */
-  public pageSize: number
-  entities: FollowPoolListVO[]
-}
-export class PageVOUserInputDataListVO {
-  /**
-   * 总条数
-   */
-  public entityCount: number
-  /**
-   * 开始序号
-   */
-  public firstEntityIndex: number
-  /**
-   * 结束序号
-   */
-  public lastEntityIndex: number
-  /**
-   * 总页数
-   */
-  public pageCount: number
-  /**
-   * 页码
-   */
-  public pageNo: number
-  /**
-   * 每页条数
-   */
-  public pageSize: number
-  entities: UserInputDataListVO[]
-}
+
 /**
  * 是否自动发布价格更新参数实体
  */
@@ -768,6 +683,7 @@ export class PoolIsAutoPubUpdateDTO {
    */
   public skuList?: number[]
 }
+
 /**
  * 促销删除请求实体
  */
@@ -777,6 +693,7 @@ export class PromotionDeleteDTO {
    */
   public promoIds?: number[]
 }
+
 /**
  * 查看促销展示参数对象
  */
@@ -794,11 +711,15 @@ export class PromotionListVO {
    */
   public price?: number
   /**
+   * 促销列表对象
+   */
+  public promotions?: PromotionVO[]
+  /**
    * 京东sku,sku即为id
    */
   public skuId?: number
-  promotions: PromotionVO[]
 }
+
 /**
  * 促销展示对象
  */
@@ -852,6 +773,7 @@ export class PromotionVO {
    */
   public timeEnd?: string
 }
+
 /**
  * 商品通过和拒绝价格实体
  */
@@ -861,6 +783,7 @@ export class PublishPricingDTO {
    */
   public calcIds?: number[]
 }
+
 export class ReplyVO {
   /**
    * 响应代码【0正确,非0错误】
@@ -875,141 +798,7 @@ export class ReplyVO {
    */
   public message: string
 }
-export class ReplyVOAuditFlowDeptFollowRuleDetailVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: AuditFlowDeptFollowRuleDetailVO
-}
-export class ReplyVODeptFollowRuleEditVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: DeptFollowRuleEditVO
-}
-export class ReplyVODeptFollowRuleViewVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: DeptFollowRuleViewVO
-}
-export class ReplyVOListOpponentVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: OpponentVO[]
-}
-export class ReplyVOPageVOAuditFlowListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PageVOAuditFlowListVO
-}
-export class ReplyVOPageVOBlackListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PageVOBlackListVO
-}
-export class ReplyVOPageVODeptFollowRuleListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PageVODeptFollowRuleListVO
-}
-export class ReplyVOPageVOFollowPoolListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PageVOFollowPoolListVO
-}
-export class ReplyVOPageVOUserInputDataListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PageVOUserInputDataListVO
-}
-export class ReplyVOPromotionListVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: PromotionListVO
-}
-export class ReplyVOUserInputDataEditVO {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 结果描述
-   */
-  public message: string
-  data: UserInputDataEditVO
-}
-export class ReplyVOint {
-  /**
-   * 响应代码【0正确,非0错误】
-   */
-  public code: string
-  /**
-   * 返回数据
-   */
-  public data?: number
-  /**
-   * 结果描述
-   */
-  public message: string
-}
+
 export class RiskParam {
   /**
    * 最高价的
@@ -1024,6 +813,7 @@ export class RiskParam {
    */
   public minVenderPriceRate?: number
 }
+
 /**
  * 新增、更新【用户录入数据】的参数
  */
@@ -1069,12 +859,14 @@ export class UserInputDataAddUpdateDTO {
    */
   public toData?: string
 }
+
 /**
  * 用户输入数据删除参数实体
  */
 export class UserInputDataDeleteDTO {
   public skuIds?: number[]
 }
+
 /**
  * 【用户录入数据】编辑对象
  */
@@ -1120,6 +912,7 @@ export class UserInputDataEditVO {
    */
   public toData?: string
 }
+
 /**
  * 【用户录入数据】列表展示对象
  */
@@ -1192,4 +985,339 @@ export class UserInputDataListVO {
    * 价格约束结束时间
    */
   public toData?: string
+}
+
+export class PageVOAuditFlowListVO {
+  /**
+   * 数据列表
+   */
+  public entities: AuditFlowListVO[]
+  /**
+   * 总条数
+   */
+  public entityCount: number
+  /**
+   * 开始序号
+   */
+  public firstEntityIndex: number
+  /**
+   * 结束序号
+   */
+  public lastEntityIndex: number
+  /**
+   * 总页数
+   */
+  public pageCount: number
+  /**
+   * 页码
+   */
+  public pageNo: number
+  /**
+   * 每页条数
+   */
+  public pageSize: number
+}
+
+export class PageVOBlackListVO {
+  /**
+   * 数据列表
+   */
+  public entities: BlackListVO[]
+  /**
+   * 总条数
+   */
+  public entityCount: number
+  /**
+   * 开始序号
+   */
+  public firstEntityIndex: number
+  /**
+   * 结束序号
+   */
+  public lastEntityIndex: number
+  /**
+   * 总页数
+   */
+  public pageCount: number
+  /**
+   * 页码
+   */
+  public pageNo: number
+  /**
+   * 每页条数
+   */
+  public pageSize: number
+}
+
+export class PageVODeptFollowRuleListVO {
+  /**
+   * 数据列表
+   */
+  public entities: DeptFollowRuleListVO[]
+  /**
+   * 总条数
+   */
+  public entityCount: number
+  /**
+   * 开始序号
+   */
+  public firstEntityIndex: number
+  /**
+   * 结束序号
+   */
+  public lastEntityIndex: number
+  /**
+   * 总页数
+   */
+  public pageCount: number
+  /**
+   * 页码
+   */
+  public pageNo: number
+  /**
+   * 每页条数
+   */
+  public pageSize: number
+}
+
+export class PageVOFollowPoolListVO {
+  /**
+   * 数据列表
+   */
+  public entities: FollowPoolListVO[]
+  /**
+   * 总条数
+   */
+  public entityCount: number
+  /**
+   * 开始序号
+   */
+  public firstEntityIndex: number
+  /**
+   * 结束序号
+   */
+  public lastEntityIndex: number
+  /**
+   * 总页数
+   */
+  public pageCount: number
+  /**
+   * 页码
+   */
+  public pageNo: number
+  /**
+   * 每页条数
+   */
+  public pageSize: number
+}
+
+export class PageVOUserInputDataListVO {
+  /**
+   * 数据列表
+   */
+  public entities: UserInputDataListVO[]
+  /**
+   * 总条数
+   */
+  public entityCount: number
+  /**
+   * 开始序号
+   */
+  public firstEntityIndex: number
+  /**
+   * 结束序号
+   */
+  public lastEntityIndex: number
+  /**
+   * 总页数
+   */
+  public pageCount: number
+  /**
+   * 页码
+   */
+  public pageNo: number
+  /**
+   * 每页条数
+   */
+  public pageSize: number
+}
+
+export class ReplyVOAuditFlowDeptFollowRuleDetailVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: AuditFlowDeptFollowRuleDetailVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVODeptFollowRuleEditVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: DeptFollowRuleEditVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVODeptFollowRuleViewVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: DeptFollowRuleViewVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOListOpponentVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: OpponentVO[]
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPageVOAuditFlowListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PageVOAuditFlowListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPageVOBlackListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PageVOBlackListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPageVODeptFollowRuleListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PageVODeptFollowRuleListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPageVOFollowPoolListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PageVOFollowPoolListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPageVOUserInputDataListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PageVOUserInputDataListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOPromotionListVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: PromotionListVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOUserInputDataEditVO {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: UserInputDataEditVO
+  /**
+   * 结果描述
+   */
+  public message: string
+}
+
+export class ReplyVOInt {
+  /**
+   * 响应代码【0正确,非0错误】
+   */
+  public code: string
+  /**
+   * 返回数据
+   */
+  public data?: number
+  /**
+   * 结果描述
+   */
+  public message: string
 }

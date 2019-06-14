@@ -10,26 +10,6 @@ export interface ISchemaNode {
   path: string[]
 }
 
-/** 从schema中处理过的ref数据的结构 */
-export interface IRef {
-  /** 对应definitions中的每项的key的名字，去掉了`#/definitions/`之后的部分 */
-  type: string
-  /** 在schema中对象的路径 */
-  path: string[]
-  /** 该ref所在properties的名字,
-   * 例如
-      "properties": {
-        "category": {
-          "$ref": "#/definitions/Category"
-        },
-      }
-      中的"category"
-   * */
-  name: string
-  /** 对应的注释，如果有的话 */
-  description?: string
-}
-
 /** 每个请求参数的原始schema结构 */
 export interface IParameter {
   name: string

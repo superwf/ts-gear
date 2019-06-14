@@ -1,5 +1,5 @@
+import { ApiResponse, Order, Pet, User } from './definitions'
 import { interceptRequest, interceptResponse } from './interceptor'
-import { Pet, ApiResponse, Order, User } from './definitions'
 
 interface IPostPetParam {
   body: {
@@ -33,11 +33,11 @@ export function putPet(param: IPutPetParam) {
 
 interface IGetPetFindByStatusParam {
   query: {
-    status: Array<'available' | 'pending' | 'sold'>
+    status: 'available' | 'pending' | Array<'sold'>
   }
 }
 
-type GetPetFindByStatusResponse = Array<Pet>
+type GetPetFindByStatusResponse = Pet[]
 /**
  * Finds Pets by status
  * Multiple status values can be provided with comma separated strings
@@ -196,7 +196,7 @@ export function postUser(param: IPostUserParam) {
 
 interface IPostUserCreateWithArrayParam {
   body: {
-    body: Array<User>
+    body: User[]
   }
 }
 
@@ -211,7 +211,7 @@ export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
 
 interface IPostUserCreateWithListParam {
   body: {
-    body: Array<User>
+    body: User[]
   }
 }
 

@@ -50,9 +50,9 @@ var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts'
  * write ts file
  * */
 exports.run = function () { return __awaiter(_this, void 0, void 0, function () {
-    var cwd, config, dest, _a, _b, _i, i, project, projectPath, source, schema, definitions, definitionsPath, pathsContent, pathsPath, projectInterceptorFile;
-    return __generator(this, function (_c) {
-        switch (_c.label) {
+    var cwd, config, dest, _a, _b, _i, i, project, projectPath, source, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, pathsContent, pathsPath, projectInterceptorFile;
+    return __generator(this, function (_d) {
+        switch (_d.label) {
             case 0:
                 cwd = process.cwd();
                 config = require(path_1.join(cwd, 'ts-gear.js'));
@@ -64,12 +64,12 @@ exports.run = function () { return __awaiter(_this, void 0, void 0, function () 
                 for (_b in config.projects)
                     _a.push(_b);
                 _i = 0;
-                _c.label = 1;
+                _d.label = 1;
             case 1:
-                if (!(_i < _a.length)) return [3 /*break*/, 8];
+                if (!(_i < _a.length)) return [3 /*break*/, 10];
                 i = _a[_i];
                 if (!config.projects.hasOwnProperty(i)) {
-                    return [3 /*break*/, 7];
+                    return [3 /*break*/, 9];
                 }
                 project = config.projects[i];
                 projectPath = path_1.join(dest, project.name);
@@ -80,40 +80,46 @@ exports.run = function () { return __awaiter(_this, void 0, void 0, function () 
                 source = project.source.startsWith('http')
                     ? project.source
                     : path_1.join(cwd, project.source);
-                return [4 /*yield*/, fetchSwagger_1.fetchSwaggerJSONSchema(source, project.fetchOption)
+                return [4 /*yield*/, fetchSwagger_1.fetchSwaggerJSONSchema(source, project.fetchOption)];
+            case 2:
+                schema = _d.sent();
+                return [4 /*yield*/, util_1.initializeSchema(schema)];
+            case 3:
+                _c = _d.sent(), $refsNotInDefinitions = _c.$refsNotInDefinitions, $refsInPaths = _c.$refsInPaths;
+                return [4 /*yield*/, definitions_1.transform$RefsNotInDefinitions($refsNotInDefinitions)
                     // 生成definitions
                 ];
-            case 2:
-                schema = _c.sent();
-                return [4 /*yield*/, definitions_1.generateDefinitions(schema.definitions)];
-            case 3:
-                definitions = _c.sent();
+            case 4:
+                $refsTypes = _d.sent();
+                return [4 /*yield*/, definitions_1.transformDefinitionsToTypescript(schema.definitions)];
+            case 5:
+                definitions = _d.sent();
                 definitionsPath = path_1.join(projectPath, 'definitions.ts');
-                return [4 /*yield*/, prettierWrite_1["default"](definitionsPath, definitions)
+                return [4 /*yield*/, prettierWrite_1["default"](definitionsPath, definitions + $refsTypes)
                     // 生成paths内函数
                 ];
-            case 4:
-                _c.sent();
-                return [4 /*yield*/, paths_1.generatePaths(schema)];
-            case 5:
-                pathsContent = _c.sent();
+            case 6:
+                _d.sent();
+                return [4 /*yield*/, paths_1.generatePaths(schema, $refsInPaths)];
+            case 7:
+                pathsContent = _d.sent();
                 pathsPath = path_1.join(projectPath, 'request.ts');
                 return [4 /*yield*/, prettierWrite_1["default"](pathsPath, pathsContent)
                     // 每个项目的拦截器文件只在第一次生成时copy一次
                     // 这个文件可能会写入一些请求的配置
                     // 不应该被覆盖
                 ];
-            case 6:
-                _c.sent();
+            case 8:
+                _d.sent();
                 projectInterceptorFile = path_1.join(projectPath, 'interceptor.ts');
                 if (!fs_1.existsSync(projectInterceptorFile)) {
                     fs_1.copyFileSync(interceptorFilePath, projectInterceptorFile);
                 }
-                _c.label = 7;
-            case 7:
+                _d.label = 9;
+            case 9:
                 _i++;
                 return [3 /*break*/, 1];
-            case 8: return [2 /*return*/];
+            case 10: return [2 /*return*/];
         }
     });
 }); };

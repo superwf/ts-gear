@@ -52,11 +52,11 @@ describe('compile', () => {
     expect(tsTemplate).toMatchSnapshot()
   })
 
-  it.only('structure', async () => {
+  it('structure', async () => {
     const tsTemplate = await compile(
       source => {
         const a = source.getInterfaces()[0]
-        console.log(a.getStructure())
+        // console.log(a.getStructure())
         a.addProperty({
           name: 'c',
         })
@@ -69,6 +69,7 @@ describe('compile', () => {
       }
       `,
     )
-    console.log(tsTemplate)
+    // console.log(tsTemplate)
+    expect(tsTemplate).toMatchSnapshot()
   })
 })

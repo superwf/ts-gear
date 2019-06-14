@@ -30,3 +30,14 @@ exports[`compile interface 1`] = `
 }
 "
 `;
+
+exports[`compile structure 1`] = `
+"
+      interface A {
+        b: {
+          name: string
+        }
+    c;
+      }
+      "
+`;

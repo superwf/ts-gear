@@ -44,25 +44,19 @@ var source_1 = require("./source");
 var util_1 = require("./util");
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
 // const assembleRequestParam = () => {}
-exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void 0, function () {
-    var paths, basePath, url, tsContent, _a, _b, _i, path, _loop_1, _c, _d, _e, action, dependents, importTsContent;
-    return __generator(this, function (_f) {
-        switch (_f.label) {
+exports.generatePaths = function (schema, $RefsInPaths) { return __awaiter(_this, void 0, void 0, function () {
+    var paths, basePath, url, tsContent, _i, _a, path, _loop_1, _b, _c, _d, action, importTsContent;
+    return __generator(this, function (_e) {
+        switch (_e.label) {
             case 0:
                 paths = schema.paths;
                 basePath = schema.basePath;
                 tsContent = [];
-                _a = [];
-                for (_b in paths)
-                    _a.push(_b);
-                _i = 0;
-                _f.label = 1;
+                _i = 0, _a = Object.getOwnPropertyNames(paths);
+                _e.label = 1;
             case 1:
                 if (!(_i < _a.length)) return [3 /*break*/, 6];
                 url = _a[_i];
-                if (!paths.hasOwnProperty(url)) {
-                    return [3 /*break*/, 5];
-                }
                 path = paths[url];
                 _loop_1 = function (action) {
                     var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, response200$ref, response200, responseTsContent, functionTsContent;
@@ -142,70 +136,49 @@ exports.generatePaths = function (schema) { return __awaiter(_this, void 0, void
                         }
                     });
                 };
-                _c = [];
-                for (_d in path)
-                    _c.push(_d);
-                _e = 0;
-                _f.label = 2;
+                _b = [];
+                for (_c in path)
+                    _b.push(_c);
+                _d = 0;
+                _e.label = 2;
             case 2:
-                if (!(_e < _c.length)) return [3 /*break*/, 5];
-                action = _c[_e];
+                if (!(_d < _b.length)) return [3 /*break*/, 5];
+                action = _b[_d];
                 return [5 /*yield**/, _loop_1(action)];
             case 3:
-                _f.sent();
-                _f.label = 4;
+                _e.sent();
+                _e.label = 4;
             case 4:
-                _e++;
+                _d++;
                 return [3 /*break*/, 2];
             case 5:
                 _i++;
                 return [3 /*break*/, 1];
-            case 6:
-                dependents = util_1.getAllRef(schema.paths);
-                return [4 /*yield*/, source_1.compile(function (source) {
-                        // 添加interptor拦截器依赖
-                        source.addImportDeclarations([
-                            {
-                                namedImports: [
-                                    {
-                                        name: interceptor_1.interceptRequest.name
-                                    },
-                                    {
-                                        name: interceptor_1.interceptResponse.name
-                                    },
-                                ],
-                                moduleSpecifier: './interceptor'
-                            },
-                        ]);
-                        // 是否存在在definitions中没定义的$ref
-                        var depententsNotInDefinitions = [];
-                        source.addImportDeclarations([
-                            {
-                                namedImports: Object.keys(dependents).reduce(function (r, $ref) {
-                                    if (schema.definitions && $ref in schema.definitions) {
-                                        r.push({
-                                            name: dependents[$ref]
-                                        });
-                                    }
-                                    else {
-                                        depententsNotInDefinitions.push(dependents[$ref]);
-                                    }
-                                    return r;
-                                }, []),
-                                moduleSpecifier: './definitions'
-                            },
-                        ]);
-                        // 如果存在在definitions中没定义的$ref
-                        // 全都定义成any的别名
-                        if (depententsNotInDefinitions.length > 0) {
-                            source.addTypeAliases(depententsNotInDefinitions.map(function (def) { return ({
-                                name: def,
-                                type: 'any'
-                            }); }));
-                        }
-                    })];
+            case 6: return [4 /*yield*/, source_1.compile(function (source) {
+                    // 添加interptor拦截器依赖
+                    source.addImportDeclarations([
+                        {
+                            namedImports: [
+                                {
+                                    name: interceptor_1.interceptRequest.name
+                                },
+                                {
+                                    name: interceptor_1.interceptResponse.name
+                                },
+                            ],
+                            moduleSpecifier: './interceptor'
+                        },
+                    ]);
+                    // 导入definitions中的依赖
+                    source.addImportDeclarations([
+                        {
+                            namedImports: $RefsInPaths,
+                            moduleSpecifier: './definitions'
+                        },
+                    ]);
+                })];
             case 7:
-                importTsContent = _f.sent();
+                importTsContent = _e.sent();
                 tsContent.unshift(importTsContent);
                 return [2 /*return*/, tsContent.join('\n')];
         }

@@ -78,7 +78,7 @@ export const transformDefinitionToTsClass = async (
 /**
  * 解析整个definitions
  * */
-export const transformDefinitionsToTsClasses = async (definitions: {
+export const transformDefinitionsToTypescript = async (definitions: {
   [k: string]: JSONSchema
 }) => {
   const results: string[] = []
@@ -91,4 +91,20 @@ export const transformDefinitionsToTsClasses = async (definitions: {
     results.push(result)
   }
   return results.join('\n')
+}
+
+/** 将所有$refsNames添加为any的别名 */
+export const transform$RefsNotInDefinitions = async ($refNames: string[]) => {
+  if ($refNames.length > 0) {
+    return compile((sourceFile: SourceFile) => {
+      $refNames.forEach(name => {
+        const t = sourceFile.addTypeAlias({
+          name,
+          type: 'any',
+        })
+        t.setIsExported(true)
+      })
+    })
+  }
+  return ''
 }

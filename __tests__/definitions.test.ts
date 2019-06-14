@@ -1,4 +1,7 @@
-import { transformDefinitionsToTsClasses } from 'src/definitions'
+import {
+  transform$RefsNotInDefinitions,
+  transformDefinitionsToTypescript,
+} from 'src/definitions'
 import { JSONSchema } from 'src/interface'
 import { initializeSchema } from 'src/util'
 import pet from '../example/fixture/pet.json'
@@ -7,18 +10,21 @@ import projectA from '../example/fixture/projectA.json'
 import projectB from '../example/fixture/projectB.json'
 import projectC from '../example/fixture/projectC.json'
 
-describe('generateDefinitions', () => {
+describe('transformDefinitionsToTs', () => {
   it('geterate pet definitions', async () => {
-    await initializeSchema(pet as JSONSchema)
-    const petDefinitions = await transformDefinitionsToTsClasses(
+    const { $refsNotInDefinitions } = await initializeSchema(pet as JSONSchema)
+    const petDefinitions = await transformDefinitionsToTypescript(
       pet.definitions as JSONSchema,
     )
     expect(petDefinitions).toMatchSnapshot()
+    expect(
+      transform$RefsNotInDefinitions($refsNotInDefinitions),
+    ).toMatchSnapshot()
   })
 
   it('projectA', async () => {
     await initializeSchema(projectA as JSONSchema)
-    const definitions = await transformDefinitionsToTsClasses(
+    const definitions = await transformDefinitionsToTypescript(
       projectA.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
@@ -26,7 +32,7 @@ describe('generateDefinitions', () => {
 
   it('projectB', async () => {
     await initializeSchema(projectB as JSONSchema)
-    const definitions = await transformDefinitionsToTsClasses(
+    const definitions = await transformDefinitionsToTypescript(
       projectB.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
@@ -35,7 +41,7 @@ describe('generateDefinitions', () => {
   it('projectC', async () => {
     await initializeSchema(projectC as JSONSchema)
     // console.log(Object.keys(projectC.definitions).join('\n'))
-    const definitions = await transformDefinitionsToTsClasses(
+    const definitions = await transformDefinitionsToTypescript(
       projectC.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
@@ -43,7 +49,7 @@ describe('generateDefinitions', () => {
 
   it('pontFixture', async () => {
     await initializeSchema(pontFixture as JSONSchema)
-    const definitions = await transformDefinitionsToTsClasses(
+    const definitions = await transformDefinitionsToTypescript(
       pontFixture.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()

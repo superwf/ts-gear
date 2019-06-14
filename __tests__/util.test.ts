@@ -1,8 +1,5 @@
 import {
-  // getGenericTypeName,
-  getSafeDefinitionTitle,
   getUniqName,
-  initializeSchema,
   transformPathParameters,
   translateAsync,
   traverseSchema,
@@ -10,43 +7,11 @@ import {
 } from '../src/util'
 
 describe('util', () => {
-  it.only('initializeSchema', async () => {
-    const pontFixture = require('../example/fixture/pontFixture.json')
-    await initializeSchema(pontFixture)
-  })
-
   it('trimDefinitionPrefix remove `#/definitions/`', () => {
     expect(trimDefinitionPrefix('#/definitions/abcdef')).toBe('abcdef')
     expect(trimDefinitionPrefix('#/definitions/中文VO')).toBe('中文VO')
     expect(trimDefinitionPrefix('xxx中文VO')).toBe('xxx中文VO')
   })
-
-  it.skip('getSafeDefinitionTitle', () => {
-    // const title = 'ReplyVO«List«DeptFollowRuleEditVO»»'
-
-    expect(getSafeDefinitionTitle('PageVO')).toEqual(['PageVO', 'PageVO'])
-    expect(getSafeDefinitionTitle('PageVO«StdVO»')).toEqual([
-      'PageVOStdVO',
-      'PageVO<StdVO>',
-    ])
-
-    expect(getSafeDefinitionTitle('PageVO«StdVO«BB»»')).toEqual([
-      'PageVOStdVOBB',
-      'PageVO<StdVO<BB>>',
-    ])
-
-    expect(getSafeDefinitionTitle('PageVO«List«BB»»')).toEqual([
-      'PageVOListBB',
-      'PageVO<Array<BB>>',
-    ])
-
-    expect(getSafeDefinitionTitle('List«BB»')).toEqual(['ListBB', 'Array<BB>'])
-  })
-
-  // it('getGenericTypeName', () => {
-  //   expect(getGenericTypeName('ReplyVO<Abc>')).toEqual(['ReplyVO'])
-  //   expect(getGenericTypeName('ReplyVO<Abc<Def>>')).toEqual(['ReplyVO', 'Abc'])
-  // })
 
   it('transformPathParameters', () => {
     expect(transformPathParameters('/api/user/{id}')).toBe('/api/user/:id')
@@ -59,7 +24,7 @@ describe('util', () => {
     )
   })
 
-  it('traverse', () => {
+  it('traverseSchema', () => {
     const fn = jest.fn()
     const obj1 = { a: 1 }
     traverseSchema(obj1, fn)
@@ -90,20 +55,42 @@ describe('util', () => {
     expect(word).toEqual('OutputParameters')
   })
 
-  it('getUniqName', () => {
-    const definitions = {
-      AB: true,
-      AB1: true,
-      AB2: true,
-    }
+  describe('getUniqName', () => {
+    it('get new name', () => {
+      const definitions = {
+        AB: true,
+      }
 
-    expect(
-      getUniqName('AB', (key, num) => {
-        if (!num) {
+      expect(
+        getUniqName('AB', key => {
           return Reflect.has(definitions, key)
-        }
-        return Reflect.has(definitions, key + num)
-      }),
-    ).toBe('AB3')
+        }),
+      ).toBe('AB1')
+    })
+
+    it('get new name', () => {
+      const definitions = {
+        AB: true,
+        AB1: true,
+      }
+
+      expect(
+        getUniqName('AB', key => {
+          return Reflect.has(definitions, key)
+        }),
+      ).toBe('AB2')
+    })
+
+    it('get origin name', () => {
+      const definitions = {
+        CD: true,
+      }
+
+      expect(
+        getUniqName('AB', key => {
+          return Reflect.has(definitions, key)
+        }),
+      ).toBe('AB')
+    })
   })
 })
