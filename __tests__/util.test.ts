@@ -1,5 +1,5 @@
 import {
-  getGenericTypeName,
+  // getGenericTypeName,
   getSafeDefinitionTitle,
   getUniqName,
   initializeSchema,
@@ -43,10 +43,10 @@ describe('util', () => {
     expect(getSafeDefinitionTitle('List«BB»')).toEqual(['ListBB', 'Array<BB>'])
   })
 
-  it('getGenericTypeName', () => {
-    expect(getGenericTypeName('ReplyVO<Abc>')).toEqual(['ReplyVO'])
-    expect(getGenericTypeName('ReplyVO<Abc<Def>>')).toEqual(['ReplyVO', 'Abc'])
-  })
+  // it('getGenericTypeName', () => {
+  //   expect(getGenericTypeName('ReplyVO<Abc>')).toEqual(['ReplyVO'])
+  //   expect(getGenericTypeName('ReplyVO<Abc<Def>>')).toEqual(['ReplyVO', 'Abc'])
+  // })
 
   it('transformPathParameters', () => {
     expect(transformPathParameters('/api/user/{id}')).toBe('/api/user/:id')

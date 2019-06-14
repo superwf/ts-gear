@@ -23,14 +23,14 @@ export const tsGearRoot = resolve(__dirname, '../')
  * 这个自定义的camelCase统一该行为
  *  */
 const camelCase = (name: string) => {
-  const nonCharatorReg = /[^a-z0-9]/i
-  if (nonCharatorReg.test(name)) {
+  const invalidVariableCharatorReg = /[^a-z0-9]/i
+  if (invalidVariableCharatorReg.test(name)) {
     return name
       .split(/[^a-z0-9]/i)
       .map(n => upperFirst(n))
       .join('')
   }
-  return name
+  return upperFirst(name)
 }
 
 /** replace non charator and and return interface name */
@@ -38,18 +38,21 @@ export const getInterfaceName = (v: string) => {
   return `I${camelCase(v)}`
 }
 
-/** replace /abc/{id} to /abc/:id */
+/** transform /abc/{id} to /abc/:id */
 export const transformPathParameters = (v: string) => {
+  if (v.includes('{')) {
+    return v
+      .split('/')
+      .map(s => {
+        const reg = /[{}]/g
+        if (reg.test(s)) {
+          return `:${s.replace(reg, '')}`
+        }
+        return s
+      })
+      .join('/')
+  }
   return v
-    .split('/')
-    .map(s => {
-      const reg = /[{}]/g
-      if (reg.test(s)) {
-        return `:${s.replace(reg, '')}`
-      }
-      return s
-    })
-    .join('/')
 }
 
 /** 解析definitions中的每个对象的名称
@@ -96,7 +99,10 @@ export const initializeSchema = async (schema: JSONSchema) => {
   // copy some translate part from pont src/scripts/base.ts
   const cnReg = /[\u4e00-\u9fa5]/
 
-  const NotInDefinitions: string[] = []
+  // 所有没有在definitions定义的$ref，都转换成type any
+  const $RefsNotInDefinitions: string[] = []
+  // 所有paths中的$ref
+  const $RefsInPaths: string[] = []
 
   let cnWords: string[] = []
   const definitions = schema.definitions!
@@ -111,51 +117,60 @@ export const initializeSchema = async (schema: JSONSchema) => {
       }
     }
   })
-  Reflect.ownKeys(definitions).forEach(key => {
-    if (typeof key === 'string' && cnReg.test(key)) {
+  Object.getOwnPropertyNames(definitions).forEach(key => {
+    if (cnReg.test(key)) {
       cnWords.push(key)
     }
   })
   cnWords = uniq(cnWords)
 
-  const cnEnPairs = await Promise.all(
-    uniq(cnWords).map(async (word, key) => {
-      return [cnWords[key], await translateAsync(word)]
-    }),
-  )
-  const cnMapToEn = fromPairs(cnEnPairs)
-  console.log(cnMapToEn)
+  let cnMapToEn: any = {}
+  if (cnWords) {
+    const cnEnPairs = await Promise.all(
+      cnWords.map(async (word, key) => {
+        return [cnWords[key], await translateAsync(word)]
+      }),
+    )
+    cnMapToEn = fromPairs(cnEnPairs)
+  } else {
+    cnMapToEn = {}
+  }
 
-  // 再次通过两轮循环替换成中文
-  Reflect.ownKeys(definitions).forEach(key => {
-    if (typeof key === 'string' && Reflect.has(cnMapToEn, key)) {
-      definitions[cnMapToEn[key]] = definitions[key]
+  // 再次通过两轮循环将$ref与definitions的key替换成中文
+  Object.getOwnPropertyNames(definitions).forEach(key => {
+    if (Reflect.has(cnMapToEn, key)) {
+      const newKey = camelCase(cnMapToEn[key])
+      definitions[newKey] = definitions[key]
       Reflect.deleteProperty(definitions, key)
+    } else {
+      const newKey = camelCase(key)
+      definitions[newKey] = definitions[key]
+      if (newKey !== key) {
+        Reflect.deleteProperty(definitions, key)
+      }
     }
   })
+
   traverseSchema(schema, async ({ value, parent, key, path }) => {
     if (key === '$ref' && typeof value === 'string') {
       if (Reflect.has(cnMapToEn, value)) {
-        parent.$ref = cnMapToEn[value]
+        parent.$ref = camelCase(cnMapToEn[value])
+      } else {
+        parent.$ref = camelCase(value)
       }
       if (!Reflect.has(definitions, parent.$ref)) {
-        NotInDefinitions.push(parent.$ref)
+        $RefsNotInDefinitions.push(parent.$ref)
+      }
+      if (path[0] === 'paths') {
+        $RefsInPaths.push(value)
       }
     }
   })
-}
 
-/**
- * 从组合类型中获取泛型类型的名称
- * */
-export const getGenericTypeName = (title: string): string[] => {
-  if (title.includes('<')) {
-    const result = title.match(/\w+</g)
-    if (result) {
-      return result.map(t => t.replace('<', ''))
-    }
+  return {
+    $RefsNotInDefinitions,
+    $RefsInPaths,
   }
-  return []
 }
 
 /**
@@ -229,9 +244,7 @@ export const getAllRef = (schema: JSONSchema) => {
 }
 
 /** 将schema转换为ts的类型 */
-export const transformProperty = async (
-  property: JSONSchema,
-): Promise<string> => {
+export const transformProperty = (property: JSONSchema): string => {
   const {
     type,
     enum: enumValues,
@@ -247,7 +260,7 @@ export const transformProperty = async (
     return `'${enumValues.join("' | '")}'`
   }
   if ($ref) {
-    return getSafeDefinitionTitle(trimDefinitionPrefix($ref))[0]
+    return $ref
   }
   if (schema) {
     return transformProperty(schema)
@@ -282,15 +295,9 @@ export const transformProperty = async (
     }
     return 'any'
   }
-  // 原生类型可以用Exclude处理
-  // 其他用any
-  // TODO 这段估计有错误，有测试用例再说
+
+  // 这个做不到覆盖所有情况，用any，更省心
   if (not) {
-    // 说明是原生类型
-    if (typeof not === 'string') {
-      // json schema里没有symbol，不用放进去
-      return `Exclude<number, string, object, boolean, null, undefined, ${not}>`
-    }
     return `any`
   }
 
@@ -308,7 +315,10 @@ export const transformProperty = async (
       return 'number'
     // 按array一定有items处理
     case 'array':
-      return `Array<${transformProperty(items!)}>`
+      if ($ref) {
+        return `${$ref}[]`
+      }
+      return `${transformProperty(items!)}[]`
     case 'object':
       const { properties, additionalProperties, required } = property
       if (properties) {

@@ -1,35 +1,50 @@
-import { generateDefinitions } from 'src/definitions'
+import { transformDefinitionsToTsClasses } from 'src/definitions'
 import { JSONSchema } from 'src/interface'
+import { initializeSchema } from 'src/util'
 import pet from '../example/fixture/pet.json'
+import pontFixture from '../example/fixture/pontFixture.json'
 import projectA from '../example/fixture/projectA.json'
 import projectB from '../example/fixture/projectB.json'
 import projectC from '../example/fixture/projectC.json'
 
 describe('generateDefinitions', () => {
   it('geterate pet definitions', async () => {
-    const petDefinitions = await generateDefinitions(
+    await initializeSchema(pet as JSONSchema)
+    const petDefinitions = await transformDefinitionsToTsClasses(
       pet.definitions as JSONSchema,
     )
     expect(petDefinitions).toMatchSnapshot()
   })
 
   it('projectA', async () => {
-    const definitions = await generateDefinitions(
+    await initializeSchema(projectA as JSONSchema)
+    const definitions = await transformDefinitionsToTsClasses(
       projectA.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
   })
 
   it('projectB', async () => {
-    const definitions = await generateDefinitions(
+    await initializeSchema(projectB as JSONSchema)
+    const definitions = await transformDefinitionsToTsClasses(
       projectB.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
   })
 
   it('projectC', async () => {
-    const definitions = await generateDefinitions(
+    await initializeSchema(projectC as JSONSchema)
+    // console.log(Object.keys(projectC.definitions).join('\n'))
+    const definitions = await transformDefinitionsToTsClasses(
       projectC.definitions as JSONSchema,
+    )
+    expect(definitions).toMatchSnapshot()
+  })
+
+  it('pontFixture', async () => {
+    await initializeSchema(pontFixture as JSONSchema)
+    const definitions = await transformDefinitionsToTsClasses(
+      pontFixture.definitions as JSONSchema,
     )
     expect(definitions).toMatchSnapshot()
   })
