@@ -1,15 +1,15 @@
 import { interceptRequest, interceptResponse } from './interceptor'
 import {
-  CisMatchInfoDTO,
-  CisSkuDTO,
-  ReplyVOCisSkuShowVO,
-  ReplyVOConfigVO,
-  ReplyVOListOpponentSkuListVO,
   ReplyVOListOpponentVO,
-  ReplyVOListPriceHistoryVO,
   ReplyVOPageVOCisSkuListVO,
+  ReplyVOListPriceHistoryVO,
+  CisMatchInfoDTO,
   ReplyVOVoid,
   SkuMatchDTO,
+  ReplyVOListOpponentSkuListVO,
+  CisSkuDTO,
+  ReplyVOConfigVO,
+  ReplyVOCisSkuShowVO,
 } from './definitions'
 
 interface IGetApiCompetitionOpponentParam {
@@ -32,13 +32,13 @@ export function getApiCompetitionOpponent(
 interface IGetApiCompetitionSkuParam {
   query?: {
     blackListStatus?: boolean
-    brandId?: number[]
-    cid?: number[]
+    brandId?: Array<number>
+    cid?: Array<number>
     cidLevel?: number
-    deptId?: string[]
+    deptId?: Array<string>
     deptLevel?: number
     endIndex?: number
-    gmvBand?: string[]
+    gmvBand?: Array<string>
     matchStatus?: boolean
     monitorStatus?: boolean
     orderBy?: string
@@ -47,12 +47,12 @@ interface IGetApiCompetitionSkuParam {
     pageSize?: number
     priceTag?: number
     priceType?: number
-    pvBand?: string[]
+    pvBand?: Array<string>
     salerErp?: string
-    salerErps?: string[]
-    salesBand?: string[]
+    salerErps?: Array<string>
+    salesBand?: Array<string>
     skuId?: string
-    skuIds?: number[]
+    skuIds?: Array<number>
     skuName?: string
     startIndex?: number
   }
@@ -91,9 +91,7 @@ export function getApiCompetitionSkuHistorySkuId(
 }
 
 interface IPostApiCompetitionSkuMatchParam {
-  body: {
-    cisMatchInfoDTO: CisMatchInfoDTO
-  }
+  body: CisMatchInfoDTO
 }
 
 /**
@@ -108,9 +106,7 @@ export function postApiCompetitionSkuMatch(
 }
 
 interface IDeleteApiCompetitionSkuMatchParam {
-  body: {
-    skuMatchDTO: SkuMatchDTO
-  }
+  body: SkuMatchDTO
 }
 
 /**
@@ -169,13 +165,13 @@ export function getApiCompetitionSkuMatchSkuId(
 interface IGetApiCompetitionSkuMonitorParam {
   query?: {
     blackListStatus?: boolean
-    brandId?: number[]
-    cid?: number[]
+    brandId?: Array<number>
+    cid?: Array<number>
     cidLevel?: number
-    deptId?: string[]
+    deptId?: Array<string>
     deptLevel?: number
     endIndex?: number
-    gmvBand?: string[]
+    gmvBand?: Array<string>
     matchStatus?: boolean
     monitorStatus?: boolean
     orderBy?: string
@@ -184,12 +180,12 @@ interface IGetApiCompetitionSkuMonitorParam {
     pageSize?: number
     priceTag?: number
     priceType?: number
-    pvBand?: string[]
+    pvBand?: Array<string>
     salerErp?: string
-    salerErps?: string[]
-    salesBand?: string[]
+    salerErps?: Array<string>
+    salesBand?: Array<string>
     skuId?: string
-    skuIds?: number[]
+    skuIds?: Array<number>
     skuName?: string
     startIndex?: number
   }
@@ -207,9 +203,7 @@ export function getApiCompetitionSkuMonitor(
 }
 
 interface IPostApiCompetitionSkuMonitorParam {
-  body: {
-    cisSkuQO: CisSkuDTO
-  }
+  body: CisSkuDTO
 }
 
 /**
@@ -224,9 +218,7 @@ export function postApiCompetitionSkuMonitor(
 }
 
 interface IDeleteApiCompetitionSkuMonitorParam {
-  body: {
-    cisSkuQO: CisSkuDTO
-  }
+  body: CisSkuDTO
 }
 
 /**

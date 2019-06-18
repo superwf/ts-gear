@@ -6,20 +6,20 @@ export class CisMatchInfoDTO {
 }
 
 export class CisSkuDTO {
-  public brandId?: number[]
-  public cid?: number[]
+  public brandId?: Array<number>
+  public cid?: Array<number>
   public cidLevel?: number
-  public deptId?: string[]
+  public deptId?: Array<string>
   public deptLevel?: number
   public endIndex?: number
-  public gmvBand?: string[]
+  public gmvBand?: Array<string>
   public orderBy?: string
   public orderType?: string
   public pageNo?: number
   public pageSize?: number
-  public pvBand?: string[]
-  public salesBand?: string[]
-  public skuId?: number[]
+  public pvBand?: Array<string>
+  public salesBand?: Array<string>
+  public skuId?: Array<number>
   public startIndex?: number
 }
 
@@ -396,7 +396,7 @@ export class PriceHistoryVO {
    * 友商名称
    */
   public opponentName?: string
-  public prices?: PriceHisDetailVO[]
+  public prices?: Array<PriceHisDetailVO>
   /**
    * 商品编码,含京东自己
    */
@@ -407,7 +407,7 @@ export class PriceHistoryVO {
  * 匹配【京东sku】的参数
  */
 export class SkuMatchDTO {
-  public opponent?: OpponentMatchDTO[]
+  public opponent?: Array<OpponentMatchDTO>
   /**
    * 京东sku
    */
@@ -418,7 +418,7 @@ export class PageVOCisSkuListVO {
   /**
    * 数据列表
    */
-  public entities: CisSkuListVO[]
+  public entities: Array<CisSkuListVO>
   /**
    * 总条数
    */
@@ -483,7 +483,7 @@ export class ReplyVOListOpponentSkuListVO {
   /**
    * 返回数据
    */
-  public data?: OpponentSkuListVO[]
+  public data?: Array<OpponentSkuListVO>
   /**
    * 结果描述
    */
@@ -498,7 +498,7 @@ export class ReplyVOListOpponentVO {
   /**
    * 返回数据
    */
-  public data?: OpponentVO[]
+  public data?: Array<OpponentVO>
   /**
    * 结果描述
    */
@@ -513,7 +513,7 @@ export class ReplyVOListPriceHistoryVO {
   /**
    * 返回数据
    */
-  public data?: PriceHistoryVO[]
+  public data?: Array<PriceHistoryVO>
   /**
    * 结果描述
    */

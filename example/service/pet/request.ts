@@ -1,10 +1,8 @@
-import { ApiResponse, Order, Pet, User } from './definitions'
 import { interceptRequest, interceptResponse } from './interceptor'
+import { Pet, ApiResponse, Order, User } from './definitions'
 
 interface IPostPetParam {
-  body: {
-    body: Pet
-  }
+  body: Pet
 }
 
 /**
@@ -17,9 +15,7 @@ export function postPet(param: IPostPetParam) {
 }
 
 interface IPutPetParam {
-  body: {
-    body: Pet
-  }
+  body: Pet
 }
 
 /**
@@ -33,11 +29,11 @@ export function putPet(param: IPutPetParam) {
 
 interface IGetPetFindByStatusParam {
   query: {
-    status: 'available' | 'pending' | Array<'sold'>
+    status: Array<'available' | 'pending' | 'sold'>
   }
 }
 
-type GetPetFindByStatusResponse = Pet[]
+type GetPetFindByStatusResponse = Array<Pet>
 /**
  * Finds Pets by status
  * Multiple status values can be provided with comma separated strings
@@ -132,9 +128,7 @@ export function getStoreInventory() {
 }
 
 interface IPostStoreOrderParam {
-  body: {
-    body: Order
-  }
+  body: Order
 }
 
 /**
@@ -179,9 +173,7 @@ export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
 }
 
 interface IPostUserParam {
-  body: {
-    body: User
-  }
+  body: User
 }
 
 /**
@@ -195,9 +187,7 @@ export function postUser(param: IPostUserParam) {
 }
 
 interface IPostUserCreateWithArrayParam {
-  body: {
-    body: User[]
-  }
+  body: Array<User>
 }
 
 /**
@@ -210,9 +200,7 @@ export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
 }
 
 interface IPostUserCreateWithListParam {
-  body: {
-    body: User[]
-  }
+  body: Array<User>
 }
 
 /**
@@ -269,9 +257,7 @@ interface IPutUserUsernameParam {
   path: {
     username: string
   }
-  body: {
-    body: User
-  }
+  body: User
 }
 
 /**

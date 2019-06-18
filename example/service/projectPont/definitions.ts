@@ -105,7 +105,7 @@ export class DataTransOutputOutputParameterVo {
 
 export class ResultListMap1 {
   public description?: string
-  public result?: Map[]
+  public result?: Array<Map>
   public returnCode?: number
 }
 export type TheGenericRequestParameterQueryParameters = any

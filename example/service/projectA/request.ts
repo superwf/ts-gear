@@ -1,34 +1,34 @@
+import { interceptRequest, interceptResponse } from './interceptor'
 import {
+  ReplyVOPageVOAuditFlowListVO,
   AuditFlowDTO,
-  BlackListAddDeleteDTO,
-  DeptFollowRuleAddUpdateDTO,
-  FollowPoolSkuAddDeleteDTO,
-  ManualAdjustPriceAddDTO,
-  PoolIsAutoPubUpdateDTO,
-  PromotionDeleteDTO,
-  PublishPricingDTO,
   ReplyVO,
   ReplyVOAuditFlowDeptFollowRuleDetailVO,
-  ReplyVODeptFollowRuleEditVO,
-  ReplyVODeptFollowRuleViewVO,
-  ReplyVOInt,
-  ReplyVOListOpponentVO,
-  ReplyVOPageVOAuditFlowListVO,
   ReplyVOPageVOBlackListVO,
+  BlackListAddDeleteDTO,
   ReplyVOPageVODeptFollowRuleListVO,
+  DeptFollowRuleAddUpdateDTO,
+  ReplyVODeptFollowRuleViewVO,
+  ReplyVODeptFollowRuleEditVO,
   ReplyVOPageVOFollowPoolListVO,
-  ReplyVOPageVOUserInputDataListVO,
+  FollowPoolSkuAddDeleteDTO,
+  PoolIsAutoPubUpdateDTO,
+  ManualAdjustPriceAddDTO,
+  ReplyVOListOpponentVO,
+  PromotionDeleteDTO,
   ReplyVOPromotionListVO,
-  ReplyVOUserInputDataEditVO,
+  PublishPricingDTO,
+  ReplyVOPageVOUserInputDataListVO,
   UserInputDataAddUpdateDTO,
   UserInputDataDeleteDTO,
+  ReplyVOInt,
+  ReplyVOUserInputDataEditVO,
 } from './definitions'
-import { interceptRequest, interceptResponse } from './interceptor'
 
 interface IGetApiPricingAuditFlowParam {
   query?: {
-    auditStatusList?: number[]
-    createrList?: string[]
+    auditStatusList?: Array<number>
+    createrList?: Array<string>
     endIndex?: number
     pageNo?: number
     pageSize?: number
@@ -50,9 +50,7 @@ export function getApiPricingAuditFlow(param: IGetApiPricingAuditFlowParam) {
 }
 
 interface IPostApiPricingAuditFlowApprovalParam {
-  body: {
-    auditFlowDTO: AuditFlowDTO
-  }
+  body: AuditFlowDTO
 }
 
 /**
@@ -70,9 +68,7 @@ export function postApiPricingAuditFlowApproval(
 }
 
 interface IPostApiPricingAuditFlowRejectParam {
-  body: {
-    auditFlowDTO: AuditFlowDTO
-  }
+  body: AuditFlowDTO
 }
 
 /**
@@ -87,9 +83,7 @@ export function postApiPricingAuditFlowReject(
 }
 
 interface IPostApiPricingAuditFlowTakeBackParam {
-  body: {
-    auditFlowDTO: AuditFlowDTO
-  }
+  body: AuditFlowDTO
 }
 
 /**
@@ -138,7 +132,7 @@ interface IGetApiPricingBlackListParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: number[]
+    skuList?: Array<number>
     sortSign?: string
     startIndex?: number
   }
@@ -154,9 +148,7 @@ export function getApiPricingBlackList(param: IGetApiPricingBlackListParam) {
 }
 
 interface IPostApiPricingBlackListAddParam {
-  body: {
-    blackListAddDeleteDTO: BlackListAddDeleteDTO
-  }
+  body: BlackListAddDeleteDTO
 }
 
 /**
@@ -171,9 +163,7 @@ export function postApiPricingBlackListAdd(
 }
 
 interface IPostApiPricingBlackListRemoveParam {
-  body: {
-    blackListAddDeleteDTO: BlackListAddDeleteDTO
-  }
+  body: BlackListAddDeleteDTO
 }
 
 /**
@@ -215,9 +205,7 @@ export function getApiPricingDeptFollowRule(
 }
 
 interface IPostApiPricingDeptFollowRuleParam {
-  body?: {
-    deptFollowRuleAddUpdateDTO?: DeptFollowRuleAddUpdateDTO
-  }
+  body?: DeptFollowRuleAddUpdateDTO
 }
 
 /**
@@ -232,9 +220,7 @@ export function postApiPricingDeptFollowRule(
 }
 
 interface IPostApiPricingDeptFollowRuleSubmitParam {
-  body?: {
-    deptFollowRuleAddUpdateDTO?: DeptFollowRuleAddUpdateDTO
-  }
+  body?: DeptFollowRuleAddUpdateDTO
 }
 
 /**
@@ -325,7 +311,7 @@ interface IGetApiPricingFollowPoolParam {
     pageNo?: number
     pageSize?: number
     skuFilterType?: string
-    skuList?: number[]
+    skuList?: Array<number>
     sortSign?: string
     startIndex?: number
     upperBand?: number
@@ -344,9 +330,7 @@ export function getApiPricingFollowPool(param: IGetApiPricingFollowPoolParam) {
 }
 
 interface IPostApiPricingFollowPoolAddParam {
-  body: {
-    followPoolSkuAddDeleteDTO: FollowPoolSkuAddDeleteDTO
-  }
+  body: FollowPoolSkuAddDeleteDTO
 }
 
 /**
@@ -374,7 +358,7 @@ interface IGetApiPricingFollowPoolExportParam {
     pageNo?: number
     pageSize?: number
     skuFilterType?: string
-    skuList?: number[]
+    skuList?: Array<number>
     sortSign?: string
     startIndex?: number
     upperBand?: number
@@ -396,9 +380,7 @@ export function getApiPricingFollowPoolExport(
 }
 
 interface IPostApiPricingFollowPoolIsAutoPubParam {
-  body?: {
-    poolIsAutoPubUpdateDTO?: PoolIsAutoPubUpdateDTO
-  }
+  body?: PoolIsAutoPubUpdateDTO
 }
 
 /**
@@ -416,9 +398,7 @@ export function postApiPricingFollowPoolIsAutoPub(
 }
 
 interface IPostApiPricingFollowPoolRemoveParam {
-  body: {
-    followPoolSkuAddDeleteDTO: FollowPoolSkuAddDeleteDTO
-  }
+  body: FollowPoolSkuAddDeleteDTO
 }
 
 /**
@@ -436,9 +416,7 @@ export function postApiPricingFollowPoolRemove(
 }
 
 interface IPostApiPricingManualAdjustPriceParam {
-  body?: {
-    manualAdjustPriceAddDTO?: ManualAdjustPriceAddDTO
-  }
+  body?: ManualAdjustPriceAddDTO
 }
 
 /**
@@ -457,7 +435,7 @@ export function postApiPricingManualAdjustPrice(
 
 interface IGetApiPricingOpponentParam {
   query?: {
-    cidList?: number[]
+    cidList?: Array<number>
     level?: number
     sortSign?: string
   }
@@ -473,9 +451,7 @@ export function getApiPricingOpponent(param: IGetApiPricingOpponentParam) {
 }
 
 interface IDeleteApiPricingPromotionParam {
-  body: {
-    promotionDeleteDTO: PromotionDeleteDTO
-  }
+  body: PromotionDeleteDTO
 }
 
 /**
@@ -507,9 +483,7 @@ export function getApiPricingPromotionSkuId(
 }
 
 interface IPostApiPricingPublishPricingPubPriceParam {
-  body?: {
-    publishPricingDTO?: PublishPricingDTO
-  }
+  body?: PublishPricingDTO
 }
 
 /**
@@ -527,9 +501,7 @@ export function postApiPricingPublishPricingPubPrice(
 }
 
 interface IPostApiPricingPublishPricingRejectPriceParam {
-  body?: {
-    publishPricingDTO?: PublishPricingDTO
-  }
+  body?: PublishPricingDTO
 }
 
 /**
@@ -555,7 +527,7 @@ interface IGetApiPricingUserInputDataParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: number[]
+    skuList?: Array<number>
     sortSign?: string
     startIndex?: number
   }
@@ -575,9 +547,7 @@ export function getApiPricingUserInputData(
 }
 
 interface IPostApiPricingUserInputDataParam {
-  body?: {
-    userInputDataAddUpdateDTO?: UserInputDataAddUpdateDTO
-  }
+  body?: UserInputDataAddUpdateDTO
 }
 
 /**
@@ -592,9 +562,7 @@ export function postApiPricingUserInputData(
 }
 
 interface IDeleteApiPricingUserInputDataParam {
-  body: {
-    userInputDataDeleteDTO: UserInputDataDeleteDTO
-  }
+  body: UserInputDataDeleteDTO
 }
 
 /**
@@ -617,7 +585,7 @@ interface IGetApiPricingUserInputDataExportParam {
     level?: number
     pageNo?: number
     pageSize?: number
-    skuList?: number[]
+    skuList?: Array<number>
     sortSign?: string
     startIndex?: number
   }

@@ -47,7 +47,7 @@ export class MarkdownPriceCalcVO {
   /**
    * 清滞优化模拟的建议价格以及对应的gmv、毛利
    */
-  public markdownPriceCalcDetailVOS?: MarkdownPriceCalcDetailVO[]
+  public markdownPriceCalcDetailVOS?: Array<MarkdownPriceCalcDetailVO>
   /**
    * skuId
    */
@@ -77,11 +77,11 @@ export class MarkdownSaleSimulateVO {
   /**
    * 清滞优化模拟的量价关系
    */
-  public markdownSaleSimulateDetailVOS?: MarkdownSaleSimulateDetailVO[]
+  public markdownSaleSimulateDetailVOS?: Array<MarkdownSaleSimulateDetailVO>
   /**
    * 近28天的成交价销量，用于画点
    */
-  public points?: SkuHistoryDTO[]
+  public points?: Array<SkuHistoryDTO>
   /**
    * skuId
    */
@@ -131,7 +131,7 @@ export class MarkdownTrendSimulateVO {
   /**
    * 清滞优化模拟的清理量趋势
    */
-  public simulateTrend?: MarkdownTrendSimulateDetailVO[]
+  public simulateTrend?: Array<MarkdownTrendSimulateDetailVO>
   /**
    * skuId
    */
@@ -705,7 +705,7 @@ export class PriceHonestSkuListVO {
   /**
    * 参与促销信息
    */
-  public promoResultList?: PriceHonestSkuPromoListVO[]
+  public promoResultList?: Array<PriceHonestSkuPromoListVO>
   /**
    * 点击Band
    */
@@ -1000,7 +1000,7 @@ export class PromoAnalysisChart1VO {
   /**
    * 促销GMV分析列表项
    */
-  public list?: PromoAnalysisChartPieItemVO[]
+  public list?: Array<PromoAnalysisChartPieItemVO>
 }
 
 /**
@@ -1010,7 +1010,7 @@ export class PromoAnalysisChart2VO {
   /**
    * 有效促销效果分析列表项
    */
-  public list?: PromoAnalysisChartBarItemVO[]
+  public list?: Array<PromoAnalysisChartBarItemVO>
 }
 
 /**
@@ -1020,7 +1020,7 @@ export class PromoAnalysisChart3VO {
   /**
    * 有效促销提升效果下钻列表项
    */
-  public list?: PromoAnalysisChartPieItemVO[]
+  public list?: Array<PromoAnalysisChartPieItemVO>
 }
 
 /**
@@ -1042,7 +1042,7 @@ export class PromoAnalysisChartBarItemVO {
   /**
    * 下级列表项
    */
-  public children?: PromoAnalysisChartBarItemVO[]
+  public children?: Array<PromoAnalysisChartBarItemVO>
   /**
    * 折扣GMV
    */
@@ -1084,7 +1084,7 @@ export class PromoAnalysisChartPieItemVO {
   /**
    * 下级列表项
    */
-  public children?: PromoAnalysisChartPieItemVO[]
+  public children?: Array<PromoAnalysisChartPieItemVO>
   /**
    * GMV
    */
@@ -1583,7 +1583,7 @@ export class PromoAnalysisSumVO {
  * 部门树状结构
  */
 export class PromoDeptTreeVO {
-  public children?: PromoDeptTreeVO[]
+  public children?: Array<PromoDeptTreeVO>
   /**
    * 部门级别
    */
@@ -1609,7 +1609,7 @@ export class PromoOverlayRiskDTO {
   /**
    * skuId列表
    */
-  public skuIds: number[]
+  public skuIds: Array<number>
   /**
    * 开始日期
    */
@@ -1752,20 +1752,20 @@ export class PromoRoDetailVO {
 
 export class PromoRoQO {
   public _blackFilter?: boolean
-  public _cidList?: number[]
-  public _deptIdList?: string[]
+  public _cidList?: Array<number>
+  public _deptIdList?: Array<string>
   public _enabled?: number
   public _saleStatus?: number
-  public _salerErp?: string[]
-  public brandId?: number[]
-  public cid?: number[]
+  public _salerErp?: Array<string>
+  public brandId?: Array<number>
+  public cid?: Array<number>
   public cidLevel?: number
   public deptId?: string
   public deptLevel?: number
   public endDate: string
   public endIndex?: number
   public exportEmail?: string
-  public gmvBand?: string[]
+  public gmvBand?: Array<string>
   public ifFindOverlayRisk?: boolean
   public pageNo?: number
   public pageSize?: number
@@ -1858,8 +1858,8 @@ export class PromoRoQO {
     | 'SUB_2_3'
   public promoType1: number
   public promoType2?: number
-  public pvBand?: string[]
-  public salesBand?: string[]
+  public pvBand?: Array<string>
+  public salesBand?: Array<string>
   public skuId?: string
   public startDate: string
   public startIndex?: number
@@ -1875,17 +1875,17 @@ export class PromoRoVO {
   /**
    * 黑名单
    */
-  public blacklist?: PromoRoDetailVO[]
+  public blacklist?: Array<PromoRoDetailVO>
   public fakeSize?: number
   /**
    * 假促销
    */
-  public fakelist?: PromoRoDetailVO[]
+  public fakelist?: Array<PromoRoDetailVO>
   public whiteSize?: number
   /**
    * 白名单
    */
-  public whitelist?: PromoRoDetailVO[]
+  public whitelist?: Array<PromoRoDetailVO>
 }
 
 /**
@@ -2119,7 +2119,7 @@ export class ReportTaskDeleteQO {
   /**
    * taskId集合
    */
-  public taskId?: number[]
+  public taskId?: Array<number>
 }
 
 /**
@@ -2421,11 +2421,11 @@ export class SaleSimulateVO {
   /**
    * 全部用来作图的点(包括用户选择点+扩充的点)
    */
-  public drawPoints?: SaleSimulateDetailVO[]
+  public drawPoints?: Array<SaleSimulateDetailVO>
   /**
    * 制作量价关系线的点
    */
-  public lineData?: SaleSimulateDetailVO[]
+  public lineData?: Array<SaleSimulateDetailVO>
   /**
    * 扩展时间后的最大pv
    */
@@ -2590,7 +2590,7 @@ export class SkuBlacklistAddDTO {
   /**
    * skuId
    */
-  public skuId?: number[]
+  public skuId?: Array<number>
 }
 
 /**
@@ -2600,7 +2600,7 @@ export class SkuBlacklistDeleteQO {
   /**
    * skuId集合
    */
-  public skuId?: number[]
+  public skuId?: Array<number>
 }
 
 /**
@@ -2656,7 +2656,7 @@ export class TopBrandAddDTO {
   /**
    * 品牌集合
    */
-  public brands?: BrandVO[]
+  public brands?: Array<BrandVO>
 }
 
 /**
@@ -2691,7 +2691,7 @@ export class ChartResultVOPriceCompeteChartListVO {
   /**
    * 图表数据
    */
-  public chartData?: PriceCompeteChartListVO[]
+  public chartData?: Array<PriceCompeteChartListVO>
   public dtime?: string
   public dtype?: string
 }
@@ -2703,7 +2703,7 @@ export class ChartResultVOPriceHonestChartListVO {
   /**
    * 图表数据
    */
-  public chartData?: PriceHonestChartListVO[]
+  public chartData?: Array<PriceHonestChartListVO>
   public dtime?: string
   public dtype?: string
 }
@@ -2715,7 +2715,7 @@ export class ChartResultVOPriceWaveChartListVO {
   /**
    * 图表数据
    */
-  public chartData?: PriceWaveChartListVO[]
+  public chartData?: Array<PriceWaveChartListVO>
   public dtime?: string
   public dtype?: string
 }
@@ -2728,7 +2728,7 @@ export class PageVOPromoAnalysisPromoSkuVO {
   /**
    * 数据列表
    */
-  public entities: PromoAnalysisPromoSkuVO[]
+  public entities: Array<PromoAnalysisPromoSkuVO>
   /**
    * 总条数
    */
@@ -2759,7 +2759,7 @@ export class PageVOPromoAnalysisPromoVO {
   /**
    * 数据列表
    */
-  public entities: PromoAnalysisPromoVO[]
+  public entities: Array<PromoAnalysisPromoVO>
   /**
    * 总条数
    */
@@ -2790,7 +2790,7 @@ export class PageVOPromoAnalysisSkuVO {
   /**
    * 数据列表
    */
-  public entities: PromoAnalysisSkuVO[]
+  public entities: Array<PromoAnalysisSkuVO>
   /**
    * 总条数
    */
@@ -2821,7 +2821,7 @@ export class PageVOPromoSimulateDetailVO {
   /**
    * 数据列表
    */
-  public entities: PromoSimulateDetailVO[]
+  public entities: Array<PromoSimulateDetailVO>
   /**
    * 总条数
    */
@@ -2852,7 +2852,7 @@ export class PageVOReportTaskInstanceVO {
   /**
    * 数据列表
    */
-  public entities: ReportTaskInstanceVO[]
+  public entities: Array<ReportTaskInstanceVO>
   /**
    * 总条数
    */
@@ -2883,7 +2883,7 @@ export class PageVOReportTaskListVO {
   /**
    * 数据列表
    */
-  public entities: ReportTaskListVO[]
+  public entities: Array<ReportTaskListVO>
   /**
    * 总条数
    */
@@ -2914,7 +2914,7 @@ export class PageVOSimulateSkuVO {
   /**
    * 数据列表
    */
-  public entities: SimulateSkuVO[]
+  public entities: Array<SimulateSkuVO>
   /**
    * 总条数
    */
@@ -2945,7 +2945,7 @@ export class PageVOSkuBlacklistListVO {
   /**
    * 数据列表
    */
-  public entities: SkuBlacklistListVO[]
+  public entities: Array<SkuBlacklistListVO>
   /**
    * 总条数
    */
@@ -3025,7 +3025,7 @@ export class ReplyVOListPriceEcAnalysisBrandVO {
   /**
    * 返回数据
    */
-  public data?: PriceEcAnalysisBrandVO[]
+  public data?: Array<PriceEcAnalysisBrandVO>
   /**
    * 结果描述
    */
@@ -3040,7 +3040,7 @@ export class ReplyVOListPriceEcAnalysisCatVO {
   /**
    * 返回数据
    */
-  public data?: PriceEcAnalysisCatVO[]
+  public data?: Array<PriceEcAnalysisCatVO>
   /**
    * 结果描述
    */
@@ -3055,7 +3055,7 @@ export class ReplyVOListPriceEcAnalysisDeptVO {
   /**
    * 返回数据
    */
-  public data?: PriceEcAnalysisDeptVO[]
+  public data?: Array<PriceEcAnalysisDeptVO>
   /**
    * 结果描述
    */
@@ -3070,7 +3070,7 @@ export class ReplyVOListPriceEcAnalysisSalerVO {
   /**
    * 返回数据
    */
-  public data?: PriceEcAnalysisSalerVO[]
+  public data?: Array<PriceEcAnalysisSalerVO>
   /**
    * 结果描述
    */
@@ -3085,7 +3085,7 @@ export class ReplyVOListPriceHonestSkuListVO {
   /**
    * 返回数据
    */
-  public data?: PriceHonestSkuListVO[]
+  public data?: Array<PriceHonestSkuListVO>
   /**
    * 结果描述
    */
@@ -3100,7 +3100,7 @@ export class ReplyVOListPriceWaveSkuListVO {
   /**
    * 返回数据
    */
-  public data?: PriceWaveSkuListVO[]
+  public data?: Array<PriceWaveSkuListVO>
   /**
    * 结果描述
    */
@@ -3115,7 +3115,7 @@ export class ReplyVOListPromoResponse {
   /**
    * 返回数据
    */
-  public data?: PromoResponse[]
+  public data?: Array<PromoResponse>
   /**
    * 结果描述
    */
@@ -3130,7 +3130,7 @@ export class ReplyVOListSaleSimulateTableVO {
   /**
    * 返回数据
    */
-  public data?: SaleSimulateTableVO[]
+  public data?: Array<SaleSimulateTableVO>
   /**
    * 结果描述
    */
@@ -3145,7 +3145,7 @@ export class ReplyVOListSelectOptionVOInt {
   /**
    * 返回数据
    */
-  public data?: SelectOptionVOInt[]
+  public data?: Array<SelectOptionVOInt>
   /**
    * 结果描述
    */
@@ -3160,7 +3160,7 @@ export class ReplyVOListSkuHistoryDTO {
   /**
    * 返回数据
    */
-  public data?: SkuHistoryDTO[]
+  public data?: Array<SkuHistoryDTO>
   /**
    * 结果描述
    */
@@ -3175,7 +3175,7 @@ export class ReplyVOListTopBrandListVO {
   /**
    * 返回数据
    */
-  public data?: TopBrandListVO[]
+  public data?: Array<TopBrandListVO>
   /**
    * 结果描述
    */
@@ -3550,7 +3550,7 @@ export class ReplyVOSetPromoDeptTreeVO {
   /**
    * 返回数据
    */
-  public data?: PromoDeptTreeVO[]
+  public data?: Array<PromoDeptTreeVO>
   /**
    * 结果描述
    */

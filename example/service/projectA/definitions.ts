@@ -1,5 +1,5 @@
 export class AuditFlowDTO {
-  public ids?: number[]
+  public ids?: Array<number>
 }
 
 /**
@@ -9,7 +9,7 @@ export class AuditFlowDeptFollowRuleDetailVO {
   /**
    * 流程审批记录
    */
-  public auditDetails?: AuditItemVO[]
+  public auditDetails?: Array<AuditItemVO>
   /**
    * 指定band设置方式，0固定band 1自定义band
    */
@@ -21,7 +21,7 @@ export class AuditFlowDeptFollowRuleDetailVO {
   /**
    * 规则设置的品类
    */
-  public categoryNameList?: string[]
+  public categoryNameList?: Array<string>
   /**
    * 部门名称
    */
@@ -29,7 +29,7 @@ export class AuditFlowDeptFollowRuleDetailVO {
   /**
    * 规则明细
    */
-  public followRuleItemList?: FollowRuleItem[]
+  public followRuleItemList?: Array<FollowRuleItem>
   /**
    * 规则头表id
    */
@@ -41,7 +41,7 @@ export class AuditFlowDeptFollowRuleDetailVO {
   /**
    * 可供选择的重点友商
    */
-  public oppList?: OpponentVO[]
+  public oppList?: Array<OpponentVO>
   /**
    * 规则名称
    */
@@ -125,7 +125,7 @@ export class AuditItemVO {
  * 黑名单增加删除参数实体
  */
 export class BlackListAddDeleteDTO {
-  public skuIds?: number[]
+  public skuIds?: Array<number>
 }
 
 /**
@@ -170,11 +170,11 @@ export class BlackListVO {
  * 提交审批、保存部门跟价规则参数实体
  */
 export class DeptFollowRuleAddUpdateDTO {
-  public _cid1s?: number[]
-  public _cid2s?: number[]
-  public _cid3s?: number[]
-  public _dept3Ids?: string[]
-  public _salerErps?: string[]
+  public _cid1s?: Array<number>
+  public _cid2s?: Array<number>
+  public _cid3s?: Array<number>
+  public _dept3Ids?: Array<string>
+  public _salerErps?: Array<string>
   /**
    * 指定band设置方式，0固定band 1自定义band
    */
@@ -186,7 +186,7 @@ export class DeptFollowRuleAddUpdateDTO {
   /**
    * 规则设置的品类id
    */
-  public cidList?: number[]
+  public cidList?: Array<number>
   /**
    * 三级部门id
    */
@@ -194,7 +194,7 @@ export class DeptFollowRuleAddUpdateDTO {
   /**
    * 规则明细
    */
-  public followRuleItemList?: FollowRuleItem[]
+  public followRuleItemList?: Array<FollowRuleItem>
   /**
    * 规则头表id
    */
@@ -240,7 +240,7 @@ export class DeptFollowRuleEditVO {
   /**
    * 规则设置的品类
    */
-  public categoryNameList?: string[]
+  public categoryNameList?: Array<string>
   /**
    * 部门名称
    */
@@ -248,7 +248,7 @@ export class DeptFollowRuleEditVO {
   /**
    * 规则明细
    */
-  public followRuleItemList?: FollowRuleItem[]
+  public followRuleItemList?: Array<FollowRuleItem>
   /**
    * 规则头表id
    */
@@ -256,7 +256,7 @@ export class DeptFollowRuleEditVO {
   /**
    * 可供选择的重点友商
    */
-  public oppList?: OpponentVO[]
+  public oppList?: Array<OpponentVO>
   /**
    * 规则名称
    */
@@ -340,7 +340,7 @@ export class DeptFollowRuleViewVO {
   /**
    * 规则设置的品类
    */
-  public categoryNameList?: string[]
+  public categoryNameList?: Array<string>
   /**
    * 部门名称
    */
@@ -348,7 +348,7 @@ export class DeptFollowRuleViewVO {
   /**
    * 规则明细
    */
-  public followRuleItemList?: FollowRuleItem[]
+  public followRuleItemList?: Array<FollowRuleItem>
   /**
    * 规则头表id
    */
@@ -356,7 +356,7 @@ export class DeptFollowRuleViewVO {
   /**
    * 可供选择的重点友商
    */
-  public oppList?: OpponentVO[]
+  public oppList?: Array<OpponentVO>
   /**
    * 规则名称
    */
@@ -496,15 +496,15 @@ export class FollowPoolListVO {
  * 自动定价组添加和删除SKU操作参数实体
  */
 export class FollowPoolSkuAddDeleteDTO {
-  public _cid1s?: number[]
-  public _cid2s?: number[]
-  public _cid3s?: number[]
-  public _dept3Ids?: string[]
-  public _salerErps?: string[]
+  public _cid1s?: Array<number>
+  public _cid2s?: Array<number>
+  public _cid3s?: Array<number>
+  public _dept3Ids?: Array<string>
+  public _salerErps?: Array<string>
   /**
    * 自动定价组添加或删除skuid列表
    */
-  public skuIds?: number[]
+  public skuIds?: Array<number>
 }
 
 /**
@@ -526,7 +526,7 @@ export class FollowRuleItem {
   /**
    * 跟价友商id列表
    */
-  public oppIds?: number[]
+  public oppIds?: Array<number>
   /**
    * 其他约束
    */
@@ -545,11 +545,11 @@ export class FollowRuleItem {
  * 手动调价参数定义
  */
 export class ManualAdjustPriceAddDTO {
-  public _cid1s?: number[]
-  public _cid2s?: number[]
-  public _cid3s?: number[]
-  public _dept3Ids?: string[]
-  public _salerErps?: string[]
+  public _cid1s?: Array<number>
+  public _cid2s?: Array<number>
+  public _cid3s?: Array<number>
+  public _dept3Ids?: Array<string>
+  public _salerErps?: Array<string>
   /**
    * 可维持天数
    */
@@ -618,7 +618,7 @@ export class OtherParam {
   /**
    * 未来有特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销
    */
-  public futureSpecialPromoTypeList?: string[]
+  public futureSpecialPromoTypeList?: Array<string>
   /**
    * 特殊促销时，不跟价:true时不跟价
    */
@@ -626,7 +626,7 @@ export class OtherParam {
   /**
    * 特殊促销时，不跟价的促销类型:sum-总价促销,seckill-秒杀促销,flash-闪购促销
    */
-  public inSpecialPromoTypeList?: string[]
+  public inSpecialPromoTypeList?: Array<string>
   /**
    * 京东库存天数小于X天时，不跟价:true不跟价jdSafeStockDay必填
    */
@@ -669,11 +669,11 @@ export class OtherParam {
  * 是否自动发布价格更新参数实体
  */
 export class PoolIsAutoPubUpdateDTO {
-  public _cid1s?: number[]
-  public _cid2s?: number[]
-  public _cid3s?: number[]
-  public _dept3Ids?: string[]
-  public _salerErps?: string[]
+  public _cid1s?: Array<number>
+  public _cid2s?: Array<number>
+  public _cid3s?: Array<number>
+  public _dept3Ids?: Array<string>
+  public _salerErps?: Array<string>
   /**
    * 是否自动发布：1是,0否
    */
@@ -681,7 +681,7 @@ export class PoolIsAutoPubUpdateDTO {
   /**
    * sku 数组集合
    */
-  public skuList?: number[]
+  public skuList?: Array<number>
 }
 
 /**
@@ -691,7 +691,7 @@ export class PromotionDeleteDTO {
   /**
    * 待删除促销id列表
    */
-  public promoIds?: number[]
+  public promoIds?: Array<number>
 }
 
 /**
@@ -713,7 +713,7 @@ export class PromotionListVO {
   /**
    * 促销列表对象
    */
-  public promotions?: PromotionVO[]
+  public promotions?: Array<PromotionVO>
   /**
    * 京东sku,sku即为id
    */
@@ -781,7 +781,7 @@ export class PublishPricingDTO {
   /**
    * 价格计算调价单calcId串
    */
-  public calcIds?: number[]
+  public calcIds?: Array<number>
 }
 
 export class ReplyVO {
@@ -864,7 +864,7 @@ export class UserInputDataAddUpdateDTO {
  * 用户输入数据删除参数实体
  */
 export class UserInputDataDeleteDTO {
-  public skuIds?: number[]
+  public skuIds?: Array<number>
 }
 
 /**
@@ -991,7 +991,7 @@ export class PageVOAuditFlowListVO {
   /**
    * 数据列表
    */
-  public entities: AuditFlowListVO[]
+  public entities: Array<AuditFlowListVO>
   /**
    * 总条数
    */
@@ -1022,7 +1022,7 @@ export class PageVOBlackListVO {
   /**
    * 数据列表
    */
-  public entities: BlackListVO[]
+  public entities: Array<BlackListVO>
   /**
    * 总条数
    */
@@ -1053,7 +1053,7 @@ export class PageVODeptFollowRuleListVO {
   /**
    * 数据列表
    */
-  public entities: DeptFollowRuleListVO[]
+  public entities: Array<DeptFollowRuleListVO>
   /**
    * 总条数
    */
@@ -1084,7 +1084,7 @@ export class PageVOFollowPoolListVO {
   /**
    * 数据列表
    */
-  public entities: FollowPoolListVO[]
+  public entities: Array<FollowPoolListVO>
   /**
    * 总条数
    */
@@ -1115,7 +1115,7 @@ export class PageVOUserInputDataListVO {
   /**
    * 数据列表
    */
-  public entities: UserInputDataListVO[]
+  public entities: Array<UserInputDataListVO>
   /**
    * 总条数
    */
@@ -1195,7 +1195,7 @@ export class ReplyVOListOpponentVO {
   /**
    * 返回数据
    */
-  public data?: OpponentVO[]
+  public data?: Array<OpponentVO>
   /**
    * 结果描述
    */

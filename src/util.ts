@@ -251,9 +251,11 @@ export const transformProperty = (property: JSONSchema): string => {
     case 'array':
       // array可以没有items，但在同级有$ref
       if ($ref) {
-        return `${$ref}[]`
+        return `Array<${$ref}>`
       }
-      return `${transformProperty(items!)}[]`
+      // 使用Array<>而不是[]，因为里面的内容可能是复杂结构，例如枚举
+      // 使用[]作为结尾时会产生错误结果
+      return `Array<${transformProperty(items!)}>`
     case 'object':
       const { properties, additionalProperties, required } = property
       if (properties) {

@@ -38,8 +38,8 @@ export class Pet {
   public id?: number
   public category?: Category
   public name: string
-  public photoUrls: string[]
-  public tags?: Tag[]
+  public photoUrls: Array<string>
+  public tags?: Array<Tag>
   /**
    * pet status in the store
    */
