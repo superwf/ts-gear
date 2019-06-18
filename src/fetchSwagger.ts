@@ -26,4 +26,3 @@ export const fetchSwaggerJSONSchema = async (
   }
   return require(url)
 }
-// fetchSwaggerJSONSchema('aaa')
