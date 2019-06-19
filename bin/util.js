@@ -274,9 +274,11 @@ exports.transformProperty = function (property) {
         case 'array':
             // array可以没有items，但在同级有$ref
             if ($ref) {
-                return $ref + "[]";
+                return "Array<" + $ref + ">";
             }
-            return exports.transformProperty(items) + "[]";
+            // 使用Array<>而不是[]，因为里面的内容可能是复杂结构，例如枚举
+            // 使用[]作为结尾时会产生错误结果
+            return "Array<" + exports.transformProperty(items) + ">";
         case 'object':
             var properties = property.properties, additionalProperties = property.additionalProperties, required_1 = property.required;
             if (properties) {
@@ -321,8 +323,8 @@ exports.translateAsync = lodash_1.memoize(function (text, engineIndex) {
                     return [4 /*yield*/, translateEngines[index].translate(text)];
                 case 2:
                     res = _a.sent();
-                    return [2 /*return*/, res.result[0]
-                            .split(' ')
+                    return [2 /*return*/, res
+                            .result[0].split(' ')
                             .map(lodash_1.upperFirst)
                             .join('')
                         // return enKey;

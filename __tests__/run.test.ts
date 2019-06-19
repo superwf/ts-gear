@@ -1,7 +1,7 @@
+import { putPet } from 'example/service/pet/request'
 import { resolve } from 'path'
 import { run } from 'src/run'
 import { tsGearRoot } from 'src/util'
-import { putPet } from '../example/service/pet/request'
 
 describe('run', () => {
   it('with fixture', async () => {
@@ -11,6 +11,8 @@ describe('run', () => {
   })
 
   it('for putPet', async () => {
+    const g: any = global
+    g.fetch.mockResponse(JSON.stringify({}))
     await putPet({
       body: {
         name: 'a',

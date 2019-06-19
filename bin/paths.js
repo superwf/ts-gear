@@ -78,11 +78,26 @@ exports.generatePaths = function (schema, $RefsInPaths) { return __awaiter(_this
                                             name: paramInterfaceName
                                         });
                                         lodash_1.forEach(parameterSchema_1, function (property, name) {
-                                            inter.addProperty({
-                                                name: name,
-                                                type: util_1.transformProperty(property),
-                                                hasQuestionToken: !property.required || property.required.length === 0
-                                            });
+                                            // 当参数为请求体body时，会额外包裹一层
+                                            // 应去掉这一层的属性
+                                            if (name === 'body' && !lodash_1.isEmpty(property.properties)) {
+                                                var keys = Object.getOwnPropertyNames(property.properties);
+                                                if (keys.length > 0) {
+                                                    var key = keys[0];
+                                                    inter.addProperty({
+                                                        name: name,
+                                                        type: util_1.transformProperty(property.properties[key]),
+                                                        hasQuestionToken: !property.required || property.required.length === 0
+                                                    });
+                                                }
+                                            }
+                                            else {
+                                                inter.addProperty({
+                                                    name: name,
+                                                    type: util_1.transformProperty(property),
+                                                    hasQuestionToken: !property.required || property.required.length === 0
+                                                });
+                                            }
                                         });
                                     })];
                             case 1:

@@ -47,7 +47,7 @@ var log_1 = require("./log");
  * 在配置文件的fetchOption按RequestInit接口格式添加验证参数
  * */
 exports.fetchSwaggerJSONSchema = function (url, init) { return __awaiter(_this, void 0, void 0, function () {
-    var res, text;
+    var res, swaggerSchema;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -56,21 +56,11 @@ exports.fetchSwaggerJSONSchema = function (url, init) { return __awaiter(_this, 
                 return [4 /*yield*/, fetch(url, init)];
             case 1:
                 res = _a.sent();
-                return [4 /*yield*/, res.text()];
+                return [4 /*yield*/, res.json()];
             case 2:
-                text = _a.sent();
+                swaggerSchema = _a.sent();
                 log_1.info("fetching " + url + " done");
-                // info(JSON.stringify(init))
-                try {
-                    return [2 /*return*/, JSON.parse(text)];
-                }
-                catch (_b) {
-                    log_1.error(text);
-                    // 有可能由于单引号，json校验失败不能解析
-                    // 如果还是出错就throw出来吧
-                    return [2 /*return*/, eval("(" + text + ")")];
-                }
-                _a.label = 3;
+                return [2 /*return*/, swaggerSchema];
             case 3:
                 // json文件直接require
                 if (!url.endsWith('.json')) {
@@ -80,4 +70,3 @@ exports.fetchSwaggerJSONSchema = function (url, init) { return __awaiter(_this, 
         }
     });
 }); };
-// fetchSwaggerJSONSchema('aaa')
