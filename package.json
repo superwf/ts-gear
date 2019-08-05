@@ -10,7 +10,11 @@
   },
   "scripts": {
     "test": "npx cross-env NODE_ENV=test npx jest __tests__/run.ts",
-    "prepublish": "npx cross-env tsc src/*.ts --outDir bin && chmod +x bin/main.js"
+    "prepublishOnly": "npx cross-env tsc src/*.ts --outDir bin && chmod +x bin/main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/superwf/ts-gear.git"
   },
   "dependencies": {
     "chalk": "^2.4.2",
@@ -21,7 +25,7 @@
     "json-schema": "^0.2.3",
     "lodash": "^4.17.5",
     "path-to-regexp": "^3.0.0",
-    "prettier": "^1.17.1",
+    "prettier": "^1.18.2",
     "reserved-words": "^0.1.2",
     "swagger-schema-official": "^2.0.0-bab6bed",
     "translation.js": "^0.7.8",
@@ -38,6 +42,8 @@
     "bin"
   ],
   "devDependencies": {
+    "@commitlint/config-conventional": "^8.1.0",
+    "@commitlint/prompt-cli": "^8.1.0",
     "@types/chalk": "^2.2.0",
     "@types/cosmiconfig": "^5.0.3",
     "@types/fs-extra": "^5.0.5",
@@ -50,11 +56,14 @@
     "@types/node-fetch": "^2.3.3",
     "@types/prettier": "^1.16.3",
     "@types/traverse": "^0.6.25-alpha",
+    "commitlint": "^8.1.0",
     "cross-env": "^5.2.0",
     "http-server": "^0.11.1",
+    "husky": "^3.0.2",
     "jest": "^24.8.0",
     "jest-fetch-mock": "^2.1.2",
     "lint-staged": "^8.1.0",
+    "standard-version": "^7.0.0",
     "ts-jest": "^24.0.2",
     "tslint": "^5.16.0",
     "tslint-config-prettier": "^1.18.0",
@@ -68,6 +77,11 @@
     "ts-gear",
     "typescript"
   ],
+  "husky": {
+    "hooks": {
+      "commit-msg": "npx commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
   "author": "superwf",
   "license": "MIT"
 }

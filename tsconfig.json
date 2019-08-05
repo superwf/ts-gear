@@ -2,7 +2,6 @@
   "compilerOptions": {
     "target": "es5",
     "lib": ["dom", "esnext"],
-    "allowJs": true,
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
@@ -14,6 +13,8 @@
     "resolveJsonModule": true,
     "noEmit": true,
     "sourceMap": true,
+    "declaration": true,
+    "declarationDir": "./bin",
     "jsx": "react",
     "outDir": "bin",
     "baseUrl": ".",
@@ -24,5 +25,5 @@
       "src/*": ["src/*"]
     }
   },
-  "include": ["src", "__tests__"]
+  "include": ["src"]
 }

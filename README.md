@@ -84,7 +84,7 @@ yarn tsg
 
 * `request.ts`是根据`swagger schema`中的paths生成的所有方法，方法名生成规则为 `http请求方法 + api路径`的驼峰格式，例如
 
-```json
+```javascript
   "paths": {
     "/pet": {
       "post": {
