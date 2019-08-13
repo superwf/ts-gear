@@ -277,11 +277,41 @@ export const transformProperty = (property: JSONSchema): string => {
       }
       return 'any'
     default:
-      throw new Error(`not valid json schema type: ${type}`)
+      if (type !== undefined) {
+        throw new Error(`not valid json schema type: ${type}`)
+      }
+      return 'any'
   }
 }
 
-const translateEngines = [youdao, baidu, google]
+const translateEngines = [baidu, youdao, google]
+
+const translate: (text: string, index?: number) => Promise<string> = async (
+  text: string,
+  engineIndex: number = 0,
+) => {
+  if (engineIndex >= translateEngines.length) {
+    throw new Error('translate error, all translate engine can not access')
+  }
+
+  const index = engineIndex
+
+  try {
+    const res = await translateEngines[index].translate({
+      text,
+      // from: 'zh-CN',
+      to: 'en',
+    })
+    return res
+      .result![0].split(' ')
+      .map(upperFirst)
+      .join('')
+
+    // return enKey
+  } catch (err) {
+    return translate(text, index + 1)
+  }
+}
 
 /** 将一些definitinos与$ref中的中文翻印成可作为变量名的英文
  * 使用memoize避免重复翻译
@@ -290,25 +320,7 @@ export const translateAsync: ((
   text: string,
   index?: number,
 ) => Promise<string>) &
-  MemoizedFunction = memoize(async (text: string, engineIndex: number = 0) => {
-  if (engineIndex >= translateEngines.length) {
-    throw new Error('translate error, all translate engine can not access')
-  }
-
-  const index = engineIndex
-
-  try {
-    const res = await translateEngines[index].translate(text)
-    return res
-      .result![0].split(' ')
-      .map(upperFirst)
-      .join('')
-
-    // return enKey;
-  } catch (err) {
-    return translateAsync(text, index + 1)
-  }
-})
+  MemoizedFunction = memoize(translate)
 
 /** 生成唯一的名字
  * 如果已经存在则名称后面的数字累加

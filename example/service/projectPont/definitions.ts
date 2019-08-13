@@ -39,7 +39,7 @@ export class OutputParameterVo {
   public requestChannel: string
 }
 
-export class ABCOutputParameter {
+export class ABCOutputParameters {
   /**
    * 开卡日
    */
@@ -50,7 +50,7 @@ export class ABCOutputParameter {
   public requestChannel: string
 }
 
-export class ChineseAndEnglishMixedWithBlankVo {
+export class VoWithSpacesInChineseEnglishMixture {
   /**
    * 开卡日
    */
@@ -73,7 +73,7 @@ export class QueryParameters {
   public data?: any
 }
 
-export class TheGenericRequestParameterTokenOutputParameterVo {
+export class GeneralRequestParameterTokenOutputParameterVo {
   public bizParamVo?: OutputParameterVo
 }
 
@@ -108,5 +108,5 @@ export class ResultListMap1 {
   public result?: Array<Map>
   public returnCode?: number
 }
-export type TheGenericRequestParameterQueryParameters = any
+export type GeneralRequestParameterQueryParameter = any
 export type Map = any

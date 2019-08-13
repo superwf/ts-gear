@@ -101,7 +101,7 @@ export class OutputParameterVo {
     public requestChannel: string;
 }
 
-export class ABCOutputParameter {
+export class ABCOutputParameters {
     /**
      * 开卡日
      */
@@ -112,7 +112,7 @@ export class ABCOutputParameter {
     public requestChannel: string;
 }
 
-export class ChineseAndEnglishMixedWithBlankVo {
+export class VoWithSpacesInChineseEnglishMixture {
     /**
      * 开卡日
      */
@@ -135,7 +135,7 @@ export class QueryParameters {
     public data?: any;
 }
 
-export class TheGenericRequestParameterTokenOutputParameterVo {
+export class GeneralRequestParameterTokenOutputParameterVo {
     public bizParamVo?: OutputParameterVo;
 }
 

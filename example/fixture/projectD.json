@@ -1,0 +1,2251 @@
+{
+  "swagger": "2.0",
+  "info": { "contact": {}, "license": {} },
+  "host": "192.168.57.189",
+  "basePath": "/",
+  "tags": [
+    { "name": "IndicatorDef", "description": "Indicator Def Controller" },
+    { "name": "IndicatorExe", "description": "Indicator Exe Controller" },
+    { "name": "IndicatorTask", "description": "Indicator Task Controller" }
+  ],
+  "paths": {
+    "/api/indicatorDef": {
+      "get": {
+        "tags": ["IndicatorDef"],
+        "summary": "分页查询【指标定义】",
+        "operationId": "listUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "createdTimeSortSign",
+            "in": "query",
+            "description": "创建时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "enabled",
+            "in": "query",
+            "description": "是否启用",
+            "required": false,
+            "type": "boolean",
+            "x-example": true
+          },
+          {
+            "name": "enabledSortSign",
+            "in": "query",
+            "description": "是否启用排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "indicatorCat",
+            "in": "query",
+            "description": "指标分类【1诚信度，2波动性，3竞争力】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "indicatorCatSortSign",
+            "in": "query",
+            "description": "指标分类排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "indicatorKey",
+            "in": "query",
+            "description": "指标KEY",
+            "required": false,
+            "type": "string",
+            "x-example": "ajust_price_num"
+          },
+          {
+            "name": "indicatorKeySortSign",
+            "in": "query",
+            "description": "指标KEY排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "indicatorName",
+            "in": "query",
+            "description": "指标名称",
+            "required": false,
+            "type": "string",
+            "x-example": "调价次数"
+          },
+          {
+            "name": "indicatorType",
+            "in": "query",
+            "description": "指标类型【1指标，2维度，3标识】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "indicatorTypeSortSign",
+            "in": "query",
+            "description": "指标类型排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "operatedTimeSortSign",
+            "in": "query",
+            "description": "修改时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "description": "数据来源（表名）",
+            "required": false,
+            "type": "string",
+            "x-example": "table_a"
+          },
+          {
+            "name": "sourceSortSign",
+            "in": "query",
+            "description": "数据来源排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/PageVO«IndicatorDefListVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["IndicatorDef"],
+        "summary": "新增【指标定义】",
+        "operationId": "saveUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "indicatorDefAddDTO",
+            "description": "新增【指标定义】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/IndicatorDefAddDTO" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": { "$ref": "#/definitions/IndicatorDefShowVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "put": {
+        "tags": ["IndicatorDef"],
+        "summary": "修改【指标定义】",
+        "operationId": "updateUsingPUT",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "indicatorDefUpdateDTO",
+            "description": "修改【指标定义】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/IndicatorDefUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/IndicatorDefShowVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["IndicatorDef"],
+        "summary": "批量删除【指标定义】",
+        "operationId": "deleteBatchUsingDELETE",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "id数组",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorDef/availableList": {
+      "get": {
+        "tags": ["IndicatorDef"],
+        "summary": "按类型查询有效指标【按不同分类分组后返回】",
+        "operationId": "availableListUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "indicatorType",
+            "in": "query",
+            "description": "指标类型",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "array",
+                "items": { "$ref": "#/definitions/IndicatorDefListVO" }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorDef/{id}": {
+      "get": {
+        "tags": ["IndicatorDef"],
+        "summary": "查看【指标定义】详情",
+        "operationId": "showUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标定义】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/IndicatorDefShowVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["IndicatorDef"],
+        "summary": "删除单个【指标定义】",
+        "operationId": "deleteUsingDELETE",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标定义】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorExe": {
+      "get": {
+        "tags": ["IndicatorExe"],
+        "summary": "分页查询【任务执行】",
+        "operationId": "listUsingGET_1",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "createdTimeSortSign",
+            "in": "query",
+            "description": "创建时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "durationEnd",
+            "in": "query",
+            "description": "耗时【毫秒】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 2000
+          },
+          {
+            "name": "durationSortSign",
+            "in": "query",
+            "description": "耗时排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "durationStart",
+            "in": "query",
+            "description": "耗时【毫秒】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 2000
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "endTimeEnd",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "endTimeStart",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "exeCode",
+            "in": "query",
+            "description": "执行编号,大数据平台返回",
+            "required": false,
+            "type": "string",
+            "x-example": "12"
+          },
+          {
+            "name": "exeStatus",
+            "in": "query",
+            "description": "执行状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "exeStatusSortSign",
+            "in": "query",
+            "description": "执行状态排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "operatedTimeSortSign",
+            "in": "query",
+            "description": "修改时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "startTimeEnd",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "startTimeStart",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/PageVO«IndicatorExeListVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorExe/{id}": {
+      "get": {
+        "tags": ["IndicatorExe"],
+        "summary": "查看【任务执行】详情",
+        "operationId": "showUsingGET_1",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【任务执行】id",
+            "required": false,
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/IndicatorExeShowVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask": {
+      "get": {
+        "tags": ["IndicatorTask"],
+        "summary": "分页查询【指标任务】",
+        "operationId": "listUsingGET_2",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "cid1",
+            "in": "query",
+            "description": "一级品类id（过滤条件）",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid1SortSign",
+            "in": "query",
+            "description": "一级品类id（过滤条件）排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "cid2",
+            "in": "query",
+            "description": "二级品类id（过滤条件）",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid2SortSign",
+            "in": "query",
+            "description": "二级品类id（过滤条件）排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "cid3",
+            "in": "query",
+            "description": "三级品类id（过滤条件）",
+            "required": false,
+            "type": "integer",
+            "format": "int64",
+            "x-example": 1
+          },
+          {
+            "name": "cid3SortSign",
+            "in": "query",
+            "description": "三级品类id（过滤条件）排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "createdTimeSortSign",
+            "in": "query",
+            "description": "创建时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "enabled",
+            "in": "query",
+            "description": "是否启用",
+            "required": false,
+            "type": "boolean",
+            "x-example": true
+          },
+          {
+            "name": "enabledSortSign",
+            "in": "query",
+            "description": "是否启用排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "lastEndTimeEnd",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "lastEndTimeStart",
+            "in": "query",
+            "description": "结束时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "lastStartTimeEnd",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "lastStartTimeStart",
+            "in": "query",
+            "description": "开始时间",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "x-example": "2018-01-22 00:00:00"
+          },
+          {
+            "name": "operatedTimeSortSign",
+            "in": "query",
+            "description": "修改时间排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "type": "integer",
+            "minimum": 1.0,
+            "exclusiveMinimum": false,
+            "format": "int32",
+            "x-example": 1
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "type": "integer",
+            "maximum": 1000.0,
+            "exclusiveMaximum": false,
+            "format": "int32",
+            "x-example": 20
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "taskCode",
+            "in": "query",
+            "description": "任务编号,外部传入",
+            "required": false,
+            "type": "string",
+            "x-example": "TASK001"
+          },
+          {
+            "name": "taskName",
+            "in": "query",
+            "description": "任务名称",
+            "required": false,
+            "type": "string",
+            "x-example": "任务1"
+          },
+          {
+            "name": "taskStatus",
+            "in": "query",
+            "description": "任务状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 0
+          },
+          {
+            "name": "taskStatusSortSign",
+            "in": "query",
+            "description": "任务状态排序标识【1升序,-1降序,0不排序】",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "x-example": 1
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/PageVO«IndicatorTaskListVO»" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "post": {
+        "tags": ["IndicatorTask"],
+        "summary": "新增【指标任务】",
+        "operationId": "saveUsingPOST_2",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "indicatorTaskAddDTO",
+            "description": "新增【指标任务】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/IndicatorTaskAddDTO" }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "Created",
+            "schema": { "$ref": "#/definitions/IndicatorTaskShowVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "put": {
+        "tags": ["IndicatorTask"],
+        "summary": "修改【指标任务】",
+        "operationId": "updateUsingPUT_2",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "indicatorTaskUpdateDTO",
+            "description": "修改【指标任务】参数",
+            "required": false,
+            "schema": { "$ref": "#/definitions/IndicatorTaskUpdateDTO" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/IndicatorTaskShowVO" }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["IndicatorTask"],
+        "summary": "批量删除【指标任务】",
+        "operationId": "deleteBatchUsingDELETE_2",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "in": "body",
+            "name": "id",
+            "description": "id数组",
+            "required": false,
+            "schema": { "type": "integer", "format": "int32" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask/{id}": {
+      "get": {
+        "tags": ["IndicatorTask"],
+        "summary": "查看【指标任务】详情",
+        "operationId": "showUsingGET_2",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "$ref": "#/definitions/IndicatorTaskShowVO" }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "delete": {
+        "tags": ["IndicatorTask"],
+        "summary": "删除单个【指标任务】",
+        "operationId": "deleteUsingDELETE_2",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask/{id}/log": {
+      "get": {
+        "tags": ["IndicatorTask"],
+        "summary": "查看日志",
+        "operationId": "showLogUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK", "schema": { "type": "string" } },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask/{id}/run": {
+      "post": {
+        "tags": ["IndicatorTask"],
+        "summary": "执行任务",
+        "operationId": "runUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask/{id}/script": {
+      "get": {
+        "tags": ["IndicatorTask"],
+        "summary": "查看脚本",
+        "operationId": "showScriptUsingGET",
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK", "schema": { "type": "string" } },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      },
+      "put": {
+        "tags": ["IndicatorTask"],
+        "summary": "编辑脚本",
+        "operationId": "updateScriptUsingPUT",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "in": "body",
+            "name": "script",
+            "description": "脚本内容",
+            "required": false,
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    },
+    "/api/indicatorTask/{id}/stop": {
+      "post": {
+        "tags": ["IndicatorTask"],
+        "summary": "终止任务",
+        "operationId": "stopUsingPOST",
+        "consumes": ["application/json"],
+        "produces": ["*/*"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "【指标任务】id",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": { "description": "OK" },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        },
+        "security": [{ "Authorization": ["global"] }],
+        "deprecated": false
+      }
+    }
+  },
+  "securityDefinitions": {
+    "Authorization": { "type": "apiKey", "name": "TOKEN", "in": "header" }
+  },
+  "definitions": {
+    "IndicatorDefAddDTO": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "formula",
+        "indicatorCat",
+        "indicatorKey",
+        "indicatorName",
+        "indicatorType",
+        "remark",
+        "source"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "formula": {
+          "type": "string",
+          "example": "sum(if(flg_legal_adjust_price,1,0))",
+          "description": "计算逻辑"
+        },
+        "indicatorCat": {
+          "type": "string",
+          "example": 1,
+          "description": "指标分类【1诚信度，2波动性，3竞争力】",
+          "enum": ["1", "2", "3"]
+        },
+        "indicatorKey": {
+          "type": "string",
+          "example": "ajust_price_num",
+          "description": "指标KEY"
+        },
+        "indicatorName": {
+          "type": "string",
+          "example": "调价次数",
+          "description": "指标名称"
+        },
+        "indicatorType": {
+          "type": "string",
+          "example": 1,
+          "description": "指标类型【1指标，2维度，3标识】",
+          "enum": ["1", "2", "3"]
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "source": {
+          "type": "string",
+          "example": "table_a",
+          "description": "数据来源（表名）"
+        }
+      },
+      "title": "IndicatorDefAddDTO",
+      "description": "新增【指标定义】的参数"
+    },
+    "IndicatorDefListVO": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "formula": {
+          "type": "string",
+          "example": "sum(if(flg_legal_adjust_price,1,0))",
+          "description": "计算逻辑"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "indicatorCat": {
+          "type": "string",
+          "example": 1,
+          "description": "指标分类【1诚信度，2波动性，3竞争力】",
+          "enum": ["1", "2", "3"]
+        },
+        "indicatorKey": {
+          "type": "string",
+          "example": "ajust_price_num",
+          "description": "指标KEY"
+        },
+        "indicatorName": {
+          "type": "string",
+          "example": "调价次数",
+          "description": "指标名称"
+        },
+        "indicatorType": {
+          "type": "string",
+          "example": 1,
+          "description": "指标类型【1指标，2维度，3标识】",
+          "enum": ["1", "2", "3"]
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "source": {
+          "type": "string",
+          "example": "table_a",
+          "description": "数据来源（表名）"
+        }
+      },
+      "title": "IndicatorDefListVO",
+      "description": "【指标定义】列表展示对象"
+    },
+    "IndicatorDefShowVO": {
+      "type": "object",
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "formula": {
+          "type": "string",
+          "example": "sum(if(flg_legal_adjust_price,1,0))",
+          "description": "计算逻辑"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "indicatorCat": {
+          "type": "string",
+          "example": 1,
+          "description": "指标分类【1诚信度，2波动性，3竞争力】",
+          "enum": ["1", "2", "3"]
+        },
+        "indicatorKey": {
+          "type": "string",
+          "example": "ajust_price_num",
+          "description": "指标KEY"
+        },
+        "indicatorName": {
+          "type": "string",
+          "example": "调价次数",
+          "description": "指标名称"
+        },
+        "indicatorType": {
+          "type": "string",
+          "example": 1,
+          "description": "指标类型【1指标，2维度，3标识】",
+          "enum": ["1", "2", "3"]
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "source": {
+          "type": "string",
+          "example": "table_a",
+          "description": "数据来源（表名）"
+        }
+      },
+      "title": "IndicatorDefShowVO",
+      "description": "【指标定义】详情展示对象"
+    },
+    "IndicatorDefUpdateDTO": {
+      "type": "object",
+      "required": [
+        "enabled",
+        "formula",
+        "id",
+        "indicatorCat",
+        "indicatorKey",
+        "indicatorName",
+        "indicatorType",
+        "remark",
+        "source"
+      ],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "formula": {
+          "type": "string",
+          "example": "sum(if(flg_legal_adjust_price,1,0))",
+          "description": "计算逻辑"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "indicatorCat": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "指标分类【1诚信度，2波动性，3竞争力】"
+        },
+        "indicatorKey": {
+          "type": "string",
+          "example": "ajust_price_num",
+          "description": "指标KEY"
+        },
+        "indicatorName": {
+          "type": "string",
+          "example": "调价次数",
+          "description": "指标名称"
+        },
+        "indicatorType": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "指标类型【1指标，2维度，3标识】"
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "source": {
+          "type": "string",
+          "example": "table_a",
+          "description": "数据来源（表名）"
+        }
+      },
+      "title": "IndicatorDefUpdateDTO",
+      "description": "修改【指标定义】的参数"
+    },
+    "IndicatorExeAddDTO": {
+      "type": "object",
+      "required": [
+        "duration",
+        "exeCode",
+        "exeStatus",
+        "logMsg",
+        "resultUrl",
+        "scriptId"
+      ],
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2000,
+          "description": "耗时【毫秒】"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "exeCode": {
+          "type": "string",
+          "example": 12,
+          "description": "执行编号,大数据平台返回"
+        },
+        "exeStatus": {
+          "type": "string",
+          "example": 1,
+          "description": "执行状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "logMsg": {
+          "type": "string",
+          "example": "计算资源不足",
+          "description": "日志信息"
+        },
+        "resultUrl": {
+          "type": "string",
+          "example": "/job1/123",
+          "description": "执行结果地址"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        }
+      },
+      "title": "IndicatorExeAddDTO",
+      "description": "新增【任务执行】的参数"
+    },
+    "IndicatorExeListVO": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2000,
+          "description": "耗时【毫秒】"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "exeCode": {
+          "type": "string",
+          "example": 12,
+          "description": "执行编号,大数据平台返回"
+        },
+        "exeStatus": {
+          "type": "string",
+          "example": 1,
+          "description": "执行状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "logMsg": {
+          "type": "string",
+          "example": "计算资源不足",
+          "description": "日志信息"
+        },
+        "resultUrl": {
+          "type": "string",
+          "example": "/job1/123",
+          "description": "执行结果地址"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        }
+      },
+      "title": "IndicatorExeListVO",
+      "description": "【任务执行】列表展示对象"
+    },
+    "IndicatorExeShowVO": {
+      "type": "object",
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2000,
+          "description": "耗时【毫秒】"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "exeCode": {
+          "type": "string",
+          "example": 12,
+          "description": "执行编号,大数据平台返回"
+        },
+        "exeStatus": {
+          "type": "string",
+          "example": 1,
+          "description": "执行状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "logMsg": {
+          "type": "string",
+          "example": "计算资源不足",
+          "description": "日志信息"
+        },
+        "resultUrl": {
+          "type": "string",
+          "example": "/job1/123",
+          "description": "执行结果地址"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        }
+      },
+      "title": "IndicatorExeShowVO",
+      "description": "【任务执行】详情展示对象"
+    },
+    "IndicatorExeUpdateDTO": {
+      "type": "object",
+      "required": [
+        "duration",
+        "exeCode",
+        "exeStatus",
+        "id",
+        "logMsg",
+        "resultUrl",
+        "scriptId"
+      ],
+      "properties": {
+        "duration": {
+          "type": "integer",
+          "format": "int32",
+          "example": 2000,
+          "description": "耗时【毫秒】"
+        },
+        "endTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "exeCode": {
+          "type": "string",
+          "example": 12,
+          "description": "执行编号,大数据平台返回"
+        },
+        "exeStatus": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "执行状态【0未开始，1进行中，2成功，-1失败，-2取消】"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "logMsg": {
+          "type": "string",
+          "example": "计算资源不足",
+          "description": "日志信息"
+        },
+        "resultUrl": {
+          "type": "string",
+          "example": "/job1/123",
+          "description": "执行结果地址"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "startTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        }
+      },
+      "title": "IndicatorExeUpdateDTO",
+      "description": "修改【任务执行】的参数"
+    },
+    "IndicatorTaskAddDTO": {
+      "type": "object",
+      "required": [
+        "buId",
+        "cid1",
+        "cid2",
+        "cid3",
+        "deptId1",
+        "deptId2",
+        "deptId3",
+        "enabled",
+        "erps",
+        "filterEndTime",
+        "filterStartTime",
+        "filterType",
+        "remark",
+        "scriptId",
+        "skuIds",
+        "taskCode",
+        "taskName",
+        "taskStatus",
+        "timeType"
+      ],
+      "properties": {
+        "buId": {
+          "type": "string",
+          "example": 737,
+          "description": "事业群（过滤条件）"
+        },
+        "cid1": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "一级品类id（过滤条件）"
+        },
+        "cid2": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "二级品类id（过滤条件）"
+        },
+        "cid3": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "三级品类id（过滤条件）"
+        },
+        "deptId1": {
+          "type": "string",
+          "example": 737,
+          "description": "一级部门（过滤条件）"
+        },
+        "deptId2": {
+          "type": "string",
+          "example": 737,
+          "description": "二级部门（过滤条件）"
+        },
+        "deptId3": {
+          "type": "string",
+          "example": 737,
+          "description": "三级部门（过滤条件）"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "erps": {
+          "type": "string",
+          "example": "zhangsan,lisi",
+          "description": "收件人erp【英文逗号分隔】"
+        },
+        "filterEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间（过滤条件）"
+        },
+        "filterStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间（过滤条件）"
+        },
+        "filterType": {
+          "type": "string",
+          "example": 1,
+          "description": "过滤类型【1部门,2品类,3sku】",
+          "enum": ["1", "2", "3"]
+        },
+        "indicatorDefList": {
+          "type": "array",
+          "items": { "type": "integer", "format": "int32" }
+        },
+        "lastExeId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "上次执行id"
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "skuIds": {
+          "type": "string",
+          "example": "123,232",
+          "description": "skuId列表（过滤条件）"
+        },
+        "taskCode": {
+          "type": "string",
+          "example": "TASK001",
+          "description": "任务编号,外部传入"
+        },
+        "taskName": {
+          "type": "string",
+          "example": "任务1",
+          "description": "任务名称"
+        },
+        "taskStatus": {
+          "type": "string",
+          "example": 0,
+          "description": "任务状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "timeType": {
+          "type": "string",
+          "example": 1,
+          "description": "时间类型【1日，2周，3月】",
+          "enum": ["1", "2", "3"]
+        }
+      },
+      "title": "IndicatorTaskAddDTO",
+      "description": "新增【指标任务】的参数"
+    },
+    "IndicatorTaskListVO": {
+      "type": "object",
+      "properties": {
+        "buId": {
+          "type": "string",
+          "example": 737,
+          "description": "事业群（过滤条件）"
+        },
+        "cid1": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "一级品类id（过滤条件）"
+        },
+        "cid2": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "二级品类id（过滤条件）"
+        },
+        "cid3": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "三级品类id（过滤条件）"
+        },
+        "deptId1": {
+          "type": "string",
+          "example": 737,
+          "description": "一级部门（过滤条件）"
+        },
+        "deptId2": {
+          "type": "string",
+          "example": 737,
+          "description": "二级部门（过滤条件）"
+        },
+        "deptId3": {
+          "type": "string",
+          "example": 737,
+          "description": "三级部门（过滤条件）"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "erps": {
+          "type": "string",
+          "example": "zhangsan,lisi",
+          "description": "收件人erp【英文逗号分隔】"
+        },
+        "filterEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间（过滤条件）"
+        },
+        "filterStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间（过滤条件）"
+        },
+        "filterType": {
+          "type": "string",
+          "example": 1,
+          "description": "过滤类型【1部门,2品类,3sku】",
+          "enum": ["1", "2", "3"]
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "lastEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "lastExeId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "上次执行id"
+        },
+        "lastStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "skuIds": {
+          "type": "string",
+          "example": "123,232",
+          "description": "skuId列表（过滤条件）"
+        },
+        "taskCode": {
+          "type": "string",
+          "example": "TASK001",
+          "description": "任务编号,外部传入"
+        },
+        "taskName": {
+          "type": "string",
+          "example": "任务1",
+          "description": "任务名称"
+        },
+        "taskStatus": {
+          "type": "string",
+          "example": 0,
+          "description": "任务状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "timeType": {
+          "type": "string",
+          "example": 1,
+          "description": "时间类型【1日，2周，3月】",
+          "enum": ["1", "2", "3"]
+        }
+      },
+      "title": "IndicatorTaskListVO",
+      "description": "【指标任务】列表展示对象"
+    },
+    "IndicatorTaskShowVO": {
+      "type": "object",
+      "properties": {
+        "buId": {
+          "type": "string",
+          "example": 737,
+          "description": "事业群（过滤条件）"
+        },
+        "cid1": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "一级品类id（过滤条件）"
+        },
+        "cid2": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "二级品类id（过滤条件）"
+        },
+        "cid3": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "三级品类id（过滤条件）"
+        },
+        "deptId1": {
+          "type": "string",
+          "example": 737,
+          "description": "一级部门（过滤条件）"
+        },
+        "deptId2": {
+          "type": "string",
+          "example": 737,
+          "description": "二级部门（过滤条件）"
+        },
+        "deptId3": {
+          "type": "string",
+          "example": 737,
+          "description": "三级部门（过滤条件）"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "erps": {
+          "type": "string",
+          "example": "zhangsan,lisi",
+          "description": "收件人erp【英文逗号分隔】"
+        },
+        "filterEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间（过滤条件）"
+        },
+        "filterStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间（过滤条件）"
+        },
+        "filterType": {
+          "type": "string",
+          "example": 1,
+          "description": "过滤类型【1部门,2品类,3sku】",
+          "enum": ["1", "2", "3"]
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "indicatorDefList": {
+          "type": "array",
+          "description": "【指标定义】列表",
+          "items": { "$ref": "#/definitions/IndicatorDefListVO" }
+        },
+        "lastEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间"
+        },
+        "lastExeId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "上次执行id"
+        },
+        "lastStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间"
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "skuIds": {
+          "type": "string",
+          "example": "123,232",
+          "description": "skuId列表（过滤条件）"
+        },
+        "taskCode": {
+          "type": "string",
+          "example": "TASK001",
+          "description": "任务编号,外部传入"
+        },
+        "taskName": {
+          "type": "string",
+          "example": "任务1",
+          "description": "任务名称"
+        },
+        "taskStatus": {
+          "type": "string",
+          "example": 0,
+          "description": "任务状态【0未开始，1进行中，2成功，-1失败，-2取消】",
+          "enum": ["-2", "-1", "2", "1", "0"]
+        },
+        "timeType": {
+          "type": "string",
+          "example": 1,
+          "description": "时间类型【1日，2周，3月】",
+          "enum": ["1", "2", "3"]
+        }
+      },
+      "title": "IndicatorTaskShowVO",
+      "description": "【指标任务】详情展示对象"
+    },
+    "IndicatorTaskUpdateDTO": {
+      "type": "object",
+      "required": [
+        "buId",
+        "cid1",
+        "cid2",
+        "cid3",
+        "deptId1",
+        "deptId2",
+        "deptId3",
+        "enabled",
+        "erps",
+        "filterEndTime",
+        "filterStartTime",
+        "filterType",
+        "id",
+        "remark",
+        "scriptId",
+        "skuIds",
+        "taskCode",
+        "taskName",
+        "taskStatus",
+        "timeType"
+      ],
+      "properties": {
+        "buId": {
+          "type": "string",
+          "example": 737,
+          "description": "事业群（过滤条件）"
+        },
+        "cid1": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "一级品类id（过滤条件）"
+        },
+        "cid2": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "二级品类id（过滤条件）"
+        },
+        "cid3": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "三级品类id（过滤条件）"
+        },
+        "deptId1": {
+          "type": "string",
+          "example": 737,
+          "description": "一级部门（过滤条件）"
+        },
+        "deptId2": {
+          "type": "string",
+          "example": 737,
+          "description": "二级部门（过滤条件）"
+        },
+        "deptId3": {
+          "type": "string",
+          "example": 737,
+          "description": "三级部门（过滤条件）"
+        },
+        "enabled": {
+          "type": "boolean",
+          "example": true,
+          "description": "是否启用"
+        },
+        "erps": {
+          "type": "string",
+          "example": "zhangsan,lisi",
+          "description": "收件人erp【英文逗号分隔】"
+        },
+        "filterEndTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "结束时间（过滤条件）"
+        },
+        "filterStartTime": {
+          "type": "string",
+          "format": "date-time",
+          "example": "2018-01-22 00:00:00",
+          "description": "开始时间（过滤条件）"
+        },
+        "filterType": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "过滤类型【1部门,2品类,3sku】"
+        },
+        "id": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "主键ID"
+        },
+        "indicatorDefList": {
+          "type": "array",
+          "items": { "type": "integer", "format": "int32" }
+        },
+        "lastExeId": {
+          "type": "integer",
+          "format": "int64",
+          "example": 1,
+          "description": "上次执行id"
+        },
+        "remark": {
+          "type": "string",
+          "example": "备注",
+          "description": "备注说明"
+        },
+        "scriptId": {
+          "type": "string",
+          "example": 123,
+          "description": "运行脚本id"
+        },
+        "skuIds": {
+          "type": "string",
+          "example": "123,232",
+          "description": "skuId列表（过滤条件）"
+        },
+        "taskCode": {
+          "type": "string",
+          "example": "TASK001",
+          "description": "任务编号,外部传入"
+        },
+        "taskName": {
+          "type": "string",
+          "example": "任务1",
+          "description": "任务名称"
+        },
+        "taskStatus": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "任务状态【0未开始，1进行中，2成功，-1失败，-2取消】"
+        },
+        "timeType": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "时间类型【1日，2周，3月】"
+        }
+      },
+      "title": "IndicatorTaskUpdateDTO",
+      "description": "修改【指标任务】的参数"
+    },
+    "PageVO«IndicatorDefListVO»": {
+      "type": "object",
+      "required": [
+        "currentPage",
+        "firstIndex",
+        "lastIndex",
+        "list",
+        "pageCount",
+        "pageSize",
+        "total"
+      ],
+      "properties": {
+        "currentPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "firstIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "list": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/IndicatorDefListVO" }
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        }
+      },
+      "title": "PageVO«IndicatorDefListVO»"
+    },
+    "PageVO«IndicatorExeListVO»": {
+      "type": "object",
+      "required": [
+        "currentPage",
+        "firstIndex",
+        "lastIndex",
+        "list",
+        "pageCount",
+        "pageSize",
+        "total"
+      ],
+      "properties": {
+        "currentPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "firstIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "list": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/IndicatorExeListVO" }
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        }
+      },
+      "title": "PageVO«IndicatorExeListVO»"
+    },
+    "PageVO«IndicatorTaskListVO»": {
+      "type": "object",
+      "required": [
+        "currentPage",
+        "firstIndex",
+        "lastIndex",
+        "list",
+        "pageCount",
+        "pageSize",
+        "total"
+      ],
+      "properties": {
+        "currentPage": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "firstIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "list": {
+          "type": "array",
+          "description": "数据列表",
+          "items": { "$ref": "#/definitions/IndicatorTaskListVO" }
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        },
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        }
+      },
+      "title": "PageVO«IndicatorTaskListVO»"
+    }
+  }
+}

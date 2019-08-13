@@ -1,12 +1,12 @@
 import { interceptRequest, interceptResponse } from './interceptor'
 import {
-  TheGenericRequestParameterQueryParameters,
+  GeneralRequestParameterQueryParameter,
   DataTransOutput,
   ResultListMap1,
 } from './definitions'
 
 interface IPostApiCoreAssetCreditQueryPastCreditCardBillGatherParam {
-  body: TheGenericRequestParameterQueryParameters
+  body: GeneralRequestParameterQueryParameter
 }
 
 /**

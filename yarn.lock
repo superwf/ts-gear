@@ -1858,7 +1858,7 @@ error-ex@^1.2.0, error-ex@^1.3.1:
   dependencies:
     is-arrayish "^0.2.1"
 
-es-abstract@^1.5.1:
+es-abstract@^1.4.3, es-abstract@^1.5.1:
   version "1.13.0"
   resolved "http://registry.m.jd.com/es-abstract/download/es-abstract-1.13.0.tgz#ac86145fdd5099d8dd49558ccba2eaf9b88e24e9"
   integrity sha1-rIYUX91QmdjdSVWMy6Lq+biOJOk=
@@ -2211,7 +2211,7 @@ fsevents@^1.2.7:
     nan "^2.12.1"
     node-pre-gyp "^0.12.0"
 
-function-bind@^1.1.1:
+function-bind@^1.0.2, function-bind@^1.1.1:
   version "1.1.1"
   resolved "http://registry.m.jd.com/function-bind/download/function-bind-1.1.1.tgz#a56899d3ea3c9bab874bb9773b7c5ede92f4895d"
   integrity sha1-pWiZ0+o8m6uHS7l3O3xe3pL0iV0=
@@ -3754,12 +3754,12 @@ lodash@^3.3.1:
   resolved "http://registry.m.jd.com/lodash/download/lodash-3.10.1.tgz#5bf45e8e49ba4189e17d482789dfd15bd140b7b6"
   integrity sha1-W/Rejkm6QYnhfUgnid/RW9FAt7Y=
 
-lodash@^4.17.10, lodash@^4.17.11, lodash@^4.17.5:
+lodash@^4.17.10, lodash@^4.17.11:
   version "4.17.11"
   resolved "http://registry.m.jd.com/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
   integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
 
-lodash@^4.2.1, lodash@^4.5.1:
+lodash@^4.17.15, lodash@^4.2.1, lodash@^4.5.1:
   version "4.17.15"
   resolved "http://registry.m.jd.com/lodash/download/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
   integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
@@ -3882,6 +3882,11 @@ mem@^4.0.0:
     map-age-cleaner "^0.1.1"
     mimic-fn "^2.0.0"
     p-is-promise "^2.0.0"
+
+memorystream@^0.3.1:
+  version "0.3.1"
+  resolved "http://registry.m.jd.com/memorystream/download/memorystream-0.3.1.tgz#86d7090b30ce455d63fbae12dda51a47ddcaf9b2"
+  integrity sha1-htcJCzDORV1j+64S3aUaR93K+bI=
 
 meow@5.0.0:
   version "5.0.0"
@@ -4222,6 +4227,21 @@ npm-path@^2.0.2:
   integrity sha1-xkE0el/51qCeTZvOVYDE9QUnjmQ=
   dependencies:
     which "^1.2.10"
+
+npm-run-all@^4.1.5:
+  version "4.1.5"
+  resolved "http://registry.m.jd.com/npm-run-all/download/npm-run-all-4.1.5.tgz#04476202a15ee0e2e214080861bff12a51d98fba"
+  integrity sha1-BEdiAqFe4OLiFAgIYb/xKlHZj7o=
+  dependencies:
+    ansi-styles "^3.2.1"
+    chalk "^2.4.1"
+    cross-spawn "^6.0.5"
+    memorystream "^0.3.1"
+    minimatch "^3.0.4"
+    pidtree "^0.3.0"
+    read-pkg "^3.0.0"
+    shell-quote "^1.6.1"
+    string.prototype.padend "^3.0.0"
 
 npm-run-path@^2.0.0:
   version "2.0.2"
@@ -4582,6 +4602,11 @@ performance-now@^2.1.0:
   version "2.1.0"
   resolved "http://registry.m.jd.com/performance-now/download/performance-now-2.1.0.tgz#6309f4e0e5fa913ec1c69307ae364b4b377c9e7b"
   integrity sha1-Ywn04OX6kT7BxpMHrjZLSzd8nns=
+
+pidtree@^0.3.0:
+  version "0.3.0"
+  resolved "http://registry.m.jd.com/pidtree/download/pidtree-0.3.0.tgz#f6fada10fccc9f99bf50e90d0b23d72c9ebc2e6b"
+  integrity sha1-9vraEPzMn5m/UOkNCyPXLJ68Lms=
 
 pify@^2.0.0, pify@^2.3.0:
   version "2.3.0"
@@ -5195,6 +5220,11 @@ shebang-regex@^1.0.0:
   resolved "http://registry.m.jd.com/shebang-regex/download/shebang-regex-1.0.0.tgz#da42f49740c0b42db2ca9728571cb190c98efea3"
   integrity sha1-2kL0l0DAtC2yypcoVxyxkMmO/qM=
 
+shell-quote@^1.6.1:
+  version "1.6.3"
+  resolved "http://registry.m.jd.com/shell-quote/download/shell-quote-1.6.3.tgz#54bd93b5964f6a451fe8dbb8668416d40e3501e4"
+  integrity sha1-VL2TtZZPakUf6Nu4ZoQW1A41AeQ=
+
 shellwords@^0.1.1:
   version "0.1.1"
   resolved "http://registry.m.jd.com/shellwords/download/shellwords-0.1.1.tgz#d6b9181c1a48d397324c84871efbcfc73fc0654b"
@@ -5457,6 +5487,15 @@ string-width@^3.0.0, string-width@^3.1.0:
     emoji-regex "^7.0.1"
     is-fullwidth-code-point "^2.0.0"
     strip-ansi "^5.1.0"
+
+string.prototype.padend@^3.0.0:
+  version "3.0.0"
+  resolved "http://registry.m.jd.com/string.prototype.padend/download/string.prototype.padend-3.0.0.tgz#f3aaef7c1719f170c5eab1c32bf780d96e21f2f0"
+  integrity sha1-86rvfBcZ8XDF6rHDK/eA2W4h8vA=
+  dependencies:
+    define-properties "^1.1.2"
+    es-abstract "^1.4.3"
+    function-bind "^1.0.2"
 
 string_decoder@^1.1.1:
   version "1.2.0"
@@ -5868,10 +5907,15 @@ typedarray@^0.0.6:
   resolved "http://registry.m.jd.com/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.0.1, typescript@^3.4.5:
+typescript@^3.0.1:
   version "3.4.5"
   resolved "http://registry.m.jd.com/typescript/download/typescript-3.4.5.tgz#2d2618d10bb566572b8d7aad5180d84257d70a99"
   integrity sha1-LSYY0Qu1ZlcrjXqtUYDYQlfXCpk=
+
+typescript@^3.5.3:
+  version "3.5.3"
+  resolved "http://registry.m.jd.com/typescript/download/typescript-3.5.3.tgz#c830f657f93f1ea846819e929092f5fe5983e977"
+  integrity sha1-yDD2V/k/HqhGgZ6SkJL1/lmD6Xc=
 
 uglify-js@^3.1.4:
   version "3.5.10"
