@@ -5,7 +5,7 @@ import {
   ResultListMap1,
 } from './definitions'
 
-interface IPostApiCoreAssetCreditQueryPastCreditCardBillGatherParam {
+export interface IPostApiCoreAssetCreditQueryPastCreditCardBillGatherParam {
   body: GeneralRequestParameterQueryParameter
 }
 
@@ -24,7 +24,7 @@ export function postApiCoreAssetCreditQueryPastCreditCardBillGather(
   return fetch(url, option).then<DataTransOutput>(interceptResponse)
 }
 
-interface IPostZzjyAllMsgGetAllMsgForMapParam {
+export interface IPostZzjyAllMsgGetAllMsgForMapParam {
   query: {
     accountTime: string
     type: string

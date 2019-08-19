@@ -4,7 +4,7 @@ exports[`generatePaths pet paths 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
 
-interface IPostPetParam {
+export interface IPostPetParam {
     body: Pet;
 }
 
@@ -19,7 +19,7 @@ export function postPet(param: IPostPetParam) {
               
 }
 
-interface IPutPetParam {
+export interface IPutPetParam {
     body: Pet;
 }
 
@@ -34,7 +34,7 @@ export function putPet(param: IPutPetParam) {
               
 }
 
-interface IGetPetFindByStatusParam {
+export interface IGetPetFindByStatusParam {
     query: {
         status: Array<'available' | 'pending' | 'sold'>
         };
@@ -53,7 +53,7 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
               
 }
 
-interface IGetPetPetIdParam {
+export interface IGetPetPetIdParam {
     path: {
         petId: number
         };
@@ -71,7 +71,7 @@ export function getPetPetId(param: IGetPetPetIdParam) {
               
 }
 
-interface IPostPetPetIdParam {
+export interface IPostPetPetIdParam {
     path: {
         petId: number
         };
@@ -92,7 +92,7 @@ export function postPetPetId(param: IPostPetPetIdParam) {
               
 }
 
-interface IDeletePetPetIdParam {
+export interface IDeletePetPetIdParam {
     header?: {
         api_key?: string
         };
@@ -112,7 +112,7 @@ export function deletePetPetId(param: IDeletePetPetIdParam) {
               
 }
 
-interface IPostPetPetIdUploadImageParam {
+export interface IPostPetPetIdUploadImageParam {
     path: {
         petId: number
         };
@@ -146,7 +146,7 @@ export function getStoreInventory() {
               
 }
 
-interface IPostStoreOrderParam {
+export interface IPostStoreOrderParam {
     body: Order;
 }
 
@@ -161,7 +161,7 @@ export function postStoreOrder(param: IPostStoreOrderParam) {
               
 }
 
-interface IGetStoreOrderOrderIdParam {
+export interface IGetStoreOrderOrderIdParam {
     path: {
         orderId: number
         };
@@ -179,7 +179,7 @@ export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
               
 }
 
-interface IDeleteStoreOrderOrderIdParam {
+export interface IDeleteStoreOrderOrderIdParam {
     path: {
         orderId: number
         };
@@ -197,7 +197,7 @@ export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
               
 }
 
-interface IPostUserParam {
+export interface IPostUserParam {
     body: User;
 }
 
@@ -213,7 +213,7 @@ export function postUser(param: IPostUserParam) {
               
 }
 
-interface IPostUserCreateWithArrayParam {
+export interface IPostUserCreateWithArrayParam {
     body: Array<User>;
 }
 
@@ -228,7 +228,7 @@ export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
               
 }
 
-interface IPostUserCreateWithListParam {
+export interface IPostUserCreateWithListParam {
     body: Array<User>;
 }
 
@@ -243,7 +243,7 @@ export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
               
 }
 
-interface IGetUserLoginParam {
+export interface IGetUserLoginParam {
     query: {
         username: string
         password: string
@@ -273,7 +273,7 @@ export function getUserLogout() {
               
 }
 
-interface IGetUserUsernameParam {
+export interface IGetUserUsernameParam {
     path: {
         username: string
         };
@@ -290,7 +290,7 @@ export function getUserUsername(param: IGetUserUsernameParam) {
               
 }
 
-interface IPutUserUsernameParam {
+export interface IPutUserUsernameParam {
     path: {
         username: string
         };
@@ -309,7 +309,7 @@ export function putUserUsername(param: IPutUserUsernameParam) {
               
 }
 
-interface IDeleteUserUsernameParam {
+export interface IDeleteUserUsernameParam {
     path: {
         username: string
         };
@@ -333,7 +333,7 @@ exports[`generatePaths projectA paths 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { ReplyVOPageVOAuditFlowListVO, AuditFlowDTO, ReplyVO, ReplyVOAuditFlowDeptFollowRuleDetailVO, ReplyVOPageVOBlackListVO, BlackListAddDeleteDTO, ReplyVOPageVODeptFollowRuleListVO, DeptFollowRuleAddUpdateDTO, ReplyVODeptFollowRuleViewVO, ReplyVODeptFollowRuleEditVO, ReplyVOPageVOFollowPoolListVO, FollowPoolSkuAddDeleteDTO, PoolIsAutoPubUpdateDTO, ManualAdjustPriceAddDTO, ReplyVOListOpponentVO, PromotionDeleteDTO, ReplyVOPromotionListVO, PublishPricingDTO, ReplyVOPageVOUserInputDataListVO, UserInputDataAddUpdateDTO, UserInputDataDeleteDTO, ReplyVOInt, ReplyVOUserInputDataEditVO } from \\"./definitions\\";
 
-interface IGetApiPricingAuditFlowParam {
+export interface IGetApiPricingAuditFlowParam {
     query?: {
         auditStatusList?: Array<number>
         createrList?: Array<string>
@@ -357,7 +357,7 @@ export function getApiPricingAuditFlow(param: IGetApiPricingAuditFlowParam) {
               
 }
 
-interface IPostApiPricingAuditFlowApprovalParam {
+export interface IPostApiPricingAuditFlowApprovalParam {
     body: AuditFlowDTO;
 }
 
@@ -372,7 +372,7 @@ export function postApiPricingAuditFlowApproval(param: IPostApiPricingAuditFlowA
               
 }
 
-interface IPostApiPricingAuditFlowRejectParam {
+export interface IPostApiPricingAuditFlowRejectParam {
     body: AuditFlowDTO;
 }
 
@@ -387,7 +387,7 @@ export function postApiPricingAuditFlowReject(param: IPostApiPricingAuditFlowRej
               
 }
 
-interface IPostApiPricingAuditFlowTakeBackParam {
+export interface IPostApiPricingAuditFlowTakeBackParam {
     body: AuditFlowDTO;
 }
 
@@ -402,7 +402,7 @@ export function postApiPricingAuditFlowTakeBack(param: IPostApiPricingAuditFlowT
               
 }
 
-interface IGetApiPricingAuditFlowTypeTypeIdParam {
+export interface IGetApiPricingAuditFlowTypeTypeIdParam {
     path?: {
         id?: number
         type?: number
@@ -420,7 +420,7 @@ export function getApiPricingAuditFlowTypeTypeId(param: IGetApiPricingAuditFlowT
               
 }
 
-interface IGetApiPricingBlackListParam {
+export interface IGetApiPricingBlackListParam {
     query: {
         brandId?: number
         cid?: number
@@ -446,7 +446,7 @@ export function getApiPricingBlackList(param: IGetApiPricingBlackListParam) {
               
 }
 
-interface IPostApiPricingBlackListAddParam {
+export interface IPostApiPricingBlackListAddParam {
     body: BlackListAddDeleteDTO;
 }
 
@@ -461,7 +461,7 @@ export function postApiPricingBlackListAdd(param: IPostApiPricingBlackListAddPar
               
 }
 
-interface IPostApiPricingBlackListRemoveParam {
+export interface IPostApiPricingBlackListRemoveParam {
     body: BlackListAddDeleteDTO;
 }
 
@@ -476,7 +476,7 @@ export function postApiPricingBlackListRemove(param: IPostApiPricingBlackListRem
               
 }
 
-interface IGetApiPricingDeptFollowRuleParam {
+export interface IGetApiPricingDeptFollowRuleParam {
     query: {
         auditStatus?: number
         cid?: number
@@ -501,7 +501,7 @@ export function getApiPricingDeptFollowRule(param: IGetApiPricingDeptFollowRuleP
               
 }
 
-interface IPostApiPricingDeptFollowRuleParam {
+export interface IPostApiPricingDeptFollowRuleParam {
     body?: DeptFollowRuleAddUpdateDTO;
 }
 
@@ -516,7 +516,7 @@ export function postApiPricingDeptFollowRule(param: IPostApiPricingDeptFollowRul
               
 }
 
-interface IPostApiPricingDeptFollowRuleSubmitParam {
+export interface IPostApiPricingDeptFollowRuleSubmitParam {
     body?: DeptFollowRuleAddUpdateDTO;
 }
 
@@ -531,7 +531,7 @@ export function postApiPricingDeptFollowRuleSubmit(param: IPostApiPricingDeptFol
               
 }
 
-interface IGetApiPricingDeptFollowRuleValidRuleHeaderIdParam {
+export interface IGetApiPricingDeptFollowRuleValidRuleHeaderIdParam {
     path?: {
         headerId?: number
         };
@@ -548,7 +548,7 @@ export function getApiPricingDeptFollowRuleValidRuleHeaderId(param: IGetApiPrici
               
 }
 
-interface IGetApiPricingDeptFollowRuleHeaderIdParam {
+export interface IGetApiPricingDeptFollowRuleHeaderIdParam {
     path?: {
         headerId?: number
         };
@@ -565,7 +565,7 @@ export function getApiPricingDeptFollowRuleHeaderId(param: IGetApiPricingDeptFol
               
 }
 
-interface IDeleteApiPricingDeptFollowRuleHeaderIdParam {
+export interface IDeleteApiPricingDeptFollowRuleHeaderIdParam {
     path?: {
         headerId?: number
         };
@@ -582,7 +582,7 @@ export function deleteApiPricingDeptFollowRuleHeaderId(param: IDeleteApiPricingD
               
 }
 
-interface IGetApiPricingFollowPoolParam {
+export interface IGetApiPricingFollowPoolParam {
     query: {
         bandMode?: number
         bandType?: string
@@ -614,7 +614,7 @@ export function getApiPricingFollowPool(param: IGetApiPricingFollowPoolParam) {
               
 }
 
-interface IPostApiPricingFollowPoolAddParam {
+export interface IPostApiPricingFollowPoolAddParam {
     body: FollowPoolSkuAddDeleteDTO;
 }
 
@@ -629,7 +629,7 @@ export function postApiPricingFollowPoolAdd(param: IPostApiPricingFollowPoolAddP
               
 }
 
-interface IGetApiPricingFollowPoolExportParam {
+export interface IGetApiPricingFollowPoolExportParam {
     query: {
         bandMode?: number
         bandType?: string
@@ -661,7 +661,7 @@ export function getApiPricingFollowPoolExport(param: IGetApiPricingFollowPoolExp
               
 }
 
-interface IPostApiPricingFollowPoolIsAutoPubParam {
+export interface IPostApiPricingFollowPoolIsAutoPubParam {
     body?: PoolIsAutoPubUpdateDTO;
 }
 
@@ -676,7 +676,7 @@ export function postApiPricingFollowPoolIsAutoPub(param: IPostApiPricingFollowPo
               
 }
 
-interface IPostApiPricingFollowPoolRemoveParam {
+export interface IPostApiPricingFollowPoolRemoveParam {
     body: FollowPoolSkuAddDeleteDTO;
 }
 
@@ -691,7 +691,7 @@ export function postApiPricingFollowPoolRemove(param: IPostApiPricingFollowPoolR
               
 }
 
-interface IPostApiPricingManualAdjustPriceParam {
+export interface IPostApiPricingManualAdjustPriceParam {
     body?: ManualAdjustPriceAddDTO;
 }
 
@@ -706,7 +706,7 @@ export function postApiPricingManualAdjustPrice(param: IPostApiPricingManualAdju
               
 }
 
-interface IGetApiPricingOpponentParam {
+export interface IGetApiPricingOpponentParam {
     query?: {
         cidList?: Array<number>
         level?: number
@@ -725,7 +725,7 @@ export function getApiPricingOpponent(param: IGetApiPricingOpponentParam) {
               
 }
 
-interface IDeleteApiPricingPromotionParam {
+export interface IDeleteApiPricingPromotionParam {
     body: PromotionDeleteDTO;
 }
 
@@ -740,7 +740,7 @@ export function deleteApiPricingPromotion(param: IDeleteApiPricingPromotionParam
               
 }
 
-interface IGetApiPricingPromotionSkuIdParam {
+export interface IGetApiPricingPromotionSkuIdParam {
     path?: {
         skuId?: number
         };
@@ -757,7 +757,7 @@ export function getApiPricingPromotionSkuId(param: IGetApiPricingPromotionSkuIdP
               
 }
 
-interface IPostApiPricingPublishPricingPubPriceParam {
+export interface IPostApiPricingPublishPricingPubPriceParam {
     body?: PublishPricingDTO;
 }
 
@@ -772,7 +772,7 @@ export function postApiPricingPublishPricingPubPrice(param: IPostApiPricingPubli
               
 }
 
-interface IPostApiPricingPublishPricingRejectPriceParam {
+export interface IPostApiPricingPublishPricingRejectPriceParam {
     body?: PublishPricingDTO;
 }
 
@@ -787,7 +787,7 @@ export function postApiPricingPublishPricingRejectPrice(param: IPostApiPricingPu
               
 }
 
-interface IGetApiPricingUserInputDataParam {
+export interface IGetApiPricingUserInputDataParam {
     query: {
         brandId?: number
         cid?: number
@@ -813,7 +813,7 @@ export function getApiPricingUserInputData(param: IGetApiPricingUserInputDataPar
               
 }
 
-interface IPostApiPricingUserInputDataParam {
+export interface IPostApiPricingUserInputDataParam {
     body?: UserInputDataAddUpdateDTO;
 }
 
@@ -828,7 +828,7 @@ export function postApiPricingUserInputData(param: IPostApiPricingUserInputDataP
               
 }
 
-interface IDeleteApiPricingUserInputDataParam {
+export interface IDeleteApiPricingUserInputDataParam {
     body: UserInputDataDeleteDTO;
 }
 
@@ -843,7 +843,7 @@ export function deleteApiPricingUserInputData(param: IDeleteApiPricingUserInputD
               
 }
 
-interface IGetApiPricingUserInputDataExportParam {
+export interface IGetApiPricingUserInputDataExportParam {
     query: {
         brandId?: number
         cid?: number
@@ -869,7 +869,7 @@ export function getApiPricingUserInputDataExport(param: IGetApiPricingUserInputD
               
 }
 
-interface IPostApiPricingUserInputDataUploadParam {
+export interface IPostApiPricingUserInputDataUploadParam {
     formData: {
         file: File
         };
@@ -886,7 +886,7 @@ export function postApiPricingUserInputDataUpload(param: IPostApiPricingUserInpu
               
 }
 
-interface IGetApiPricingUserInputDataIdParam {
+export interface IGetApiPricingUserInputDataIdParam {
     path?: {
         id?: number
         };
@@ -909,7 +909,7 @@ exports[`generatePaths projectB paths 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { ReplyVOListOpponentVO, ReplyVOPageVOCisSkuListVO, ReplyVOListPriceHistoryVO, CisMatchInfoDTO, ReplyVOVoid, SkuMatchDTO, ReplyVOListOpponentSkuListVO, CisSkuDTO, ReplyVOConfigVO, ReplyVOCisSkuShowVO } from \\"./definitions\\";
 
-interface IGetApiCompetitionOpponentParam {
+export interface IGetApiCompetitionOpponentParam {
     query?: {
         skuId?: number
         };
@@ -926,7 +926,7 @@ export function getApiCompetitionOpponent(param: IGetApiCompetitionOpponentParam
               
 }
 
-interface IGetApiCompetitionSkuParam {
+export interface IGetApiCompetitionSkuParam {
     query?: {
         blackListStatus?: boolean
         brandId?: Array<number>
@@ -966,7 +966,7 @@ export function getApiCompetitionSku(param: IGetApiCompetitionSkuParam) {
               
 }
 
-interface IGetApiCompetitionSkuHistorySkuIdParam {
+export interface IGetApiCompetitionSkuHistorySkuIdParam {
     query?: {
         priceType?: number
         };
@@ -986,7 +986,7 @@ export function getApiCompetitionSkuHistorySkuId(param: IGetApiCompetitionSkuHis
               
 }
 
-interface IPostApiCompetitionSkuMatchParam {
+export interface IPostApiCompetitionSkuMatchParam {
     body: CisMatchInfoDTO;
 }
 
@@ -1001,7 +1001,7 @@ export function postApiCompetitionSkuMatch(param: IPostApiCompetitionSkuMatchPar
               
 }
 
-interface IDeleteApiCompetitionSkuMatchParam {
+export interface IDeleteApiCompetitionSkuMatchParam {
     body: SkuMatchDTO;
 }
 
@@ -1016,7 +1016,7 @@ export function deleteApiCompetitionSkuMatch(param: IDeleteApiCompetitionSkuMatc
               
 }
 
-interface IPostApiCompetitionSkuMatchBatchParam {
+export interface IPostApiCompetitionSkuMatchBatchParam {
     formData: {
         file: File
         };
@@ -1033,7 +1033,7 @@ export function postApiCompetitionSkuMatchBatch(param: IPostApiCompetitionSkuMat
               
 }
 
-interface IGetApiCompetitionSkuMatchSkuIdParam {
+export interface IGetApiCompetitionSkuMatchSkuIdParam {
     path?: {
         skuId?: number
         };
@@ -1050,7 +1050,7 @@ export function getApiCompetitionSkuMatchSkuId(param: IGetApiCompetitionSkuMatch
               
 }
 
-interface IGetApiCompetitionSkuMonitorParam {
+export interface IGetApiCompetitionSkuMonitorParam {
     query?: {
         blackListStatus?: boolean
         brandId?: Array<number>
@@ -1090,7 +1090,7 @@ export function getApiCompetitionSkuMonitor(param: IGetApiCompetitionSkuMonitorP
               
 }
 
-interface IPostApiCompetitionSkuMonitorParam {
+export interface IPostApiCompetitionSkuMonitorParam {
     body: CisSkuDTO;
 }
 
@@ -1105,7 +1105,7 @@ export function postApiCompetitionSkuMonitor(param: IPostApiCompetitionSkuMonito
               
 }
 
-interface IDeleteApiCompetitionSkuMonitorParam {
+export interface IDeleteApiCompetitionSkuMonitorParam {
     body: CisSkuDTO;
 }
 
@@ -1131,7 +1131,7 @@ export function getApiCompetitionSkuMonitorGetConfig() {
               
 }
 
-interface IGetApiCompetitionSkuSkuIdParam {
+export interface IGetApiCompetitionSkuSkuIdParam {
     path?: {
         skuId?: number
         };
@@ -1154,7 +1154,7 @@ exports[`generatePaths projectC paths 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { EsIndexAddDTO, ReplyVOInt, ReplyVOVoid, ReplyVOChartResultVOPriceCompeteChartListVO, ReplyVOPriceCompeteSumVO, ReplyVOListPriceEcAnalysisBrandVO, ReplyVOListPriceEcAnalysisCatVO, ReplyVOListPriceEcAnalysisDeptVO, ReplyVOPriceEcAnalysisHomeIndexVO, ReplyVOListPriceEcAnalysisSalerVO, ReplyVOPriceEcAnalysisTopVO, ReplyVOChartResultVOPriceHonestChartListVO, ReplyVOListPriceHonestSkuListVO, ReplyVOPriceHonestSumVO, ReplyVOChartResultVOPriceWaveChartListVO, ReplyVOListPriceWaveSkuListVO, ReplyVOPriceWaveSumVO, ReplyVOPromoAnalysisSumVO, ReplyVOPromoAnalysisChartVO, ReplyVOSetPromoDeptTreeVO, ReplyVOPromoAnalysisHomeIndexVO, ReplyVOPromoAnalysisPromoResultVO, ReplyVOPageVOPromoAnalysisPromoSkuVO, ReplyVOPromoAnalysisSkuResultVO, ReplyVOReportTaskShowVO, ReportTaskDeleteQO, ReplyVO, ReplyVOPageVOReportTaskInstanceVO, ReplyVOPageVOReportTaskListVO, ReportRetryQO, ReportTaskAddDTO, ReportTaskUpdateDTO, ReplyVOPageVOSkuBlacklistListVO, SkuBlacklistAddDTO, SkuBlacklistDeleteQO, ReplyVOListTopBrandListVO, ListBrandVO, TopBrandAddDTO, TopBrandDeleteQO, ReplyVOMarkdownPriceCalcVO, ReplyVOMarkdownSaleSimulateVO, ReplyVOMarkdownTrendSimulateVO, ReplyVOSimulateSkuVO, ReplyVOListSkuHistoryDTO, ReplyVOPageVOSimulateSkuVO, ReplyVOListSaleSimulateTableVO, ReplyVOSaleSimulateVO, PromoRoQO, PromoOverlayRiskDTO, ReplyVOListPromoResponse, ReplyVOMapLongBoolean, ReplyVOPromoRoVO, ReplyVOListSelectOptionVOInt, ReplyVOPageVOPromoSimulateDetailVO, ReplyVOPromoSimulateTotalVO } from \\"./definitions\\";
 
-interface IPostApiDataboardBoardEsCreateIndexParam {
+export interface IPostApiDataboardBoardEsCreateIndexParam {
     body?: EsIndexAddDTO;
     formData: {
         file: File
@@ -1176,7 +1176,7 @@ export function postApiDataboardBoardEsCreateIndex(param: IPostApiDataboardBoard
               
 }
 
-interface IDeleteApiDataboardBoardEsDelIndexParam {
+export interface IDeleteApiDataboardBoardEsDelIndexParam {
     body?: Array<string>;
 }
 
@@ -1191,7 +1191,7 @@ export function deleteApiDataboardBoardEsDelIndex(param: IDeleteApiDataboardBoar
               
 }
 
-interface IGetApiDataboardBoardPriceCompeteExportChartParam {
+export interface IGetApiDataboardBoardPriceCompeteExportChartParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1218,7 +1218,7 @@ export function getApiDataboardBoardPriceCompeteExportChart(param: IGetApiDatabo
               
 }
 
-interface IGetApiDataboardBoardPriceCompeteListParam {
+export interface IGetApiDataboardBoardPriceCompeteListParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1244,7 +1244,7 @@ export function getApiDataboardBoardPriceCompeteList(param: IGetApiDataboardBoar
               
 }
 
-interface IGetApiDataboardBoardPriceCompeteShowSummaryParam {
+export interface IGetApiDataboardBoardPriceCompeteShowSummaryParam {
     query?: {
         pageNo?: number
         pageSize?: number
@@ -1262,7 +1262,7 @@ export function getApiDataboardBoardPriceCompeteShowSummary(param: IGetApiDatabo
               
 }
 
-interface IGetApiDataboardBoardPriceEcAnalysisBrandListParam {
+export interface IGetApiDataboardBoardPriceEcAnalysisBrandListParam {
     query?: {
         deptLevel?: number
         gmvBand?: Array<string>
@@ -1284,7 +1284,7 @@ export function getApiDataboardBoardPriceEcAnalysisBrandList(param: IGetApiDatab
               
 }
 
-interface IGetApiDataboardBoardPriceEcAnalysisCatListParam {
+export interface IGetApiDataboardBoardPriceEcAnalysisCatListParam {
     query?: {
         catLevel?: number
         gmvBand?: Array<string>
@@ -1306,7 +1306,7 @@ export function getApiDataboardBoardPriceEcAnalysisCatList(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardBoardPriceEcAnalysisDeptListParam {
+export interface IGetApiDataboardBoardPriceEcAnalysisDeptListParam {
     query?: {
         deptLevel?: number
         gmvBand?: Array<string>
@@ -1339,7 +1339,7 @@ export function getApiDataboardBoardPriceEcAnalysisHomeIndex() {
               
 }
 
-interface IGetApiDataboardBoardPriceEcAnalysisSalerListParam {
+export interface IGetApiDataboardBoardPriceEcAnalysisSalerListParam {
     query?: {
         gmvBand?: Array<string>
         pageNo?: number
@@ -1371,7 +1371,7 @@ export function getApiDataboardBoardPriceEcAnalysisTop() {
               
 }
 
-interface IGetApiDataboardBoardPriceHonestExportChartParam {
+export interface IGetApiDataboardBoardPriceHonestExportChartParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1397,7 +1397,7 @@ export function getApiDataboardBoardPriceHonestExportChart(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardBoardPriceHonestExportListSkuParam {
+export interface IGetApiDataboardBoardPriceHonestExportListSkuParam {
     query?: {
         dtype?: string
         pageNo?: number
@@ -1417,7 +1417,7 @@ export function getApiDataboardBoardPriceHonestExportListSku(param: IGetApiDatab
               
 }
 
-interface IGetApiDataboardBoardPriceHonestListParam {
+export interface IGetApiDataboardBoardPriceHonestListParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1442,7 +1442,7 @@ export function getApiDataboardBoardPriceHonestList(param: IGetApiDataboardBoard
               
 }
 
-interface IGetApiDataboardBoardPriceHonestListSkuParam {
+export interface IGetApiDataboardBoardPriceHonestListSkuParam {
     query?: {
         dtype?: string
         pageNo?: number
@@ -1461,7 +1461,7 @@ export function getApiDataboardBoardPriceHonestListSku(param: IGetApiDataboardBo
               
 }
 
-interface IGetApiDataboardBoardPriceHonestShowSummaryParam {
+export interface IGetApiDataboardBoardPriceHonestShowSummaryParam {
     query?: {
         dtype?: string
         pageNo?: number
@@ -1480,7 +1480,7 @@ export function getApiDataboardBoardPriceHonestShowSummary(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardBoardPriceWaveExportChartParam {
+export interface IGetApiDataboardBoardPriceWaveExportChartParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1506,7 +1506,7 @@ export function getApiDataboardBoardPriceWaveExportChart(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardBoardPriceWaveListParam {
+export interface IGetApiDataboardBoardPriceWaveListParam {
     query?: {
         cidLevel?: number
         deptLevel?: number
@@ -1531,7 +1531,7 @@ export function getApiDataboardBoardPriceWaveList(param: IGetApiDataboardBoardPr
               
 }
 
-interface IGetApiDataboardBoardPriceWaveListSkuParam {
+export interface IGetApiDataboardBoardPriceWaveListSkuParam {
     query?: {
         dtype?: string
         pageNo?: number
@@ -1550,7 +1550,7 @@ export function getApiDataboardBoardPriceWaveListSku(param: IGetApiDataboardBoar
               
 }
 
-interface IGetApiDataboardBoardPriceWaveShowSummaryParam {
+export interface IGetApiDataboardBoardPriceWaveShowSummaryParam {
     query?: {
         dtype?: string
         pageNo?: number
@@ -1569,7 +1569,7 @@ export function getApiDataboardBoardPriceWaveShowSummary(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardBoardPromoAnalysisBenchmarkingParam {
+export interface IGetApiDataboardBoardPromoAnalysisBenchmarkingParam {
     query?: {
         cid?: number
         deptId?: string
@@ -1588,7 +1588,7 @@ export function getApiDataboardBoardPromoAnalysisBenchmarking(param: IGetApiData
               
 }
 
-interface IGetApiDataboardBoardPromoAnalysisChartParam {
+export interface IGetApiDataboardBoardPromoAnalysisChartParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -1637,7 +1637,7 @@ export function getApiDataboardBoardPromoAnalysisHomeIndex() {
               
 }
 
-interface IGetApiDataboardBoardPromoAnalysisPromoListParam {
+export interface IGetApiDataboardBoardPromoAnalysisPromoListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -1669,7 +1669,7 @@ export function getApiDataboardBoardPromoAnalysisPromoList(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardBoardPromoAnalysisPromoSkuListParam {
+export interface IGetApiDataboardBoardPromoAnalysisPromoSkuListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -1696,7 +1696,7 @@ export function getApiDataboardBoardPromoAnalysisPromoSkuList(param: IGetApiData
               
 }
 
-interface IGetApiDataboardBoardPromoAnalysisSkuListParam {
+export interface IGetApiDataboardBoardPromoAnalysisSkuListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -1724,7 +1724,7 @@ export function getApiDataboardBoardPromoAnalysisSkuList(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardBoardReportTaskConfigIdParam {
+export interface IGetApiDataboardBoardReportTaskConfigIdParam {
     path?: {
         id?: number
         };
@@ -1741,7 +1741,7 @@ export function getApiDataboardBoardReportTaskConfigId(param: IGetApiDataboardBo
               
 }
 
-interface IDeleteApiDataboardBoardReportTaskDeleteBatchParam {
+export interface IDeleteApiDataboardBoardReportTaskDeleteBatchParam {
     body?: ReportTaskDeleteQO;
 }
 
@@ -1756,7 +1756,7 @@ export function deleteApiDataboardBoardReportTaskDeleteBatch(param: IDeleteApiDa
               
 }
 
-interface IGetApiDataboardBoardReportTaskInstanceListParam {
+export interface IGetApiDataboardBoardReportTaskInstanceListParam {
     query?: {
         pageNo?: number
         pageSize?: number
@@ -1775,7 +1775,7 @@ export function getApiDataboardBoardReportTaskInstanceList(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardBoardReportTaskListParam {
+export interface IGetApiDataboardBoardReportTaskListParam {
     query?: {
         pageNo?: number
         pageSize?: number
@@ -1793,7 +1793,7 @@ export function getApiDataboardBoardReportTaskList(param: IGetApiDataboardBoardR
               
 }
 
-interface IPostApiDataboardBoardReportTaskRetryParam {
+export interface IPostApiDataboardBoardReportTaskRetryParam {
     body?: ReportRetryQO;
 }
 
@@ -1808,7 +1808,7 @@ export function postApiDataboardBoardReportTaskRetry(param: IPostApiDataboardBoa
               
 }
 
-interface IPostApiDataboardBoardReportTaskSaveParam {
+export interface IPostApiDataboardBoardReportTaskSaveParam {
     body?: ReportTaskAddDTO;
 }
 
@@ -1823,7 +1823,7 @@ export function postApiDataboardBoardReportTaskSave(param: IPostApiDataboardBoar
               
 }
 
-interface IPutApiDataboardBoardReportTaskUpdateParam {
+export interface IPutApiDataboardBoardReportTaskUpdateParam {
     body?: ReportTaskUpdateDTO;
 }
 
@@ -1838,7 +1838,7 @@ export function putApiDataboardBoardReportTaskUpdate(param: IPutApiDataboardBoar
               
 }
 
-interface IGetApiDataboardBoardSkuBlacklistParam {
+export interface IGetApiDataboardBoardSkuBlacklistParam {
     query?: {
         pageNo?: number
         pageSize?: number
@@ -1856,7 +1856,7 @@ export function getApiDataboardBoardSkuBlacklist(param: IGetApiDataboardBoardSku
               
 }
 
-interface IPostApiDataboardBoardSkuBlacklistParam {
+export interface IPostApiDataboardBoardSkuBlacklistParam {
     body?: SkuBlacklistAddDTO;
 }
 
@@ -1871,7 +1871,7 @@ export function postApiDataboardBoardSkuBlacklist(param: IPostApiDataboardBoardS
               
 }
 
-interface IDeleteApiDataboardBoardSkuBlacklistParam {
+export interface IDeleteApiDataboardBoardSkuBlacklistParam {
     body?: SkuBlacklistDeleteQO;
 }
 
@@ -1886,7 +1886,7 @@ export function deleteApiDataboardBoardSkuBlacklist(param: IDeleteApiDataboardBo
               
 }
 
-interface IGetApiDataboardBoardSkuBlacklistExportParam {
+export interface IGetApiDataboardBoardSkuBlacklistExportParam {
     query?: {
         exportEmail?: string
         };
@@ -1914,7 +1914,7 @@ export function getApiDataboardBoardTopBrand() {
               
 }
 
-interface IPostApiDataboardBoardTopBrandParam {
+export interface IPostApiDataboardBoardTopBrandParam {
     body: ListBrandVO;
 }
 
@@ -1929,7 +1929,7 @@ export function postApiDataboardBoardTopBrand(param: IPostApiDataboardBoardTopBr
               
 }
 
-interface IDeleteApiDataboardBoardTopBrandParam {
+export interface IDeleteApiDataboardBoardTopBrandParam {
     path?: {
         id?: number
         };
@@ -1947,7 +1947,7 @@ export function deleteApiDataboardBoardTopBrand(param: IDeleteApiDataboardBoardT
               
 }
 
-interface IGetApiDataboardPriceMarkdownSimulateCalcParam {
+export interface IGetApiDataboardPriceMarkdownSimulateCalcParam {
     query?: {
         bottomPrice?: number
         cleanDays?: number
@@ -1972,7 +1972,7 @@ export function getApiDataboardPriceMarkdownSimulateCalc(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardPriceMarkdownSimulateExportParam {
+export interface IGetApiDataboardPriceMarkdownSimulateExportParam {
     query?: {
         endDt?: string
         pageNo?: number
@@ -1994,7 +1994,7 @@ export function getApiDataboardPriceMarkdownSimulateExport(param: IGetApiDataboa
               
 }
 
-interface IGetApiDataboardPriceMarkdownSimulateSaleParam {
+export interface IGetApiDataboardPriceMarkdownSimulateSaleParam {
     query?: {
         bottomPrice?: number
         cleanDays?: number
@@ -2019,7 +2019,7 @@ export function getApiDataboardPriceMarkdownSimulateSale(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardPriceMarkdownSimulateTrendParam {
+export interface IGetApiDataboardPriceMarkdownSimulateTrendParam {
     query?: {
         bottomPrice?: number
         cleanDays?: number
@@ -2044,7 +2044,7 @@ export function getApiDataboardPriceMarkdownSimulateTrend(param: IGetApiDataboar
               
 }
 
-interface IGetApiDataboardPriceMarkdownSimulateSkuIdParam {
+export interface IGetApiDataboardPriceMarkdownSimulateSkuIdParam {
     path: {
         skuId: number
         };
@@ -2061,7 +2061,7 @@ export function getApiDataboardPriceMarkdownSimulateSkuId(param: IGetApiDataboar
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateExportParam {
+export interface IGetApiDataboardPriceSaleSimulateExportParam {
     query?: {
         endDt?: string
         pageNo?: number
@@ -2083,7 +2083,7 @@ export function getApiDataboardPriceSaleSimulateExport(param: IGetApiDataboardPr
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateHistoryParam {
+export interface IGetApiDataboardPriceSaleSimulateHistoryParam {
     query?: {
         endDt?: string
         pageNo?: number
@@ -2104,7 +2104,7 @@ export function getApiDataboardPriceSaleSimulateHistory(param: IGetApiDataboardP
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateListParam {
+export interface IGetApiDataboardPriceSaleSimulateListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2134,7 +2134,7 @@ export function getApiDataboardPriceSaleSimulateList(param: IGetApiDataboardPric
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateShowTableParam {
+export interface IGetApiDataboardPriceSaleSimulateShowTableParam {
     query?: {
         endDate?: string
         maxPrice?: number
@@ -2159,7 +2159,7 @@ export function getApiDataboardPriceSaleSimulateShowTable(param: IGetApiDataboar
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateSimulateParam {
+export interface IGetApiDataboardPriceSaleSimulateSimulateParam {
     query?: {
         endDate?: string
         maxPrice?: number
@@ -2184,7 +2184,7 @@ export function getApiDataboardPriceSaleSimulateSimulate(param: IGetApiDataboard
               
 }
 
-interface IGetApiDataboardPriceSaleSimulateSkuIdParam {
+export interface IGetApiDataboardPriceSaleSimulateSkuIdParam {
     path: {
         skuId: number
         };
@@ -2201,7 +2201,7 @@ export function getApiDataboardPriceSaleSimulateSkuId(param: IGetApiDataboardPri
               
 }
 
-interface IGetApiDataboardPromoRoExportParam {
+export interface IGetApiDataboardPromoRoExportParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2237,7 +2237,7 @@ export function getApiDataboardPromoRoExport(param: IGetApiDataboardPromoRoExpor
               
 }
 
-interface IPostApiDataboardPromoRoExportParam {
+export interface IPostApiDataboardPromoRoExportParam {
     body: PromoRoQO;
 }
 
@@ -2252,7 +2252,7 @@ export function postApiDataboardPromoRoExport(param: IPostApiDataboardPromoRoExp
               
 }
 
-interface IPostApiDataboardPromoRoFindOverlayPromoParam {
+export interface IPostApiDataboardPromoRoFindOverlayPromoParam {
     body: PromoOverlayRiskDTO;
 }
 
@@ -2267,7 +2267,7 @@ export function postApiDataboardPromoRoFindOverlayPromo(param: IPostApiDataboard
               
 }
 
-interface IPostApiDataboardPromoRoFindOverlayRiskParam {
+export interface IPostApiDataboardPromoRoFindOverlayRiskParam {
     body: PromoOverlayRiskDTO;
 }
 
@@ -2282,7 +2282,7 @@ export function postApiDataboardPromoRoFindOverlayRisk(param: IPostApiDataboardP
               
 }
 
-interface IGetApiDataboardPromoRoListParam {
+export interface IGetApiDataboardPromoRoListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2318,7 +2318,7 @@ export function getApiDataboardPromoRoList(param: IGetApiDataboardPromoRoListPar
               
 }
 
-interface IPostApiDataboardPromoRoListParam {
+export interface IPostApiDataboardPromoRoListParam {
     body: PromoRoQO;
 }
 
@@ -2333,7 +2333,7 @@ export function postApiDataboardPromoRoList(param: IPostApiDataboardPromoRoListP
               
 }
 
-interface IGetApiDataboardPromoRoSubTypesParam {
+export interface IGetApiDataboardPromoRoSubTypesParam {
     query: {
         promoType: number
         };
@@ -2350,7 +2350,7 @@ export function getApiDataboardPromoRoSubTypes(param: IGetApiDataboardPromoRoSub
               
 }
 
-interface IGetApiDataboardPromoSimulateExportParam {
+export interface IGetApiDataboardPromoSimulateExportParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2386,7 +2386,7 @@ export function getApiDataboardPromoSimulateExport(param: IGetApiDataboardPromoS
               
 }
 
-interface IPostApiDataboardPromoSimulateExportParam {
+export interface IPostApiDataboardPromoSimulateExportParam {
     body: PromoRoQO;
 }
 
@@ -2401,7 +2401,7 @@ export function postApiDataboardPromoSimulateExport(param: IPostApiDataboardProm
               
 }
 
-interface IGetApiDataboardPromoSimulateListParam {
+export interface IGetApiDataboardPromoSimulateListParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2437,7 +2437,7 @@ export function getApiDataboardPromoSimulateList(param: IGetApiDataboardPromoSim
               
 }
 
-interface IPostApiDataboardPromoSimulateListParam {
+export interface IPostApiDataboardPromoSimulateListParam {
     body: PromoRoQO;
 }
 
@@ -2452,7 +2452,7 @@ export function postApiDataboardPromoSimulateList(param: IPostApiDataboardPromoS
               
 }
 
-interface IGetApiDataboardPromoSimulateSubTypesParam {
+export interface IGetApiDataboardPromoSimulateSubTypesParam {
     query: {
         promoType: number
         };
@@ -2469,7 +2469,7 @@ export function getApiDataboardPromoSimulateSubTypes(param: IGetApiDataboardProm
               
 }
 
-interface IGetApiDataboardPromoSimulateTotalParam {
+export interface IGetApiDataboardPromoSimulateTotalParam {
     query?: {
         brandId?: Array<number>
         cid?: Array<number>
@@ -2505,7 +2505,7 @@ export function getApiDataboardPromoSimulateTotal(param: IGetApiDataboardPromoSi
               
 }
 
-interface IPostApiDataboardPromoSimulateTotalParam {
+export interface IPostApiDataboardPromoSimulateTotalParam {
     body: PromoRoQO;
 }
 

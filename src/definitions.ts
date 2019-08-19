@@ -20,12 +20,12 @@ export const transformDefinitionToTsClass = async (
     if (definition.type === 'object') {
       if (definition.properties) {
         const klass = sourceFile.addClass({
+          isExported: true,
           name: title,
         })
         if (definition.description) {
           klass.addJsDoc(definition.description)
         }
-        klass.setIsExported(true)
         for (const name of Object.getOwnPropertyNames(definition.properties)) {
           const property = definition!.properties![name]
           const klassStructure: OptionalKind<PropertyDeclarationStructure> = {
@@ -50,10 +50,10 @@ export const transformDefinitionToTsClass = async (
       } else if (definition.additionalProperties) {
         // ts-morph的class没有addIndexSignature，改用interface
         const interFace = sourceFile.addInterface({
+          isExported: true,
           name: title,
         })
         const additionalProperties = definition.additionalProperties as JSONSchema
-        interFace.setIsExported(true)
         const interfaceStructure: OptionalKind<
           IndexSignatureDeclarationStructure
         > = {
@@ -67,11 +67,11 @@ export const transformDefinitionToTsClass = async (
         interFace.addIndexSignature(interfaceStructure)
       }
     } else {
-      const t = sourceFile.addTypeAlias({
+      sourceFile.addTypeAlias({
+        isExported: true,
         name: title,
         type: transformProperty(definition),
       })
-      t.setIsExported(true)
     }
   })
 
@@ -98,11 +98,11 @@ export const transform$RefsNotInDefinitions = async ($refNames: string[]) => {
   if ($refNames.length > 0) {
     return compile((sourceFile: SourceFile) => {
       $refNames.forEach(name => {
-        const t = sourceFile.addTypeAlias({
+        sourceFile.addTypeAlias({
+          isExported: true,
           name,
           type: 'any',
         })
-        t.setIsExported(true)
       })
     })
   }

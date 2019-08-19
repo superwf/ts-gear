@@ -25,7 +25,7 @@ import {
   ReplyVOUserInputDataEditVO,
 } from './definitions'
 
-interface IGetApiPricingAuditFlowParam {
+export interface IGetApiPricingAuditFlowParam {
   query?: {
     auditStatusList?: Array<number>
     createrList?: Array<string>
@@ -49,7 +49,7 @@ export function getApiPricingAuditFlow(param: IGetApiPricingAuditFlowParam) {
   )
 }
 
-interface IPostApiPricingAuditFlowApprovalParam {
+export interface IPostApiPricingAuditFlowApprovalParam {
   body: AuditFlowDTO
 }
 
@@ -67,7 +67,7 @@ export function postApiPricingAuditFlowApproval(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingAuditFlowRejectParam {
+export interface IPostApiPricingAuditFlowRejectParam {
   body: AuditFlowDTO
 }
 
@@ -82,7 +82,7 @@ export function postApiPricingAuditFlowReject(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingAuditFlowTakeBackParam {
+export interface IPostApiPricingAuditFlowTakeBackParam {
   body: AuditFlowDTO
 }
 
@@ -100,7 +100,7 @@ export function postApiPricingAuditFlowTakeBack(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingAuditFlowTypeTypeIdParam {
+export interface IGetApiPricingAuditFlowTypeTypeIdParam {
   path?: {
     id?: number
     type?: number
@@ -123,7 +123,7 @@ export function getApiPricingAuditFlowTypeTypeId(
   )
 }
 
-interface IGetApiPricingBlackListParam {
+export interface IGetApiPricingBlackListParam {
   query: {
     brandId?: number
     cid?: number
@@ -147,7 +147,7 @@ export function getApiPricingBlackList(param: IGetApiPricingBlackListParam) {
   return fetch(url, option).then<ReplyVOPageVOBlackListVO>(interceptResponse)
 }
 
-interface IPostApiPricingBlackListAddParam {
+export interface IPostApiPricingBlackListAddParam {
   body: BlackListAddDeleteDTO
 }
 
@@ -162,7 +162,7 @@ export function postApiPricingBlackListAdd(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingBlackListRemoveParam {
+export interface IPostApiPricingBlackListRemoveParam {
   body: BlackListAddDeleteDTO
 }
 
@@ -177,7 +177,7 @@ export function postApiPricingBlackListRemove(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingDeptFollowRuleParam {
+export interface IGetApiPricingDeptFollowRuleParam {
   query: {
     auditStatus?: number
     cid?: number
@@ -204,7 +204,7 @@ export function getApiPricingDeptFollowRule(
   )
 }
 
-interface IPostApiPricingDeptFollowRuleParam {
+export interface IPostApiPricingDeptFollowRuleParam {
   body?: DeptFollowRuleAddUpdateDTO
 }
 
@@ -219,7 +219,7 @@ export function postApiPricingDeptFollowRule(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingDeptFollowRuleSubmitParam {
+export interface IPostApiPricingDeptFollowRuleSubmitParam {
   body?: DeptFollowRuleAddUpdateDTO
 }
 
@@ -237,7 +237,7 @@ export function postApiPricingDeptFollowRuleSubmit(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingDeptFollowRuleValidRuleHeaderIdParam {
+export interface IGetApiPricingDeptFollowRuleValidRuleHeaderIdParam {
   path?: {
     headerId?: number
   }
@@ -257,7 +257,7 @@ export function getApiPricingDeptFollowRuleValidRuleHeaderId(
   return fetch(url, option).then<ReplyVODeptFollowRuleViewVO>(interceptResponse)
 }
 
-interface IGetApiPricingDeptFollowRuleHeaderIdParam {
+export interface IGetApiPricingDeptFollowRuleHeaderIdParam {
   path?: {
     headerId?: number
   }
@@ -277,7 +277,7 @@ export function getApiPricingDeptFollowRuleHeaderId(
   return fetch(url, option).then<ReplyVODeptFollowRuleEditVO>(interceptResponse)
 }
 
-interface IDeleteApiPricingDeptFollowRuleHeaderIdParam {
+export interface IDeleteApiPricingDeptFollowRuleHeaderIdParam {
   path?: {
     headerId?: number
   }
@@ -297,7 +297,7 @@ export function deleteApiPricingDeptFollowRuleHeaderId(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingFollowPoolParam {
+export interface IGetApiPricingFollowPoolParam {
   query: {
     bandMode?: number
     bandType?: string
@@ -329,7 +329,7 @@ export function getApiPricingFollowPool(param: IGetApiPricingFollowPoolParam) {
   )
 }
 
-interface IPostApiPricingFollowPoolAddParam {
+export interface IPostApiPricingFollowPoolAddParam {
   body: FollowPoolSkuAddDeleteDTO
 }
 
@@ -344,7 +344,7 @@ export function postApiPricingFollowPoolAdd(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingFollowPoolExportParam {
+export interface IGetApiPricingFollowPoolExportParam {
   query: {
     bandMode?: number
     bandType?: string
@@ -379,7 +379,7 @@ export function getApiPricingFollowPoolExport(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingFollowPoolIsAutoPubParam {
+export interface IPostApiPricingFollowPoolIsAutoPubParam {
   body?: PoolIsAutoPubUpdateDTO
 }
 
@@ -397,7 +397,7 @@ export function postApiPricingFollowPoolIsAutoPub(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingFollowPoolRemoveParam {
+export interface IPostApiPricingFollowPoolRemoveParam {
   body: FollowPoolSkuAddDeleteDTO
 }
 
@@ -415,7 +415,7 @@ export function postApiPricingFollowPoolRemove(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingManualAdjustPriceParam {
+export interface IPostApiPricingManualAdjustPriceParam {
   body?: ManualAdjustPriceAddDTO
 }
 
@@ -433,7 +433,7 @@ export function postApiPricingManualAdjustPrice(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingOpponentParam {
+export interface IGetApiPricingOpponentParam {
   query?: {
     cidList?: Array<number>
     level?: number
@@ -450,7 +450,7 @@ export function getApiPricingOpponent(param: IGetApiPricingOpponentParam) {
   return fetch(url, option).then<ReplyVOListOpponentVO>(interceptResponse)
 }
 
-interface IDeleteApiPricingPromotionParam {
+export interface IDeleteApiPricingPromotionParam {
   body: PromotionDeleteDTO
 }
 
@@ -465,7 +465,7 @@ export function deleteApiPricingPromotion(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingPromotionSkuIdParam {
+export interface IGetApiPricingPromotionSkuIdParam {
   path?: {
     skuId?: number
   }
@@ -482,7 +482,7 @@ export function getApiPricingPromotionSkuId(
   return fetch(url, option).then<ReplyVOPromotionListVO>(interceptResponse)
 }
 
-interface IPostApiPricingPublishPricingPubPriceParam {
+export interface IPostApiPricingPublishPricingPubPriceParam {
   body?: PublishPricingDTO
 }
 
@@ -500,7 +500,7 @@ export function postApiPricingPublishPricingPubPrice(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingPublishPricingRejectPriceParam {
+export interface IPostApiPricingPublishPricingRejectPriceParam {
   body?: PublishPricingDTO
 }
 
@@ -518,7 +518,7 @@ export function postApiPricingPublishPricingRejectPrice(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingUserInputDataParam {
+export interface IGetApiPricingUserInputDataParam {
   query: {
     brandId?: number
     cid?: number
@@ -546,7 +546,7 @@ export function getApiPricingUserInputData(
   )
 }
 
-interface IPostApiPricingUserInputDataParam {
+export interface IPostApiPricingUserInputDataParam {
   body?: UserInputDataAddUpdateDTO
 }
 
@@ -561,7 +561,7 @@ export function postApiPricingUserInputData(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IDeleteApiPricingUserInputDataParam {
+export interface IDeleteApiPricingUserInputDataParam {
   body: UserInputDataDeleteDTO
 }
 
@@ -576,7 +576,7 @@ export function deleteApiPricingUserInputData(
   return fetch(url, option).then<ReplyVOInt>(interceptResponse)
 }
 
-interface IGetApiPricingUserInputDataExportParam {
+export interface IGetApiPricingUserInputDataExportParam {
   query: {
     brandId?: number
     cid?: number
@@ -605,7 +605,7 @@ export function getApiPricingUserInputDataExport(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IPostApiPricingUserInputDataUploadParam {
+export interface IPostApiPricingUserInputDataUploadParam {
   formData: {
     file: File
   }
@@ -625,7 +625,7 @@ export function postApiPricingUserInputDataUpload(
   return fetch(url, option).then<ReplyVO>(interceptResponse)
 }
 
-interface IGetApiPricingUserInputDataIdParam {
+export interface IGetApiPricingUserInputDataIdParam {
   path?: {
     id?: number
   }

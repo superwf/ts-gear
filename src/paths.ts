@@ -37,6 +37,7 @@ export const generatePaths = async (
         paramInterfaceName = `I${upperFirst(functionName)}Param`
         const paramDefTsContent = await compile(source => {
           const inter = source.addInterface({
+            isExported: true,
             name: paramInterfaceName,
           })
           forEach<JSONSchema>(parameterSchema, (property, name) => {

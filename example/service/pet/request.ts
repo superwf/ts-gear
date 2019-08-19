@@ -1,7 +1,7 @@
 import { interceptRequest, interceptResponse } from './interceptor'
 import { Pet, ApiResponse, Order, User } from './definitions'
 
-interface IPostPetParam {
+export interface IPostPetParam {
   body: Pet
 }
 
@@ -14,7 +14,7 @@ export function postPet(param: IPostPetParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPutPetParam {
+export interface IPutPetParam {
   body: Pet
 }
 
@@ -27,7 +27,7 @@ export function putPet(param: IPutPetParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IGetPetFindByStatusParam {
+export interface IGetPetFindByStatusParam {
   query: {
     status: Array<'available' | 'pending' | 'sold'>
   }
@@ -44,7 +44,7 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   return fetch(url, option).then<GetPetFindByStatusResponse>(interceptResponse)
 }
 
-interface IGetPetPetIdParam {
+export interface IGetPetPetIdParam {
   path: {
     petId: number
   }
@@ -60,7 +60,7 @@ export function getPetPetId(param: IGetPetPetIdParam) {
   return fetch(url, option).then<Pet>(interceptResponse)
 }
 
-interface IPostPetPetIdParam {
+export interface IPostPetPetIdParam {
   path: {
     petId: number
   }
@@ -79,7 +79,7 @@ export function postPetPetId(param: IPostPetPetIdParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IDeletePetPetIdParam {
+export interface IDeletePetPetIdParam {
   header?: {
     api_key?: string
   }
@@ -97,7 +97,7 @@ export function deletePetPetId(param: IDeletePetPetIdParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPostPetPetIdUploadImageParam {
+export interface IPostPetPetIdUploadImageParam {
   path: {
     petId: number
   }
@@ -127,7 +127,7 @@ export function getStoreInventory() {
   return fetch(url, option).then<GetStoreInventoryResponse>(interceptResponse)
 }
 
-interface IPostStoreOrderParam {
+export interface IPostStoreOrderParam {
   body: Order
 }
 
@@ -140,7 +140,7 @@ export function postStoreOrder(param: IPostStoreOrderParam) {
   return fetch(url, option).then<Order>(interceptResponse)
 }
 
-interface IGetStoreOrderOrderIdParam {
+export interface IGetStoreOrderOrderIdParam {
   path: {
     orderId: number
   }
@@ -156,7 +156,7 @@ export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   return fetch(url, option).then<Order>(interceptResponse)
 }
 
-interface IDeleteStoreOrderOrderIdParam {
+export interface IDeleteStoreOrderOrderIdParam {
   path: {
     orderId: number
   }
@@ -172,7 +172,7 @@ export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPostUserParam {
+export interface IPostUserParam {
   body: User
 }
 
@@ -186,7 +186,7 @@ export function postUser(param: IPostUserParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPostUserCreateWithArrayParam {
+export interface IPostUserCreateWithArrayParam {
   body: Array<User>
 }
 
@@ -199,7 +199,7 @@ export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPostUserCreateWithListParam {
+export interface IPostUserCreateWithListParam {
   body: Array<User>
 }
 
@@ -212,7 +212,7 @@ export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IGetUserLoginParam {
+export interface IGetUserLoginParam {
   query: {
     username: string
     password: string
@@ -238,7 +238,7 @@ export function getUserLogout() {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IGetUserUsernameParam {
+export interface IGetUserUsernameParam {
   path: {
     username: string
   }
@@ -253,7 +253,7 @@ export function getUserUsername(param: IGetUserUsernameParam) {
   return fetch(url, option).then<User>(interceptResponse)
 }
 
-interface IPutUserUsernameParam {
+export interface IPutUserUsernameParam {
   path: {
     username: string
   }
@@ -270,7 +270,7 @@ export function putUserUsername(param: IPutUserUsernameParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IDeleteUserUsernameParam {
+export interface IDeleteUserUsernameParam {
   path: {
     username: string
   }

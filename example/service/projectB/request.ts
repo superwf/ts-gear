@@ -12,7 +12,7 @@ import {
   ReplyVOCisSkuShowVO,
 } from './definitions'
 
-interface IGetApiCompetitionOpponentParam {
+export interface IGetApiCompetitionOpponentParam {
   query?: {
     skuId?: number
   }
@@ -29,7 +29,7 @@ export function getApiCompetitionOpponent(
   return fetch(url, option).then<ReplyVOListOpponentVO>(interceptResponse)
 }
 
-interface IGetApiCompetitionSkuParam {
+export interface IGetApiCompetitionSkuParam {
   query?: {
     blackListStatus?: boolean
     brandId?: Array<number>
@@ -67,7 +67,7 @@ export function getApiCompetitionSku(param: IGetApiCompetitionSkuParam) {
   return fetch(url, option).then<ReplyVOPageVOCisSkuListVO>(interceptResponse)
 }
 
-interface IGetApiCompetitionSkuHistorySkuIdParam {
+export interface IGetApiCompetitionSkuHistorySkuIdParam {
   query?: {
     priceType?: number
   }
@@ -90,7 +90,7 @@ export function getApiCompetitionSkuHistorySkuId(
   return fetch(url, option).then<ReplyVOListPriceHistoryVO>(interceptResponse)
 }
 
-interface IPostApiCompetitionSkuMatchParam {
+export interface IPostApiCompetitionSkuMatchParam {
   body: CisMatchInfoDTO
 }
 
@@ -105,7 +105,7 @@ export function postApiCompetitionSkuMatch(
   return fetch(url, option).then<ReplyVOVoid>(interceptResponse)
 }
 
-interface IDeleteApiCompetitionSkuMatchParam {
+export interface IDeleteApiCompetitionSkuMatchParam {
   body: SkuMatchDTO
 }
 
@@ -120,7 +120,7 @@ export function deleteApiCompetitionSkuMatch(
   return fetch(url, option).then<ReplyVOVoid>(interceptResponse)
 }
 
-interface IPostApiCompetitionSkuMatchBatchParam {
+export interface IPostApiCompetitionSkuMatchBatchParam {
   formData: {
     file: File
   }
@@ -140,7 +140,7 @@ export function postApiCompetitionSkuMatchBatch(
   return fetch(url, option).then<ReplyVOVoid>(interceptResponse)
 }
 
-interface IGetApiCompetitionSkuMatchSkuIdParam {
+export interface IGetApiCompetitionSkuMatchSkuIdParam {
   path?: {
     skuId?: number
   }
@@ -162,7 +162,7 @@ export function getApiCompetitionSkuMatchSkuId(
   )
 }
 
-interface IGetApiCompetitionSkuMonitorParam {
+export interface IGetApiCompetitionSkuMonitorParam {
   query?: {
     blackListStatus?: boolean
     brandId?: Array<number>
@@ -202,7 +202,7 @@ export function getApiCompetitionSkuMonitor(
   return fetch(url, option).then<ReplyVOPageVOCisSkuListVO>(interceptResponse)
 }
 
-interface IPostApiCompetitionSkuMonitorParam {
+export interface IPostApiCompetitionSkuMonitorParam {
   body: CisSkuDTO
 }
 
@@ -217,7 +217,7 @@ export function postApiCompetitionSkuMonitor(
   return fetch(url, option).then<ReplyVOVoid>(interceptResponse)
 }
 
-interface IDeleteApiCompetitionSkuMonitorParam {
+export interface IDeleteApiCompetitionSkuMonitorParam {
   body: CisSkuDTO
 }
 
@@ -243,7 +243,7 @@ export function getApiCompetitionSkuMonitorGetConfig() {
   return fetch(url, option).then<ReplyVOConfigVO>(interceptResponse)
 }
 
-interface IGetApiCompetitionSkuSkuIdParam {
+export interface IGetApiCompetitionSkuSkuIdParam {
   path?: {
     skuId?: number
   }

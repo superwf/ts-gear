@@ -13,7 +13,7 @@ import {
   IndicatorTaskUpdateDTO,
 } from './definitions'
 
-interface IGetApiIndicatorDefParam {
+export interface IGetApiIndicatorDefParam {
   query?: {
     createdTimeSortSign?: number
     enabled?: boolean
@@ -44,7 +44,7 @@ export function getApiIndicatorDef(param: IGetApiIndicatorDefParam) {
   return fetch(url, option).then<PageVOIndicatorDefListVO>(interceptResponse)
 }
 
-interface IPostApiIndicatorDefParam {
+export interface IPostApiIndicatorDefParam {
   body?: IndicatorDefAddDTO
 }
 
@@ -57,7 +57,7 @@ export function postApiIndicatorDef(param: IPostApiIndicatorDefParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPutApiIndicatorDefParam {
+export interface IPutApiIndicatorDefParam {
   body?: IndicatorDefUpdateDTO
 }
 
@@ -70,7 +70,7 @@ export function putApiIndicatorDef(param: IPutApiIndicatorDefParam) {
   return fetch(url, option).then<IndicatorDefShowVO>(interceptResponse)
 }
 
-interface IDeleteApiIndicatorDefParam {
+export interface IDeleteApiIndicatorDefParam {
   body?: number
 }
 
@@ -86,7 +86,7 @@ export function deleteApiIndicatorDef(param: IDeleteApiIndicatorDefParam) {
   )
 }
 
-interface IGetApiIndicatorDefAvailableListParam {
+export interface IGetApiIndicatorDefAvailableListParam {
   query?: {
     indicatorType?: number
   }
@@ -109,7 +109,7 @@ export function getApiIndicatorDefAvailableList(
   )
 }
 
-interface IGetApiIndicatorDefIdParam {
+export interface IGetApiIndicatorDefIdParam {
   path?: {
     id?: number
   }
@@ -124,7 +124,7 @@ export function getApiIndicatorDefId(param: IGetApiIndicatorDefIdParam) {
   return fetch(url, option).then<IndicatorDefShowVO>(interceptResponse)
 }
 
-interface IDeleteApiIndicatorDefIdParam {
+export interface IDeleteApiIndicatorDefIdParam {
   path?: {
     id?: number
   }
@@ -142,7 +142,7 @@ export function deleteApiIndicatorDefId(param: IDeleteApiIndicatorDefIdParam) {
   )
 }
 
-interface IGetApiIndicatorExeParam {
+export interface IGetApiIndicatorExeParam {
   query?: {
     createdTimeSortSign?: number
     durationEnd?: number
@@ -172,7 +172,7 @@ export function getApiIndicatorExe(param: IGetApiIndicatorExeParam) {
   return fetch(url, option).then<PageVOIndicatorExeListVO>(interceptResponse)
 }
 
-interface IGetApiIndicatorExeIdParam {
+export interface IGetApiIndicatorExeIdParam {
   path?: {
     id?: number
   }
@@ -187,7 +187,7 @@ export function getApiIndicatorExeId(param: IGetApiIndicatorExeIdParam) {
   return fetch(url, option).then<IndicatorExeShowVO>(interceptResponse)
 }
 
-interface IGetApiIndicatorTaskParam {
+export interface IGetApiIndicatorTaskParam {
   query?: {
     cid1?: number
     cid1SortSign?: number
@@ -223,7 +223,7 @@ export function getApiIndicatorTask(param: IGetApiIndicatorTaskParam) {
   return fetch(url, option).then<PageVOIndicatorTaskListVO>(interceptResponse)
 }
 
-interface IPostApiIndicatorTaskParam {
+export interface IPostApiIndicatorTaskParam {
   body?: IndicatorTaskAddDTO
 }
 
@@ -236,7 +236,7 @@ export function postApiIndicatorTask(param: IPostApiIndicatorTaskParam) {
   return fetch(url, option).then(interceptResponse)
 }
 
-interface IPutApiIndicatorTaskParam {
+export interface IPutApiIndicatorTaskParam {
   body?: IndicatorTaskUpdateDTO
 }
 
@@ -249,7 +249,7 @@ export function putApiIndicatorTask(param: IPutApiIndicatorTaskParam) {
   return fetch(url, option).then<IndicatorTaskShowVO>(interceptResponse)
 }
 
-interface IDeleteApiIndicatorTaskParam {
+export interface IDeleteApiIndicatorTaskParam {
   body?: number
 }
 
@@ -265,7 +265,7 @@ export function deleteApiIndicatorTask(param: IDeleteApiIndicatorTaskParam) {
   )
 }
 
-interface IGetApiIndicatorTaskIdParam {
+export interface IGetApiIndicatorTaskIdParam {
   path?: {
     id?: number
   }
@@ -280,7 +280,7 @@ export function getApiIndicatorTaskId(param: IGetApiIndicatorTaskIdParam) {
   return fetch(url, option).then<IndicatorTaskShowVO>(interceptResponse)
 }
 
-interface IDeleteApiIndicatorTaskIdParam {
+export interface IDeleteApiIndicatorTaskIdParam {
   path?: {
     id?: number
   }
@@ -300,7 +300,7 @@ export function deleteApiIndicatorTaskId(
   )
 }
 
-interface IGetApiIndicatorTaskIdLogParam {
+export interface IGetApiIndicatorTaskIdLogParam {
   path?: {
     id?: number
   }
@@ -320,7 +320,7 @@ export function getApiIndicatorTaskIdLog(
   )
 }
 
-interface IPostApiIndicatorTaskIdRunParam {
+export interface IPostApiIndicatorTaskIdRunParam {
   path?: {
     id?: number
   }
@@ -340,7 +340,7 @@ export function postApiIndicatorTaskIdRun(
   )
 }
 
-interface IGetApiIndicatorTaskIdScriptParam {
+export interface IGetApiIndicatorTaskIdScriptParam {
   path?: {
     id?: number
   }
@@ -360,7 +360,7 @@ export function getApiIndicatorTaskIdScript(
   )
 }
 
-interface IPutApiIndicatorTaskIdScriptParam {
+export interface IPutApiIndicatorTaskIdScriptParam {
   path?: {
     id?: number
   }
@@ -381,7 +381,7 @@ export function putApiIndicatorTaskIdScript(
   )
 }
 
-interface IPostApiIndicatorTaskIdStopParam {
+export interface IPostApiIndicatorTaskIdStopParam {
   path?: {
     id?: number
   }
