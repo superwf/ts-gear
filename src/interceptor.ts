@@ -100,8 +100,10 @@ export function interceptRequest(
         ...option.header,
       }
       body = JSON.stringify(body)
+      requestOption.body = body
+    } else {
+      requestOption.body = option.body
     }
-    requestOption.body = option.body
   }
   // body 与 formData 不能同时存在
   // 所以如果有formData时，直接给requestOption.body赋值即可

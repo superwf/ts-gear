@@ -48,12 +48,12 @@ exports.transformDefinitionToTsClass = function (definition, title) { return __a
                 if (definition.type === 'object') {
                     if (definition.properties) {
                         var klass = sourceFile.addClass({
+                            isExported: true,
                             name: title
                         });
                         if (definition.description) {
                             klass.addJsDoc(definition.description);
                         }
-                        klass.setIsExported(true);
                         for (var _i = 0, _a = Object.getOwnPropertyNames(definition.properties); _i < _a.length; _i++) {
                             var name_1 = _a[_i];
                             var property = definition.properties[name_1];
@@ -79,10 +79,10 @@ exports.transformDefinitionToTsClass = function (definition, title) { return __a
                     else if (definition.additionalProperties) {
                         // ts-morph的class没有addIndexSignature，改用interface
                         var interFace = sourceFile.addInterface({
+                            isExported: true,
                             name: title
                         });
                         var additionalProperties = definition.additionalProperties;
-                        interFace.setIsExported(true);
                         var interfaceStructure = {
                             keyName: 'key',
                             keyType: 'string',
@@ -95,11 +95,11 @@ exports.transformDefinitionToTsClass = function (definition, title) { return __a
                     }
                 }
                 else {
-                    var t = sourceFile.addTypeAlias({
+                    sourceFile.addTypeAlias({
+                        isExported: true,
                         name: title,
                         type: util_1.transformProperty(definition)
                     });
-                    t.setIsExported(true);
                 }
             })
             /**
@@ -141,11 +141,11 @@ exports.transform$RefsNotInDefinitions = function ($refNames) { return __awaiter
         if ($refNames.length > 0) {
             return [2 /*return*/, source_1.compile(function (sourceFile) {
                     $refNames.forEach(function (name) {
-                        var t = sourceFile.addTypeAlias({
+                        sourceFile.addTypeAlias({
+                            isExported: true,
                             name: name,
                             type: 'any'
                         });
-                        t.setIsExported(true);
                     });
                 })];
         }

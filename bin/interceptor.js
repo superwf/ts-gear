@@ -83,8 +83,11 @@ function interceptRequest(url, option) {
         if (lodash_1.isPlainObject(body)) {
             requestOption.headers = __assign({ 'Content-Type': jsonType }, option.header);
             body = JSON.stringify(body);
+            requestOption.body = body;
         }
-        requestOption.body = option.body;
+        else {
+            requestOption.body = option.body;
+        }
     }
     // body 与 formData 不能同时存在
     // 所以如果有formData时，直接给requestOption.body赋值即可

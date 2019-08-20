@@ -75,6 +75,7 @@ exports.generatePaths = function (schema, $RefsInPaths) { return __awaiter(_this
                                 paramInterfaceName = "I" + lodash_1.upperFirst(functionName) + "Param";
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var inter = source.addInterface({
+                                            isExported: true,
                                             name: paramInterfaceName
                                         });
                                         lodash_1.forEach(parameterSchema_1, function (property, name) {
