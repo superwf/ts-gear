@@ -5,7 +5,7 @@ import {
 import { JSONSchema } from 'src/interface'
 import { initializeSchema } from 'src/util'
 import pet from '../example/fixture/pet.json'
-import pontFixture from '../example/fixture/pontFixture.json'
+// import pontFixture from '../example/fixture/pontFixture.json'
 import projectA from '../example/fixture/projectA.json'
 import projectB from '../example/fixture/projectB.json'
 import projectC from '../example/fixture/projectC.json'
@@ -47,11 +47,11 @@ describe('transformDefinitionsToTs', () => {
     expect(definitions).toMatchSnapshot()
   })
 
-  it('pontFixture', async () => {
-    await initializeSchema(pontFixture as JSONSchema)
-    const definitions = await transformDefinitionsToTypescript(
-      pontFixture.definitions as JSONSchema,
-    )
-    expect(definitions).toMatchSnapshot()
-  })
+  // it('pontFixture', async () => {
+  //   await initializeSchema(pontFixture as JSONSchema)
+  //   const definitions = await transformDefinitionsToTypescript(
+  //     pontFixture.definitions as JSONSchema,
+  //   )
+  //   expect(definitions).toMatchSnapshot()
+  // })
 })
