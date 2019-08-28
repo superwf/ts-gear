@@ -119,6 +119,6 @@ function interceptResponse(res) {
         }
         // 在此处添加处理更多的response类型
     }
-    return res;
+    return Promise.resolve(res);
 }
 exports.interceptResponse = interceptResponse;

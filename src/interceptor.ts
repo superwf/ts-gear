@@ -121,7 +121,7 @@ export function interceptRequest(
 /** 根据response的header处理各种返回数据
  * 目前只是转了json和text两种，需要其他自行添加
  * */
-export function interceptResponse<T>(res: Response) {
+export function interceptResponse<T extends any>(res: Response) {
   if (!res.ok) {
     throw new InterceptError(
       `response not ok, status: ${res.status}, ${res.statusText}, url: ${
@@ -137,9 +137,9 @@ export function interceptResponse<T>(res: Response) {
     }
 
     if (contentType.includes('text/plain')) {
-      return res.text() as Promise<string>
+      return res.text() as unknown as Promise<T>
     }
     // 在此处添加处理更多的response类型
   }
-  return res
+  return Promise.resolve(res) as unknown as Promise<T>
 }
