@@ -1,11 +1,9 @@
 import { JSONSchema4TypeName } from 'json-schema'
+
 import { IParameter, IParameterSchema, JSONSchema } from './interface'
 
 /** 将parameters中的成员添加到对应的query, body, path对象中 */
-const addParamProperty = (
-  parameter: IParameter,
-  parameterSchema: IParameterSchema,
-) => {
+const addParamProperty = (parameter: IParameter, parameterSchema: IParameterSchema) => {
   const property: JSONSchema = {}
   if (parameter.description) {
     property.description = parameter.description
@@ -38,9 +36,7 @@ const addParamProperty = (
 }
 
 /** 将paths里的各种请求参数组装成IParameterSchema的结构 */
-export const assembleRequestParam = (
-  parameters: IParameter[],
-): IParameterSchema => {
+export const assembleRequestParam = (parameters: IParameter[]): IParameterSchema => {
   const schema: IParameterSchema = {}
   parameters.forEach(parameter => {
     addParamProperty(parameter, schema)

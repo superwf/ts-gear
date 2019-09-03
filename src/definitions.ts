@@ -6,16 +6,14 @@ import {
   Scope,
   SourceFile,
 } from 'ts-morph'
+
 import { JSONSchema } from './interface'
 import { compile } from './source'
 import { transformProperty } from './util'
 
 /** 生成一维property为原始类型的interface
  * */
-export const transformDefinitionToTsClass = async (
-  definition: JSONSchema,
-  title: string,
-) =>
+export const transformDefinitionToTsClass = async (definition: JSONSchema, title: string) =>
   compile((sourceFile: SourceFile) => {
     if (definition.type === 'object') {
       if (definition.properties) {
@@ -33,8 +31,7 @@ export const transformDefinitionToTsClass = async (
             type: transformProperty(property),
             scope: Scope.Public,
             // initializer: property.default as string,
-            hasQuestionToken:
-              !definition.required || !definition.required.includes(name),
+            hasQuestionToken: !definition.required || !definition.required.includes(name),
           }
           // interface不能有初始化的值
           // 考虑用class代替interface的话可以加上
@@ -54,9 +51,7 @@ export const transformDefinitionToTsClass = async (
           name: title,
         })
         const additionalProperties = definition.additionalProperties as JSONSchema
-        const interfaceStructure: OptionalKind<
-          IndexSignatureDeclarationStructure
-        > = {
+        const interfaceStructure: OptionalKind<IndexSignatureDeclarationStructure> = {
           keyName: 'key',
           keyType: 'string',
           returnType: transformProperty(additionalProperties),
@@ -78,16 +73,11 @@ export const transformDefinitionToTsClass = async (
 /**
  * 解析整个definitions
  * */
-export const transformDefinitionsToTypescript = async (definitions: {
-  [k: string]: JSONSchema
-}) => {
+export const transformDefinitionsToTypescript = async (definitions: { [k: string]: JSONSchema }) => {
   const results: string[] = []
   for (const name of Object.getOwnPropertyNames(definitions)) {
     const definition = definitions[name]
-    const result = await transformDefinitionToTsClass(
-      definition as JSONSchema,
-      name,
-    )
+    const result = await transformDefinitionToTsClass(definition as JSONSchema, name)
     results.push(result)
   }
   return results.join('\n')

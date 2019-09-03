@@ -1,14 +1,13 @@
 import { copyFileSync, existsSync, mkdirSync } from 'fs'
 import { join, resolve } from 'path'
-import {
-  transform$RefsNotInDefinitions,
-  transformDefinitionsToTypescript,
-} from './definitions'
+
+import { transform$RefsNotInDefinitions, transformDefinitionsToTypescript } from './definitions'
 import { fetchSwaggerJSONSchema } from './fetchSwagger'
 import { IUserConfig, JSONSchema } from './interface'
 import { generatePaths } from './paths'
 import prettierWrite from './prettierWrite'
 import { initializeSchema, tsGearRoot } from './util'
+import { generateMockRequest } from './mockRequest'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
@@ -39,20 +38,12 @@ export const run = async () => {
     }
 
     // 获取swagger schema
-    const source = project.source.startsWith('http')
-      ? project.source
-      : join(cwd, project.source)
+    const source = project.source.startsWith('http') ? project.source : join(cwd, project.source)
     const schema = await fetchSwaggerJSONSchema(source, project.fetchOption)
-    const { $refsNotInDefinitions, $refsInPaths } = await initializeSchema(
-      schema,
-    )
-    const $refsTypes = await transform$RefsNotInDefinitions(
-      $refsNotInDefinitions,
-    )
+    const { $refsNotInDefinitions, $refsInPaths } = await initializeSchema(schema)
+    const $refsTypes = await transform$RefsNotInDefinitions($refsNotInDefinitions)
     // 生成definitions
-    const definitions = await transformDefinitionsToTypescript(
-      schema.definitions,
-    )
+    const definitions = await transformDefinitionsToTypescript(schema.definitions)
     const definitionsPath = join(projectPath, 'definitions.ts')
     await prettierWrite(definitionsPath, definitions + $refsTypes)
 
@@ -60,6 +51,11 @@ export const run = async () => {
     const pathsContent = await generatePaths(schema as JSONSchema, $refsInPaths)
     const pathsPath = join(projectPath, 'request.ts')
     await prettierWrite(pathsPath, pathsContent)
+
+    // 生成example mock数据
+    const mockRequestContent = await generateMockRequest(schema, $refsInPaths)
+    const mockResponsePath = join(projectPath, 'mockRequest.ts')
+    await prettierWrite(mockResponsePath, mockRequestContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次
     // 这个文件可能会写入一些请求的配置

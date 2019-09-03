@@ -128,6 +128,11 @@ getPetPetId({
 
 ```
 
+### 使用mockRequest.ts
+
+在生成`request.ts`文件的同时，也会生成一个`mockRequest.ts`文件，
+其api接口与`request.ts`一致，但所有会返回内容的请求都会直接返回根据swagger接口数据结构的mock数据，可在开发时加速开发速度。
+
 * 🔧 `interceptor.ts`是从`ts-gear`项目的模板copy来的，被对应的`request.ts`中的所有请求方法调用。
 
   其中的`interceptRequest`被所有请求之前调用，`interceptResponse`在所有请求成功之后处理数据用。
@@ -155,7 +160,5 @@ getPetPetId({
 * 处理`oneOf, allOf, anyOf, not`里可能有的`discriminator`情况。
 
 * 添加`responses`中200之外的其它表示错误的类型，添加到`fetch.then<T1, T2>，T2`的位置上。
-
-* 参考swagger中每个接口返回的example，自动生成mock数据。
 
 * 添加英文文档。

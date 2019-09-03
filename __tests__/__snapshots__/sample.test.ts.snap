@@ -1,0 +1,12 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`sample make sample data 1`] = `
+Object {
+  "complete": false,
+  "id": 0,
+  "petId": 0,
+  "quantity": 0,
+  "shipDate": "2019-09-03T02:01:15.756Z",
+  "status": "placed",
+}
+`;

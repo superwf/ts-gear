@@ -8,11 +8,12 @@ import { interceptRequest, interceptResponse } from './interceptor'
 import { IPaths, JSONSchema } from './interface'
 import { compile } from './source'
 import { transformPathParameters, transformProperty } from './util'
+import { memoizedSampleFromSchema } from './samples'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
 // const assembleRequestParam = () => {}
 
-export const generatePaths = async (schema: JSONSchema, $RefsInPaths: string[]) => {
+export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: string[]) => {
   const paths = schema.paths as IPaths
   const { basePath } = schema
 
@@ -32,7 +33,6 @@ export const generatePaths = async (schema: JSONSchema, $RefsInPaths: string[]) 
       let paramInterfaceName = ''
       if (request.parameters && request.parameters.length > 0) {
         const parameterSchema = assembleRequestParam(request.parameters)
-        // console.log(JSON.stringify(parameterSchema))
         paramInterfaceName = `I${upperFirst(functionName)}Param`
         const paramDefTsContent = await compile(source => {
           const inter = source.addInterface({
@@ -65,11 +65,17 @@ export const generatePaths = async (schema: JSONSchema, $RefsInPaths: string[]) 
       }
 
       let responseType = ''
+      let mockResponseValue: any
 
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
       const response200$ref = get(request.responses, '200.schema.$ref', null)
+      // const response200Schema = get(request.responses, '200.schema', null)
       if (response200$ref) {
         responseType = transformProperty(request.responses[200]!)
+        mockResponseValue = memoizedSampleFromSchema(
+          get(request.responses, '200.schema', null) as JSONSchema,
+          schema.definitions as JSONSchema,
+        )
         // 否则可能是response中行内定义的数据结构
         // 再单独生成一个type
       } else {
@@ -78,10 +84,20 @@ export const generatePaths = async (schema: JSONSchema, $RefsInPaths: string[]) 
           responseType = `${upperFirst(functionName)}Response`
           const responseTsContent = `type ${responseType} = ${transformProperty(response200)}`
           tsContent.push(responseTsContent)
+          mockResponseValue = memoizedSampleFromSchema(response200 as JSONSchema, schema.definitions as JSONSchema)
         }
       }
 
       const functionTsContent = await compile(source => {
+        let returnStatement = ''
+        if (mockResponseValue) {
+          returnStatement = `return Promise.resolve(${JSON.stringify(mockResponseValue)})`
+          if (responseType) {
+            returnStatement = `${returnStatement} as Promise<${responseType}>`
+          }
+        } else {
+          returnStatement = 'Promise.resolve(new Response())'
+        }
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
           isExported: true,
@@ -92,8 +108,9 @@ export const generatePaths = async (schema: JSONSchema, $RefsInPaths: string[]) 
             const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
             paramInterfaceName ? ', param' : ''
           })
+            console.info('mock fetch: ', url)
             option.method = '${action}'
-            return fetch(url, option).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})
+            ${returnStatement}
           `,
         }
         if (paramInterfaceName) {
