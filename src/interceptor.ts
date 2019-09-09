@@ -37,7 +37,7 @@ export interface IRequestParameter {
 export const parseUrl = (url: string, option?: IRequestParameter): string => {
   if (option) {
     if (option.path) {
-      for (const k of Object.keys(option.path)) {
+      for (const k of Object.getOwnPropertyNames(option.path)) {
         option.path[k] = encodeURIComponent(String(option.path[k]))
       }
       url = pathToRegexp.compile(url)(option.path)

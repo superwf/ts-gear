@@ -36,10 +36,50 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 var _this = this;
 exports.__esModule = true;
-var lodash_1 = require("lodash");
 var path_1 = require("path");
+var lodash_1 = require("lodash");
 var translation_js_1 = require("translation.js");
 var traverse = require("traverse");
+var translateEngines = [translation_js_1.baidu, translation_js_1.youdao, translation_js_1.google];
+var translate = function (text, engineIndex) {
+    if (engineIndex === void 0) { engineIndex = 0; }
+    return __awaiter(_this, void 0, void 0, function () {
+        var index, res, err_1;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    if (engineIndex >= translateEngines.length) {
+                        throw new Error('translate error, all translate engine can not access');
+                    }
+                    index = engineIndex;
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 4]);
+                    return [4 /*yield*/, translateEngines[index].translate({
+                            text: text,
+                            // from: 'zh-CN',
+                            to: 'en'
+                        })];
+                case 2:
+                    res = _a.sent();
+                    return [2 /*return*/, res
+                            .result[0].split(' ')
+                            .map(lodash_1.upperFirst)
+                            .join('')
+                        // return enKey
+                    ];
+                case 3:
+                    err_1 = _a.sent();
+                    return [2 /*return*/, translate(text, index + 1)];
+                case 4: return [2 /*return*/];
+            }
+        });
+    });
+};
+/** 将一些definitinos与$ref中的中文翻印成可作为变量名的英文
+ * 使用memoize避免重复翻译
+ * */
+exports.translateAsync = lodash_1.memoize(translate);
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
 exports.tsGearRoot = path_1.resolve(__dirname, '../');
 /**
@@ -60,6 +100,10 @@ var camelCase = function (name) {
     }
     return lodash_1.upperFirst(name);
 };
+/**
+ * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
+ * */
+exports.trimDefinitionPrefix = function ($ref) { return $ref.replace('#/definitions/', ''); };
 /** transform /abc/{id} to /abc/:id */
 exports.transformPathParameters = function (v) {
     if (v.includes('{')) {
@@ -75,6 +119,48 @@ exports.transformPathParameters = function (v) {
             .join('/');
     }
     return v;
+};
+/**
+ * 递归处理对象值
+ * 主要用来处理swagger schema中的paths与definitions
+ * @param {object} 对象，一般为json schema
+ * @param {funnction} 在递归中处理每个节点的函数
+ * */
+exports.traverseSchema = function (obj, func) {
+    traverse(obj).forEach(function (value) {
+        // schema是从json来的应该没有circular
+        // 既然可以检查就还是校验一下
+        if (this.circular || !this.key || this.key === 'required') {
+            return;
+        }
+        var node = {
+            value: value,
+            key: this.key,
+            parent: (this.parent || {}).node,
+            path: this.path
+        };
+        func(node);
+    });
+};
+/** 生成唯一的名字
+ * 如果已经存在则名称后面的数字累加
+ * 搭配翻译功能用，因为翻译完的英文很可能重复
+ * */
+exports.getUniqName = function (text, exist, accumulator) {
+    if (!accumulator) {
+        if (!exist(text)) {
+            return text;
+        }
+        accumulator = 1;
+    }
+    else {
+        var newText = "" + text + accumulator;
+        if (!exist(newText)) {
+            return newText;
+        }
+        accumulator += 1;
+    }
+    return exports.getUniqName(text, exist, accumulator);
 };
 /** 初始化整个schema
  * 针对所有definitions的key，与所有$ref
@@ -95,7 +181,7 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                 cnWords = [];
                 definitions = schema.definitions;
                 exports.traverseSchema(schema, function (_a) {
-                    var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
+                    var value = _a.value, parent = _a.parent, key = _a.key;
                     return __awaiter(_this, void 0, void 0, function () {
                         return __generator(this, function (_b) {
                             if (key === '$ref' && typeof value === 'string') {
@@ -140,13 +226,9 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                 nameConfictMap = {};
                 // 再次通过两轮循环将$ref与definitions的key替换成中文
                 Object.getOwnPropertyNames(definitions).forEach(function (key) {
-                    var newKey = Reflect.has(cnMapToEn, key)
-                        ? camelCase(cnMapToEn[key])
-                        : camelCase(key);
+                    var newKey = Reflect.has(cnMapToEn, key) ? camelCase(cnMapToEn[key]) : camelCase(key);
                     if (newKey !== key) {
-                        var uniqNewKey = exports.getUniqName(newKey, function (name) {
-                            return Reflect.has(definitions, name);
-                        });
+                        var uniqNewKey = exports.getUniqName(newKey, function (name) { return Reflect.has(definitions, name); });
                         if (uniqNewKey !== newKey) {
                             nameConfictMap[newKey] = uniqNewKey;
                         }
@@ -160,9 +242,7 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                         var newKey;
                         return __generator(this, function (_b) {
                             if (key === '$ref' && typeof value === 'string') {
-                                newKey = Reflect.has(cnMapToEn, value)
-                                    ? camelCase(cnMapToEn[value])
-                                    : camelCase(value);
+                                newKey = Reflect.has(cnMapToEn, value) ? camelCase(cnMapToEn[value]) : camelCase(value);
                                 if (newKey !== value) {
                                     if (Reflect.has(nameConfictMap, newKey)) {
                                         newKey = nameConfictMap[newKey];
@@ -187,34 +267,6 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
         }
     });
 }); };
-/**
- * 递归处理对象值
- * 主要用来处理swagger schema中的paths与definitions
- * @param {object} 对象，一般为json schema
- * @param {funnction} 在递归中处理每个节点的函数
- * */
-exports.traverseSchema = function (obj, func) {
-    traverse(obj).forEach(function (value) {
-        // schema是从json来的应该没有circular
-        // 既然可以检查就还是校验一下
-        if (this.circular || !this.key || this.key === 'required') {
-            return;
-        }
-        var node = {
-            value: value,
-            key: this.key,
-            parent: (this.parent || {}).node,
-            path: this.path
-        };
-        func(node);
-    });
-};
-/**
- * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
- * */
-exports.trimDefinitionPrefix = function ($ref) {
-    return $ref.replace('#/definitions/', '');
-};
 /** 将schema转换为ts的类型 */
 exports.transformProperty = function (property) {
     var type = property.type, enumValues = property["enum"], items = property.items, schema = property.schema, $ref = property.$ref, oneOf = property.oneOf, anyOf = property.anyOf, allOf = property.allOf, not = property.not;
@@ -240,18 +292,14 @@ exports.transformProperty = function (property) {
     // 拥有任何一个对象中的任何一个属性即可
     if (anyOf) {
         if (Array.isArray(property.oneOf)) {
-            return "Partial<" + property.oneOf
-                .map(function (prop) { return exports.transformProperty(prop); })
-                .join(' & ') + ">";
+            return "Partial<" + property.oneOf.map(function (prop) { return exports.transformProperty(prop); }).join(' & ') + ">";
         }
         return 'any';
     }
     // 必须拥有所有对象属性的并集
     if (allOf) {
         if (Array.isArray(property.oneOf)) {
-            return "Required<" + property.oneOf
-                .map(function (prop) { return exports.transformProperty(prop); })
-                .join(' & ') + ">";
+            return "Required<" + property.oneOf.map(function (prop) { return exports.transformProperty(prop); }).join(' & ') + ">";
         }
         return 'any';
     }
@@ -304,64 +352,4 @@ exports.transformProperty = function (property) {
             }
             return 'any';
     }
-};
-var translateEngines = [translation_js_1.baidu, translation_js_1.youdao, translation_js_1.google];
-var translate = function (text, engineIndex) {
-    if (engineIndex === void 0) { engineIndex = 0; }
-    return __awaiter(_this, void 0, void 0, function () {
-        var index, res, err_1;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
-                case 0:
-                    if (engineIndex >= translateEngines.length) {
-                        throw new Error('translate error, all translate engine can not access');
-                    }
-                    index = engineIndex;
-                    _a.label = 1;
-                case 1:
-                    _a.trys.push([1, 3, , 4]);
-                    return [4 /*yield*/, translateEngines[index].translate({
-                            text: text,
-                            // from: 'zh-CN',
-                            to: 'en'
-                        })];
-                case 2:
-                    res = _a.sent();
-                    return [2 /*return*/, res
-                            .result[0].split(' ')
-                            .map(lodash_1.upperFirst)
-                            .join('')
-                        // return enKey
-                    ];
-                case 3:
-                    err_1 = _a.sent();
-                    return [2 /*return*/, translate(text, index + 1)];
-                case 4: return [2 /*return*/];
-            }
-        });
-    });
-};
-/** 将一些definitinos与$ref中的中文翻印成可作为变量名的英文
- * 使用memoize避免重复翻译
- * */
-exports.translateAsync = lodash_1.memoize(translate);
-/** 生成唯一的名字
- * 如果已经存在则名称后面的数字累加
- * 搭配翻译功能用，因为翻译完的英文很可能重复
- * */
-exports.getUniqName = function (text, exist, accumulator) {
-    if (!accumulator) {
-        if (!exist(text)) {
-            return text;
-        }
-        accumulator = 1;
-    }
-    else {
-        var newText = "" + text + accumulator;
-        if (!exist(newText)) {
-            return newText;
-        }
-        accumulator += 1;
-    }
-    return exports.getUniqName(text, exist, accumulator);
 };

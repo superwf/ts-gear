@@ -1,6 +1,8 @@
 import { interceptRequest, interceptResponse } from './interceptor'
 import { Pet, ApiResponse, Order, User } from './definitions'
 
+const { info } = console
+
 export interface IPostPetParam {
   body: Pet
 }
@@ -10,7 +12,7 @@ export interface IPostPetParam {
  */
 export function postPet(param: IPostPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -24,7 +26,7 @@ export interface IPutPetParam {
  */
 export function putPet(param: IPutPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'put'
   Promise.resolve(new Response())
 }
@@ -42,7 +44,7 @@ type GetPetFindByStatusResponse = Array<Pet>
  */
 export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   const [url, option] = interceptRequest('/v2/pet/findByStatus', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve([
     {
@@ -68,7 +70,7 @@ export interface IGetPetPetIdParam {
  */
 export function getPetPetId(param: IGetPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -88,7 +90,7 @@ export interface IPostPetPetIdParam {
  */
 export function postPetPetId(param: IPostPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -107,7 +109,7 @@ export interface IDeletePetPetIdParam {
  */
 export function deletePetPetId(param: IDeletePetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -127,7 +129,7 @@ export interface IPostPetPetIdUploadImageParam {
  */
 export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   return Promise.resolve({
     code: 0,
@@ -143,7 +145,7 @@ type GetStoreInventoryResponse = any
  */
 export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     additionalProp1: 0,
@@ -161,13 +163,13 @@ export interface IPostStoreOrderParam {
  */
 export function postStoreOrder(param: IPostStoreOrderParam) {
   const [url, option] = interceptRequest('/v2/store/order', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   return Promise.resolve({
     id: 0,
     petId: 0,
     quantity: 0,
-    shipDate: '2019-09-03T02:01:16.316Z',
+    shipDate: '2019-09-03T00:00:00.000Z',
     status: 'placed',
     complete: false,
   }) as Promise<Order>
@@ -185,7 +187,7 @@ export interface IGetStoreOrderOrderIdParam {
  */
 export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -202,7 +204,7 @@ export interface IDeleteStoreOrderOrderIdParam {
  */
 export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -217,7 +219,7 @@ export interface IPostUserParam {
  */
 export function postUser(param: IPostUserParam) {
   const [url, option] = interceptRequest('/v2/user', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -231,7 +233,7 @@ export interface IPostUserCreateWithArrayParam {
  */
 export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   const [url, option] = interceptRequest('/v2/user/createWithArray', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -245,7 +247,7 @@ export interface IPostUserCreateWithListParam {
  */
 export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   const [url, option] = interceptRequest('/v2/user/createWithList', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -263,7 +265,7 @@ type GetUserLoginResponse = string
  */
 export function getUserLogin(param: IGetUserLoginParam) {
   const [url, option] = interceptRequest('/v2/user/login', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve('string') as Promise<GetUserLoginResponse>
 }
@@ -273,7 +275,7 @@ export function getUserLogin(param: IGetUserLoginParam) {
  */
 export function getUserLogout() {
   const [url, option] = interceptRequest('/v2/user/logout')
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -289,7 +291,7 @@ export interface IGetUserUsernameParam {
  */
 export function getUserUsername(param: IGetUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     id: 0,
@@ -316,7 +318,7 @@ export interface IPutUserUsernameParam {
  */
 export function putUserUsername(param: IPutUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'put'
   Promise.resolve(new Response())
 }
@@ -333,7 +335,7 @@ export interface IDeleteUserUsernameParam {
  */
 export function deleteUserUsername(param: IDeleteUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }

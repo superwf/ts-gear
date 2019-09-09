@@ -4,10 +4,9 @@ import { join, resolve } from 'path'
 import { transform$RefsNotInDefinitions, transformDefinitionsToTypescript } from './definitions'
 import { fetchSwaggerJSONSchema } from './fetchSwagger'
 import { IUserConfig, JSONSchema } from './interface'
-import { generatePaths } from './paths'
+import { generateRequests } from './requests'
 import prettierWrite from './prettierWrite'
 import { initializeSchema, tsGearRoot } from './util'
-import { generateMockRequest } from './mockRequest'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
@@ -47,15 +46,12 @@ export const run = async () => {
     const definitionsPath = join(projectPath, 'definitions.ts')
     await prettierWrite(definitionsPath, definitions + $refsTypes)
 
-    // 生成paths内函数
-    const pathsContent = await generatePaths(schema as JSONSchema, $refsInPaths)
+    // 生成request函数与mock request数据
+    const { requestsContent, mockRequestsContent } = await generateRequests(schema as JSONSchema, $refsInPaths)
     const pathsPath = join(projectPath, 'request.ts')
-    await prettierWrite(pathsPath, pathsContent)
-
-    // 生成example mock数据
-    const mockRequestContent = await generateMockRequest(schema, $refsInPaths)
+    await prettierWrite(pathsPath, requestsContent)
     const mockResponsePath = join(projectPath, 'mockRequest.ts')
-    await prettierWrite(mockResponsePath, mockRequestContent)
+    await prettierWrite(mockResponsePath, mockRequestsContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次
     // 这个文件可能会写入一些请求的配置

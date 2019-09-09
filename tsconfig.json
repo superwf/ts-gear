@@ -22,7 +22,7 @@
     "typeRoots": ["node_modules/@types", "typings"],
     "strictPropertyInitialization": false,
     "paths": {
-      "src/*": ["src/*"]
+      "src/*": ["./src/*"]
     }
   },
   "include": ["src", "__tests__"]

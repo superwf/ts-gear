@@ -8,17 +8,16 @@ import { interceptRequest, interceptResponse } from './interceptor'
 import { IPaths, JSONSchema } from './interface'
 import { compile } from './source'
 import { transformPathParameters, transformProperty } from './util'
-import { memoizedSampleFromSchema } from './samples'
+import { generateMockData } from './generateMockData'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
-// const assembleRequestParam = () => {}
-
-export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: string[]) => {
+export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[]) => {
   const paths = schema.paths as IPaths
   const { basePath } = schema
 
   let url: keyof IPaths
   const tsContent: string[] = []
+  const mockTsContent: string[] = ['const { info } = console\n']
   for (url of Object.getOwnPropertyNames(paths)) {
     const path = paths[url]
     // action is http method, like get, post ...
@@ -62,6 +61,7 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
           })
         })
         tsContent.push(paramDefTsContent)
+        mockTsContent.push(paramDefTsContent)
       }
 
       let responseType = ''
@@ -69,10 +69,9 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
 
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
       const response200$ref = get(request.responses, '200.schema.$ref', null)
-      // const response200Schema = get(request.responses, '200.schema', null)
       if (response200$ref) {
         responseType = transformProperty(request.responses[200]!)
-        mockResponseValue = memoizedSampleFromSchema(
+        mockResponseValue = generateMockData(
           get(request.responses, '200.schema', null) as JSONSchema,
           schema.definitions as JSONSchema,
         )
@@ -84,11 +83,43 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
           responseType = `${upperFirst(functionName)}Response`
           const responseTsContent = `type ${responseType} = ${transformProperty(response200)}`
           tsContent.push(responseTsContent)
-          mockResponseValue = memoizedSampleFromSchema(response200 as JSONSchema, schema.definitions as JSONSchema)
+          mockTsContent.push(responseTsContent)
+          mockResponseValue = generateMockData(response200 as JSONSchema, schema.definitions as JSONSchema)
         }
       }
 
       const functionTsContent = await compile(source => {
+        const functionData: OptionalKind<FunctionDeclarationStructure> = {
+          name: functionName,
+          isExported: true,
+          // 把basePath加上
+          // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
+          // 如果需要加在interceptor里每个项目自行处理添加
+          statements: `
+            const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
+            paramInterfaceName ? ', param' : ''
+          })
+            option.method = '${action}'
+            return fetch(url, option).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})
+          `,
+        }
+        if (paramInterfaceName) {
+          functionData.parameters = [
+            {
+              name: 'param',
+              type: paramInterfaceName,
+            },
+          ]
+        }
+        if (request.summary || request.description) {
+          functionData.docs = [remove<string>([request.summary || '', request.description || ''], s => !!s).join('\n')]
+        }
+        source.addFunction(functionData)
+      })
+
+      tsContent.push(functionTsContent)
+
+      const mockFunctionTsContent = await compile(source => {
         let returnStatement = ''
         if (mockResponseValue) {
           returnStatement = `return Promise.resolve(${JSON.stringify(mockResponseValue)})`
@@ -108,7 +139,7 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
             const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
             paramInterfaceName ? ', param' : ''
           })
-            console.info('mock fetch: ', url)
+            info('mock fetch: ', url)
             option.method = '${action}'
             ${returnStatement}
           `,
@@ -126,8 +157,7 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
         }
         source.addFunction(functionData)
       })
-
-      tsContent.push(functionTsContent)
+      mockTsContent.push(mockFunctionTsContent)
     }
   }
 
@@ -156,5 +186,9 @@ export const generateMockRequest = async (schema: JSONSchema, $RefsInPaths: stri
     ])
   })
   tsContent.unshift(importTsContent)
-  return tsContent.join('\n')
+  mockTsContent.unshift(importTsContent)
+  return {
+    requestsContent: tsContent.join('\n'),
+    mockRequestsContent: mockTsContent.join('\n'),
+  }
 }

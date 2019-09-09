@@ -13,6 +13,8 @@ import {
   IndicatorTaskUpdateDTO,
 } from './definitions'
 
+const { info } = console
+
 export interface IGetApiIndicatorDefParam {
   query?: {
     createdTimeSortSign?: number
@@ -40,7 +42,7 @@ export interface IGetApiIndicatorDefParam {
  */
 export function getApiIndicatorDef(param: IGetApiIndicatorDefParam) {
   const [url, option] = interceptRequest('/api/indicatorDef', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     currentPage: 1,
@@ -74,7 +76,7 @@ export interface IPostApiIndicatorDefParam {
  */
 export function postApiIndicatorDef(param: IPostApiIndicatorDefParam) {
   const [url, option] = interceptRequest('/api/indicatorDef', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -88,7 +90,7 @@ export interface IPutApiIndicatorDefParam {
  */
 export function putApiIndicatorDef(param: IPutApiIndicatorDefParam) {
   const [url, option] = interceptRequest('/api/indicatorDef', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'put'
   return Promise.resolve({
     enabled: true,
@@ -113,7 +115,7 @@ type DeleteApiIndicatorDefResponse = number
  */
 export function deleteApiIndicatorDef(param: IDeleteApiIndicatorDefParam) {
   const [url, option] = interceptRequest('/api/indicatorDef', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -135,7 +137,7 @@ export function getApiIndicatorDefAvailableList(
     '/api/indicatorDef/availableList',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     additionalProp1: [null],
@@ -155,7 +157,7 @@ export interface IGetApiIndicatorDefIdParam {
  */
 export function getApiIndicatorDefId(param: IGetApiIndicatorDefIdParam) {
   const [url, option] = interceptRequest('/api/indicatorDef/:id', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -172,7 +174,7 @@ type DeleteApiIndicatorDefIdResponse = number
  */
 export function deleteApiIndicatorDefId(param: IDeleteApiIndicatorDefIdParam) {
   const [url, option] = interceptRequest('/api/indicatorDef/:id', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -203,7 +205,7 @@ export interface IGetApiIndicatorExeParam {
  */
 export function getApiIndicatorExe(param: IGetApiIndicatorExeParam) {
   const [url, option] = interceptRequest('/api/indicatorExe', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     currentPage: 1,
@@ -239,7 +241,7 @@ export interface IGetApiIndicatorExeIdParam {
  */
 export function getApiIndicatorExeId(param: IGetApiIndicatorExeIdParam) {
   const [url, option] = interceptRequest('/api/indicatorExe/:id', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     duration: 2000,
@@ -286,7 +288,7 @@ export interface IGetApiIndicatorTaskParam {
  */
 export function getApiIndicatorTask(param: IGetApiIndicatorTaskParam) {
   const [url, option] = interceptRequest('/api/indicatorTask', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     currentPage: 1,
@@ -334,7 +336,7 @@ export interface IPostApiIndicatorTaskParam {
  */
 export function postApiIndicatorTask(param: IPostApiIndicatorTaskParam) {
   const [url, option] = interceptRequest('/api/indicatorTask', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -348,7 +350,7 @@ export interface IPutApiIndicatorTaskParam {
  */
 export function putApiIndicatorTask(param: IPutApiIndicatorTaskParam) {
   const [url, option] = interceptRequest('/api/indicatorTask', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'put'
   return Promise.resolve({
     buId: 737,
@@ -388,7 +390,7 @@ type DeleteApiIndicatorTaskResponse = number
  */
 export function deleteApiIndicatorTask(param: IDeleteApiIndicatorTaskParam) {
   const [url, option] = interceptRequest('/api/indicatorTask', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -404,7 +406,7 @@ export interface IGetApiIndicatorTaskIdParam {
  */
 export function getApiIndicatorTaskId(param: IGetApiIndicatorTaskIdParam) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -423,7 +425,7 @@ export function deleteApiIndicatorTaskId(
   param: IDeleteApiIndicatorTaskIdParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -442,7 +444,7 @@ export function getApiIndicatorTaskIdLog(
   param: IGetApiIndicatorTaskIdLogParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id/log', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve('string') as Promise<GetApiIndicatorTaskIdLogResponse>
 }
@@ -461,7 +463,7 @@ export function postApiIndicatorTaskIdRun(
   param: IPostApiIndicatorTaskIdRunParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id/run', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -480,7 +482,7 @@ export function getApiIndicatorTaskIdScript(
   param: IGetApiIndicatorTaskIdScriptParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id/script', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve('string') as Promise<
     GetApiIndicatorTaskIdScriptResponse
@@ -502,7 +504,7 @@ export function putApiIndicatorTaskIdScript(
   param: IPutApiIndicatorTaskIdScriptParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id/script', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'put'
   Promise.resolve(new Response())
 }
@@ -521,7 +523,7 @@ export function postApiIndicatorTaskIdStop(
   param: IPostApiIndicatorTaskIdStopParam,
 ) {
   const [url, option] = interceptRequest('/api/indicatorTask/:id/stop', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }

@@ -25,6 +25,8 @@ import {
   ReplyVOUserInputDataEditVO,
 } from './definitions'
 
+const { info } = console
+
 export interface IGetApiPricingAuditFlowParam {
   query?: {
     auditStatusList?: Array<number>
@@ -43,7 +45,7 @@ export interface IGetApiPricingAuditFlowParam {
  */
 export function getApiPricingAuditFlow(param: IGetApiPricingAuditFlowParam) {
   const [url, option] = interceptRequest('/api/pricing/auditFlow', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -88,7 +90,7 @@ export function postApiPricingAuditFlowApproval(
     '/api/pricing/auditFlow/approval',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   return Promise.resolve({
     code: '000000',
@@ -108,7 +110,7 @@ export function postApiPricingAuditFlowReject(
   param: IPostApiPricingAuditFlowRejectParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/auditFlow/reject', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -127,7 +129,7 @@ export function postApiPricingAuditFlowTakeBack(
     '/api/pricing/auditFlow/takeBack',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -149,7 +151,7 @@ export function getApiPricingAuditFlowTypeTypeId(
     '/api/pricing/auditFlow/type/:type/:id',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -233,7 +235,7 @@ export interface IGetApiPricingBlackListParam {
  */
 export function getApiPricingBlackList(param: IGetApiPricingBlackListParam) {
   const [url, option] = interceptRequest('/api/pricing/blackList', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -272,7 +274,7 @@ export function postApiPricingBlackListAdd(
   param: IPostApiPricingBlackListAddParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/blackList/add', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -288,7 +290,7 @@ export function postApiPricingBlackListRemove(
   param: IPostApiPricingBlackListRemoveParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/blackList/remove', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -314,7 +316,7 @@ export function getApiPricingDeptFollowRule(
   param: IGetApiPricingDeptFollowRuleParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/deptFollowRule', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -356,7 +358,7 @@ export function postApiPricingDeptFollowRule(
   param: IPostApiPricingDeptFollowRuleParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/deptFollowRule', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -375,7 +377,7 @@ export function postApiPricingDeptFollowRuleSubmit(
     '/api/pricing/deptFollowRule/submit',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -396,7 +398,7 @@ export function getApiPricingDeptFollowRuleValidRuleHeaderId(
     '/api/pricing/deptFollowRule/validRule/:headerId',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -430,7 +432,7 @@ export function getApiPricingDeptFollowRuleHeaderId(
     '/api/pricing/deptFollowRule/:headerId',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -471,7 +473,7 @@ export function deleteApiPricingDeptFollowRuleHeaderId(
     '/api/pricing/deptFollowRule/:headerId',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -502,7 +504,7 @@ export interface IGetApiPricingFollowPoolParam {
  */
 export function getApiPricingFollowPool(param: IGetApiPricingFollowPoolParam) {
   const [url, option] = interceptRequest('/api/pricing/followPool', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -561,7 +563,7 @@ export function postApiPricingFollowPoolAdd(
   param: IPostApiPricingFollowPoolAddParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/followPool/add', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -597,7 +599,7 @@ export function getApiPricingFollowPoolExport(
     '/api/pricing/followPool/export',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -616,7 +618,7 @@ export function postApiPricingFollowPoolIsAutoPub(
     '/api/pricing/followPool/isAutoPub',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -635,7 +637,7 @@ export function postApiPricingFollowPoolRemove(
     '/api/pricing/followPool/remove',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -654,7 +656,7 @@ export function postApiPricingManualAdjustPrice(
     '/api/pricing/manualAdjustPrice',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -672,7 +674,7 @@ export interface IGetApiPricingOpponentParam {
  */
 export function getApiPricingOpponent(param: IGetApiPricingOpponentParam) {
   const [url, option] = interceptRequest('/api/pricing/opponent', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -692,7 +694,7 @@ export function deleteApiPricingPromotion(
   param: IDeleteApiPricingPromotionParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/promotion', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -710,7 +712,7 @@ export function getApiPricingPromotionSkuId(
   param: IGetApiPricingPromotionSkuIdParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/promotion/:skuId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -755,7 +757,7 @@ export function postApiPricingPublishPricingPubPrice(
     '/api/pricing/publishPricing/pubPrice',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -774,7 +776,7 @@ export function postApiPricingPublishPricingRejectPrice(
     '/api/pricing/publishPricing/rejectPrice',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -801,7 +803,7 @@ export function getApiPricingUserInputData(
   param: IGetApiPricingUserInputDataParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/userInputData', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -849,7 +851,7 @@ export function postApiPricingUserInputData(
   param: IPostApiPricingUserInputDataParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/userInputData', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -865,7 +867,7 @@ export function deleteApiPricingUserInputData(
   param: IDeleteApiPricingUserInputDataParam,
 ) {
   const [url, option] = interceptRequest('/api/pricing/userInputData', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   return Promise.resolve({
     code: '000000',
@@ -899,7 +901,7 @@ export function getApiPricingUserInputDataExport(
     '/api/pricing/userInputData/export',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -920,7 +922,7 @@ export function postApiPricingUserInputDataUpload(
     '/api/pricing/userInputData/upload',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -941,7 +943,7 @@ export function getApiPricingUserInputDataId(
     '/api/pricing/userInputData/:id',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',

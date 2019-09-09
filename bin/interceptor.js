@@ -25,9 +25,9 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 /** 该文件只生产一次，之后可根据项目自行更改，不会被覆盖 */
+var URL = require("url");
 var lodash_1 = require("lodash");
 var pathToRegexp = require("path-to-regexp");
-var URL = require("url");
 var jsonType = 'application/json';
 /** 将query与path参数都挂到url上去
  * transform parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) to '/api/abc/123?name=def'
@@ -35,7 +35,7 @@ var jsonType = 'application/json';
 exports.parseUrl = function (url, option) {
     if (option) {
         if (option.path) {
-            for (var _i = 0, _a = Object.keys(option.path); _i < _a.length; _i++) {
+            for (var _i = 0, _a = Object.getOwnPropertyNames(option.path); _i < _a.length; _i++) {
                 var k = _a[_i];
                 option.path[k] = encodeURIComponent(String(option.path[k]));
             }

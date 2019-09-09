@@ -12,6 +12,8 @@ import {
   ReplyVOCisSkuShowVO,
 } from './definitions'
 
+const { info } = console
+
 export interface IGetApiCompetitionOpponentParam {
   query?: {
     skuId?: number
@@ -25,7 +27,7 @@ export function getApiCompetitionOpponent(
   param: IGetApiCompetitionOpponentParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/opponent', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -68,7 +70,7 @@ export interface IGetApiCompetitionSkuParam {
  */
 export function getApiCompetitionSku(param: IGetApiCompetitionSkuParam) {
   const [url, option] = interceptRequest('/api/competition/sku', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -80,7 +82,7 @@ export function getApiCompetitionSku(param: IGetApiCompetitionSkuParam) {
           cbj: 11.3,
           conversion: 0.11,
           dealPrice: 21.3,
-          dealPriceLastTime: '2019-09-03T02:01:17.362Z',
+          dealPriceLastTime: '2019-09-03T00:00:00.000Z',
           dealPriceMargin: 20,
           id: 1,
           imgUrl:
@@ -149,7 +151,7 @@ export function getApiCompetitionSkuHistorySkuId(
     '/api/competition/sku/history/:skuId',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -176,7 +178,7 @@ export function postApiCompetitionSkuMatch(
   param: IPostApiCompetitionSkuMatchParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/match', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   return Promise.resolve({ code: '000000', message: 'success' }) as Promise<
     ReplyVOVoid
@@ -194,7 +196,7 @@ export function deleteApiCompetitionSkuMatch(
   param: IDeleteApiCompetitionSkuMatchParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/match', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -215,7 +217,7 @@ export function postApiCompetitionSkuMatchBatch(
     '/api/competition/sku/match/batch',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -236,7 +238,7 @@ export function getApiCompetitionSkuMatchSkuId(
     '/api/competition/sku/match/:skuId',
     param,
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -298,7 +300,7 @@ export function getApiCompetitionSkuMonitor(
   param: IGetApiCompetitionSkuMonitorParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/monitor', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   Promise.resolve(new Response())
 }
@@ -314,7 +316,7 @@ export function postApiCompetitionSkuMonitor(
   param: IPostApiCompetitionSkuMonitorParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/monitor', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'post'
   Promise.resolve(new Response())
 }
@@ -330,7 +332,7 @@ export function deleteApiCompetitionSkuMonitor(
   param: IDeleteApiCompetitionSkuMonitorParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/monitor', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'delete'
   Promise.resolve(new Response())
 }
@@ -342,7 +344,7 @@ export function getApiCompetitionSkuMonitorGetConfig() {
   const [url, option] = interceptRequest(
     '/api/competition/sku/monitor/getConfig',
   )
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -364,7 +366,7 @@ export function getApiCompetitionSkuSkuId(
   param: IGetApiCompetitionSkuSkuIdParam,
 ) {
   const [url, option] = interceptRequest('/api/competition/sku/:skuId', param)
-  console.info('mock fetch: ', url)
+  info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve({
     code: '000000',
@@ -374,7 +376,7 @@ export function getApiCompetitionSkuSkuId(
       cbj: 11.3,
       conversion: 0.11,
       dealPrice: 21.3,
-      dealPriceLastTime: '2019-09-03T02:01:17.386Z',
+      dealPriceLastTime: '2019-09-03T00:00:00.000Z',
       dealPriceMargin: 20,
       id: 1,
       imgUrl:
