@@ -124,7 +124,7 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
         if (mockResponseValue) {
           returnStatement = `return Promise.resolve(${JSON.stringify(mockResponseValue)})`
           if (responseType) {
-            returnStatement = `${returnStatement} as Promise<${responseType}>`
+            returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
           }
         } else {
           returnStatement = 'Promise.resolve(new Response())'

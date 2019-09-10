@@ -155,7 +155,7 @@ exports.generateRequests = function (schema, $RefsInPaths) { return __awaiter(_t
                                         if (mockResponseValue) {
                                             returnStatement = "return Promise.resolve(" + JSON.stringify(mockResponseValue) + ")";
                                             if (responseType) {
-                                                returnStatement = returnStatement + " as Promise<" + responseType + ">";
+                                                returnStatement = returnStatement + " as unknown as Promise<" + responseType + ">";
                                             }
                                         }
                                         else {

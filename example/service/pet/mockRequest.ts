@@ -46,7 +46,7 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   const [url, option] = interceptRequest('/v2/pet/findByStatus', param)
   info('mock fetch: ', url)
   option.method = 'get'
-  return Promise.resolve([
+  return (Promise.resolve([
     {
       id: 0,
       category: { id: 0, name: 'string' },
@@ -55,7 +55,7 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
       tags: [{ id: 0, name: 'string' }],
       status: 'available',
     },
-  ]) as Promise<GetPetFindByStatusResponse>
+  ]) as unknown) as Promise<GetPetFindByStatusResponse>
 }
 
 export interface IGetPetPetIdParam {
@@ -131,11 +131,11 @@ export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
   info('mock fetch: ', url)
   option.method = 'post'
-  return Promise.resolve({
+  return (Promise.resolve({
     code: 0,
     type: 'string',
     message: 'string',
-  }) as Promise<ApiResponse>
+  }) as unknown) as Promise<ApiResponse>
 }
 
 type GetStoreInventoryResponse = any
@@ -147,11 +147,11 @@ export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
   info('mock fetch: ', url)
   option.method = 'get'
-  return Promise.resolve({
+  return (Promise.resolve({
     additionalProp1: 0,
     additionalProp2: 0,
     additionalProp3: 0,
-  }) as Promise<GetStoreInventoryResponse>
+  }) as unknown) as Promise<GetStoreInventoryResponse>
 }
 
 export interface IPostStoreOrderParam {
@@ -165,14 +165,14 @@ export function postStoreOrder(param: IPostStoreOrderParam) {
   const [url, option] = interceptRequest('/v2/store/order', param)
   info('mock fetch: ', url)
   option.method = 'post'
-  return Promise.resolve({
+  return (Promise.resolve({
     id: 0,
     petId: 0,
     quantity: 0,
     shipDate: '2019-09-03T00:00:00.000Z',
     status: 'placed',
     complete: false,
-  }) as Promise<Order>
+  }) as unknown) as Promise<Order>
 }
 
 export interface IGetStoreOrderOrderIdParam {
@@ -267,7 +267,7 @@ export function getUserLogin(param: IGetUserLoginParam) {
   const [url, option] = interceptRequest('/v2/user/login', param)
   info('mock fetch: ', url)
   option.method = 'get'
-  return Promise.resolve('string') as Promise<GetUserLoginResponse>
+  return (Promise.resolve('string') as unknown) as Promise<GetUserLoginResponse>
 }
 
 /**
@@ -293,7 +293,7 @@ export function getUserUsername(param: IGetUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
   info('mock fetch: ', url)
   option.method = 'get'
-  return Promise.resolve({
+  return (Promise.resolve({
     id: 0,
     username: 'string',
     firstName: 'string',
@@ -302,7 +302,7 @@ export function getUserUsername(param: IGetUserUsernameParam) {
     password: 'string',
     phone: 'string',
     userStatus: 0,
-  }) as Promise<User>
+  }) as unknown) as Promise<User>
 }
 
 export interface IPutUserUsernameParam {
