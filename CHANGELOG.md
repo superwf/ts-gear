@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.1.8](https://github.com/superwf/ts-gear/compare/v0.1.6...v0.1.8) (2019-09-10)
+
+
+### Features
+
+* 生成request的时候顺便生成mockRequest ([d1f6c7d](https://github.com/superwf/ts-gear/commit/d1f6c7d))
+* 自动生成mockRequest的数据 ([2bda6d4](https://github.com/superwf/ts-gear/commit/2bda6d4))
+
 ### [0.1.7](https://github.com/superwf/ts-gear/compare/v0.1.6...v0.1.7) (2019-09-09)
 
 
