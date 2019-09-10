@@ -153,10 +153,10 @@ exports.generateRequests = function (schema, $RefsInPaths) { return __awaiter(_t
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var returnStatement = '';
                                         if (mockResponseValue) {
-                                            returnStatement = "return Promise.resolve(" + JSON.stringify(mockResponseValue) + ")";
-                                            if (responseType) {
-                                                returnStatement = returnStatement + " as unknown as Promise<" + responseType + ">";
-                                            }
+                                            returnStatement = "return Promise.resolve(new Response('" + JSON.stringify(mockResponseValue) + "', {\n          headers: { 'Content-Type' : 'application/json' }\n        })).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
+                                            // if (responseType) {
+                                            //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
+                                            // }
                                         }
                                         else {
                                             returnStatement = 'Promise.resolve(new Response())';

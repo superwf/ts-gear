@@ -122,10 +122,12 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
       const mockFunctionTsContent = await compile(source => {
         let returnStatement = ''
         if (mockResponseValue) {
-          returnStatement = `return Promise.resolve(${JSON.stringify(mockResponseValue)})`
-          if (responseType) {
-            returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
-          }
+          returnStatement = `return Promise.resolve(new Response('${JSON.stringify(mockResponseValue)}', {
+          headers: { 'Content-Type' : 'application/json' }
+        })).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})`
+          // if (responseType) {
+          //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
+          // }
         } else {
           returnStatement = 'Promise.resolve(new Response())'
         }
