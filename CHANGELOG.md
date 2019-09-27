@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [0.2.2](https://github.com/superwf/ts-gear/compare/v0.2.1...v0.2.2) (2019-09-27)
+
+
+### Bug Fixes
+
+* definitions中的object ([3fdf6a0](https://github.com/superwf/ts-gear/commit/3fdf6a0))
+
 ### [0.2.1](https://github.com/superwf/ts-gear/compare/v0.2.0...v0.2.1) (2019-09-10)
 
 ### [0.1.8](https://github.com/superwf/ts-gear/compare/v0.1.6...v0.1.8) (2019-09-10)
