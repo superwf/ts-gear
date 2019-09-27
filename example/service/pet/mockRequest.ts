@@ -146,9 +146,12 @@ export function getStoreInventory() {
   info('mock fetch: ', url)
   option.method = 'get'
   return Promise.resolve(
-    new Response('{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}', {
-      headers: { 'Content-Type': 'application/json' },
-    }),
+    new Response(
+      '{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}',
+      {
+        headers: { 'Content-Type': 'application/json' },
+      },
+    ),
   ).then<GetStoreInventoryResponse>(interceptResponse)
 }
 

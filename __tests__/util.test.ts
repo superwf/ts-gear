@@ -1,10 +1,4 @@
-import {
-  getUniqName,
-  transformPathParameters,
-  translateAsync,
-  traverseSchema,
-  trimDefinitionPrefix,
-} from '../src/util'
+import { getUniqName, transformPathParameters, translateAsync, traverseSchema, trimDefinitionPrefix } from '../src/util'
 
 describe('util', () => {
   it('trimDefinitionPrefix remove `#/definitions/`', () => {
@@ -15,13 +9,9 @@ describe('util', () => {
 
   it('transformPathParameters', () => {
     expect(transformPathParameters('/api/user/{id}')).toBe('/api/user/:id')
-    expect(transformPathParameters('/api/user/{action}/{id}')).toBe(
-      '/api/user/:action/:id',
-    )
+    expect(transformPathParameters('/api/user/{action}/{id}')).toBe('/api/user/:action/:id')
 
-    expect(transformPathParameters('/api/user/{id}/edit/{role}')).toBe(
-      '/api/user/:id/edit/:role',
-    )
+    expect(transformPathParameters('/api/user/{id}/edit/{role}')).toBe('/api/user/:id/edit/:role')
   })
 
   it('traverseSchema', () => {
@@ -52,7 +42,7 @@ describe('util', () => {
     const cn = '输出参数'
     const word = await translateAsync(cn)
     // expect(word).toBe(cn)
-    expect(word).toEqual('OutputParameters')
+    expect(word).toEqual('OutputParameter')
   })
 
   describe('getUniqName', () => {
@@ -68,7 +58,7 @@ describe('util', () => {
       ).toBe('AB1')
     })
 
-    it('get new name', () => {
+    it('get new uniq name', () => {
       const definitions = {
         AB: true,
         AB1: true,

@@ -60,6 +60,12 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
           interfaceStructure.docs = [String(additionalProperties.description)]
         }
         interFace.addIndexSignature(interfaceStructure)
+      } else {
+        sourceFile.addTypeAlias({
+          isExported: true,
+          name: title,
+          type: transformProperty(definition),
+        })
       }
     } else {
       sourceFile.addTypeAlias({

@@ -93,6 +93,13 @@ exports.transformDefinitionToTsClass = function (definition, title) { return __a
                         }
                         interFace.addIndexSignature(interfaceStructure);
                     }
+                    else {
+                        sourceFile.addTypeAlias({
+                            isExported: true,
+                            name: title,
+                            type: util_1.transformProperty(definition)
+                        });
+                    }
                 }
                 else {
                     sourceFile.addTypeAlias({
