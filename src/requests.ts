@@ -17,7 +17,13 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
 
   let url: keyof IPaths
   const tsContent: string[] = []
-  const mockTsContent: string[] = ['const { info } = console\n']
+  const mockTsContent: string[] = [
+    `const { info } = console
+  if (process && process.env && process.env.NODE_ENV === 'production') {
+    throw new Error('mockRequest only used in dev mode')
+  }
+`,
+  ]
   for (url of Object.getOwnPropertyNames(paths)) {
     const path = paths[url]
     // action is http method, like get, post ...
