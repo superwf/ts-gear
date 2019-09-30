@@ -2,6 +2,9 @@ import { interceptRequest, interceptResponse } from './interceptor'
 import { Pet, ApiResponse, Order, User } from './definitions'
 
 const { info } = console
+if (process && process.env && process.env.NODE_ENV === 'production') {
+  throw new Error('mockRequest only used in dev mode')
+}
 
 export interface IPostPetParam {
   body: Pet
