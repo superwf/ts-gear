@@ -133,6 +133,8 @@ getPetPetId({
 在生成`request.ts`文件的同时，也会生成一个`mockRequest.ts`文件，
 其api接口与`request.ts`一致，但所有会返回内容的请求都会直接返回根据swagger接口数据结构的mock数据，可在开发时加速开发速度。
 
+在mockRequest文件中，会检测编译环境，阻止`process.env.NODE_ENV === 'production'`时的编译。
+
 * 🔧 `interceptor.ts`是从`ts-gear`项目的模板copy来的，被对应的`request.ts`中的所有请求方法调用。
 
   其中的`interceptRequest`被所有请求之前调用，`interceptResponse`在所有请求成功之后处理数据用。
