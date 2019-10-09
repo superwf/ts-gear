@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 exports.__esModule = true;
 var path_1 = require("path");
 var lodash_1 = require("lodash");
@@ -44,7 +44,7 @@ var source_1 = require("./source");
 var util_1 = require("./util");
 var generateMockData_1 = require("./generateMockData");
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
-exports.generateRequests = function (schema, $RefsInPaths) { return __awaiter(_this, void 0, void 0, function () {
+exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return __awaiter(void 0, void 0, void 0, function () {
     var paths, basePath, url, tsContent, mockTsContent, _i, _a, path, _loop_1, _b, _c, _d, action, importTsContent;
     return __generator(this, function (_e) {
         switch (_e.label) {
@@ -52,13 +52,25 @@ exports.generateRequests = function (schema, $RefsInPaths) { return __awaiter(_t
                 paths = schema.paths;
                 basePath = schema.basePath;
                 tsContent = [];
-                mockTsContent = ['const { info } = console\n'];
+                mockTsContent = [
+                    "const { info } = console\n  if (process && process.env && process.env.NODE_ENV === 'production') {\n    throw new Error('mockRequest only used in dev mode')\n  }\n",
+                ];
                 _i = 0, _a = Object.getOwnPropertyNames(paths);
                 _e.label = 1;
             case 1:
                 if (!(_i < _a.length)) return [3 /*break*/, 6];
                 url = _a[_i];
                 path = paths[url];
+                if (pathMatcher) {
+                    if (typeof pathMatcher === 'function') {
+                        if (!pathMatcher(url)) {
+                            return [3 /*break*/, 5];
+                        }
+                    }
+                    else if (!pathMatcher.test(url)) {
+                        return [3 /*break*/, 5];
+                    }
+                }
                 _loop_1 = function (action) {
                     var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, mockResponseValue, response200$ref, response200, responseTsContent, functionTsContent, mockFunctionTsContent;
                     return __generator(this, function (_a) {
@@ -167,7 +179,7 @@ exports.generateRequests = function (schema, $RefsInPaths) { return __awaiter(_t
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + path_1.join(basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url)\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + path_1.join(basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [

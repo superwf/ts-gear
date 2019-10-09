@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 exports.__esModule = true;
 var path_1 = require("path");
 var lodash_1 = require("lodash");
@@ -43,7 +43,7 @@ var traverse = require("traverse");
 var translateEngines = [translation_js_1.baidu, translation_js_1.youdao, translation_js_1.google];
 var translate = function (text, engineIndex) {
     if (engineIndex === void 0) { engineIndex = 0; }
-    return __awaiter(_this, void 0, void 0, function () {
+    return __awaiter(void 0, void 0, void 0, function () {
         var index, res, err_1;
         return __generator(this, function (_a) {
             switch (_a.label) {
@@ -169,9 +169,8 @@ exports.getUniqName = function (text, exist, accumulator) {
  * * 去空格与不能作为变量名的非法字符
  * * 首字母大写
  * */
-exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, void 0, function () {
+exports.initializeSchema = function (schema) { return __awaiter(void 0, void 0, void 0, function () {
     var cnReg, $refsNotInDefinitions, $refsInPaths, cnWords, definitions, cnMapToEn, cnEnPairs, nameConfictMap;
-    var _this = this;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -182,7 +181,7 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                 definitions = schema.definitions;
                 exports.traverseSchema(schema, function (_a) {
                     var value = _a.value, parent = _a.parent, key = _a.key;
-                    return __awaiter(_this, void 0, void 0, function () {
+                    return __awaiter(void 0, void 0, void 0, function () {
                         return __generator(this, function (_b) {
                             if (key === '$ref' && typeof value === 'string') {
                                 value = exports.trimDefinitionPrefix(value);
@@ -204,7 +203,7 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                 cnWords = lodash_1.uniq(cnWords);
                 cnMapToEn = {};
                 if (!cnWords) return [3 /*break*/, 2];
-                return [4 /*yield*/, Promise.all(cnWords.map(function (word, key) { return __awaiter(_this, void 0, void 0, function () {
+                return [4 /*yield*/, Promise.all(cnWords.map(function (word, key) { return __awaiter(void 0, void 0, void 0, function () {
                         var _a;
                         return __generator(this, function (_b) {
                             switch (_b.label) {
@@ -238,7 +237,7 @@ exports.initializeSchema = function (schema) { return __awaiter(_this, void 0, v
                 });
                 exports.traverseSchema(schema, function (_a) {
                     var value = _a.value, parent = _a.parent, key = _a.key, path = _a.path;
-                    return __awaiter(_this, void 0, void 0, function () {
+                    return __awaiter(void 0, void 0, void 0, function () {
                         var newKey;
                         return __generator(this, function (_b) {
                             if (key === '$ref' && typeof value === 'string') {

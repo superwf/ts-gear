@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 exports.__esModule = true;
 // import { forEach, reduce } from 'lodash'
 var ts_morph_1 = require("ts-morph");
@@ -42,7 +42,7 @@ var source_1 = require("./source");
 var util_1 = require("./util");
 /** 生成一维property为原始类型的interface
  * */
-exports.transformDefinitionToTsClass = function (definition, title) { return __awaiter(_this, void 0, void 0, function () {
+exports.transformDefinitionToTsClass = function (definition, title) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         return [2 /*return*/, source_1.compile(function (sourceFile) {
                 if (definition.type === 'object') {
@@ -118,7 +118,7 @@ exports.transformDefinitionToTsClass = function (definition, title) { return __a
 /**
  * 解析整个definitions
  * */
-exports.transformDefinitionsToTypescript = function (definitions) { return __awaiter(_this, void 0, void 0, function () {
+exports.transformDefinitionsToTypescript = function (definitions) { return __awaiter(void 0, void 0, void 0, function () {
     var results, _i, _a, name_2, definition, result;
     return __generator(this, function (_b) {
         switch (_b.label) {
@@ -143,7 +143,7 @@ exports.transformDefinitionsToTypescript = function (definitions) { return __awa
     });
 }); };
 /** 将所有$refsNames添加为any的别名 */
-exports.transform$RefsNotInDefinitions = function ($refNames) { return __awaiter(_this, void 0, void 0, function () {
+exports.transform$RefsNotInDefinitions = function ($refNames) { return __awaiter(void 0, void 0, void 0, function () {
     return __generator(this, function (_a) {
         if ($refNames.length > 0) {
             return [2 /*return*/, source_1.compile(function (sourceFile) {

@@ -1,9 +1,10 @@
 "use strict";
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
         function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
         function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
@@ -34,7 +35,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var _this = this;
 exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
@@ -49,7 +49,7 @@ var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts'
  * parse schema to ts template content
  * write ts file
  * */
-exports.run = function () { return __awaiter(_this, void 0, void 0, function () {
+exports.run = function () { return __awaiter(void 0, void 0, void 0, function () {
     var cwd, config, dest, _a, _b, _i, i, project, projectPath, source, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
     return __generator(this, function (_e) {
         switch (_e.label) {
@@ -98,7 +98,7 @@ exports.run = function () { return __awaiter(_this, void 0, void 0, function () 
                 ];
             case 6:
                 _e.sent();
-                return [4 /*yield*/, requests_1.generateRequests(schema, $refsInPaths)];
+                return [4 /*yield*/, requests_1.generateRequests(schema, $refsInPaths, project.pathMatcher)];
             case 7:
                 _d = _e.sent(), requestsContent = _d.requestsContent, mockRequestsContent = _d.mockRequestsContent;
                 pathsPath = path_1.join(projectPath, 'request.ts');

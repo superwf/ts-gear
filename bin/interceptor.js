@@ -45,7 +45,7 @@ exports.parseUrl = function (url, option) {
             var urlObject = URL.parse(url, true); // true: let the urlObject.query is object
             // see url#format, only search is absent, query will be used
             delete urlObject.search;
-            url = URL.format(__assign({}, urlObject, { query: __assign({}, urlObject.query, option.query) }));
+            url = URL.format(__assign(__assign({}, urlObject), { query: __assign(__assign({}, urlObject.query), option.query) }));
         }
     }
     return url;
