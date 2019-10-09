@@ -2,10 +2,10 @@
 # yarn lockfile v1
 
 
-lodash@^4.17.11:
-  version "4.17.11"
-  resolved "http://registry.m.jd.com/lodash/download/lodash-4.17.11.tgz#b39ea6229ef607ecd89e2c8df12536891cac9b8d"
-  integrity sha1-s56mIp72B+zYniyN8SU2iRysm40=
+lodash@^4.17.15:
+  version "4.17.15"
+  resolved "http://registry.m.jd.com/lodash/download/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
+  integrity sha1-tEf2ZwoEVbv+7dETku/zMOoJdUg=
 
 path-to-regexp@^3.0.0:
   version "3.0.0"
