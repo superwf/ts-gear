@@ -147,7 +147,7 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
             const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
             paramInterfaceName ? ', param' : ''
           })
-            info('mock fetch: ', url)
+            info('mock fetch: ', url, 'fetch param: ', ${paramInterfaceName ? 'param' : 'undefined'})
             option.method = '${action}'
             ${returnStatement}
           `,
