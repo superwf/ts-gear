@@ -5,7 +5,7 @@
 inspired by [pont](https://github.com/alibaba/pont)，pont是法语，桥。
 编程用英语，所以还是自己起了个`ts-gear`的英文名，ts是typescript与swagger的组合，gear寓意通过这个工具像齿轮一样，将前后端紧密的结合在一起，构成一架严密运转的机器。
 
-![](./logo.png)
+![logo](./logo.png)
 
 经常使用该工具，可以很方便的感知后端接口定义的变化。
 
@@ -35,20 +35,22 @@ const config = {
       name: 'pet',
       // source可以是本地文件或swagger doc的接口(以http开头)
       source: '__tests__/fixture/pet.json',
-      pathMatcher: /^\/api/, // 只生成以/api开头的路径
+      // pathMatcher可以是正则或一个以url为参数返回bool值的函数，当为正则时，只生成匹配该正则的请求函数; 当是函数时，之生成返回为true的请求函数
+      pathMatcher: /^\/api/, // 只生成以/api开头的路径，如果不需要过滤则删除该项
     },
     {
       name: 'projectA',
       source: 'http://192.168.1.111/v2/api-docs',
-			// fetchOption 是可选项，如果swagger接口有一些验证需求，
+      // fetchOption 是可选项，如果swagger接口有一些验证需求，
       // 可以按原生fetch可接收的参数配置
       // 如果验证很麻烦最好还是在浏览器上把swagger文档copy到一个本地json文件方便，只是做不到即时更新了。
+      pathMatcher: url => url.startsWith('/api'), // 只生成以/api开头的路径，如果不需要过滤则删除该项
       fetchOption: {
         header: {
-					Authorization: 'your token ...',
-					...
+          Authorization: 'your token ...',
+          ...
         }
-				...
+        ...
       }
     },
   ],
