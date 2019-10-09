@@ -348,7 +348,7 @@ export interface IPostPetParam {
 export function postPet(param: IPostPetParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 Promise.resolve(new Response())
               
@@ -364,7 +364,7 @@ export interface IPutPetParam {
 export function putPet(param: IPutPetParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'put'
                 Promise.resolve(new Response())
               
@@ -384,7 +384,7 @@ type GetPetFindByStatusResponse = Array<Pet>
 export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet/findByStatus', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'get'
                 return Promise.resolve(new Response('[{\\"id\\":0,\\"category\\":{\\"id\\":0,\\"name\\":\\"string\\"},\\"name\\":\\"doggie\\",\\"photoUrls\\":[\\"string\\"],\\"tags\\":[{\\"id\\":0,\\"name\\":\\"string\\"}],\\"status\\":\\"available\\"}]', {
               headers: { 'Content-Type' : 'application/json' }
@@ -405,7 +405,7 @@ export interface IGetPetPetIdParam {
 export function getPetPetId(param: IGetPetPetIdParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'get'
                 Promise.resolve(new Response())
               
@@ -427,7 +427,7 @@ export interface IPostPetPetIdParam {
 export function postPetPetId(param: IPostPetPetIdParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 Promise.resolve(new Response())
               
@@ -448,7 +448,7 @@ export interface IDeletePetPetIdParam {
 export function deletePetPetId(param: IDeletePetPetIdParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'delete'
                 Promise.resolve(new Response())
               
@@ -470,7 +470,7 @@ export interface IPostPetPetIdUploadImageParam {
 export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
 
                 const [ url, option ] = interceptRequest('/v2/pet/:petId/uploadImage', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 return Promise.resolve(new Response('{\\"code\\":0,\\"type\\":\\"string\\",\\"message\\":\\"string\\"}', {
               headers: { 'Content-Type' : 'application/json' }
@@ -486,7 +486,7 @@ type GetStoreInventoryResponse = any
 export function getStoreInventory() {
 
                 const [ url, option ] = interceptRequest('/v2/store/inventory')
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', undefined)
                 option.method = 'get'
                 return Promise.resolve(new Response('{\\"additionalProp1\\":0,\\"additionalProp2\\":0,\\"additionalProp3\\":0}', {
               headers: { 'Content-Type' : 'application/json' }
@@ -504,7 +504,7 @@ export interface IPostStoreOrderParam {
 export function postStoreOrder(param: IPostStoreOrderParam) {
 
                 const [ url, option ] = interceptRequest('/v2/store/order', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 return Promise.resolve(new Response('{\\"id\\":0,\\"petId\\":0,\\"quantity\\":0,\\"shipDate\\":\\"2019-09-03T00:00:00.000Z\\",\\"status\\":\\"placed\\",\\"complete\\":false}', {
               headers: { 'Content-Type' : 'application/json' }
@@ -525,7 +525,7 @@ export interface IGetStoreOrderOrderIdParam {
 export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
 
                 const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'get'
                 Promise.resolve(new Response())
               
@@ -544,7 +544,7 @@ export interface IDeleteStoreOrderOrderIdParam {
 export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
 
                 const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'delete'
                 Promise.resolve(new Response())
               
@@ -561,7 +561,7 @@ export interface IPostUserParam {
 export function postUser(param: IPostUserParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 Promise.resolve(new Response())
               
@@ -577,7 +577,7 @@ export interface IPostUserCreateWithArrayParam {
 export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/createWithArray', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 Promise.resolve(new Response())
               
@@ -593,7 +593,7 @@ export interface IPostUserCreateWithListParam {
 export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/createWithList', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'post'
                 Promise.resolve(new Response())
               
@@ -613,7 +613,7 @@ type GetUserLoginResponse = string
 export function getUserLogin(param: IGetUserLoginParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/login', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'get'
                 return Promise.resolve(new Response('\\"string\\"', {
               headers: { 'Content-Type' : 'application/json' }
@@ -627,7 +627,7 @@ export function getUserLogin(param: IGetUserLoginParam) {
 export function getUserLogout() {
 
                 const [ url, option ] = interceptRequest('/v2/user/logout')
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', undefined)
                 option.method = 'get'
                 Promise.resolve(new Response())
               
@@ -645,7 +645,7 @@ export interface IGetUserUsernameParam {
 export function getUserUsername(param: IGetUserUsernameParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/:username', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'get'
                 return Promise.resolve(new Response('{\\"id\\":0,\\"username\\":\\"string\\",\\"firstName\\":\\"string\\",\\"lastName\\":\\"string\\",\\"email\\":\\"string\\",\\"password\\":\\"string\\",\\"phone\\":\\"string\\",\\"userStatus\\":0}', {
               headers: { 'Content-Type' : 'application/json' }
@@ -667,7 +667,7 @@ export interface IPutUserUsernameParam {
 export function putUserUsername(param: IPutUserUsernameParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/:username', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'put'
                 Promise.resolve(new Response())
               
@@ -686,9 +686,295 @@ export interface IDeleteUserUsernameParam {
 export function deleteUserUsername(param: IDeleteUserUsernameParam) {
 
                 const [ url, option ] = interceptRequest('/v2/user/:username', param)
-                info('mock fetch: ', url)
+                info('mock fetch: ', url, 'fetch param: ', param)
                 option.method = 'delete'
                 Promise.resolve(new Response())
+              
+}
+"
+`;
+
+exports[`generateRequests pet paths with pathMatcher 1`] = `
+"import { interceptRequest, interceptResponse } from \\"./interceptor\\";
+import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
+
+export interface IPostPetParam {
+    body: Pet;
+}
+
+/**
+ * Add a new pet to the store
+ */
+export function postPet(param: IPostPetParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet', param)
+                option.method = 'post'
+                return fetch(url, option).then(interceptResponse)
+              
+}
+
+export interface IPutPetParam {
+    body: Pet;
+}
+
+/**
+ * Update an existing pet
+ */
+export function putPet(param: IPutPetParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet', param)
+                option.method = 'put'
+                return fetch(url, option).then(interceptResponse)
+              
+}
+
+export interface IGetPetFindByStatusParam {
+    query: {
+        status: Array<'available' | 'pending' | 'sold'>
+        };
+}
+
+type GetPetFindByStatusResponse = Array<Pet>
+/**
+ * Finds Pets by status
+ * Multiple status values can be provided with comma separated strings
+ */
+export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/findByStatus', param)
+                option.method = 'get'
+                return fetch(url, option).then<GetPetFindByStatusResponse>(interceptResponse)
+              
+}
+
+export interface IGetPetPetIdParam {
+    path: {
+        petId: number
+        };
+}
+
+/**
+ * Find pet by ID
+ * Returns a single pet
+ */
+export function getPetPetId(param: IGetPetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                option.method = 'get'
+                return fetch(url, option).then<Pet>(interceptResponse)
+              
+}
+
+export interface IPostPetPetIdParam {
+    path: {
+        petId: number
+        };
+    formData?: {
+        name?: string
+        status?: string
+        };
+}
+
+/**
+ * Updates a pet in the store with form data
+ */
+export function postPetPetId(param: IPostPetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                option.method = 'post'
+                return fetch(url, option).then(interceptResponse)
+              
+}
+
+export interface IDeletePetPetIdParam {
+    header?: {
+        api_key?: string
+        };
+    path: {
+        petId: number
+        };
+}
+
+/**
+ * Deletes a pet
+ */
+export function deletePetPetId(param: IDeletePetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                option.method = 'delete'
+                return fetch(url, option).then(interceptResponse)
+              
+}
+
+export interface IPostPetPetIdUploadImageParam {
+    path: {
+        petId: number
+        };
+    formData?: {
+        additionalMetadata?: string
+        file?: File
+        };
+}
+
+/**
+ * uploads an image
+ */
+export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId/uploadImage', param)
+                option.method = 'post'
+                return fetch(url, option).then<ApiResponse>(interceptResponse)
+              
+}
+"
+`;
+
+exports[`generateRequests pet paths with pathMatcher 2`] = `
+"import { interceptRequest, interceptResponse } from \\"./interceptor\\";
+import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
+
+const { info } = console
+  if (process && process.env && process.env.NODE_ENV === 'production') {
+    throw new Error('mockRequest only used in dev mode')
+  }
+
+export interface IPostPetParam {
+    body: Pet;
+}
+
+/**
+ * Add a new pet to the store
+ */
+export function postPet(param: IPostPetParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'post'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IPutPetParam {
+    body: Pet;
+}
+
+/**
+ * Update an existing pet
+ */
+export function putPet(param: IPutPetParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'put'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IGetPetFindByStatusParam {
+    query: {
+        status: Array<'available' | 'pending' | 'sold'>
+        };
+}
+
+type GetPetFindByStatusResponse = Array<Pet>
+/**
+ * Finds Pets by status
+ * Multiple status values can be provided with comma separated strings
+ */
+export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/findByStatus', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'get'
+                return Promise.resolve(new Response('[{\\"id\\":0,\\"category\\":{\\"id\\":0,\\"name\\":\\"string\\"},\\"name\\":\\"doggie\\",\\"photoUrls\\":[\\"string\\"],\\"tags\\":[{\\"id\\":0,\\"name\\":\\"string\\"}],\\"status\\":\\"available\\"}]', {
+              headers: { 'Content-Type' : 'application/json' }
+            })).then<GetPetFindByStatusResponse>(interceptResponse)
+              
+}
+
+export interface IGetPetPetIdParam {
+    path: {
+        petId: number
+        };
+}
+
+/**
+ * Find pet by ID
+ * Returns a single pet
+ */
+export function getPetPetId(param: IGetPetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'get'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IPostPetPetIdParam {
+    path: {
+        petId: number
+        };
+    formData?: {
+        name?: string
+        status?: string
+        };
+}
+
+/**
+ * Updates a pet in the store with form data
+ */
+export function postPetPetId(param: IPostPetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'post'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IDeletePetPetIdParam {
+    header?: {
+        api_key?: string
+        };
+    path: {
+        petId: number
+        };
+}
+
+/**
+ * Deletes a pet
+ */
+export function deletePetPetId(param: IDeletePetPetIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'delete'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IPostPetPetIdUploadImageParam {
+    path: {
+        petId: number
+        };
+    formData?: {
+        additionalMetadata?: string
+        file?: File
+        };
+}
+
+/**
+ * uploads an image
+ */
+export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
+
+                const [ url, option ] = interceptRequest('/v2/pet/:petId/uploadImage', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'post'
+                return Promise.resolve(new Response('{\\"code\\":0,\\"type\\":\\"string\\",\\"message\\":\\"string\\"}', {
+              headers: { 'Content-Type' : 'application/json' }
+            })).then<ApiResponse>(interceptResponse)
               
 }
 "

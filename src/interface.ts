@@ -87,5 +87,9 @@ export interface IUserConfig {
     source: string
     /** 需要验证参数在这里添加 */
     fetchOption?: RequestInit
+    /** 过滤需要的请求路径
+     * 有些项目其中掺杂了很多无用的api，过滤掉可减少文件体积，加速运行
+     * */
+    pathMatcher?: RegExp
   }>
 }

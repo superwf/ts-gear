@@ -42,7 +42,7 @@ describe('util', () => {
     const cn = '输出参数'
     const word = await translateAsync(cn)
     // expect(word).toBe(cn)
-    expect(word).toEqual('OutputParameter')
+    expect(word).toMatch(/^OutputParameters?$/)
   })
 
   describe('getUniqName', () => {

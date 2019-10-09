@@ -47,7 +47,11 @@ export const run = async () => {
     await prettierWrite(definitionsPath, definitions + $refsTypes)
 
     // 生成request函数与mock request数据
-    const { requestsContent, mockRequestsContent } = await generateRequests(schema as JSONSchema, $refsInPaths)
+    const { requestsContent, mockRequestsContent } = await generateRequests(
+      schema as JSONSchema,
+      $refsInPaths,
+      project.pathMatcher,
+    )
     const pathsPath = join(projectPath, 'request.ts')
     await prettierWrite(pathsPath, requestsContent)
     const mockResponsePath = join(projectPath, 'mockRequest.ts')

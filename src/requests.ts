@@ -11,7 +11,7 @@ import { transformPathParameters, transformProperty } from './util'
 import { generateMockData } from './generateMockData'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
-export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[]) => {
+export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[], pathMatcher?: RegExp) => {
   const paths = schema.paths as IPaths
   const { basePath } = schema
 
@@ -26,6 +26,9 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
   ]
   for (url of Object.getOwnPropertyNames(paths)) {
     const path = paths[url]
+    if (pathMatcher && !pathMatcher.test(url)) {
+      continue
+    }
     // action is http method, like get, post ...
     for (const action in path) {
       if (!path.hasOwnProperty(action) || path[action].deprecated) {
