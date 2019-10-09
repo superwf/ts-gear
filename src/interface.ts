@@ -70,6 +70,8 @@ export interface IParameterSchema {
   header?: JSONSchema
 }
 
+export type TPathMatcherFunction = RegExp | ((url: string) => boolean)
+
 /** 用户配置文件定义 */
 export interface IUserConfig {
   /** 项目输出文件夹，会在该文件夹下建立以每个项目名建立独立的文件夹
@@ -90,6 +92,6 @@ export interface IUserConfig {
     /** 过滤需要的请求路径
      * 有些项目其中掺杂了很多无用的api，过滤掉可减少文件体积，加速运行
      * */
-    pathMatcher?: RegExp
+    pathMatcher?: TPathMatcherFunction
   }>
 }

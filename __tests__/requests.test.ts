@@ -15,9 +15,20 @@ describe('generateRequests', () => {
     expect(mockRequestsContent).toMatchSnapshot()
   })
 
-  it('pet paths with pathMatcher', async () => {
+  it('pet paths with RegExp pathMatcher', async () => {
     const { $refsInPaths } = await initializeSchema(pet as JSONSchema)
     const { requestsContent, mockRequestsContent } = await generateRequests(pet as JSONSchema, $refsInPaths, /^\/pet/)
+    expect(requestsContent).toMatchSnapshot()
+    expect(mockRequestsContent).toMatchSnapshot()
+  })
+
+  it('pet paths with function pathMatcher', async () => {
+    const { $refsInPaths } = await initializeSchema(pet as JSONSchema)
+    const { requestsContent, mockRequestsContent } = await generateRequests(
+      pet as JSONSchema,
+      $refsInPaths,
+      (url: string) => url.startsWith('/store'),
+    )
     expect(requestsContent).toMatchSnapshot()
     expect(mockRequestsContent).toMatchSnapshot()
   })

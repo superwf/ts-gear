@@ -5,13 +5,17 @@ import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 
 import { assembleRequestParam } from './assembleRequestParam'
 import { interceptRequest, interceptResponse } from './interceptor'
-import { IPaths, JSONSchema } from './interface'
+import { IPaths, JSONSchema, TPathMatcherFunction } from './interface'
 import { compile } from './source'
 import { transformPathParameters, transformProperty } from './util'
 import { generateMockData } from './generateMockData'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
-export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[], pathMatcher?: RegExp) => {
+export const generateRequests = async (
+  schema: JSONSchema,
+  $RefsInPaths: string[],
+  pathMatcher?: TPathMatcherFunction,
+) => {
   const paths = schema.paths as IPaths
   const { basePath } = schema
 
@@ -26,8 +30,14 @@ export const generateRequests = async (schema: JSONSchema, $RefsInPaths: string[
   ]
   for (url of Object.getOwnPropertyNames(paths)) {
     const path = paths[url]
-    if (pathMatcher && !pathMatcher.test(url)) {
-      continue
+    if (pathMatcher) {
+      if (typeof pathMatcher === 'function') {
+        if (!pathMatcher(url)) {
+          continue
+        }
+      } else if (!pathMatcher.test(url)) {
+        continue
+      }
     }
     // action is http method, like get, post ...
     for (const action in path) {

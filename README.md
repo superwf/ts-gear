@@ -35,6 +35,7 @@ const config = {
       name: 'pet',
       // source可以是本地文件或swagger doc的接口(以http开头)
       source: '__tests__/fixture/pet.json',
+      pathMatcher: /^\/api/, // 只生成以/api开头的路径
     },
     {
       name: 'projectA',

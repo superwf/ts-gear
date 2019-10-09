@@ -694,7 +694,7 @@ export function deleteUserUsername(param: IDeleteUserUsernameParam) {
 "
 `;
 
-exports[`generateRequests pet paths with pathMatcher 1`] = `
+exports[`generateRequests pet paths with RegExp pathMatcher 1`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
 
@@ -829,7 +829,7 @@ export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
 "
 `;
 
-exports[`generateRequests pet paths with pathMatcher 2`] = `
+exports[`generateRequests pet paths with RegExp pathMatcher 2`] = `
 "import { interceptRequest, interceptResponse } from \\"./interceptor\\";
 import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
 
@@ -975,6 +975,159 @@ export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
                 return Promise.resolve(new Response('{\\"code\\":0,\\"type\\":\\"string\\",\\"message\\":\\"string\\"}', {
               headers: { 'Content-Type' : 'application/json' }
             })).then<ApiResponse>(interceptResponse)
+              
+}
+"
+`;
+
+exports[`generateRequests pet paths with function pathMatcher 1`] = `
+"import { interceptRequest, interceptResponse } from \\"./interceptor\\";
+import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
+
+type GetStoreInventoryResponse = any
+/**
+ * Returns pet inventories by status
+ * Returns a map of status codes to quantities
+ */
+export function getStoreInventory() {
+
+                const [ url, option ] = interceptRequest('/v2/store/inventory')
+                option.method = 'get'
+                return fetch(url, option).then<GetStoreInventoryResponse>(interceptResponse)
+              
+}
+
+export interface IPostStoreOrderParam {
+    body: Order;
+}
+
+/**
+ * Place an order for a pet
+ */
+export function postStoreOrder(param: IPostStoreOrderParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order', param)
+                option.method = 'post'
+                return fetch(url, option).then<Order>(interceptResponse)
+              
+}
+
+export interface IGetStoreOrderOrderIdParam {
+    path: {
+        orderId: number
+        };
+}
+
+/**
+ * Find purchase order by ID
+ * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+ */
+export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
+                option.method = 'get'
+                return fetch(url, option).then<Order>(interceptResponse)
+              
+}
+
+export interface IDeleteStoreOrderOrderIdParam {
+    path: {
+        orderId: number
+        };
+}
+
+/**
+ * Delete purchase order by ID
+ * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+ */
+export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
+                option.method = 'delete'
+                return fetch(url, option).then(interceptResponse)
+              
+}
+"
+`;
+
+exports[`generateRequests pet paths with function pathMatcher 2`] = `
+"import { interceptRequest, interceptResponse } from \\"./interceptor\\";
+import { Pet, ApiResponse, Order, User } from \\"./definitions\\";
+
+const { info } = console
+  if (process && process.env && process.env.NODE_ENV === 'production') {
+    throw new Error('mockRequest only used in dev mode')
+  }
+
+type GetStoreInventoryResponse = any
+/**
+ * Returns pet inventories by status
+ * Returns a map of status codes to quantities
+ */
+export function getStoreInventory() {
+
+                const [ url, option ] = interceptRequest('/v2/store/inventory')
+                info('mock fetch: ', url, 'fetch param: ', undefined)
+                option.method = 'get'
+                return Promise.resolve(new Response('{\\"additionalProp1\\":0,\\"additionalProp2\\":0,\\"additionalProp3\\":0}', {
+              headers: { 'Content-Type' : 'application/json' }
+            })).then<GetStoreInventoryResponse>(interceptResponse)
+              
+}
+
+export interface IPostStoreOrderParam {
+    body: Order;
+}
+
+/**
+ * Place an order for a pet
+ */
+export function postStoreOrder(param: IPostStoreOrderParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'post'
+                return Promise.resolve(new Response('{\\"id\\":0,\\"petId\\":0,\\"quantity\\":0,\\"shipDate\\":\\"2019-09-03T00:00:00.000Z\\",\\"status\\":\\"placed\\",\\"complete\\":false}', {
+              headers: { 'Content-Type' : 'application/json' }
+            })).then<Order>(interceptResponse)
+              
+}
+
+export interface IGetStoreOrderOrderIdParam {
+    path: {
+        orderId: number
+        };
+}
+
+/**
+ * Find purchase order by ID
+ * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+ */
+export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'get'
+                Promise.resolve(new Response())
+              
+}
+
+export interface IDeleteStoreOrderOrderIdParam {
+    path: {
+        orderId: number
+        };
+}
+
+/**
+ * Delete purchase order by ID
+ * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+ */
+export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
+
+                const [ url, option ] = interceptRequest('/v2/store/order/:orderId', param)
+                info('mock fetch: ', url, 'fetch param: ', param)
+                option.method = 'delete'
+                Promise.resolve(new Response())
               
 }
 "
