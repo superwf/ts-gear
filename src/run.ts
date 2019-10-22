@@ -19,7 +19,10 @@ export const run = async () => {
   const cwd = process.cwd()
   // console.log(join(cwd, 'ts-gear.ts'))
 
-  const config = require(join(cwd, 'ts-gear.js')) as IUserConfig
+  /* eslint-disable @typescript-eslint/no-var-requires */
+  const userConfig: any = require(join(cwd, 'ts-gear'))
+  /* eslint-enable @typescript-eslint/no-var-requires */
+  const config = (userConfig.default ? userConfig.default : userConfig) as IUserConfig
   // 建立dest文件夹
   const dest = join(cwd, config.dest)
   if (!existsSync(dest)) {

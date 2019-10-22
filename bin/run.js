@@ -50,12 +50,12 @@ var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts'
  * write ts file
  * */
 exports.run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cwd, config, dest, _a, _b, _i, i, project, projectPath, source, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
+    var cwd, config, dest, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
     return __generator(this, function (_e) {
         switch (_e.label) {
             case 0:
                 cwd = process.cwd();
-                config = require(path_1.join(cwd, 'ts-gear.js'));
+                config = require(path_1.join(cwd, 'ts-gear'));
                 dest = path_1.join(cwd, config.dest);
                 if (!fs_1.existsSync(dest)) {
                     fs_1.mkdirSync(dest);
@@ -77,8 +77,7 @@ exports.run = function () { return __awaiter(void 0, void 0, void 0, function ()
                 if (!fs_1.existsSync(projectPath)) {
                     fs_1.mkdirSync(projectPath);
                 }
-                source = project.source.startsWith('http') ? project.source : path_1.join(cwd, project.source);
-                return [4 /*yield*/, fetchSwagger_1.fetchSwaggerJSONSchema(source, project.fetchOption)];
+                return [4 /*yield*/, fetchSwagger_1.fetchSwaggerJSONSchema(project, project.fetchOption)];
             case 2:
                 schema = _e.sent();
                 return [4 /*yield*/, util_1.initializeSchema(schema)];

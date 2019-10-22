@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var fetch = require("isomorphic-fetch");
+var path_1 = require("path");
 var log_1 = require("./log");
 /**
  * 按url是否以http开头
@@ -46,27 +47,31 @@ var log_1 = require("./log");
  * 如果需要自动化，参照fetch文档 https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * 在配置文件的fetchOption按RequestInit接口格式添加验证参数
  * */
-exports.fetchSwaggerJSONSchema = function (url, init) { return __awaiter(void 0, void 0, void 0, function () {
-    var res, swaggerSchema;
+exports.fetchSwaggerJSONSchema = function (project, init) { return __awaiter(void 0, void 0, void 0, function () {
+    var url, verbose, res, swaggerSchema, cwd, source;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
+                url = project.source;
                 if (!url.startsWith('http')) return [3 /*break*/, 3];
-                log_1.info("start fetching " + url);
+                verbose = "project: " + project.name + " url: " + url;
+                log_1.info("start fetching " + verbose);
                 return [4 /*yield*/, fetch(url, init)];
             case 1:
                 res = _a.sent();
                 return [4 /*yield*/, res.json()];
             case 2:
                 swaggerSchema = _a.sent();
-                log_1.info("fetching " + url + " done");
+                log_1.info("got " + verbose + "}");
                 return [2 /*return*/, swaggerSchema];
             case 3:
+                cwd = process.cwd();
+                source = path_1.join(cwd, project.source);
                 // json文件直接require
-                if (!url.endsWith('.json')) {
+                if (!source.endsWith('.json')) {
                     log_1.error('user config file should ends with `.json`');
                 }
-                return [2 /*return*/, require(url)];
+                return [2 /*return*/, require(source)];
         }
     });
 }); };
