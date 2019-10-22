@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.1](https://github.com/superwf/ts-gear/compare/v1.1.0...v1.1.1) (2019-10-22)
+
+
+### Bug Fixes
+
+* url path dilimiter replace for window ([5d5c1e0](https://github.com/superwf/ts-gear/commit/5d5c1e09704ccb1314b1e4d1de48907e3bf6de9e))
+
 ## [1.1.0](https://github.com/superwf/ts-gear/compare/v0.2.2...v1.1.0) (2019-10-22)
 
 

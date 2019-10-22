@@ -1,6 +1,6 @@
 {
   "name": "ts-gear",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "swagger to typescript",
   "main": "lib/index.js",
   "bin": {
