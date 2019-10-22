@@ -50,12 +50,13 @@ var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts'
  * write ts file
  * */
 exports.run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cwd, config, dest, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
+    var cwd, userConfig, config, dest, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
     return __generator(this, function (_e) {
         switch (_e.label) {
             case 0:
                 cwd = process.cwd();
-                config = require(path_1.join(cwd, 'ts-gear'));
+                userConfig = require(path_1.join(cwd, 'ts-gear'));
+                config = (userConfig["default"] ? userConfig["default"] : userConfig);
                 dest = path_1.join(cwd, config.dest);
                 if (!fs_1.existsSync(dest)) {
                     fs_1.mkdirSync(dest);
