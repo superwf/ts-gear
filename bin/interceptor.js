@@ -23,11 +23,18 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __importStar = (this && this.__importStar) || function (mod) {
+    if (mod && mod.__esModule) return mod;
+    var result = {};
+    if (mod != null) for (var k in mod) if (Object.hasOwnProperty.call(mod, k)) result[k] = mod[k];
+    result["default"] = mod;
+    return result;
+};
 exports.__esModule = true;
 /** 该文件只生产一次，之后可根据项目自行更改，不会被覆盖 */
-var URL = require("url");
+var URL = __importStar(require("url"));
 var lodash_1 = require("lodash");
-var pathToRegexp = require("path-to-regexp");
+var pathToRegexp = __importStar(require("path-to-regexp"));
 var jsonType = 'application/json';
 /** 将query与path参数都挂到url上去
  * transform parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) to '/api/abc/123?name=def'

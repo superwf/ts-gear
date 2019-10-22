@@ -9,7 +9,7 @@
   },
   "scripts": {
     "test": "npx cross-env NODE_ENV=test npx jest",
-    "compile": "npx cross-env tsc -d src/*.ts --outDir bin && chmod +x bin/main.js",
+    "compile": "npx cross-env tsc --esModuleInterop -d src/*.ts --outDir bin && chmod +x bin/main.js",
     "release": "npx standard-version",
     "prepublishOnly": "yarn run-s test compile release"
   },
@@ -33,7 +33,8 @@
     "traverse": "^0.6.6",
     "ts-morph": "^2.1.0",
     "ts-node": "^8.4.1",
-    "typescript": "^3.5.3"
+    "typescript": "^3.5.3",
+    "url-join": "^4.0.1"
   },
   "files": [
     "src",
@@ -58,6 +59,7 @@
     "@types/node-fetch": "^2.3.3",
     "@types/prettier": "^1.16.3",
     "@types/traverse": "^0.6.25-alpha",
+    "@types/url-join": "^4.0.0",
     "@typescript-eslint/eslint-plugin": "^2.0.0",
     "@typescript-eslint/parser": "^2.0.0",
     "babel-eslint": "^10.0.3",

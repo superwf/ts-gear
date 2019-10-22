@@ -641,6 +641,11 @@
   resolved "http://registry.m.jd.com/@types/traverse/download/@types/traverse-0.6.32.tgz#f9fdfa40cd4898deaa975a14511aec731de8235e"
   integrity sha1-+f36QM1ImN6ql1oUURrscx3oI14=
 
+"@types/url-join@^4.0.0":
+  version "4.0.0"
+  resolved "http://registry.m.jd.com/@types/url-join/download/@types/url-join-4.0.0.tgz#72eff71648a429c7d4acf94e03780e06671369bd"
+  integrity sha1-cu/3FkikKcfUrPlOA3gOBmcTab0=
+
 "@types/yargs-parser@*":
   version "13.1.0"
   resolved "http://registry.m.jd.com/@types/yargs-parser/download/@types/yargs-parser-13.1.0.tgz#c563aa192f39350a1d18da36c5a8da382bbd8228"
@@ -6125,6 +6130,11 @@ url-join@^2.0.5:
   version "2.0.5"
   resolved "http://registry.m.jd.com/url-join/download/url-join-2.0.5.tgz#5af22f18c052a000a48d7b82c5e9c2e2feeda728"
   integrity sha1-WvIvGMBSoACkjXuCxenC4v7tpyg=
+
+url-join@^4.0.1:
+  version "4.0.1"
+  resolved "http://registry.m.jd.com/url-join/download/url-join-4.0.1.tgz#b642e21a2646808ffa178c4c5fda39844e12cde7"
+  integrity sha1-tkLiGiZGgI/6F4xMX9o5hE4Szec=
 
 use@^3.1.0:
   version "3.1.1"

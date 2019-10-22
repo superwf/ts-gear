@@ -1,5 +1,4 @@
-import { join } from 'path'
-
+import join from 'url-join'
 import { camelCase, forEach, get, isEmpty, remove, upperFirst } from 'lodash'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 

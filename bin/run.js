@@ -35,13 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
 var definitions_1 = require("./definitions");
 var fetchSwagger_1 = require("./fetchSwagger");
 var requests_1 = require("./requests");
-var prettierWrite_1 = require("./prettierWrite");
+var prettierWrite_1 = __importDefault(require("./prettierWrite"));
 var util_1 = require("./util");
 var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts');
 /** get user config

@@ -35,8 +35,11 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
-var path_1 = require("path");
+var url_join_1 = __importDefault(require("url-join"));
 var lodash_1 = require("lodash");
 var assembleRequestParam_1 = require("./assembleRequestParam");
 var interceptor_1 = require("./interceptor");
@@ -144,7 +147,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + path_1.join(basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + url_join_1["default"](basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [
@@ -179,7 +182,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + path_1.join(basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + url_join_1["default"](basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [
