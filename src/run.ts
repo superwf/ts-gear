@@ -37,8 +37,7 @@ export const run = async () => {
     }
 
     // 获取swagger schema
-    const source = project.source.startsWith('http') ? project.source : join(cwd, project.source)
-    const schema = await fetchSwaggerJSONSchema(source, project.fetchOption)
+    const schema = await fetchSwaggerJSONSchema(project, project.fetchOption)
     const { $refsNotInDefinitions, $refsInPaths } = await initializeSchema(schema)
     const $refsTypes = await transform$RefsNotInDefinitions($refsNotInDefinitions)
     // 生成definitions

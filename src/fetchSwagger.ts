@@ -1,5 +1,8 @@
 import fetch = require('isomorphic-fetch')
+import { join } from 'path'
+
 import { error, info } from './log'
+import { IProject } from './interface'
 
 /**
  * 按url是否以http开头
@@ -9,17 +12,21 @@ import { error, info } from './log'
  * 如果需要自动化，参照fetch文档 https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * 在配置文件的fetchOption按RequestInit接口格式添加验证参数
  * */
-export const fetchSwaggerJSONSchema = async (url: string, init?: RequestInit) => {
+export const fetchSwaggerJSONSchema = async (project: IProject, init?: RequestInit) => {
+  const url = project.source
   if (url.startsWith('http')) {
-    info(`start fetching ${url}`)
+    const verbose = `project: ${project.name} url: ${url}`
+    info(`start fetching ${verbose}`)
     const res = await fetch(url, init)
     const swaggerSchema = await res.json()
-    info(`fetching ${url} done`)
+    info(`got ${verbose}}`)
     return swaggerSchema
   }
+  const cwd = process.cwd()
+  const source = join(cwd, project.source)
   // json文件直接require
-  if (!url.endsWith('.json')) {
+  if (!source.endsWith('.json')) {
     error('user config file should ends with `.json`')
   }
-  return require(url)
+  return require(source)
 }
