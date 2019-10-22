@@ -75,7 +75,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                     }
                 }
                 _loop_1 = function (action) {
-                    var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, mockResponseValue, response200$ref, response200, responseTsContent, functionTsContent, mockFunctionTsContent;
+                    var request, functionName, paramInterfaceName, parameterSchema_1, paramDefTsContent, responseType, mockResponseValue, response200$ref, response200, responseTsContent, urlPath, functionTsContent, mockFunctionTsContent;
                     return __generator(this, function (_a) {
                         switch (_a.label) {
                             case 0:
@@ -140,6 +140,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                         mockResponseValue = generateMockData_1.generateMockData(response200, schema.definitions);
                                     }
                                 }
+                                urlPath = url_join_1["default"](basePath, util_1.transformPathParameters(String(url))).replace(/\\/g, '');
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var functionData = {
                                             name: functionName,
@@ -147,7 +148,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + url_join_1["default"](basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [
@@ -182,7 +183,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + url_join_1["default"](basePath, util_1.transformPathParameters(String(url))) + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [

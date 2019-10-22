@@ -106,6 +106,8 @@ export const generateRequests = async (
         }
       }
 
+      // 在window上会出现\，过滤换
+      const urlPath = join(basePath, transformPathParameters(String(url))).replace(/\\/g, '')
       const functionTsContent = await compile(source => {
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
@@ -114,9 +116,7 @@ export const generateRequests = async (
           // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
-            const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
-            paramInterfaceName ? ', param' : ''
-          })
+            const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
             option.method = '${action}'
             return fetch(url, option).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})
           `,
@@ -156,9 +156,7 @@ export const generateRequests = async (
           // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
-            const [ url, option ] = ${interceptRequest.name}('${join(basePath, transformPathParameters(String(url)))}'${
-            paramInterfaceName ? ', param' : ''
-          })
+            const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
             info('mock fetch: ', url, 'fetch param: ', ${paramInterfaceName ? 'param' : 'undefined'})
             option.method = '${action}'
             ${returnStatement}
