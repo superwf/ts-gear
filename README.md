@@ -59,6 +59,24 @@ const config = {
 module.exports = config
 ```
 
+新特性，支持ts格式配置文件，示例如下
+
+```typescript
+import { IUserConfig } from 'ts-gear/bin/interface'
+
+const config: IUserConfig = {
+  // 生成swagger配置ts文件的目录
+  dest: './service',
+  // projects是项目的数组
+  projects: [
+    {
+      ... // 每项都会有ts校验
+    }
+  ],
+}
+
+export default config
+
 执行
 
 ```bash
