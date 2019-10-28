@@ -169,7 +169,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var returnStatement = '';
                                         if (mockResponseValue) {
-                                            returnStatement = "return Promise.resolve(new Response('" + JSON.stringify(mockResponseValue) + "', {\n          headers: { 'Content-Type' : 'application/json' }\n        })).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
+                                            returnStatement = "Promise.resolve(new Response('" + JSON.stringify(mockResponseValue) + "', {\n          headers: { 'Content-Type' : 'application/json' }\n        })).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
                                             // if (responseType) {
                                             //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
                                             // }
@@ -183,7 +183,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            return " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [

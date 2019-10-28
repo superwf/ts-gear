@@ -140,7 +140,7 @@ export const generateRequests = async (
       const mockFunctionTsContent = await compile(source => {
         let returnStatement = ''
         if (mockResponseValue) {
-          returnStatement = `return Promise.resolve(new Response('${JSON.stringify(mockResponseValue)}', {
+          returnStatement = `Promise.resolve(new Response('${JSON.stringify(mockResponseValue)}', {
           headers: { 'Content-Type' : 'application/json' }
         })).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})`
           // if (responseType) {
@@ -159,7 +159,7 @@ export const generateRequests = async (
             const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
             info('mock fetch: ', url, 'fetch param: ', ${paramInterfaceName ? 'param' : 'undefined'})
             option.method = '${action}'
-            ${returnStatement}
+            return ${returnStatement}
           `,
         }
         if (paramInterfaceName) {
