@@ -70,7 +70,9 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   Reflect.defineProperty(response, 'url', {
     value: url,
   })
-  return Promise.resolve(response).then<GetPetFindByStatusResponse>(interceptResponse)
+  return Promise.resolve(response).then<GetPetFindByStatusResponse>(
+    interceptResponse,
+  )
 }
 
 export interface IGetPetPetIdParam {
@@ -164,9 +166,12 @@ export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
   option.method = 'post'
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
-  const response = new Response('{"code":0,"type":"string","message":"string"}', {
-    headers: { 'Content-Type': 'application/json' },
-  })
+  const response = new Response(
+    '{"code":0,"type":"string","message":"string"}',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
   Reflect.defineProperty(response, 'url', {
     value: url,
   })
@@ -182,13 +187,18 @@ export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
   option.method = 'get'
   info('mock fetch: ', url, 'with get http method, fetch param: ', undefined)
-  const response = new Response('{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}', {
-    headers: { 'Content-Type': 'application/json' },
-  })
+  const response = new Response(
+    '{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
   Reflect.defineProperty(response, 'url', {
     value: url,
   })
-  return Promise.resolve(response).then<GetStoreInventoryResponse>(interceptResponse)
+  return Promise.resolve(response).then<GetStoreInventoryResponse>(
+    interceptResponse,
+  )
 }
 
 export interface IPostStoreOrderParam {

@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.1.3](https://github.com/superwf/ts-gear/compare/v1.1.2...v1.1.3) (2019-11-13)
+
+
+### Bug Fixes
+
+* add url to mockRequest response ([b5b9add](https://github.com/superwf/ts-gear/commit/b5b9add0109bc06963a29af76e922fc00254ba73))
+
 ### [1.1.2](https://github.com/superwf/ts-gear/compare/v1.1.1...v1.1.2) (2019-10-28)
 
 
