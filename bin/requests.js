@@ -168,14 +168,17 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                 tsContent.push(functionTsContent);
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var returnStatement = '';
+                                        var responseStatement = '';
                                         if (mockResponseValue) {
-                                            returnStatement = "Promise.resolve(new Response('" + JSON.stringify(mockResponseValue) + "', {\n          headers: { 'Content-Type' : 'application/json' }\n        })).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
+                                            responseStatement = "const response = new Response('" + JSON.stringify(mockResponseValue) + "', {\n              headers: { 'Content-Type' : 'application/json' }\n            })";
+                                            returnStatement = "Promise.resolve(response).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
                                             // if (responseType) {
                                             //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
                                             // }
                                         }
                                         else {
-                                            returnStatement = 'Promise.resolve(new Response())';
+                                            responseStatement = "const response = new Response('', {\n              headers: { 'Content-Type' : 'application/json' }\n            })";
+                                            returnStatement = 'Promise.resolve(response)';
                                         }
                                         var functionData = {
                                             name: functionName,
@@ -183,7 +186,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            info('mock fetch: ', url, 'fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            option.method = '" + action + "'\n            return " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            info('mock fetch: ', url, 'with " + action + " http method, fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            " + responseStatement + "\n            Reflect.defineProperty(response, 'url', {\n              value: url,\n            })\n            return " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [

@@ -17,7 +17,13 @@ export function deleteApiDataboardBoardEs(
   param: IDeleteApiDataboardBoardEsParam,
 ) {
   const [url, option] = interceptRequest('/api/databoard/board/es', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'delete'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }

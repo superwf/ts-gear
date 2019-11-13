@@ -15,9 +15,15 @@ export interface IPostPetParam {
  */
 export function postPet(param: IPostPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPutPetParam {
@@ -29,9 +35,15 @@ export interface IPutPetParam {
  */
 export function putPet(param: IPutPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'put'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with put http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IGetPetFindByStatusParam {
@@ -47,16 +59,18 @@ type GetPetFindByStatusResponse = Array<Pet>
  */
 export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   const [url, option] = interceptRequest('/v2/pet/findByStatus', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'get'
-  return Promise.resolve(
-    new Response(
-      '[{"id":0,"category":{"id":0,"name":"string"},"name":"doggie","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"available"}]',
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    ),
-  ).then<GetPetFindByStatusResponse>(interceptResponse)
+  info('mock fetch: ', url, 'with get http method, fetch param: ', param)
+  const response = new Response(
+    '[{"id":0,"category":{"id":0,"name":"string"},"name":"doggie","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"available"}]',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<GetPetFindByStatusResponse>(interceptResponse)
 }
 
 export interface IGetPetPetIdParam {
@@ -71,9 +85,15 @@ export interface IGetPetPetIdParam {
  */
 export function getPetPetId(param: IGetPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'get'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with get http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPostPetPetIdParam {
@@ -91,9 +111,15 @@ export interface IPostPetPetIdParam {
  */
 export function postPetPetId(param: IPostPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IDeletePetPetIdParam {
@@ -110,9 +136,15 @@ export interface IDeletePetPetIdParam {
  */
 export function deletePetPetId(param: IDeletePetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'delete'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPostPetPetIdUploadImageParam {
@@ -130,13 +162,15 @@ export interface IPostPetPetIdUploadImageParam {
  */
 export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(
-    new Response('{"code":0,"type":"string","message":"string"}', {
-      headers: { 'Content-Type': 'application/json' },
-    }),
-  ).then<ApiResponse>(interceptResponse)
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('{"code":0,"type":"string","message":"string"}', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<ApiResponse>(interceptResponse)
 }
 
 type GetStoreInventoryResponse = any
@@ -146,16 +180,15 @@ type GetStoreInventoryResponse = any
  */
 export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
-  info('mock fetch: ', url, 'fetch param: ', undefined)
   option.method = 'get'
-  return Promise.resolve(
-    new Response(
-      '{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}',
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    ),
-  ).then<GetStoreInventoryResponse>(interceptResponse)
+  info('mock fetch: ', url, 'with get http method, fetch param: ', undefined)
+  const response = new Response('{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<GetStoreInventoryResponse>(interceptResponse)
 }
 
 export interface IPostStoreOrderParam {
@@ -167,16 +200,18 @@ export interface IPostStoreOrderParam {
  */
 export function postStoreOrder(param: IPostStoreOrderParam) {
   const [url, option] = interceptRequest('/v2/store/order', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(
-    new Response(
-      '{"id":0,"petId":0,"quantity":0,"shipDate":"2019-09-03T00:00:00.000Z","status":"placed","complete":false}',
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    ),
-  ).then<Order>(interceptResponse)
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response(
+    '{"id":0,"petId":0,"quantity":0,"shipDate":"2019-09-03T00:00:00.000Z","status":"placed","complete":false}',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<Order>(interceptResponse)
 }
 
 export interface IGetStoreOrderOrderIdParam {
@@ -191,9 +226,15 @@ export interface IGetStoreOrderOrderIdParam {
  */
 export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'get'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with get http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IDeleteStoreOrderOrderIdParam {
@@ -208,9 +249,15 @@ export interface IDeleteStoreOrderOrderIdParam {
  */
 export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'delete'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPostUserParam {
@@ -223,9 +270,15 @@ export interface IPostUserParam {
  */
 export function postUser(param: IPostUserParam) {
   const [url, option] = interceptRequest('/v2/user', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPostUserCreateWithArrayParam {
@@ -237,9 +290,15 @@ export interface IPostUserCreateWithArrayParam {
  */
 export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   const [url, option] = interceptRequest('/v2/user/createWithArray', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IPostUserCreateWithListParam {
@@ -251,9 +310,15 @@ export interface IPostUserCreateWithListParam {
  */
 export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   const [url, option] = interceptRequest('/v2/user/createWithList', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'post'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with post http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IGetUserLoginParam {
@@ -269,13 +334,15 @@ type GetUserLoginResponse = string
  */
 export function getUserLogin(param: IGetUserLoginParam) {
   const [url, option] = interceptRequest('/v2/user/login', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'get'
-  return Promise.resolve(
-    new Response('"string"', {
-      headers: { 'Content-Type': 'application/json' },
-    }),
-  ).then<GetUserLoginResponse>(interceptResponse)
+  info('mock fetch: ', url, 'with get http method, fetch param: ', param)
+  const response = new Response('"string"', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<GetUserLoginResponse>(interceptResponse)
 }
 
 /**
@@ -283,9 +350,15 @@ export function getUserLogin(param: IGetUserLoginParam) {
  */
 export function getUserLogout() {
   const [url, option] = interceptRequest('/v2/user/logout')
-  info('mock fetch: ', url, 'fetch param: ', undefined)
   option.method = 'get'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with get http method, fetch param: ', undefined)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IGetUserUsernameParam {
@@ -299,16 +372,18 @@ export interface IGetUserUsernameParam {
  */
 export function getUserUsername(param: IGetUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'get'
-  return Promise.resolve(
-    new Response(
-      '{"id":0,"username":"string","firstName":"string","lastName":"string","email":"string","password":"string","phone":"string","userStatus":0}',
-      {
-        headers: { 'Content-Type': 'application/json' },
-      },
-    ),
-  ).then<User>(interceptResponse)
+  info('mock fetch: ', url, 'with get http method, fetch param: ', param)
+  const response = new Response(
+    '{"id":0,"username":"string","firstName":"string","lastName":"string","email":"string","password":"string","phone":"string","userStatus":0}',
+    {
+      headers: { 'Content-Type': 'application/json' },
+    },
+  )
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response).then<User>(interceptResponse)
 }
 
 export interface IPutUserUsernameParam {
@@ -324,9 +399,15 @@ export interface IPutUserUsernameParam {
  */
 export function putUserUsername(param: IPutUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'put'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with put http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }
 
 export interface IDeleteUserUsernameParam {
@@ -341,7 +422,13 @@ export interface IDeleteUserUsernameParam {
  */
 export function deleteUserUsername(param: IDeleteUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  info('mock fetch: ', url, 'fetch param: ', param)
   option.method = 'delete'
-  return Promise.resolve(new Response())
+  info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
+  const response = new Response('', {
+    headers: { 'Content-Type': 'application/json' },
+  })
+  Reflect.defineProperty(response, 'url', {
+    value: url,
+  })
+  return Promise.resolve(response)
 }

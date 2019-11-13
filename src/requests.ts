@@ -139,15 +139,22 @@ export const generateRequests = async (
 
       const mockFunctionTsContent = await compile(source => {
         let returnStatement = ''
+        let responseStatement = ''
         if (mockResponseValue) {
-          returnStatement = `Promise.resolve(new Response('${JSON.stringify(mockResponseValue)}', {
-          headers: { 'Content-Type' : 'application/json' }
-        })).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})`
+          responseStatement = `const response = new Response('${JSON.stringify(mockResponseValue)}', {
+              headers: { 'Content-Type' : 'application/json' }
+            })`
+          returnStatement = `Promise.resolve(response).then${responseType ? '<' + responseType + '>' : ''}(${
+            interceptResponse.name
+          })`
           // if (responseType) {
           //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
           // }
         } else {
-          returnStatement = 'Promise.resolve(new Response())'
+          responseStatement = `const response = new Response('', {
+              headers: { 'Content-Type' : 'application/json' }
+            })`
+          returnStatement = 'Promise.resolve(response)'
         }
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
@@ -157,8 +164,14 @@ export const generateRequests = async (
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
             const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
-            info('mock fetch: ', url, 'fetch param: ', ${paramInterfaceName ? 'param' : 'undefined'})
             option.method = '${action}'
+            info('mock fetch: ', url, 'with ${action} http method, fetch param: ', ${
+            paramInterfaceName ? 'param' : 'undefined'
+          })
+            ${responseStatement}
+            Reflect.defineProperty(response, 'url', {
+              value: url,
+            })
             return ${returnStatement}
           `,
         }
