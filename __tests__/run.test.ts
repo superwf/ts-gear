@@ -1,6 +1,7 @@
 import { resolve } from 'path'
 
-import { putPet } from 'example/service/pet/request'
+import { putPet } from '../example/service/pet/request'
+
 import { run } from 'src/run'
 import { tsGearRoot } from 'src/util'
 

@@ -15,7 +15,7 @@ export interface IPostPetParam {
  */
 export function postPet(param: IPostPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  option.method = 'post'
+  option.method = postPet.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -26,6 +26,8 @@ export function postPet(param: IPostPetParam) {
   return Promise.resolve(response)
 }
 
+postPet.method = 'post'
+
 export interface IPutPetParam {
   body: Pet
 }
@@ -35,7 +37,7 @@ export interface IPutPetParam {
  */
 export function putPet(param: IPutPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  option.method = 'put'
+  option.method = putPet.method
   info('mock fetch: ', url, 'with put http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -45,6 +47,8 @@ export function putPet(param: IPutPetParam) {
   })
   return Promise.resolve(response)
 }
+
+putPet.method = 'put'
 
 export interface IGetPetFindByStatusParam {
   query: {
@@ -59,7 +63,7 @@ type GetPetFindByStatusResponse = Array<Pet>
  */
 export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   const [url, option] = interceptRequest('/v2/pet/findByStatus', param)
-  option.method = 'get'
+  option.method = getPetFindByStatus.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', param)
   const response = new Response(
     '[{"id":0,"category":{"id":0,"name":"string"},"name":"doggie","photoUrls":["string"],"tags":[{"id":0,"name":"string"}],"status":"available"}]',
@@ -75,6 +79,8 @@ export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   )
 }
 
+getPetFindByStatus.method = 'get'
+
 export interface IGetPetPetIdParam {
   path: {
     petId: number
@@ -87,7 +93,7 @@ export interface IGetPetPetIdParam {
  */
 export function getPetPetId(param: IGetPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'get'
+  option.method = getPetPetId.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -97,6 +103,8 @@ export function getPetPetId(param: IGetPetPetIdParam) {
   })
   return Promise.resolve(response)
 }
+
+getPetPetId.method = 'get'
 
 export interface IPostPetPetIdParam {
   path: {
@@ -113,7 +121,7 @@ export interface IPostPetPetIdParam {
  */
 export function postPetPetId(param: IPostPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'post'
+  option.method = postPetPetId.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -123,6 +131,8 @@ export function postPetPetId(param: IPostPetPetIdParam) {
   })
   return Promise.resolve(response)
 }
+
+postPetPetId.method = 'post'
 
 export interface IDeletePetPetIdParam {
   header?: {
@@ -138,7 +148,7 @@ export interface IDeletePetPetIdParam {
  */
 export function deletePetPetId(param: IDeletePetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'delete'
+  option.method = deletePetPetId.method
   info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -148,6 +158,8 @@ export function deletePetPetId(param: IDeletePetPetIdParam) {
   })
   return Promise.resolve(response)
 }
+
+deletePetPetId.method = 'delete'
 
 export interface IPostPetPetIdUploadImageParam {
   path: {
@@ -164,7 +176,7 @@ export interface IPostPetPetIdUploadImageParam {
  */
 export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
-  option.method = 'post'
+  option.method = postPetPetIdUploadImage.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response(
     '{"code":0,"type":"string","message":"string"}',
@@ -178,6 +190,8 @@ export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   return Promise.resolve(response).then<ApiResponse>(interceptResponse)
 }
 
+postPetPetIdUploadImage.method = 'post'
+
 type GetStoreInventoryResponse = any
 /**
  * Returns pet inventories by status
@@ -185,7 +199,7 @@ type GetStoreInventoryResponse = any
  */
 export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
-  option.method = 'get'
+  option.method = getStoreInventory.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', undefined)
   const response = new Response(
     '{"additionalProp1":0,"additionalProp2":0,"additionalProp3":0}',
@@ -201,6 +215,8 @@ export function getStoreInventory() {
   )
 }
 
+getStoreInventory.method = 'get'
+
 export interface IPostStoreOrderParam {
   body: Order
 }
@@ -210,7 +226,7 @@ export interface IPostStoreOrderParam {
  */
 export function postStoreOrder(param: IPostStoreOrderParam) {
   const [url, option] = interceptRequest('/v2/store/order', param)
-  option.method = 'post'
+  option.method = postStoreOrder.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response(
     '{"id":0,"petId":0,"quantity":0,"shipDate":"2019-09-03T00:00:00.000Z","status":"placed","complete":false}',
@@ -224,6 +240,8 @@ export function postStoreOrder(param: IPostStoreOrderParam) {
   return Promise.resolve(response).then<Order>(interceptResponse)
 }
 
+postStoreOrder.method = 'post'
+
 export interface IGetStoreOrderOrderIdParam {
   path: {
     orderId: number
@@ -236,7 +254,7 @@ export interface IGetStoreOrderOrderIdParam {
  */
 export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  option.method = 'get'
+  option.method = getStoreOrderOrderId.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -246,6 +264,8 @@ export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   })
   return Promise.resolve(response)
 }
+
+getStoreOrderOrderId.method = 'get'
 
 export interface IDeleteStoreOrderOrderIdParam {
   path: {
@@ -259,7 +279,7 @@ export interface IDeleteStoreOrderOrderIdParam {
  */
 export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  option.method = 'delete'
+  option.method = deleteStoreOrderOrderId.method
   info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -269,6 +289,8 @@ export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   })
   return Promise.resolve(response)
 }
+
+deleteStoreOrderOrderId.method = 'delete'
 
 export interface IPostUserParam {
   body: User
@@ -280,7 +302,7 @@ export interface IPostUserParam {
  */
 export function postUser(param: IPostUserParam) {
   const [url, option] = interceptRequest('/v2/user', param)
-  option.method = 'post'
+  option.method = postUser.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -290,6 +312,8 @@ export function postUser(param: IPostUserParam) {
   })
   return Promise.resolve(response)
 }
+
+postUser.method = 'post'
 
 export interface IPostUserCreateWithArrayParam {
   body: Array<User>
@@ -300,7 +324,7 @@ export interface IPostUserCreateWithArrayParam {
  */
 export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   const [url, option] = interceptRequest('/v2/user/createWithArray', param)
-  option.method = 'post'
+  option.method = postUserCreateWithArray.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -310,6 +334,8 @@ export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   })
   return Promise.resolve(response)
 }
+
+postUserCreateWithArray.method = 'post'
 
 export interface IPostUserCreateWithListParam {
   body: Array<User>
@@ -320,7 +346,7 @@ export interface IPostUserCreateWithListParam {
  */
 export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   const [url, option] = interceptRequest('/v2/user/createWithList', param)
-  option.method = 'post'
+  option.method = postUserCreateWithList.method
   info('mock fetch: ', url, 'with post http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -330,6 +356,8 @@ export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   })
   return Promise.resolve(response)
 }
+
+postUserCreateWithList.method = 'post'
 
 export interface IGetUserLoginParam {
   query: {
@@ -344,7 +372,7 @@ type GetUserLoginResponse = string
  */
 export function getUserLogin(param: IGetUserLoginParam) {
   const [url, option] = interceptRequest('/v2/user/login', param)
-  option.method = 'get'
+  option.method = getUserLogin.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', param)
   const response = new Response('"string"', {
     headers: { 'Content-Type': 'application/json' },
@@ -355,12 +383,14 @@ export function getUserLogin(param: IGetUserLoginParam) {
   return Promise.resolve(response).then<GetUserLoginResponse>(interceptResponse)
 }
 
+getUserLogin.method = 'get'
+
 /**
  * Logs out current logged in user session
  */
 export function getUserLogout() {
   const [url, option] = interceptRequest('/v2/user/logout')
-  option.method = 'get'
+  option.method = getUserLogout.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', undefined)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -370,6 +400,8 @@ export function getUserLogout() {
   })
   return Promise.resolve(response)
 }
+
+getUserLogout.method = 'get'
 
 export interface IGetUserUsernameParam {
   path: {
@@ -382,7 +414,7 @@ export interface IGetUserUsernameParam {
  */
 export function getUserUsername(param: IGetUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'get'
+  option.method = getUserUsername.method
   info('mock fetch: ', url, 'with get http method, fetch param: ', param)
   const response = new Response(
     '{"id":0,"username":"string","firstName":"string","lastName":"string","email":"string","password":"string","phone":"string","userStatus":0}',
@@ -395,6 +427,8 @@ export function getUserUsername(param: IGetUserUsernameParam) {
   })
   return Promise.resolve(response).then<User>(interceptResponse)
 }
+
+getUserUsername.method = 'get'
 
 export interface IPutUserUsernameParam {
   path: {
@@ -409,7 +443,7 @@ export interface IPutUserUsernameParam {
  */
 export function putUserUsername(param: IPutUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'put'
+  option.method = putUserUsername.method
   info('mock fetch: ', url, 'with put http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -419,6 +453,8 @@ export function putUserUsername(param: IPutUserUsernameParam) {
   })
   return Promise.resolve(response)
 }
+
+putUserUsername.method = 'put'
 
 export interface IDeleteUserUsernameParam {
   path: {
@@ -432,7 +468,7 @@ export interface IDeleteUserUsernameParam {
  */
 export function deleteUserUsername(param: IDeleteUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'delete'
+  option.method = deleteUserUsername.method
   info('mock fetch: ', url, 'with delete http method, fetch param: ', param)
   const response = new Response('', {
     headers: { 'Content-Type': 'application/json' },
@@ -442,3 +478,5 @@ export function deleteUserUsername(param: IDeleteUserUsernameParam) {
   })
   return Promise.resolve(response)
 }
+
+deleteUserUsername.method = 'delete'

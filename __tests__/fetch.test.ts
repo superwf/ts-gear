@@ -1,5 +1,6 @@
 import 'isomorphic-fetch'
 import * as URL from 'url'
+
 import { deletePetPetId, getUserLogin } from '../example/service/pet/request'
 
 /** 在run的测试用例运行之后，已经生成了pet的service文件 */
@@ -7,7 +8,11 @@ describe('pet methods', () => {
   it('deletePetPetId, 替换path参数', async () => {
     const mockRes = { ok: true }
     const mockFetch = jest.fn(() =>
-      Promise.resolve(new Response(JSON.stringify(mockRes))),
+      Promise.resolve(
+        new Response(JSON.stringify(mockRes), {
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      ),
     )
 
     const g: any = global
@@ -30,7 +35,11 @@ describe('pet methods', () => {
   it('getUserLogin, 有query', async () => {
     const mockRes = { ok: true }
     const mockFetch = jest.fn(() =>
-      Promise.resolve(new Response(JSON.stringify(mockRes))),
+      Promise.resolve(
+        new Response(JSON.stringify(mockRes), {
+          headers: { 'Content-Type': 'application/json' },
+        }),
+      ),
     )
     const g: any = global
     const originFetch: any = g.fetch
@@ -44,12 +53,9 @@ describe('pet methods', () => {
       query,
     })
     expect(mockFetch).toHaveBeenCalledTimes(1)
-    expect(mockFetch).toHaveBeenLastCalledWith(
-      '/v2/user/login' + URL.format({ query }),
-      {
-        method: 'get',
-      },
-    )
+    expect(mockFetch).toHaveBeenLastCalledWith('/v2/user/login' + URL.format({ query }), {
+      method: 'get',
+    })
     expect(res).toEqual(mockRes)
 
     g.fetch = originFetch

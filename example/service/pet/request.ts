@@ -10,9 +10,11 @@ export interface IPostPetParam {
  */
 export function postPet(param: IPostPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  option.method = 'post'
-  return fetch(url, option).then(interceptResponse)
+  option.method = postPet.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+postPet.method = 'post'
 
 export interface IPutPetParam {
   body: Pet
@@ -23,9 +25,11 @@ export interface IPutPetParam {
  */
 export function putPet(param: IPutPetParam) {
   const [url, option] = interceptRequest('/v2/pet', param)
-  option.method = 'put'
-  return fetch(url, option).then(interceptResponse)
+  option.method = putPet.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+putPet.method = 'put'
 
 export interface IGetPetFindByStatusParam {
   query: {
@@ -40,9 +44,11 @@ type GetPetFindByStatusResponse = Array<Pet>
  */
 export function getPetFindByStatus(param: IGetPetFindByStatusParam) {
   const [url, option] = interceptRequest('/v2/pet/findByStatus', param)
-  option.method = 'get'
+  option.method = getPetFindByStatus.method
   return fetch(url, option).then<GetPetFindByStatusResponse>(interceptResponse)
 }
+
+getPetFindByStatus.method = 'get'
 
 export interface IGetPetPetIdParam {
   path: {
@@ -56,9 +62,11 @@ export interface IGetPetPetIdParam {
  */
 export function getPetPetId(param: IGetPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'get'
+  option.method = getPetPetId.method
   return fetch(url, option).then<Pet>(interceptResponse)
 }
+
+getPetPetId.method = 'get'
 
 export interface IPostPetPetIdParam {
   path: {
@@ -75,9 +83,11 @@ export interface IPostPetPetIdParam {
  */
 export function postPetPetId(param: IPostPetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'post'
-  return fetch(url, option).then(interceptResponse)
+  option.method = postPetPetId.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+postPetPetId.method = 'post'
 
 export interface IDeletePetPetIdParam {
   header?: {
@@ -93,9 +103,11 @@ export interface IDeletePetPetIdParam {
  */
 export function deletePetPetId(param: IDeletePetPetIdParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId', param)
-  option.method = 'delete'
-  return fetch(url, option).then(interceptResponse)
+  option.method = deletePetPetId.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+deletePetPetId.method = 'delete'
 
 export interface IPostPetPetIdUploadImageParam {
   path: {
@@ -112,9 +124,11 @@ export interface IPostPetPetIdUploadImageParam {
  */
 export function postPetPetIdUploadImage(param: IPostPetPetIdUploadImageParam) {
   const [url, option] = interceptRequest('/v2/pet/:petId/uploadImage', param)
-  option.method = 'post'
+  option.method = postPetPetIdUploadImage.method
   return fetch(url, option).then<ApiResponse>(interceptResponse)
 }
+
+postPetPetIdUploadImage.method = 'post'
 
 type GetStoreInventoryResponse = any
 /**
@@ -123,9 +137,11 @@ type GetStoreInventoryResponse = any
  */
 export function getStoreInventory() {
   const [url, option] = interceptRequest('/v2/store/inventory')
-  option.method = 'get'
+  option.method = getStoreInventory.method
   return fetch(url, option).then<GetStoreInventoryResponse>(interceptResponse)
 }
+
+getStoreInventory.method = 'get'
 
 export interface IPostStoreOrderParam {
   body: Order
@@ -136,9 +152,11 @@ export interface IPostStoreOrderParam {
  */
 export function postStoreOrder(param: IPostStoreOrderParam) {
   const [url, option] = interceptRequest('/v2/store/order', param)
-  option.method = 'post'
+  option.method = postStoreOrder.method
   return fetch(url, option).then<Order>(interceptResponse)
 }
+
+postStoreOrder.method = 'post'
 
 export interface IGetStoreOrderOrderIdParam {
   path: {
@@ -152,9 +170,11 @@ export interface IGetStoreOrderOrderIdParam {
  */
 export function getStoreOrderOrderId(param: IGetStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  option.method = 'get'
+  option.method = getStoreOrderOrderId.method
   return fetch(url, option).then<Order>(interceptResponse)
 }
+
+getStoreOrderOrderId.method = 'get'
 
 export interface IDeleteStoreOrderOrderIdParam {
   path: {
@@ -168,9 +188,11 @@ export interface IDeleteStoreOrderOrderIdParam {
  */
 export function deleteStoreOrderOrderId(param: IDeleteStoreOrderOrderIdParam) {
   const [url, option] = interceptRequest('/v2/store/order/:orderId', param)
-  option.method = 'delete'
-  return fetch(url, option).then(interceptResponse)
+  option.method = deleteStoreOrderOrderId.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+deleteStoreOrderOrderId.method = 'delete'
 
 export interface IPostUserParam {
   body: User
@@ -182,9 +204,11 @@ export interface IPostUserParam {
  */
 export function postUser(param: IPostUserParam) {
   const [url, option] = interceptRequest('/v2/user', param)
-  option.method = 'post'
-  return fetch(url, option).then(interceptResponse)
+  option.method = postUser.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+postUser.method = 'post'
 
 export interface IPostUserCreateWithArrayParam {
   body: Array<User>
@@ -195,9 +219,11 @@ export interface IPostUserCreateWithArrayParam {
  */
 export function postUserCreateWithArray(param: IPostUserCreateWithArrayParam) {
   const [url, option] = interceptRequest('/v2/user/createWithArray', param)
-  option.method = 'post'
-  return fetch(url, option).then(interceptResponse)
+  option.method = postUserCreateWithArray.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+postUserCreateWithArray.method = 'post'
 
 export interface IPostUserCreateWithListParam {
   body: Array<User>
@@ -208,9 +234,11 @@ export interface IPostUserCreateWithListParam {
  */
 export function postUserCreateWithList(param: IPostUserCreateWithListParam) {
   const [url, option] = interceptRequest('/v2/user/createWithList', param)
-  option.method = 'post'
-  return fetch(url, option).then(interceptResponse)
+  option.method = postUserCreateWithList.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+postUserCreateWithList.method = 'post'
 
 export interface IGetUserLoginParam {
   query: {
@@ -225,18 +253,22 @@ type GetUserLoginResponse = string
  */
 export function getUserLogin(param: IGetUserLoginParam) {
   const [url, option] = interceptRequest('/v2/user/login', param)
-  option.method = 'get'
+  option.method = getUserLogin.method
   return fetch(url, option).then<GetUserLoginResponse>(interceptResponse)
 }
+
+getUserLogin.method = 'get'
 
 /**
  * Logs out current logged in user session
  */
 export function getUserLogout() {
   const [url, option] = interceptRequest('/v2/user/logout')
-  option.method = 'get'
-  return fetch(url, option).then(interceptResponse)
+  option.method = getUserLogout.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+getUserLogout.method = 'get'
 
 export interface IGetUserUsernameParam {
   path: {
@@ -249,9 +281,11 @@ export interface IGetUserUsernameParam {
  */
 export function getUserUsername(param: IGetUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'get'
+  option.method = getUserUsername.method
   return fetch(url, option).then<User>(interceptResponse)
 }
+
+getUserUsername.method = 'get'
 
 export interface IPutUserUsernameParam {
   path: {
@@ -266,9 +300,11 @@ export interface IPutUserUsernameParam {
  */
 export function putUserUsername(param: IPutUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'put'
-  return fetch(url, option).then(interceptResponse)
+  option.method = putUserUsername.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+putUserUsername.method = 'put'
 
 export interface IDeleteUserUsernameParam {
   path: {
@@ -282,6 +318,8 @@ export interface IDeleteUserUsernameParam {
  */
 export function deleteUserUsername(param: IDeleteUserUsernameParam) {
   const [url, option] = interceptRequest('/v2/user/:username', param)
-  option.method = 'delete'
-  return fetch(url, option).then(interceptResponse)
+  option.method = deleteUserUsername.method
+  return fetch(url, option).then<Response>(interceptResponse)
 }
+
+deleteUserUsername.method = 'delete'

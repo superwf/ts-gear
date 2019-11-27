@@ -82,7 +82,7 @@ export const generateRequests = async (
         mockTsContent.push(paramDefTsContent)
       }
 
-      let responseType = ''
+      let responseType = 'Response'
       let mockResponseValue: any
 
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
@@ -117,7 +117,7 @@ export const generateRequests = async (
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
             const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
-            option.method = '${action}'
+            option.method = ${functionName}.method
             return fetch(url, option).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})
           `,
         }
@@ -136,6 +136,7 @@ export const generateRequests = async (
       })
 
       tsContent.push(functionTsContent)
+      tsContent.push(`${functionName}.method = '${action}'\n`)
 
       const mockFunctionTsContent = await compile(source => {
         let returnStatement = ''
@@ -147,9 +148,6 @@ export const generateRequests = async (
           returnStatement = `Promise.resolve(response).then${responseType ? '<' + responseType + '>' : ''}(${
             interceptResponse.name
           })`
-          // if (responseType) {
-          //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
-          // }
         } else {
           responseStatement = `const response = new Response('', {
               headers: { 'Content-Type' : 'application/json' }
@@ -164,7 +162,7 @@ export const generateRequests = async (
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
             const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
-            option.method = '${action}'
+            option.method = ${functionName}.method
             info('mock fetch: ', url, 'with ${action} http method, fetch param: ', ${
             paramInterfaceName ? 'param' : 'undefined'
           })
@@ -189,6 +187,7 @@ export const generateRequests = async (
         source.addFunction(functionData)
       })
       mockTsContent.push(mockFunctionTsContent)
+      mockTsContent.push(`${functionName}.method = '${action}'\n`)
     }
   }
 

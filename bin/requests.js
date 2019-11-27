@@ -122,7 +122,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                 mockTsContent.push(paramDefTsContent);
                                 _a.label = 2;
                             case 2:
-                                responseType = '';
+                                responseType = 'Response';
                                 response200$ref = lodash_1.get(request.responses, '200.schema.$ref', null);
                                 if (response200$ref) {
                                     responseType = util_1.transformProperty(request.responses[200]);
@@ -148,7 +148,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = " + functionName + ".method\n            return fetch(url, option).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [
@@ -166,15 +166,13 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                             case 3:
                                 functionTsContent = _a.sent();
                                 tsContent.push(functionTsContent);
+                                tsContent.push(functionName + ".method = '" + action + "'\n");
                                 return [4 /*yield*/, source_1.compile(function (source) {
                                         var returnStatement = '';
                                         var responseStatement = '';
                                         if (mockResponseValue) {
                                             responseStatement = "const response = new Response('" + JSON.stringify(mockResponseValue) + "', {\n              headers: { 'Content-Type' : 'application/json' }\n            })";
                                             returnStatement = "Promise.resolve(response).then" + (responseType ? '<' + responseType + '>' : '') + "(" + interceptor_1.interceptResponse.name + ")";
-                                            // if (responseType) {
-                                            //   returnStatement = `${returnStatement} as unknown as Promise<${responseType}>`
-                                            // }
                                         }
                                         else {
                                             responseStatement = "const response = new Response('', {\n              headers: { 'Content-Type' : 'application/json' }\n            })";
@@ -186,7 +184,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                                             // 把basePath加上
                                             // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
                                             // 如果需要加在interceptor里每个项目自行处理添加
-                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = '" + action + "'\n            info('mock fetch: ', url, 'with " + action + " http method, fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            " + responseStatement + "\n            Reflect.defineProperty(response, 'url', {\n              value: url,\n            })\n            return " + returnStatement + "\n          "
+                                            statements: "\n            const [ url, option ] = " + interceptor_1.interceptRequest.name + "('" + urlPath + "'" + (paramInterfaceName ? ', param' : '') + ")\n            option.method = " + functionName + ".method\n            info('mock fetch: ', url, 'with " + action + " http method, fetch param: ', " + (paramInterfaceName ? 'param' : 'undefined') + ")\n            " + responseStatement + "\n            Reflect.defineProperty(response, 'url', {\n              value: url,\n            })\n            return " + returnStatement + "\n          "
                                         };
                                         if (paramInterfaceName) {
                                             functionData.parameters = [
@@ -204,6 +202,7 @@ exports.generateRequests = function (schema, $RefsInPaths, pathMatcher) { return
                             case 4:
                                 mockFunctionTsContent = _a.sent();
                                 mockTsContent.push(mockFunctionTsContent);
+                                mockTsContent.push(functionName + ".method = '" + action + "'\n");
                                 return [2 /*return*/];
                         }
                     });

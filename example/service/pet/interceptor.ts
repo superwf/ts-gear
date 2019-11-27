@@ -1,7 +1,8 @@
 /** transform the transform url or option code here */
+import * as URL from 'url'
+
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
-import * as URL from 'url'
 
 const jsonType = 'application/json'
 
@@ -9,14 +10,7 @@ const jsonType = 'application/json'
  * 只支持一维结构的键值对或数组
  * */
 export interface IQuery {
-  [k: string]:
-    | string
-    | string[]
-    | number
-    | number[]
-    | boolean
-    | boolean[]
-    | undefined
+  [k: string]: string | string[] | number | number[] | boolean | boolean[] | undefined
 }
 
 /** url param in path
@@ -75,10 +69,7 @@ class RequestError extends Error {
  * 如果请求体是普通对象，用json格式化并添加json的http header
  * 如果请求体有formData项，自动添加成FormData
  * */
-export function interceptRequest(
-  url: string,
-  option?: IRequestParameter,
-): [string, RequestInit] {
+export function interceptRequest(url: string, option?: IRequestParameter): [string, RequestInit] {
   try {
     url = parseUrl(url, option)
   } catch (e) {
@@ -113,7 +104,31 @@ export function interceptRequest(
   return [url, requestOption]
 }
 
+class InterceptError extends Error {
+  constructor(message: string, hideStackFunc: any) {
+    super(message)
+    Error.captureStackTrace(this, hideStackFunc)
+  }
+}
+
 /** transform the transform response code here */
 export function interceptResponse<T>(res: Response) {
-  return res.json() as Promise<T>
+  if (!res.ok) {
+    throw new InterceptError(
+      `response not ok, status: ${res.status}, ${res.statusText}, url: ${res.url}`,
+      interceptResponse,
+    )
+  }
+  const contentType = res.headers.get('Content-Type')
+  if (contentType) {
+    if (contentType.includes(jsonType)) {
+      return res.json() as Promise<T>
+    }
+
+    if (contentType.includes('text/plain')) {
+      return (res.text() as unknown) as Promise<T>
+    }
+    // 在此处添加处理更多的response类型
+  }
+  return (Promise.resolve(res) as unknown) as Promise<T>
 }

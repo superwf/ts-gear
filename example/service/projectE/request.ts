@@ -12,6 +12,8 @@ export function deleteApiDataboardBoardEs(
   param: IDeleteApiDataboardBoardEsParam,
 ) {
   const [url, option] = interceptRequest('/api/databoard/board/es', param)
-  option.method = 'delete'
+  option.method = deleteApiDataboardBoardEs.method
   return fetch(url, option).then<ReplyVOInt>(interceptResponse)
 }
+
+deleteApiDataboardBoardEs.method = 'delete'
