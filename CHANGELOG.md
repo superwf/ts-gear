@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/superwf/ts-gear/compare/v1.1.2...v1.2.0) (2019-11-27)
+
+
+### Features
+
+* 在请求函数添加属性http请求方法 ([8d0381f](https://github.com/superwf/ts-gear/commit/8d0381f9ff57566b812da388a7406b986214619a))
+
+
+### Bug Fixes
+
+* add url to mockRequest response ([b5b9add](https://github.com/superwf/ts-gear/commit/b5b9add0109bc06963a29af76e922fc00254ba73))
+
 ### [1.1.3](https://github.com/superwf/ts-gear/compare/v1.1.2...v1.1.3) (2019-11-13)
 
 
