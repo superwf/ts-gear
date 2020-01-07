@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/superwf/ts-gear/compare/v1.2.0...v1.3.0) (2020-01-07)
+
+
+### Features
+
+* 添加命令行参数-p ([df98c1e](https://github.com/superwf/ts-gear/commit/df98c1efe26ccffe544c368ddea6dde556f6142b))
+
 ## [1.2.0](https://github.com/superwf/ts-gear/compare/v1.1.2...v1.2.0) (2019-11-27)
 
 
