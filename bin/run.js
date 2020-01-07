@@ -46,6 +46,7 @@ var fetchSwagger_1 = require("./fetchSwagger");
 var requests_1 = require("./requests");
 var prettierWrite_1 = __importDefault(require("./prettierWrite"));
 var util_1 = require("./util");
+var option_1 = require("./option");
 var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts');
 /** get user config
  * fetch schema
@@ -53,7 +54,7 @@ var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts'
  * write ts file
  * */
 exports.run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cwd, userConfig, config, dest, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
+    var cwd, userConfig, config, dest, projectNamesFromCommandLine, projects, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
     return __generator(this, function (_e) {
         switch (_e.label) {
             case 0:
@@ -64,18 +65,27 @@ exports.run = function () { return __awaiter(void 0, void 0, void 0, function ()
                 if (!fs_1.existsSync(dest)) {
                     fs_1.mkdirSync(dest);
                 }
+                projectNamesFromCommandLine = option_1.getProjectsFromCommmandLine();
+                projects = config.projects;
+                if (projectNamesFromCommandLine.length > 0) {
+                    projects = projectNamesFromCommandLine
+                        .map(function (name) {
+                        return config.projects.find(function (p) { return p.name === name; });
+                    })
+                        .filter(Boolean);
+                }
                 _a = [];
-                for (_b in config.projects)
+                for (_b in projects)
                     _a.push(_b);
                 _i = 0;
                 _e.label = 1;
             case 1:
                 if (!(_i < _a.length)) return [3 /*break*/, 11];
                 i = _a[_i];
-                if (!config.projects.hasOwnProperty(i)) {
+                if (!projects.hasOwnProperty(i)) {
                     return [3 /*break*/, 10];
                 }
-                project = config.projects[i];
+                project = projects[i];
                 projectPath = path_1.join(dest, project.name);
                 // 在dest文件夹内建立项目文件夹
                 if (!fs_1.existsSync(projectPath)) {

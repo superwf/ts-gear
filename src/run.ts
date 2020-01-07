@@ -7,6 +7,7 @@ import { IUserConfig, JSONSchema } from './interface'
 import { generateRequests } from './requests'
 import prettierWrite from './prettierWrite'
 import { initializeSchema, tsGearRoot } from './util'
+import { getProjectsFromCommmandLine } from './option'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
@@ -28,11 +29,20 @@ export const run = async () => {
   if (!existsSync(dest)) {
     mkdirSync(dest)
   }
-  for (const i in config.projects) {
-    if (!config.projects.hasOwnProperty(i)) {
+  const projectNamesFromCommandLine = getProjectsFromCommmandLine()
+  let projects = config.projects
+  if (projectNamesFromCommandLine.length > 0) {
+    projects = projectNamesFromCommandLine
+      .map(name => {
+        return config.projects.find(p => p.name === name)!
+      })
+      .filter(Boolean)
+  }
+  for (const i in projects) {
+    if (!projects.hasOwnProperty(i)) {
       continue
     }
-    const project = config.projects[i]
+    const project = projects[i]
     const projectPath = join(dest, project.name)
     // 在dest文件夹内建立项目文件夹
     if (!existsSync(projectPath)) {

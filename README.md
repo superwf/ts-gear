@@ -83,6 +83,8 @@ export default config
 npx tsg // 如果tsg名称被占用，用npx ts-gear
 // 或
 yarn tsg
+// 如果只想更新某个项目，可使用-p参数指定项目名称
+npx tsg -p pet
 ```
 
 以上面的配置文件为例子
