@@ -1,57 +1,107 @@
-# 自动从swagger生成ts类，与请求接口的函数
+# ts-gear
 
-## 起源 Origin
+## Motivation
 
-inspired by [pont](https://github.com/alibaba/pont)，pont是法语，桥。
-编程用英语，所以还是自己起了个`ts-gear`的英文名，ts是typescript与swagger的组合，gear寓意通过这个工具像齿轮一样，将前后端紧密的结合在一起，构成一架严密运转的机器。
+Ts-geart can be used to generate typescript data interface and request function from swagger.
+
+With this tool you will know any changes in swagger in a more convenient way.
+
+## [中文文档](./README.zh-CN.md)
+
+## Origin
+
+inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franch. I name this tool to `ts-gear`，means the gear between typescript and swagger，hope it can merge front and server better.
 
 ![logo](./logo.png)
 
-经常使用该工具，可以很方便的感知后端接口定义的变化。
+## Usage
 
-## install
+### Install
 
 ```bash
-yarn install ts-gear
+yarn add ts-gear -D
 // or
-npm install ts-gear
+npm install ts-gear -D
 ```
 
-## 使用
+### Config
 
-先在项目根目录下生成配置文件`ts-gear.js`。
+Write a config file for ts-gear in your project root path first.
 
-[关于配置文件格式选型](https://wangfan.bj.cn/?p=1476)
+Ts or js version all supported, `ts-gear.js` or `ts-gear.ts`，`ts` version recommanded.
 
-```javascript
-const config = {
-  // 生成swagger配置ts文件的目录
+typescript example
+
+```typescript
+import { IUserConfig } from 'ts-gear/bin/interface'
+
+const config: IUserConfig = {
+  // dest directory for swagger interface files
   dest: './service',
-  // projects是项目的数组
+  // each projects config
   projects: [
     {
-      // 每个项目的英文名，在dest指定的文件夹内会生成该项目名对应的文件夹
-      // 必须使用合法的路径名
+      // each project name will generate to a real directory in service directory defined in 'dest'
       name: 'pet',
-      // source可以是本地文件或swagger doc的接口(以http开头)
+      // source could be a local json file, or remote swagger doc url(starts with 'http')
       source: '__tests__/fixture/pet.json',
-      // pathMatcher可以是正则或一个以url为参数返回bool值的函数，当为正则时，只生成匹配该正则的请求函数; 当是函数时，之生成返回为true的请求函数
-      pathMatcher: /^\/api/, // 只生成以/api开头的路径，如果不需要过滤则删除该项
+      // pathMatcher is optional
+      // pathMatcher can be a regexp, or a function use url as its param and return boolean
+      pathMatcher: /^\/api/, // for example, only generate those url starts with `/api`
     },
     {
       name: 'projectA',
       source: 'http://192.168.1.111/v2/api-docs',
-      // fetchOption 是可选项，如果swagger接口有一些验证需求，
-      // 可以按原生fetch可接收的参数配置
-      // 如果验证很麻烦最好还是在浏览器上把swagger文档copy到一个本地json文件方便，只是做不到即时更新了。
-      pathMatcher: url => url.startsWith('/api'), // 只生成以/api开头的路径，如果不需要过滤则删除该项
+      // fetchOption is optional，you can add some fetch option to request the remote swagger doc url，
+      // fetchOption is optional，you can add some fetch option to request the remote swagger doc url，
+      // its the same of the build in fetch option param.
       fetchOption: {
         header: {
           Authorization: 'your token ...',
           ...
         }
         ...
-      }
+      },
+      // pathMatcher is optional
+      // pathMatcher function type
+      pathMatcher: url => url.startsWith('/api'),
+    },
+  ],
+}
+
+export default config
+```
+
+javascript version example
+
+```javascript
+const config = {
+  // dest directory for swagger interface files
+  dest: './service',
+  // each projects config
+  projects: [
+    {
+      // each project name will generate to a real directory in service directory defined in 'dest'
+      name: 'pet',
+      // source could be a local json file, or remote swagger doc url(starts with 'http')
+      source: '__tests__/fixture/pet.json',
+      // pathMatcher is optional
+      // pathMatcher can be a regexp, or a function use url as its param and return boolean
+      pathMatcher: /^\/api/, // for example, only generate those url starts with `/api`
+    },
+    {
+      name: 'projectA',
+      source: 'http://192.168.1.111/v2/api-docs',
+      // fetchOption is optional，you can add some fetch option to request the remote swagger doc url，
+      // its the same of the build in fetch option param.
+      fetchOption: {
+        header: {
+          Authorization: 'your token ...',
+          ...
+        }
+        ...
+      },
+      pathMatcher: url => url.startsWith('/api'),
     },
   ],
 }
@@ -59,37 +109,19 @@ const config = {
 module.exports = config
 ```
 
-新特性，支持ts格式配置文件，示例如下
-
-```typescript
-import { IUserConfig } from 'ts-gear/bin/interface'
-
-const config: IUserConfig = {
-  // 生成swagger配置ts文件的目录
-  dest: './service',
-  // projects是项目的数组
-  projects: [
-    {
-      ... // 每项都会有ts校验
-    }
-  ],
-}
-
-export default config
-
-执行
+### Execute
 
 ```bash
-npx tsg // 如果tsg名称被占用，用npx ts-gear
-// 或
+npx tsg 
+// or
 yarn tsg
-// 如果只想更新某个项目，可使用-p参数指定项目名称
+// or if only need update one project, use -p for the project name
 npx tsg -p pet
 ```
 
-以上面的配置文件为例子
-会生成如下文件结构
-可参照example文件夹
+Use the config above for example
+ts-gear will generate directory as below.
+or see the example directory in this project.
 
 ```bash
 ▾ service/
@@ -103,9 +135,9 @@ npx tsg -p pet
       request.ts
 ```
 
-* `definitions.ts`文件是所有`swagger schema`中的definitions部分生成，所有基础类型。
+* The `definitions.ts` is generated by the `definitions` part of `swagger schema`, it is all the base interface.
 
-* `request.ts`是根据`swagger schema`中的paths生成的所有方法，方法名生成规则为 `http请求方法 + api路径`的驼峰格式，例如
+* The `request.ts` is generated by the `paths` part of `swagger schema`，the naming method is `http request + api path`，for example
 
 ```javascript
   "paths": {
@@ -114,28 +146,29 @@ npx tsg -p pet
       ...
       },
     },
-    // 生成postPet 方法
+    // will generate `postPet` request function
     "/pet/findByTags": {
       "get": {
       ...
       },
     },
-    // 生成getPetFindByTags方法
+    // will generate 'getPetFindByTags' request function
     "/pet/{petId}": {
       "get": {
       ...
       },
     },
-    // 生成getPetPetId方法
 ```
 
-  每个生成的方法中的参数与返回的值都从swagger定义生成对应的类型。
+Each request function param type and return type will map to the swagger definition.
 
-![类型验证例子](./example/pet.gif)
+![type generated example](./example/pet.gif)
 
-### 项目中使用
+### How to use it in your project
 
-以上面的配置文件生成的文件为例
+After the command line operation, use the generated file in `service` directory.
+
+For example:
 
 ```javascript
 import { getPetPetId } from 'service/pet/request'
@@ -146,44 +179,59 @@ getPetPetId({
   }
 }).then(pet => {
   console.log(pet)
-  // pet 是Pet的实例，可以校验Pet的所有属性
+  // pet will be the instance of Pet, it has Pet properties.
 })
 
 ```
 
-### 使用mockRequest.ts
+If you prefer to use your faverite request tool, like `axios`, you can only use the `definitions.ts` to check data interface.
 
-在生成`request.ts`文件的同时，也会生成一个`mockRequest.ts`文件，
-其api接口与`request.ts`一致，但所有会返回内容的请求都会直接返回根据swagger接口数据结构的mock数据，可在开发时加速开发速度。
+#### Use `mockRequest.ts`
 
-在mockRequest文件中，会检测编译环境，阻止`process.env.NODE_ENV === 'production'`时的编译。
+There will be a `mockRequest.ts` with `request.ts` generated in same time.
 
-* 🔧 `interceptor.ts`是从`ts-gear`项目的模板copy来的，被对应的`request.ts`中的所有请求方法调用。
+The `mockRequest.ts` has all the same type with `request.ts`, but it could generated mock data rather than real fetch the remote url.
 
-  其中的`interceptRequest`被所有请求之前调用，`interceptResponse`在所有请求成功之后处理数据用。
+It could be used in dev mode when the server side is not ready.
 
-  这个文件在第一次生成项目类型时从`ts-gear`中复制一份，之后不会再覆盖，如果每个项目有特殊的请求前后需要处理的逻辑可以在该文件中添加。
+Use it when import.
 
-## 开发过程 develop steps
+```typescript
+import { getPetPetId } from 'service/pet/mockRequest'
+```
 
-* 从pont获得了从swagger的schema生成ts文件的想法。
+After server side ready, change it to import the real `request.ts`
 
-* 最开始想增强pont拿来就用，在看pont源码的过程中感觉有些pont里的源码理解不了，应该是没有遇到pont作者当时遇到的schema结构大概是理解不了的，就全重写了。
+```typescript
+import { getPetPetId } from 'service/pet/request'
+```
 
-* 使用[ts-morph](https://dsherret.github.io/ts-morph)简单的解析了一下ts语法。
+In `mockRequest`, it will throw error when `process.env.NODE_ENV === 'production'`, to prevent it be published to the production env.
 
-* [更多](./DEV.md)
+* 🔧 `interceptor.ts` copied from `ts-gear` template, it will be invoked by all request function in `request.ts`.
 
-## 修订与反馈 Errata And Feedback
+  The `interceptRequest` method will be invoked to do something before the request，and the `interceptResponse` will be used to do some transform after the data is received from server side.
 
-我只是将我遇到的几个项目的swagger文档、swagger ui官方的pet例子，还有参考了一些swagger schema官方文档做为样例开发了这个程序。肯定有一些没有考虑到的情况。如果有可以改进或解析错误的情况，欢迎将不能解析的schema提issue。
+  🔑🔑🔑 The `interceptor.ts` will be generated only once when the project directory is created，and will not be overwriten later. It can be used for some permanent data transform logic. Other files will be overwriten.
+
+## Develop steps
+
+* First inspired by pont and then check if all ts types could be mapped to swagger definition type.
+
+* I used pont at first, but that time pont is not very robust and less doc. So I make a simple version tool to implement this idea for my projects.
+
+* Use [ts-morph](https://dsherret.github.io/ts-morph) for ts type generating.
+
+* [More](./DEV.md)
+
+## Errata And Feedback
+
+This tool only has the `swagger ui` pet fixture and my projects swagger schema for dev fixtures.  Welcompe to add more fixtures and issue.
 
 ## TODO
 
-* 将`ReplyVO«ConfigVO»`转换成泛型的格式`ReplyVO<ConfigVO>`，是一个优化点，可以使数据结构更优雅更有关联性，但暂时没有也可以用。
+* Transform `ReplyVO«ConfigVO»` to `ReplyVO<ConfigVO>` for generic type.
 
-* 处理`oneOf, allOf, anyOf, not`里可能有的`discriminator`情况。
+* Deal with `oneOf, allOf, anyOf, not`, `discriminator` conditions.
 
-* 添加`responses`中200之外的其它表示错误的类型，添加到`fetch.then<T1, T2>，T2`的位置上。
-
-* 添加英文文档。
+* Add other not 200 type in `responses` to `fetch.then<T1, T2>，T2` T2 position.
