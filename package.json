@@ -34,7 +34,7 @@
     "traverse": "^0.6.6",
     "ts-morph": "^5.0.0",
     "ts-node": "^8.5.2",
-    "typescript": "^3.7.2",
+    "typescript": "^3.8.2",
     "url-join": "^4.0.1"
   },
   "files": [
