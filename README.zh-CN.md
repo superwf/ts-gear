@@ -170,7 +170,7 @@ npx tsg -p pet
 以上面的配置文件生成的文件为例
 
 ```javascript
-import { getPetPetId } from 'service/pet/request'
+import { getPetPetId } from 'service/pet'
 
 getPetPetId({
   path: {
@@ -187,7 +187,20 @@ getPetPetId({
 #### 使用mockRequest.ts
 
 在生成`request.ts`文件的同时，也会生成一个`mockRequest.ts`文件，
-其api接口与`request.ts`一致，但所有会返回内容的请求都会直接返回根据swagger接口数据结构的mock数据，可在开发时加速开发速度。
+
+其api接口与`request.ts`一致，但所有会返回内容的请求都会直接返回根据swagger接口数据结构的mock数据，可在开发初期加速开发速度。
+
+在服务端没有提供实际数据时开发，引入`mockRequest`提供的方法。
+
+```typescript
+import { getPetPetId } from 'service/pet/mockRequest'
+```
+
+当服务端准备好联调数据后，切换到`request.ts`。
+
+```typescript
+import { getPetPetId } from 'service/pet/request'
+```
 
 在mockRequest文件中，会检测编译环境，阻止`process.env.NODE_ENV === 'production'`时的编译。
 

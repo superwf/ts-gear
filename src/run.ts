@@ -8,13 +8,15 @@ import { generateRequests } from './requests'
 import prettierWrite from './prettierWrite'
 import { initializeSchema, tsGearRoot } from './util'
 import { getProjectsFromCommmandLine } from './option'
+import { serviceIndexFileContent } from './serviceIndexFileContent'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
-/** get user config
- * fetch schema
- * parse schema to ts template content
- * write ts file
+/**
+ * step 1: get user config
+ * step 2: fetch schema
+ * step 3: parse schema to ts template content
+ * step 4: write ts file
  * */
 export const run = async () => {
   const cwd = process.cwd()
@@ -64,10 +66,12 @@ export const run = async () => {
       $refsInPaths,
       project.pathMatcher,
     )
-    const pathsPath = join(projectPath, 'request.ts')
-    await prettierWrite(pathsPath, requestsContent)
+    const requestFilePath = join(projectPath, 'request.ts')
+    await prettierWrite(requestFilePath, requestsContent)
     const mockResponsePath = join(projectPath, 'mockRequest.ts')
     await prettierWrite(mockResponsePath, mockRequestsContent)
+    const indexFilePath = join(projectPath, 'index.ts')
+    await prettierWrite(indexFilePath, serviceIndexFileContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次
     // 这个文件可能会写入一些请求的配置
