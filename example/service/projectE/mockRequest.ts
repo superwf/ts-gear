@@ -1,3 +1,4 @@
+/** Don`t modify this file, it will be overwriten next time execute the `tsg` command. */
 import { interceptRequest, interceptResponse } from './interceptor'
 import { ReplyVOInt } from './definitions'
 

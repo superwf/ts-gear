@@ -9,6 +9,7 @@ import prettierWrite from './prettierWrite'
 import { initializeSchema, tsGearRoot } from './util'
 import { getProjectsFromCommmandLine } from './option'
 import { serviceIndexFileContent } from './serviceIndexFileContent'
+import { warningComment } from './warningComment'
 
 const interceptorFilePath = resolve(tsGearRoot, 'src/interceptor.ts')
 
@@ -58,7 +59,7 @@ export const run = async () => {
     // 生成definitions
     const definitions = await transformDefinitionsToTypescript(schema.definitions)
     const definitionsPath = join(projectPath, 'definitions.ts')
-    await prettierWrite(definitionsPath, definitions + $refsTypes)
+    await prettierWrite(definitionsPath, warningComment + definitions + $refsTypes)
 
     // 生成request函数与mock request数据
     const { requestsContent, mockRequestsContent } = await generateRequests(
@@ -67,11 +68,11 @@ export const run = async () => {
       project.pathMatcher,
     )
     const requestFilePath = join(projectPath, 'request.ts')
-    await prettierWrite(requestFilePath, requestsContent)
+    await prettierWrite(requestFilePath, warningComment + requestsContent)
     const mockResponsePath = join(projectPath, 'mockRequest.ts')
-    await prettierWrite(mockResponsePath, mockRequestsContent)
+    await prettierWrite(mockResponsePath, warningComment + mockRequestsContent)
     const indexFilePath = join(projectPath, 'index.ts')
-    await prettierWrite(indexFilePath, serviceIndexFileContent)
+    await prettierWrite(indexFilePath, warningComment + serviceIndexFileContent)
 
     // 每个项目的拦截器文件只在第一次生成时copy一次
     // 这个文件可能会写入一些请求的配置

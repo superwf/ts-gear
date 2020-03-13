@@ -1,3 +1,4 @@
+/** Don`t modify this file, it will be overwriten next time execute the `tsg` command. */
 export class Order {
   public id?: number
   public petId?: number

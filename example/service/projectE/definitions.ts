@@ -1,3 +1,4 @@
+/** Don`t modify this file, it will be overwriten next time execute the `tsg` command. */
 export type BodyBuilder = any
 
 export class ReplyVO {
