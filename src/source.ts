@@ -7,7 +7,7 @@ import {
 } from 'ts-morph'
 
 const project = new Project({
-  useVirtualFileSystem: true,
+  useInMemoryFileSystem: true,
   compilerOptions: {
     target: ScriptTarget.ESNext,
   },

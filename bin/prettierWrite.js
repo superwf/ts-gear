@@ -50,12 +50,11 @@ exports.__esModule = true;
 var cosmiconfig = require("cosmiconfig");
 var fs_1 = require("fs");
 var prettier_1 = require("prettier");
-// import defaultPrettierConfig from '../prettier.config'
 /** 读取用prettier格式化写入文件
  * 使用ts-gear的prettier作为默认配置
  * 用cosmiconfig加载当前项目prettier配置
  * */
-var prettierWrite = function (destPath, content) { return __awaiter(void 0, void 0, void 0, function () {
+exports.prettierWrite = function (destPath, content) { return __awaiter(void 0, void 0, void 0, function () {
     var result, config;
     return __generator(this, function (_a) {
         switch (_a.label) {
@@ -67,4 +66,3 @@ var prettierWrite = function (destPath, content) { return __awaiter(void 0, void
         }
     });
 }); };
-exports["default"] = prettierWrite;

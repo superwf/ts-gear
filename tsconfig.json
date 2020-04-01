@@ -18,7 +18,6 @@
     "jsx": "react",
     "outDir": "bin",
     "baseUrl": ".",
-    "noUnusedLocals": true,
     "typeRoots": ["node_modules/@types", "typings"],
     "strictPropertyInitialization": false,
     "paths": {

@@ -1,6 +1,37 @@
 import { JSONSchema4 } from 'json-schema'
 
+export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
+
 export type JSONSchema = JSONSchema4
+
+/** url param in path
+ * 例如/api/abc/:id
+ * 如果是/:ids数组的情况
+ * 应先手动转成string再带入
+ * */
+export interface IPath {
+  [k: string]: string | number | undefined
+}
+
+/** url query
+ * 只支持一维结构的键值对或数组
+ * */
+export interface IQuery {
+  [k: string]: any
+}
+
+/** your fetch function */
+export type Requester = (url: string, param: IRequestParameter) => Promise<any>
+
+/** request parameter option */
+export interface IRequestParameter {
+  query?: IQuery
+  body?: any
+  path?: IPath
+  formData?: any
+  header?: any
+  method: HttpMethod
+}
 
 /** json schema每个节点traverse结构 */
 export interface ISchemaNode {
@@ -61,7 +92,8 @@ export interface IPaths {
   [k: string]: IRequest
 }
 
-/** 每个请求的json schema定义的parameters的住装数据结构 */
+/** general request parameters defined in json schema
+ **/
 export interface IParameterSchema {
   query?: JSONSchema
   body?: JSONSchema
@@ -73,27 +105,27 @@ export interface IParameterSchema {
 export type TPathMatcherFunction = RegExp | ((url: string) => boolean)
 
 export interface IProject {
-  /** 项目名字，会在dest文件夹中创建该项目名称的目录 */
-  name: string
-  /** 读取swagger配置的路径，可以是本地json文件或远程swagger地址
-   * http开头的为远程地址
-   * 否则按本地文件读取
-   * */
-  source: string
-  /** 需要验证参数在这里添加 */
-  fetchOption?: RequestInit
-  /** 过滤需要的请求路径
-   * 有些项目其中掺杂了很多无用的api，过滤掉可减少文件体积，加速运行
-   * */
-  pathMatcher?: TPathMatcherFunction
-}
-
-/** 用户配置文件定义 */
-export interface IUserConfig {
-  /** 项目输出文件夹，会在该文件夹下建立以每个项目名建立独立的文件夹
-   * 默认为 './service'
+  /** the api files will be generated to
+   * @default './service'
    * */
   dest: string
+  /** project name，will be used to create dir in the dir defined in "dest" */
+  name: string
+  /** swagger doc path
+   * could be remote or local json file
+   * starts with "http" is remote
+   * others are dealed local json file
+   * */
+  source: string
+  /** the param for fetch swagger doc */
+  fetchSwaggerDocOption?: RequestInit
+  /** filter api path
+   * some project mix too mach useless api
+   * use this option could avoid those to be written in your api file
+   * */
+  pathMatcher?: TPathMatcherFunction
+  requester: Requester
 
-  projects: IProject[]
+  withHost?: boolean
+  withBasePath?: boolean
 }

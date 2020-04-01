@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var path_1 = require("path");
+var os_1 = require("os");
 var lodash_1 = require("lodash");
 var translation_js_1 = require("translation.js");
 var traverse = require("traverse");
@@ -81,7 +82,7 @@ var translate = function (text, engineIndex) {
  * */
 exports.translateAsync = lodash_1.memoize(translate);
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
-exports.tsGearRoot = path_1.resolve(__dirname, '../');
+exports.tsGearRoot = path_1.resolve(__dirname, '..');
 /**
  * lodash的camelCase在处理有非字符存在的时候的不一致行为，
  * 例如 PageVO«CisSkuListVO» => PageVOCisSkuListVO
@@ -332,17 +333,17 @@ exports.transformProperty = function (property) {
                 var obj = lodash_1.map(properties, function (prop, name) {
                     var optionalMark = required_1 && required_1.includes(name) ? '' : '?';
                     return "" + name + optionalMark + ": " + exports.transformProperty(prop);
-                }).join('\n');
+                }).join(os_1.EOL);
                 var additionalProps = '';
                 if (additionalProperties) {
                     if (additionalProperties === true) {
-                        additionalProps = "\n[k: string]: any";
+                        additionalProps = os_1.EOL + "[k: string]: any";
                     }
                     else {
-                        additionalProps = "\n[k: string]: " + exports.transformProperty(additionalProperties);
+                        additionalProps = os_1.EOL + "[k: string]: " + exports.transformProperty(additionalProperties);
                     }
                 }
-                return "{\n" + obj + additionalProps + "\n}";
+                return "{" + os_1.EOL + obj + additionalProps + os_1.EOL + "}";
             }
             return 'any';
         default:

@@ -1,38 +1,25 @@
-import { IUserConfig } from 'ts-gear/bin/interface'
+import { IProject } from 'ts-gear/src/interface'
+import { requester as fetchRequester } from 'ts-gear/src/requester/fetch'
+import { requester as axiosRequester } from 'ts-gear/src/requester/axios'
 
-const config: IUserConfig = {
-  dest: './service',
-  projects: [
-    {
-      name: 'pet',
-      source: 'fixture/pet.json',
-      // source: 'http://petstore.swagger.io/v2/swagger.json',
-    },
-    // {
-    //   name: 'projectA',
-    //   source: 'fixture/projectA.json',
-    // },
-    // {
-    //   name: 'projectB',
-    //   source: 'fixture/projectB.json',
-    // },
-    // {
-    //   name: 'projectC',
-    //   source: 'fixture/projectC.json',
-    // },
-    // {
-    //   name: 'projectD',
-    //   source: 'fixture/projectD.json',
-    // },
-    {
-      name: 'projectE',
-      source: 'fixture/projectE.json',
-    },
-    // {
-    //   name: 'projectPont',
-    //   source: 'fixture/pontFixture.json',
-    // },
-  ],
-}
+const projects: IProject[] = [
+  {
+    dest: './service',
+    name: 'pet',
+    source: 'fixture/pet.json',
+    requester: fetchRequester(),
+    // source: 'http://petstore.swagger.io/v2/swagger.json',
+  },
+  {
+    dest: './service',
+    name: 'projectE',
+    source: 'fixture/projectE.json',
+    requester: axiosRequester(),
+  },
+  // {
+  //   name: 'projectPont',
+  //   source: 'fixture/pontFixture.json',
+  // },
+]
 
-export default config
+export default projects

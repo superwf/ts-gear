@@ -1,35 +1,12 @@
-/** 该文件只生产一次，之后可根据项目自行更改，不会被覆盖 */
+/** use native fetch to request */
 import * as URL from 'url'
 
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
+import { IRequestParameter } from '../interface'
+
 const jsonType = 'application/json'
-
-/** url query
- * 只支持一维结构的键值对或数组
- * */
-export interface IQuery {
-  [k: string]: string | string[] | number | number[] | boolean | boolean[] | undefined
-}
-
-/** url param in path
- * 例如/api/abc/:id
- * 如果是/:ids数组的情况
- * 应先手动转成string再带入
- * */
-export interface IPath {
-  [k: string]: string | number | undefined
-}
-
-/** request parameter option */
-export interface IRequestParameter {
-  query?: IQuery
-  body?: any
-  path?: IPath
-  formData?: any
-  header?: any
-}
 
 /** 将query与path参数都挂到url上去
  * transform parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) to '/api/abc/123?name=def'
@@ -70,7 +47,11 @@ class InterceptError extends Error {
  * 如果请求体是普通对象，用json格式化并添加json的http header
  * 如果请求体有formData项，自动添加成FormData
  * */
-export function interceptRequest(url: string, option?: IRequestParameter): [string, RequestInit] {
+export function interceptRequest(
+  url: string,
+  option: IRequestParameter,
+  requestInit?: RequestInit,
+): [string, RequestInit] {
   try {
     url = parseUrl(url, option)
   } catch (e) {
@@ -79,6 +60,8 @@ export function interceptRequest(url: string, option?: IRequestParameter): [stri
     throw new InterceptError(e.message, interceptRequest)
   }
   const requestOption: RequestInit = {
+    method: option.method,
+    ...requestInit,
     // add the default request option here
   }
   if (option && option.body) {
@@ -131,4 +114,10 @@ export function interceptResponse<T extends any>(res: Response) {
     // 在此处添加处理更多的response类型
   }
   return (Promise.resolve(res) as unknown) as Promise<T>
+}
+
+/** native fetch wrappper */
+export const requester = (requestInit?: RequestInit) => (apiUrl: string, param: IRequestParameter) => {
+  const [url, option] = interceptRequest(apiUrl, param, requestInit)
+  return fetch(url, option).then(interceptResponse)
 }

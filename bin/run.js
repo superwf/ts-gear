@@ -35,26 +35,26 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 var fs_1 = require("fs");
 var path_1 = require("path");
 var definitions_1 = require("./definitions");
 var fetchSwagger_1 = require("./fetchSwagger");
 var requests_1 = require("./requests");
-var prettierWrite_1 = __importDefault(require("./prettierWrite"));
+var prettierWrite_1 = require("./prettierWrite");
 var util_1 = require("./util");
 var option_1 = require("./option");
+var serviceIndexFileContent_1 = require("./serviceIndexFileContent");
+var warningComment_1 = require("./warningComment");
 var interceptorFilePath = path_1.resolve(util_1.tsGearRoot, 'src/interceptor.ts');
-/** get user config
- * fetch schema
- * parse schema to ts template content
- * write ts file
+/**
+ * step 1: get user config
+ * step 2: fetch schema
+ * step 3: parse schema to ts template content
+ * step 4: write ts file
  * */
 exports.run = function () { return __awaiter(void 0, void 0, void 0, function () {
-    var cwd, userConfig, config, dest, projectNamesFromCommandLine, projects, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, pathsPath, mockResponsePath, projectInterceptorFile;
+    var cwd, userConfig, config, dest, projectNamesFromCommandLine, projects, _a, _b, _i, i, project, projectPath, schema, _c, $refsNotInDefinitions, $refsInPaths, $refsTypes, definitions, definitionsPath, _d, requestsContent, mockRequestsContent, requestFilePath, mockResponsePath, indexFilePath, projectInterceptorFile;
     return __generator(this, function (_e) {
         switch (_e.label) {
             case 0:
@@ -80,10 +80,10 @@ exports.run = function () { return __awaiter(void 0, void 0, void 0, function ()
                 _i = 0;
                 _e.label = 1;
             case 1:
-                if (!(_i < _a.length)) return [3 /*break*/, 11];
+                if (!(_i < _a.length)) return [3 /*break*/, 12];
                 i = _a[_i];
                 if (!projects.hasOwnProperty(i)) {
-                    return [3 /*break*/, 10];
+                    return [3 /*break*/, 11];
                 }
                 project = projects[i];
                 projectPath = path_1.join(dest, project.name);
@@ -106,7 +106,7 @@ exports.run = function () { return __awaiter(void 0, void 0, void 0, function ()
             case 5:
                 definitions = _e.sent();
                 definitionsPath = path_1.join(projectPath, 'definitions.ts');
-                return [4 /*yield*/, prettierWrite_1["default"](definitionsPath, definitions + $refsTypes)
+                return [4 /*yield*/, prettierWrite_1.prettierWrite(definitionsPath, warningComment_1.warningComment + definitions + $refsTypes)
                     // 生成request函数与mock request数据
                 ];
             case 6:
@@ -114,27 +114,31 @@ exports.run = function () { return __awaiter(void 0, void 0, void 0, function ()
                 return [4 /*yield*/, requests_1.generateRequests(schema, $refsInPaths, project.pathMatcher)];
             case 7:
                 _d = _e.sent(), requestsContent = _d.requestsContent, mockRequestsContent = _d.mockRequestsContent;
-                pathsPath = path_1.join(projectPath, 'request.ts');
-                return [4 /*yield*/, prettierWrite_1["default"](pathsPath, requestsContent)];
+                requestFilePath = path_1.join(projectPath, 'request.ts');
+                return [4 /*yield*/, prettierWrite_1.prettierWrite(requestFilePath, warningComment_1.warningComment + requestsContent)];
             case 8:
                 _e.sent();
                 mockResponsePath = path_1.join(projectPath, 'mockRequest.ts');
-                return [4 /*yield*/, prettierWrite_1["default"](mockResponsePath, mockRequestsContent)
+                return [4 /*yield*/, prettierWrite_1.prettierWrite(mockResponsePath, warningComment_1.warningComment + mockRequestsContent)];
+            case 9:
+                _e.sent();
+                indexFilePath = path_1.join(projectPath, 'index.ts');
+                return [4 /*yield*/, prettierWrite_1.prettierWrite(indexFilePath, warningComment_1.warningComment + serviceIndexFileContent_1.serviceIndexFileContent)
                     // 每个项目的拦截器文件只在第一次生成时copy一次
                     // 这个文件可能会写入一些请求的配置
                     // 不应该被覆盖
                 ];
-            case 9:
+            case 10:
                 _e.sent();
                 projectInterceptorFile = path_1.join(projectPath, 'interceptor.ts');
                 if (!fs_1.existsSync(projectInterceptorFile)) {
                     fs_1.copyFileSync(interceptorFilePath, projectInterceptorFile);
                 }
-                _e.label = 10;
-            case 10:
+                _e.label = 11;
+            case 11:
                 _i++;
                 return [3 /*break*/, 1];
-            case 11: return [2 /*return*/];
+            case 12: return [2 /*return*/];
         }
     });
 }); };

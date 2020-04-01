@@ -14,6 +14,10 @@ inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franc
 
 ![logo](./logo.png)
 
+## Note
+
+Only support JSONSchema v4.
+
 ## Usage
 
 ### Install

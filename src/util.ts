@@ -1,4 +1,5 @@
 import { resolve } from 'path'
+import { EOL } from 'os'
 
 import { fromPairs, map, memoize, MemoizedFunction, uniq, upperFirst } from 'lodash'
 import { baidu, google, youdao } from 'translation.js'
@@ -38,7 +39,7 @@ const translate: (text: string, index?: number) => Promise<string> = async (text
 export const translateAsync: ((text: string, index?: number) => Promise<string>) & MemoizedFunction = memoize(translate)
 
 /** 当前项目的根路径，调用其他文件都以该路径为基准 */
-export const tsGearRoot = resolve(__dirname, '../')
+export const tsGearRoot = resolve(__dirname, '..')
 
 /**
  * lodash的camelCase在处理有非字符存在的时候的不一致行为，
@@ -61,6 +62,7 @@ const camelCase = (name: string) => {
 
 /**
  * 返回$ref里的去掉`#/definitions/`部分剩下的字符串
+ * transform '#/definitions/Order' to 'Order'
  * */
 export const trimDefinitionPrefix = ($ref: string) => $ref.replace('#/definitions/', '')
 
@@ -284,16 +286,16 @@ export const transformProperty = (property: JSONSchema): string => {
         const obj = map(properties, (prop: JSONSchema, name: string) => {
           const optionalMark = required && required.includes(name) ? '' : '?'
           return `${name}${optionalMark}: ${transformProperty(prop)}`
-        }).join('\n')
+        }).join(EOL)
         let additionalProps = ''
         if (additionalProperties) {
           if (additionalProperties === true) {
-            additionalProps = `\n[k: string]: any`
+            additionalProps = `${EOL}[k: string]: any`
           } else {
-            additionalProps = `\n[k: string]: ${transformProperty(additionalProperties)}`
+            additionalProps = `${EOL}[k: string]: ${transformProperty(additionalProperties)}`
           }
         }
-        return `{\n${obj}${additionalProps}\n}`
+        return `{${EOL}${obj}${additionalProps}${EOL}}`
       }
       return 'any'
     default:

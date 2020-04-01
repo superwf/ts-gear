@@ -1,20 +1,20 @@
+import { EOL } from 'os'
+import path from 'path'
+
 import join from 'url-join'
 import { camelCase, forEach, get, isEmpty, remove, upperFirst } from 'lodash'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 
 import { assembleRequestParam } from './assembleRequestParam'
-import { interceptRequest, interceptResponse } from './interceptor'
-import { IPaths, JSONSchema, TPathMatcherFunction } from './interface'
+// import { interceptRequest, interceptResponse } from './interceptor'
+import { IPaths, JSONSchema, IProject } from './interface'
 import { compile } from './source'
 import { transformPathParameters, transformProperty } from './util'
 import { generateMockData } from './generateMockData'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
-export const generateRequests = async (
-  schema: JSONSchema,
-  $RefsInPaths: string[],
-  pathMatcher?: TPathMatcherFunction,
-) => {
+export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPaths: string[], project: IProject) => {
+  const { pathMatcher } = project
   const paths = schema.paths as IPaths
   const { basePath } = schema
 
@@ -82,7 +82,7 @@ export const generateRequests = async (
         mockTsContent.push(paramDefTsContent)
       }
 
-      let responseType = 'Response'
+      let responseType = 'any'
       let mockResponseValue: any
 
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
@@ -112,22 +112,20 @@ export const generateRequests = async (
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
           isExported: true,
+          returnType: `Promise<${responseType}>`,
           // 把basePath加上
           // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
           // 如果需要加在interceptor里每个项目自行处理添加
-          statements: `
-            const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
-            option.method = ${functionName}.method
-            return fetch(url, option).then${responseType ? '<' + responseType + '>' : ''}(${interceptResponse.name})
-          `,
+          statements: paramInterfaceName
+            ? `return requester('${urlPath}', {...option, method: '${action}'})`
+            : `return requester('${urlPath}', {method: '${action}'})`,
         }
+        functionData.parameters = []
         if (paramInterfaceName) {
-          functionData.parameters = [
-            {
-              name: 'param',
-              type: paramInterfaceName,
-            },
-          ]
+          functionData.parameters.push({
+            name: 'option',
+            type: paramInterfaceName,
+          })
         }
         if (request.summary || request.description) {
           functionData.docs = [remove<string>([request.summary || '', request.description || ''], s => !!s).join('\n')]
@@ -139,47 +137,33 @@ export const generateRequests = async (
       tsContent.push(`${functionName}.method = '${action}'\n`)
 
       const mockFunctionTsContent = await compile(source => {
-        let returnStatement = ''
-        let responseStatement = ''
+        let returnStatement = 'return Promise.resolve('
         if (mockResponseValue) {
-          responseStatement = `const response = new Response('${JSON.stringify(mockResponseValue)}', {
-              headers: { 'Content-Type' : 'application/json' }
-            })`
-          returnStatement = `Promise.resolve(response).then${responseType ? '<' + responseType + '>' : ''}(${
-            interceptResponse.name
-          })`
+          returnStatement += JSON.stringify(mockResponseValue)
         } else {
-          responseStatement = `const response = new Response('', {
-              headers: { 'Content-Type' : 'application/json' }
-            })`
-          returnStatement = 'Promise.resolve(response)'
+          returnStatement += '{}'
         }
+        returnStatement += ')'
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
           isExported: true,
+          returnType: `Promise<${responseType}>`,
           // 把basePath加上
           // 但是host没加，应该大多数情况都会在生产环境通过代理跨域，host不会是swagger里定义的host
           // 如果需要加在interceptor里每个项目自行处理添加
           statements: `
-            const [ url, option ] = ${interceptRequest.name}('${urlPath}'${paramInterfaceName ? ', param' : ''})
-            option.method = ${functionName}.method
-            info('mock fetch: ', url, 'with ${action} http method, fetch param: ', ${
-            paramInterfaceName ? 'param' : 'undefined'
+            info('mock fetch: ${urlPath} with ${action} http method'${
+            paramInterfaceName ? ", 'fetch param:', param" : ''
           })
-            ${responseStatement}
-            Reflect.defineProperty(response, 'url', {
-              value: url,
-            })
-            return ${returnStatement}
+            ${returnStatement}
           `,
         }
+        functionData.parameters = []
         if (paramInterfaceName) {
-          functionData.parameters = [
-            {
-              name: 'param',
-              type: paramInterfaceName,
-            },
-          ]
+          functionData.parameters.push({
+            name: 'param',
+            type: paramInterfaceName,
+          })
         }
         if (request.summary || request.description) {
           functionData.docs = [remove<string>([request.summary || '', request.description || ''], s => !!s).join('\n')]
@@ -193,18 +177,18 @@ export const generateRequests = async (
 
   // 生成paths文件需要的一些依赖
   const importTsContent = await compile(source => {
+    source.addStatements(
+      [
+        `const project = projects.find(p => p.name === '${project.name}')!`,
+        `if (!project) { throw new Error('project ${project.name} not found, check project name in your "ts-gear.ts"') }`,
+        `const { requester } = project${EOL}`,
+      ].join(EOL),
+    )
     // 添加interptor拦截器依赖
     source.addImportDeclarations([
       {
-        namedImports: [
-          {
-            name: interceptRequest.name,
-          },
-          {
-            name: interceptResponse.name,
-          },
-        ],
-        moduleSpecifier: './interceptor',
+        defaultImport: 'projects',
+        moduleSpecifier: path.join(path.relative(path.join(project.dest, project.name), ''), 'ts-gear'),
       },
     ])
     // 导入definitions中的依赖
@@ -216,9 +200,19 @@ export const generateRequests = async (
     ])
   })
   tsContent.unshift(importTsContent)
-  mockTsContent.unshift(importTsContent)
+
+  const mockImportTsContent = await compile(source => {
+    // 导入definitions中的依赖
+    source.addImportDeclarations([
+      {
+        namedImports: $RefsInPaths,
+        moduleSpecifier: './definitions',
+      },
+    ])
+  })
+  mockTsContent.unshift(mockImportTsContent)
   return {
-    requestsContent: tsContent.join('\n'),
-    mockRequestsContent: mockTsContent.join('\n'),
+    requestsContent: tsContent.join(EOL),
+    mockRequestsContent: mockTsContent.join(EOL),
   }
 }

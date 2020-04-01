@@ -148,4 +148,7 @@ export const sampleFromSchema: (schema: JSONSchema, definitions?: JSONSchema) =>
   return primitive(schema)
 }
 
-export const generateMockData = memoize(sampleFromSchema)
+export const generateMockData = memoize((schema: JSONSchema, definitions?: JSONSchema) => {
+  schemaSet.clear()
+  return sampleFromSchema(schema, definitions)
+})

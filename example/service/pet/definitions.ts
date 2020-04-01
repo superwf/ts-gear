@@ -1,12 +1,10 @@
-/** Don`t modify this file, it will be overwriten next time execute the `tsg` command. */
+/** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
 export class Order {
   public id?: number
   public petId?: number
   public quantity?: number
   public shipDate?: string
-  /**
-   * Order Status
-   */
+  /** Order Status */
   public status?: 'placed' | 'approved' | 'delivered'
   public complete?: boolean = false
 }
@@ -19,14 +17,13 @@ export class User {
   public email?: string
   public password?: string
   public phone?: string
-  /**
-   * User Status
-   */
+  /** User Status */
   public userStatus?: number
 }
 
 export class Category {
   public id?: number
+  public pet?: Pet
   public name?: string
 }
 
@@ -41,9 +38,7 @@ export class Pet {
   public name: string
   public photoUrls: Array<string>
   public tags?: Array<Tag>
-  /**
-   * pet status in the store
-   */
+  /** pet status in the store */
   public status?: 'available' | 'pending' | 'sold'
 }
 
