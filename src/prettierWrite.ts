@@ -1,6 +1,6 @@
-import cosmiconfig = require('cosmiconfig')
 import { writeFileSync } from 'fs'
 
+import cosmiconfig from 'cosmiconfig'
 import { format } from 'prettier'
 
 /** 读取用prettier格式化写入文件

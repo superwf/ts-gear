@@ -1,6 +1,6 @@
 /** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
 import projects from '../../ts-gear'
-import { ReplyVOInt } from './definitions'
+import { ReplyVOint } from './definitions'
 
 const project = projects.find(p => p.name === 'projectE')!
 if (!project) {
@@ -17,7 +17,7 @@ export interface IDeleteApiDataboardBoardEsParam {
 /** 删除索引 */
 export function deleteApiDataboardBoardEs(
   option: IDeleteApiDataboardBoardEsParam,
-): Promise<ReplyVOInt> {
+): Promise<ReplyVOint> {
   return requester('/api/databoard/board/es', { ...option, method: 'delete' })
 }
 

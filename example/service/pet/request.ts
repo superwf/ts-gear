@@ -1,11 +1,12 @@
 /** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
 import projects from '../../ts-gear'
-
 import { Pet, ApiResponse, Order, User } from './definitions'
 
 const project = projects.find(p => p.name === 'pet')!
 if (!project) {
-  throw new Error('project pet not found, check project name in your "ts-gear.ts"')
+  throw new Error(
+    'project pet not found, check project name in your "ts-gear.ts"',
+  )
 }
 const { requester } = project
 
@@ -42,7 +43,9 @@ type GetPetFindByStatusResponse = Array<Pet>
  * Finds Pets by status
  * Multiple status values can be provided with comma separated strings
  */
-export function getPetFindByStatus(option: IGetPetFindByStatusParam): Promise<GetPetFindByStatusResponse> {
+export function getPetFindByStatus(
+  option: IGetPetFindByStatusParam,
+): Promise<GetPetFindByStatusResponse> {
   return requester('/v2/pet/findByStatus', { ...option, method: 'get' })
 }
 
@@ -108,7 +111,9 @@ export interface IPostPetPetIdUploadImageParam {
 }
 
 /** uploads an image */
-export function postPetPetIdUploadImage(option: IPostPetPetIdUploadImageParam): Promise<ApiResponse> {
+export function postPetPetIdUploadImage(
+  option: IPostPetPetIdUploadImageParam,
+): Promise<ApiResponse> {
   return requester('/v2/pet/:petId/uploadImage', { ...option, method: 'post' })
 }
 
@@ -146,7 +151,9 @@ export interface IGetStoreOrderOrderIdParam {
  * Find purchase order by ID
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  */
-export function getStoreOrderOrderId(option: IGetStoreOrderOrderIdParam): Promise<Order> {
+export function getStoreOrderOrderId(
+  option: IGetStoreOrderOrderIdParam,
+): Promise<Order> {
   return requester('/v2/store/order/:orderId', { ...option, method: 'get' })
 }
 
@@ -162,7 +169,9 @@ export interface IDeleteStoreOrderOrderIdParam {
  * Delete purchase order by ID
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  */
-export function deleteStoreOrderOrderId(option: IDeleteStoreOrderOrderIdParam): Promise<any> {
+export function deleteStoreOrderOrderId(
+  option: IDeleteStoreOrderOrderIdParam,
+): Promise<any> {
   return requester('/v2/store/order/:orderId', { ...option, method: 'delete' })
 }
 
@@ -187,7 +196,9 @@ export interface IPostUserCreateWithArrayParam {
 }
 
 /** Creates list of users with given input array */
-export function postUserCreateWithArray(option: IPostUserCreateWithArrayParam): Promise<any> {
+export function postUserCreateWithArray(
+  option: IPostUserCreateWithArrayParam,
+): Promise<any> {
   return requester('/v2/user/createWithArray', { ...option, method: 'post' })
 }
 
@@ -198,7 +209,9 @@ export interface IPostUserCreateWithListParam {
 }
 
 /** Creates list of users with given input array */
-export function postUserCreateWithList(option: IPostUserCreateWithListParam): Promise<any> {
+export function postUserCreateWithList(
+  option: IPostUserCreateWithListParam,
+): Promise<any> {
   return requester('/v2/user/createWithList', { ...option, method: 'post' })
 }
 
@@ -213,7 +226,9 @@ export interface IGetUserLoginParam {
 
 type GetUserLoginResponse = string
 /** Logs user into the system */
-export function getUserLogin(option: IGetUserLoginParam): Promise<GetUserLoginResponse> {
+export function getUserLogin(
+  option: IGetUserLoginParam,
+): Promise<GetUserLoginResponse> {
   return requester('/v2/user/login', { ...option, method: 'get' })
 }
 
@@ -266,7 +281,9 @@ export interface IDeleteUserUsernameParam {
  * Delete user
  * This can only be done by the logged in user.
  */
-export function deleteUserUsername(option: IDeleteUserUsernameParam): Promise<any> {
+export function deleteUserUsername(
+  option: IDeleteUserUsernameParam,
+): Promise<any> {
   return requester('/v2/user/:username', { ...option, method: 'delete' })
 }
 

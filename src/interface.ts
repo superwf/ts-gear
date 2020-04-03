@@ -1,26 +1,25 @@
 import { JSONSchema4 } from 'json-schema'
+import * as translation from 'translation.js'
+
+export type TranslationEngine = keyof typeof translation
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
 
 export type JSONSchema = JSONSchema4
 
 /** url param in path
- * 例如/api/abc/:id
- * 如果是/:ids数组的情况
- * 应先手动转成string再带入
+ * e.g. /api/abc/:id
  * */
 export interface IPath {
   [k: string]: string | number | undefined
 }
 
-/** url query
- * 只支持一维结构的键值对或数组
- * */
+/** url query */
 export interface IQuery {
   [k: string]: any
 }
 
-/** your fetch function */
+/** your fetch function signature */
 export type Requester = (url: string, param: IRequestParameter) => Promise<any>
 
 /** request parameter option */
@@ -33,15 +32,15 @@ export interface IRequestParameter {
   method: HttpMethod
 }
 
-/** json schema每个节点traverse结构 */
-export interface ISchemaNode {
+/** json schema traverse datatype */
+export interface ITraverseSchemaNode {
   value: any
   key: string
   parent: any
   path: string[]
 }
 
-/** 每个请求参数的原始schema结构 */
+/** generial request parameter */
 export interface IParameter {
   name: string
   in: keyof IParameterSchema
@@ -52,10 +51,6 @@ export interface IParameter {
   format?: string
   schema?: JSONSchema
 }
-
-// interface IResponseSchema extends JSONSchema {
-//   title?: string
-// }
 
 interface IResponse {
   // '200'?: {
@@ -68,7 +63,7 @@ interface IResponse {
   }
 }
 
-/** swagger paths内每个http请求详情对应的结构 */
+/** swagger "paths" http request type */
 export interface IRequestDetail {
   parameters?: IParameter[]
   summary?: string
@@ -128,4 +123,23 @@ export interface IProject {
 
   withHost?: boolean
   withBasePath?: boolean
+
+  /** if your swagger doc has non english word defined,
+   * choose one engine try transate those words to english
+   * this is not for human reading, is for program variable name
+   * because translation depend on ouside network, it is not stable, you may need to retry many times to translate successfuly.
+   * when you generate your api, then change the engine and regenerate new api, the translate output will definitely be different, so the api will be different too.
+   *
+   * most case you don`t need this option, try to persuade your teammate to correct the swagger doc to english is a better way.
+   * if there are unregular charator, and you can not fix it.
+   * try to use an engine provided by "translation.js"
+   * */
+  translationEngine?: TranslationEngine
+}
+
+/** generic type */
+export interface IGenericType {
+  name: string
+  children?: IGenericType[]
+  hasDefinition?: boolean
 }

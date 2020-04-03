@@ -6,7 +6,7 @@ import { fetchSwaggerJSONSchema } from './fetchSwagger'
 import { IProject, JSONSchema } from './interface'
 import { generateRequestFileContent } from './generateRequestFileContent'
 import { prettierWrite } from './prettierWrite'
-import { initializeSchema } from './util'
+import { initializeSchema, collectRefInSchema } from './tool/initializeSchema'
 import { getProjectsFromCommmandLine } from './cliOption'
 import { serviceIndexFileContent } from './serviceIndexFileContent'
 import { warningComment } from './warningComment'
@@ -16,6 +16,9 @@ import { warningComment } from './warningComment'
 /**
  * step 1: get user config
  * step 2: fetch schema
+ * step 3: initialize schema
+ *  transform any unregular charator name to regular
+ *  translation if the "translationEngine" is assigned
  * step 3: parse schema to ts template content
  * step 4: write ts file
  * */
@@ -53,7 +56,8 @@ export const run = async () => {
 
     // 获取swagger schema
     const schema = await fetchSwaggerJSONSchema(project, project.fetchSwaggerDocOption)
-    const { $refsNotInDefinitions, $refsInPaths } = await initializeSchema(schema)
+    await initializeSchema(schema, project)
+    const { $refsNotInDefinitions, $refsInPaths } = collectRefInSchema(schema)
     const $refsTypes = await transform$RefsNotInDefinitions($refsNotInDefinitions)
     // 生成definitions
     const definitions = await transformDefinitionsToTypescript(schema.definitions)

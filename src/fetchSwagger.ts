@@ -1,5 +1,6 @@
-import fetch = require('isomorphic-fetch')
 import { join } from 'path'
+
+import fetch from 'isomorphic-fetch'
 
 import { error, info } from './log'
 import { IProject } from './interface'

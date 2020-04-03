@@ -2,14 +2,15 @@ import { EOL } from 'os'
 import path from 'path'
 
 import join from 'url-join'
-import { camelCase, forEach, get, isEmpty, remove, upperFirst } from 'lodash'
+import { camelCase, forEach, get, isEmpty, upperFirst } from 'lodash'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 
 import { assembleRequestParam } from './assembleRequestParam'
 // import { interceptRequest, interceptResponse } from './interceptor'
 import { IPaths, JSONSchema, IProject } from './interface'
 import { compile } from './source'
-import { transformPathParameters, transformProperty } from './util'
+import { transformSwaggerPropertyToTsType } from './tool/transformSwaggerPropertyToTsType'
+import { transformSwaggerPathToRouterPath } from './tool/transformSwaggerPathToRouterPath'
 import { generateMockData } from './generateMockData'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
@@ -65,14 +66,14 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
                 const key = keys[0]
                 inter.addProperty({
                   name,
-                  type: transformProperty(property.properties[key]),
+                  type: transformSwaggerPropertyToTsType(property.properties[key]),
                   hasQuestionToken: !property.required || property.required.length === 0,
                 })
               }
             } else {
               inter.addProperty({
                 name,
-                type: transformProperty(property),
+                type: transformSwaggerPropertyToTsType(property),
                 hasQuestionToken: !property.required || property.required.length === 0,
               })
             }
@@ -88,7 +89,7 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
       // 如果有200存在的$ref定义，则直接返回该$ref对应的type
       const response200$ref = get(request.responses, '200.schema.$ref', null)
       if (response200$ref) {
-        responseType = transformProperty(request.responses[200]!)
+        responseType = transformSwaggerPropertyToTsType(request.responses[200]!)
         mockResponseValue = generateMockData(
           get(request.responses, '200.schema', null) as JSONSchema,
           schema.definitions as JSONSchema,
@@ -99,7 +100,7 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
         const response200 = get(request.responses, '200', null)
         if (response200) {
           responseType = `${upperFirst(functionName)}Response`
-          const responseTsContent = `type ${responseType} = ${transformProperty(response200)}`
+          const responseTsContent = `type ${responseType} = ${transformSwaggerPropertyToTsType(response200)}`
           tsContent.push(responseTsContent)
           mockTsContent.push(responseTsContent)
           mockResponseValue = generateMockData(response200 as JSONSchema, schema.definitions as JSONSchema)
@@ -107,7 +108,7 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
       }
 
       // 在window上会出现\，过滤换
-      const urlPath = join(basePath, transformPathParameters(String(url))).replace(/\\/g, '')
+      const urlPath = join(basePath, transformSwaggerPathToRouterPath(String(url))).replace(/\\/g, '')
       const functionTsContent = await compile(source => {
         const functionData: OptionalKind<FunctionDeclarationStructure> = {
           name: functionName,
@@ -128,7 +129,7 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
           })
         }
         if (request.summary || request.description) {
-          functionData.docs = [remove<string>([request.summary || '', request.description || ''], s => !!s).join('\n')]
+          functionData.docs = [[request.summary || '', request.description || ''].filter(Boolean).join('\n')]
         }
         source.addFunction(functionData)
       })
@@ -166,7 +167,7 @@ export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPath
           })
         }
         if (request.summary || request.description) {
-          functionData.docs = [remove<string>([request.summary || '', request.description || ''], s => !!s).join('\n')]
+          functionData.docs = [[request.summary || '', request.description || ''].filter(Boolean).join(EOL)]
         }
         source.addFunction(functionData)
       })

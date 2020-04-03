@@ -1,12 +1,11 @@
-import { resolve } from 'path'
+import { join } from 'path'
 
 import { run } from 'src/run'
-import { tsGearRoot } from 'src/util'
 
 describe('run', () => {
   it('with fixture', async () => {
     // 以example为cwd读取ts-gear.ts
-    process.chdir(resolve(tsGearRoot, 'example'))
+    process.chdir(join(process.cwd(), 'example'))
     await run()
   })
 

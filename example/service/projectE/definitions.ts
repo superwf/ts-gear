@@ -9,4 +9,4 @@ export class ReplyVO {
   /** 结果描述 */
   public message: string
 }
-export type ReplyVOInt = any
+export type ReplyVOint = any

@@ -1,0 +1,305 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`mock baidu translate update schema 1`] = `
+Object {
+  "basePath": "/",
+  "definitions": Object {
+    "AbcOutputParameter": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "ChineseEnglishMixinSpaceVo": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "DataTransOutput": Object {
+      "description": "带数据的返回数据",
+      "properties": Object {
+        "data": Object {
+          "description": "返回数据",
+          "type": "object",
+        },
+        "transCode": Object {
+          "description": "错误码。
+100000 成功
+200000 入参不合法
+400000 权限不足
+500000 服务失败",
+          "format": "int32",
+          "type": "integer",
+        },
+        "transMessage": Object {
+          "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
+          "type": "string",
+        },
+        "transMessageDetail": Object {
+          "description": "信息详情”",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "transCode",
+        "transMessage",
+        "transMessageDetail",
+      ],
+      "type": "object",
+    },
+    "DataTransOutputOutputParameterVo": Object {
+      "description": "带数据的返回数据",
+      "properties": Object {
+        "data": Object {
+          "$ref": "输出参数vo",
+          "description": "返回数据",
+        },
+        "transCode": Object {
+          "description": "错误码。
+100000 成功
+200000 入参不合法
+400000 权限不足
+500000 服务失败",
+          "format": "int32",
+          "type": "integer",
+        },
+        "transMessage": Object {
+          "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
+          "type": "string",
+        },
+        "transMessageDetail": Object {
+          "description": "信息详情”",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "transCode",
+        "transMessage",
+        "transMessageDetail",
+      ],
+      "type": "object",
+    },
+    "GeneralRequestTokenVo": Object {
+      "properties": Object {
+        "bizParamVo": Object {
+          "$ref": "输出参数vo",
+        },
+      },
+      "type": "object",
+    },
+    "OutputParameterVo": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "QueryParameter": Object {
+      "properties": Object {
+        "data": Object {
+          "additionalProperties": Object {
+            "$ref": "DataTransOutput",
+            "type": "array",
+          },
+          "type": "object",
+        },
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "ResultListMap": Object {
+      "properties": Object {
+        "description": Object {
+          "type": "string",
+        },
+      },
+      "type": "object",
+    },
+    "Result«List«Map»»": Object {
+      "properties": Object {
+        "description": Object {
+          "type": "string",
+        },
+        "result": Object {
+          "items": Object {
+            "$ref": "Map",
+          },
+          "type": "array",
+        },
+        "returnCode": Object {
+          "format": "int32",
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+  },
+  "host": "http://localhost",
+  "info": Object {
+    "contact": Object {
+      "email": "67890211@qq.com",
+      "name": "管理平台",
+      "url": "http://localhost",
+    },
+    "description": "",
+    "license": Object {
+      "name": "license",
+      "url": "http://localhost",
+    },
+    "termsOfService": "http://localhost",
+    "title": "接口文档",
+    "version": "1.0",
+  },
+  "paths": Object {
+    "/api/core/asset/credit/query/pastCreditCardBillGather": Object {
+      "post": Object {
+        "consumes": Array [
+          "application/json;charset=UTF-8",
+        ],
+        "description": "往期账单汇总",
+        "operationId": "pastCreditCardBillGatherUsingPOST",
+        "parameters": Array [
+          Object {
+            "description": "requestParamVo",
+            "in": "body",
+            "name": "body",
+            "required": true,
+            "schema": Object {
+              "$ref": "GeneralRequestParameter",
+            },
+          },
+        ],
+        "produces": Array [
+          "application/json;charset=UTF-8",
+        ],
+        "responses": Object {
+          "200": Object {
+            "description": "OK",
+            "schema": Object {
+              "$ref": "DataTransOutput",
+            },
+          },
+          "201": Object {
+            "description": "Created",
+          },
+          "401": Object {
+            "description": "Unauthorized",
+          },
+          "403": Object {
+            "description": "Forbidden",
+          },
+          "404": Object {
+            "description": "Not Found",
+          },
+        },
+        "summary": "往期账单汇总",
+        "tags": Array [
+          "credit-query-controller",
+        ],
+      },
+    },
+    "/zzjy/all-msg/getAllMsgForMap": Object {
+      "post": Object {
+        "consumes": Array [
+          "application/json",
+        ],
+        "operationId": "getAllMsgForMapUsingPOST",
+        "parameters": Array [
+          Object {
+            "description": "accountTime",
+            "in": "query",
+            "name": "accountTime",
+            "required": true,
+            "type": "string",
+          },
+          Object {
+            "description": "type",
+            "in": "query",
+            "name": "type",
+            "required": true,
+            "type": "string",
+          },
+        ],
+        "produces": Array [
+          "*/*",
+        ],
+        "responses": Object {
+          "200": Object {
+            "description": "OK",
+            "schema": Object {
+              "$ref": "Result«List«Map»»",
+            },
+          },
+          "201": Object {
+            "description": "Created",
+          },
+          "401": Object {
+            "description": "Unauthorized",
+          },
+          "403": Object {
+            "description": "Forbidden",
+          },
+          "404": Object {
+            "description": "Not Found",
+          },
+        },
+        "summary": "站址经营-汇总首页",
+        "tags": Array [
+          "credit-query-controller",
+        ],
+      },
+    },
+  },
+  "swagger": "2.0",
+  "tags": Array [
+    Object {
+      "description": "Credit Query Controller",
+      "name": "credit-query-controller",
+    },
+  ],
+}
+`;

@@ -1,5 +1,5 @@
 /** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
-import { ReplyVOInt } from './definitions'
+import { ReplyVOint } from './definitions'
 
 const { info } = console
 if (process && process.env && process.env.NODE_ENV === 'production') {
@@ -13,7 +13,7 @@ export interface IDeleteApiDataboardBoardEsParam {
 /** 删除索引 */
 export function deleteApiDataboardBoardEs(
   param: IDeleteApiDataboardBoardEsParam,
-): Promise<ReplyVOInt> {
+): Promise<ReplyVOint> {
   info(
     'mock fetch: /api/databoard/board/es with delete http method',
     'fetch param:',

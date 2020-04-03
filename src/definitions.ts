@@ -9,7 +9,7 @@ import {
 
 import { JSONSchema } from './interface'
 import { compile } from './source'
-import { transformProperty } from './util'
+import { transformSwaggerPropertyToTsType } from './tool/transformSwaggerPropertyToTsType'
 
 /** 生成一维property为原始类型的interface
  * */
@@ -28,13 +28,12 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
           const property = definition!.properties![name]
           const klassStructure: OptionalKind<PropertyDeclarationStructure> = {
             name,
-            type: transformProperty(property),
+            type: transformSwaggerPropertyToTsType(property),
             scope: Scope.Public,
-            // initializer: property.default as string,
             hasQuestionToken: !definition.required || !definition.required.includes(name),
           }
-          // interface不能有初始化的值
-          // 考虑用class代替interface的话可以加上
+          /** interface property can not has default value
+            so use class as type */
           if (Reflect.has(property, 'default')) {
             klassStructure.initializer = String(property.default)
           }
@@ -54,7 +53,7 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
         const interfaceStructure: OptionalKind<IndexSignatureDeclarationStructure> = {
           keyName: 'key',
           keyType: 'string',
-          returnType: transformProperty(additionalProperties),
+          returnType: transformSwaggerPropertyToTsType(additionalProperties),
         }
         if (Reflect.has(additionalProperties, 'description')) {
           interfaceStructure.docs = [String(additionalProperties.description)]
@@ -64,14 +63,14 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
         sourceFile.addTypeAlias({
           isExported: true,
           name: title,
-          type: transformProperty(definition),
+          type: transformSwaggerPropertyToTsType(definition),
         })
       }
     } else {
       sourceFile.addTypeAlias({
         isExported: true,
         name: title,
-        type: transformProperty(definition),
+        type: transformSwaggerPropertyToTsType(definition),
       })
     }
   })
