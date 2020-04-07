@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`source start and stop 1`] = `
+"export class MyClass {
+    name: string;
+}
+"
+`;
+
+exports[`source start and stop again 1`] = `
+"export class MyClass {
+    name: string;
+}
+"
+`;

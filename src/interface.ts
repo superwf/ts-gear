@@ -143,3 +143,38 @@ export interface IGenericType {
   children?: IGenericType[]
   hasDefinition?: boolean
 }
+
+export interface ISwaggerDefinition {
+  /** will update in initializeSchema */
+  name: string
+  /** invariant */
+  originName: string
+  path: string
+  schema: JSONSchema
+  typescriptContent: string
+}
+
+export interface ISwaggerRequest {
+  path: string
+  httpMethod: HttpMethod
+  schema: JSONSchema
+  typescriptContent: string
+  parameters?: IParameter[]
+  responses?: IResponse
+  deprecated?: boolean
+  /** summary and description */
+  doc?: string
+  consumes?: string[]
+  produces?: string[]
+  tags?: string[]
+}
+
+export interface IRefMap {
+  [origin: string]: string
+}
+export interface IDefinitionMap {
+  [origin: string]: string
+}
+export interface IDiscriminatorMap {
+  [origin: string]: string
+}

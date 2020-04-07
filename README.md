@@ -8,6 +8,17 @@ With this tool you will know any changes in swagger in a more convenient way.
 
 ## [中文文档](./README.zh-CN.md)
 
+## V2 changes
+
+* configureable requester option, "fetch" and "axios" is provided out of box.
+* configureable translate engine.
+* every project has identical "dest" directory.
+* every project has identical "withHost" and "withBasePath" option.
+
+### process step
+
+* translate if transate engine is assigned.
+
 ## Origin
 
 inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franch. I name this tool to `ts-gear`，means the gear between typescript and swagger，hope it can merge front and server better.

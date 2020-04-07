@@ -2,7 +2,7 @@ import { traverseSchema } from './traverseSchema'
 
 import { IGenericType, JSONSchema } from 'src/interface'
 
-const hasGenericSymbol = (name: string) => {
+export const hasGenericSymbol = (name: string) => {
   return name.includes('<')
 }
 

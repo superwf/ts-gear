@@ -1,31 +1,68 @@
+import { EOL } from 'os'
+
+import { forEach, upperFirst, camelCase } from 'lodash'
+
 import { traverseSchema } from './traverseSchema'
 import { cleanName } from './cleanName'
 import { translateSchema } from './translate'
 import { simplifyGenericNameInSchema } from './parseGenericType'
 
-import { JSONSchema, IProject } from 'src/interface'
+import { refMap, definitionMap, discriminatorMap } from 'src/global'
+import { HttpMethod, JSONSchema, IProject, ISwaggerDefinition, ISwaggerRequest } from 'src/interface'
 
 /** remove all "#/definitions/" prefix in "$ref"
  * remove all space in "$ref" and "definitions" names
  * replace all "«" to "<", "»" to ">"
+ * save all cleaned name in global var refMap and definitionMap
  * */
 export const cleanRefAndDefinitionNameInSchema = (schema: JSONSchema) => {
-  traverseSchema(schema, ({ value, parent, key }) => {
+  traverseSchema(schema, ({ value, key }) => {
+    if (key === 'discriminator' && value.propertyName) {
+      discriminatorMap[value.propertyName] = value.propertyName
+    }
     if (key === '$ref' && typeof value === 'string') {
-      value = cleanName(value)
-      parent.$ref = cleanName(value)
+      refMap[value] = cleanName(value)
+      // value = cleanName(value)
+      // parent.$ref = cleanName(value)
     }
     if (key === 'definitions') {
       Object.keys(value).forEach(k => {
-        const newKey = cleanName(k)
-        if (newKey !== k) {
-          const origin = value[k]
-          delete value[k]
-          value[cleanName(k)] = origin
-        }
+        definitionMap[k] = cleanName(k)
+        // if (newKey !== k) {
+        //   const origin = value[k]
+        //   delete value[k]
+        //   value[cleanName(k)] = origin
+        // }
       })
     }
   })
+}
+
+export const collect = (schema: JSONSchema) => {
+  const swaggerDefinitionMap: { [name: string]: ISwaggerDefinition } = {}
+  const swaggerRequestMap: { [request: string]: ISwaggerRequest } = {}
+  traverseSchema(schema, ({ value, key }) => {
+    if (key === 'paths') {
+      forEach(value, (pathSchema: JSONSchema, path: string) => {
+        forEach(pathSchema, (requestSchema: JSONSchema, httpMethod: string) => {
+          swaggerRequestMap[`${httpMethod}${upperFirst(camelCase(path))}`] = {
+            path,
+            httpMethod: httpMethod as HttpMethod,
+            schema: requestSchema,
+            typescriptContent: '',
+            deprecated: requestSchema.deprecated,
+            doc: [...requestSchema.tags, requestSchema.summary, requestSchema.description].filter(Boolean).join(EOL),
+            // responses: IResponse
+            // parameters: [],
+          }
+        })
+      })
+    }
+  })
+  return {
+    swaggerDefinitionMap,
+    swaggerRequestMap,
+  }
 }
 
 export const collectRefInSchema = (schema: JSONSchema) => {
@@ -56,10 +93,10 @@ export const collectRefInSchema = (schema: JSONSchema) => {
  * step2 translate unregular words
  * */
 export const initializeSchema = async (schema: JSONSchema, project: IProject) => {
-  cleanRefAndDefinitionNameInSchema(schema)
   if (project.translationEngine) {
     await translateSchema(schema, project.translationEngine)
   }
+  cleanRefAndDefinitionNameInSchema(schema)
   simplifyGenericNameInSchema(schema)
   // console.log(schema)
 }

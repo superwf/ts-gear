@@ -2,7 +2,8 @@ import { EOL } from 'os'
 
 import { map } from 'lodash'
 
-import { JSONSchema } from '../interface'
+import { JSONSchema } from 'src/interface'
+import { refMap, discriminatorMap } from 'src/global'
 
 /** 将schema转换为ts的类型 */
 const transform = (property: JSONSchema): string => {
@@ -11,13 +12,14 @@ const transform = (property: JSONSchema): string => {
     return `'${enumValues.join("' | '")}'`
   }
   if ($ref) {
-    return $ref
+    return refMap[$ref]
   }
   if (schema) {
     return transform(schema)
   }
 
   // https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/
+  // only openapi 3.0 need process oneOf,anyOf,allOf and discriminator
   // oneOf, anyOf, allOf对应的应该是数组，每个成员有$ref
   // TODO deal discriminator case
   if (oneOf) {
@@ -27,7 +29,7 @@ const transform = (property: JSONSchema): string => {
     return 'any'
   }
 
-  // 拥有任何一个对象中的任何一个属性即可
+  // use Partial for anyOf
   if (anyOf) {
     if (Array.isArray(property.oneOf)) {
       return `Partial<${property.oneOf.map(prop => transform(prop)).join(' & ')}>`
@@ -62,7 +64,7 @@ const transform = (property: JSONSchema): string => {
     case 'array':
       // array可以没有items，但在同级有$ref
       if ($ref) {
-        return `Array<${$ref}>`
+        return `Array<${refMap[$ref]}>`
       }
       // 使用Array<>而不是[]，因为里面的内容可能是复杂结构，例如枚举
       // 使用[]作为结尾时会产生错误结果
