@@ -16,6 +16,9 @@ const project = new Project({
 const virtualFileName = 'file.ts'
 const fs = project.getFileSystem()
 
+// make virtualFileName uniq
+let virtualFileNameId = 0
+
 /** 使用ts-morph编译ts，隐藏细节，只暴露SourceFile */
 export const compile = async (func: (s: SourceFile) => void, source?: string) => {
   const sourceFile = project.createSourceFile(virtualFileName, source)
@@ -27,13 +30,10 @@ export const compile = async (func: (s: SourceFile) => void, source?: string) =>
   return result
 }
 
-// let sourceFile: SourceFile
-let virtualFileNameId = 0
-
 /** get SourceFile */
-export const sow = () => {
+export const sow = (content?: string) => {
   const name = `file${virtualFileNameId++}.ts`
-  const sourceFile = project.createSourceFile(name)
+  const sourceFile = project.createSourceFile(name, content)
   ;(sourceFile as any).$$fileName = name
   return sourceFile
 }

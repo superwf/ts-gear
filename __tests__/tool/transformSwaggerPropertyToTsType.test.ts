@@ -43,4 +43,15 @@ describe('transformSwaggerPropertyToTsType', () => {
       }),
     ).toBe("'1' | '2' | '3'")
   })
+
+  describe('unregular type', () => {
+    it('only project, no property', () => {
+      expect(
+        transform({
+          type: 'object',
+          title: 'BodyBuilder',
+        }),
+      ).toBe('any')
+    })
+  })
 })

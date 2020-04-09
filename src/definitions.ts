@@ -31,6 +31,7 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
             type: transformSwaggerPropertyToTsType(property),
             scope: Scope.Public,
             hasQuestionToken: !definition.required || !definition.required.includes(name),
+            docs: [],
           }
           /** interface property can not has default value
             so use class as type */
@@ -38,7 +39,10 @@ export const transformDefinitionToTsClass = async (definition: JSONSchema, title
             klassStructure.initializer = String(property.default)
           }
           if (Reflect.has(property, 'description')) {
-            klassStructure.docs = [String(property.description)]
+            klassStructure.docs!.push(String(property.description))
+          }
+          if (Reflect.has(property, 'format')) {
+            klassStructure.docs!.push(`format: ${property.format!}`)
           }
           klass.addProperty(klassStructure)
         }

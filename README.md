@@ -17,7 +17,29 @@ With this tool you will know any changes in swagger in a more convenient way.
 
 ### process step
 
+* read user config file.
+
+* filter projects by name if there are command line params.
+
+* fetch each project swagger doc.
+
 * translate if transate engine is assigned.
+
+* format unregular charators in $ref and definitions.
+
+* process generic type names.
+
+* assemble requests and definitions to global map variables.
+
+* prepare project dest directory.
+
+* generate and write request.
+
+* generate and write definitions.
+
+* generate and write mock request.
+
+* write project directory "index.ts".
 
 ## Origin
 
@@ -27,7 +49,16 @@ inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franc
 
 ## Note
 
-Only support JSONSchema v4.
+Support OpenAPI Specification v2.
+
+your swagger doc should has this field.
+
+```json
+{
+  "swagger": "2.0",
+  ...
+}
+```
 
 ## Usage
 
@@ -247,8 +278,6 @@ This tool only has the `swagger ui` pet fixture and my projects swagger schema f
 
 ## TODO
 
-* Transform `ReplyVO«ConfigVO»` to `ReplyVO<ConfigVO>` for generic type.
-
-* Deal with `oneOf, allOf, anyOf, not`, `discriminator` conditions.
+* add more open api 3.0 test fixture.
 
 * Add other not 200 type in `responses` to `fetch.then<T1, T2>，T2` T2 position.

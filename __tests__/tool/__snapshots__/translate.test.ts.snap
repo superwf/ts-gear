@@ -4,40 +4,6 @@ exports[`mock baidu translate update schema 1`] = `
 Object {
   "basePath": "/",
   "definitions": Object {
-    "AbcOutputParameter": Object {
-      "properties": Object {
-        "dueDay": Object {
-          "description": "开卡日",
-          "type": "string",
-        },
-        "requestChannel": Object {
-          "description": "进件渠道",
-          "type": "string",
-        },
-      },
-      "required": Array [
-        "dueDay",
-        "requestChannel",
-      ],
-      "type": "object",
-    },
-    "ChineseEnglishMixinSpaceVo": Object {
-      "properties": Object {
-        "dueDay": Object {
-          "description": "开卡日",
-          "type": "string",
-        },
-        "requestChannel": Object {
-          "description": "进件渠道",
-          "type": "string",
-        },
-      },
-      "required": Array [
-        "dueDay",
-        "requestChannel",
-      ],
-      "type": "object",
-    },
     "DataTransOutput": Object {
       "description": "带数据的返回数据",
       "properties": Object {
@@ -70,11 +36,11 @@ Object {
       ],
       "type": "object",
     },
-    "DataTransOutputOutputParameterVo": Object {
+    "DataTransOutput «OutputParameterVo»": Object {
       "description": "带数据的返回数据",
       "properties": Object {
         "data": Object {
-          "$ref": "输出参数vo",
+          "$ref": "#/definitions/output parameter vo",
           "description": "返回数据",
         },
         "transCode": Object {
@@ -102,15 +68,33 @@ Object {
       ],
       "type": "object",
     },
-    "GeneralRequestTokenVo": Object {
+    "ResultListMap": Object {
       "properties": Object {
-        "bizParamVo": Object {
-          "$ref": "输出参数vo",
+        "description": Object {
+          "type": "string",
         },
       },
       "type": "object",
     },
-    "OutputParameterVo": Object {
+    "Result«List«Map»»": Object {
+      "properties": Object {
+        "description": Object {
+          "type": "string",
+        },
+        "result": Object {
+          "items": Object {
+            "$ref": "#/definitions/Map",
+          },
+          "type": "array",
+        },
+        "returnCode": Object {
+          "format": "int32",
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "abc output parameter": Object {
       "properties": Object {
         "dueDay": Object {
           "description": "开卡日",
@@ -127,11 +111,53 @@ Object {
       ],
       "type": "object",
     },
-    "QueryParameter": Object {
+    "chinese english mixin space Vo": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "general request «TokenVo»": Object {
+      "properties": Object {
+        "bizParamVo": Object {
+          "$ref": "#/definitions/output parameter vo",
+        },
+      },
+      "type": "object",
+    },
+    "output parameter vo": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "query parameter": Object {
       "properties": Object {
         "data": Object {
           "additionalProperties": Object {
-            "$ref": "DataTransOutput",
+            "$ref": "#/definitions/DataTransOutput",
             "type": "array",
           },
           "type": "object",
@@ -149,32 +175,6 @@ Object {
         "dueDay",
         "requestChannel",
       ],
-      "type": "object",
-    },
-    "ResultListMap": Object {
-      "properties": Object {
-        "description": Object {
-          "type": "string",
-        },
-      },
-      "type": "object",
-    },
-    "Result«List«Map»»": Object {
-      "properties": Object {
-        "description": Object {
-          "type": "string",
-        },
-        "result": Object {
-          "items": Object {
-            "$ref": "Map",
-          },
-          "type": "array",
-        },
-        "returnCode": Object {
-          "format": "int32",
-          "type": "integer",
-        },
-      },
       "type": "object",
     },
   },
@@ -209,7 +209,7 @@ Object {
             "name": "body",
             "required": true,
             "schema": Object {
-              "$ref": "GeneralRequestParameter",
+              "$ref": "#/definitions/general request«query parameter»",
             },
           },
         ],
@@ -220,7 +220,7 @@ Object {
           "200": Object {
             "description": "OK",
             "schema": Object {
-              "$ref": "DataTransOutput",
+              "$ref": "#/definitions/DataTransOutput",
             },
           },
           "201": Object {
@@ -271,7 +271,7 @@ Object {
           "200": Object {
             "description": "OK",
             "schema": Object {
-              "$ref": "Result«List«Map»»",
+              "$ref": "#/definitions/Result«List«Map»»",
             },
           },
           "201": Object {

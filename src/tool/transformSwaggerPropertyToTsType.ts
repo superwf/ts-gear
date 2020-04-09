@@ -3,7 +3,7 @@ import { EOL } from 'os'
 import { map } from 'lodash'
 
 import { JSONSchema } from 'src/interface'
-import { refMap, discriminatorMap } from 'src/global'
+import { refMap } from 'src/global'
 
 /** 将schema转换为ts的类型 */
 const transform = (property: JSONSchema): string => {

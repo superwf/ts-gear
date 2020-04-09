@@ -55,6 +55,65 @@
         }
       },
       "title": "ReplyVO"
+    },
+    "PageVO«ListVO»": {
+      "type": "object",
+      "required": [
+        "entities",
+        "entityCount",
+        "firstEntityIndex",
+        "lastEntityIndex",
+        "pageCount",
+        "pageNo",
+        "pageSize"
+      ],
+      "properties": {
+        "entities": {
+          "type": "array",
+          "description": "数据列表",
+          "items": {
+            "originalRef": "ListVO",
+            "$ref": "#/definitions/ListVO"
+          }
+        },
+        "entityCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 100,
+          "description": "总条数"
+        },
+        "firstEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 0,
+          "description": "开始序号"
+        },
+        "lastEntityIndex": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "结束序号"
+        },
+        "pageCount": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "总页数"
+        },
+        "pageNo": {
+          "type": "integer",
+          "format": "int32",
+          "example": 1,
+          "description": "页码"
+        },
+        "pageSize": {
+          "type": "integer",
+          "format": "int32",
+          "example": 10,
+          "description": "每页条数"
+        }
+      },
+      "title": "PageVO«ListVO»"
     }
   }
 }

@@ -1,7 +1,10 @@
 import { JSONSchema4 } from 'json-schema'
 import * as translation from 'translation.js'
 
-export type TranslationEngine = keyof typeof translation
+/** baidu and google can handle different language automaticly
+ * youdao must assign the language type
+ * */
+export type TranslationEngine = Exclude<keyof typeof translation, 'youdao'>
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
 
@@ -100,26 +103,35 @@ export interface IParameterSchema {
 export type TPathMatcherFunction = RegExp | ((url: string) => boolean)
 
 export interface IProject {
+  name?: string
+
   /** the api files will be generated to
    * @default './service'
    * */
   dest: string
-  /** project name，will be used to create dir in the dir defined in "dest" */
-  name: string
+
   /** swagger doc path
    * could be remote or local json file
    * starts with "http" is remote
    * others are dealed local json file
    * */
   source: string
+
   /** the param for fetch swagger doc */
   fetchSwaggerDocOption?: RequestInit
+
   /** filter api path
    * some project mix too mach useless api
    * use this option could avoid those to be written in your api file
    * */
   pathMatcher?: TPathMatcherFunction
   requester: Requester
+
+  /** by default, definiton will generate ts "class"
+   * "class" can keep the property default value
+   * set this to true to generate "interface" instead of "class"
+   * */
+  preferInterface?: boolean
 
   withHost?: boolean
   withBasePath?: boolean
@@ -137,21 +149,30 @@ export interface IProject {
   translationEngine?: TranslationEngine
 }
 
+export interface IProjectMap {
+  /** project name，will be used to create dir in the dir defined in "dest" */
+  [name: string]: IProject
+}
+
+export interface IProjectRequesterMap {
+  [name: string]: Requester
+}
+
 /** generic type */
 export interface IGenericType {
   name: string
   children?: IGenericType[]
-  hasDefinition?: boolean
+  top?: boolean
 }
 
 export interface ISwaggerDefinition {
-  /** will update in initializeSchema */
-  name: string
-  /** invariant */
-  originName: string
-  path: string
-  schema: JSONSchema
-  typescriptContent: string
+  // cleaned name, may be generic as A<B>
+  definitionName: string
+  // no generic simbol type name
+  typeName?: string
+  schema?: JSONSchema
+  typescriptContent?: string
+  typeParameters?: string[]
 }
 
 export interface ISwaggerRequest {
@@ -169,12 +190,22 @@ export interface ISwaggerRequest {
   tags?: string[]
 }
 
+/** definition name may be changed when parsing generic type
+ * then the ref name can not find the map in definition
+ * use this map to link the changed definition and ref name.
+ * */
 export interface IRefMap {
+  /** key: maybe generic, as "A<B>", value: trimed generic symbol, as "AB" */
   [origin: string]: string
 }
 export interface IDefinitionMap {
-  [origin: string]: string
+  [definitionName: string]: ISwaggerDefinition
 }
-export interface IDiscriminatorMap {
-  [origin: string]: string
+export interface IRequestMap {
+  [name: string]: ISwaggerRequest
+}
+
+/** key: origin word, value: translated english word */
+export interface IWordsMap {
+  [k: string]: string
 }

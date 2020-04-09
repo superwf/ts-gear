@@ -1,5 +1,13 @@
-import { IRefMap, IDefinitionMap, IDiscriminatorMap } from 'src/interface'
+import { IRefMap, IDefinitionMap, IDiscriminatorMap, IRequestMap, IProjectRequesterMap } from 'src/interface'
 
-export const definitionMap: IDefinitionMap = {}
-export const refMap: IRefMap = {}
-export const discriminatorMap: IDiscriminatorMap = {}
+export let definitionMap: IDefinitionMap = {}
+export let refMap: IRefMap = {}
+export let requestMap: IRequestMap = {}
+export let projectRequesterMap: IProjectRequesterMap = {}
+
+export const restore = () => {
+  definitionMap = {}
+  refMap = {}
+  requestMap = {}
+  projectRequesterMap = {}
+}

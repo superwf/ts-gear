@@ -3,7 +3,7 @@ import { join } from 'path'
 
 import { transform$RefsNotInDefinitions, transformDefinitionsToTypescript } from './definitions'
 import { fetchSwaggerJSONSchema } from './fetchSwagger'
-import { IProject, JSONSchema } from './interface'
+import { IProjectMap, JSONSchema } from './interface'
 import { generateRequestFileContent } from './generateRequestFileContent'
 import { prettierWrite } from './prettierWrite'
 import { initializeSchema, collectRefInSchema } from './tool/initializeSchema'
@@ -29,26 +29,27 @@ export const run = async () => {
   /* eslint-disable @typescript-eslint/no-var-requires */
   const config = require(tsGearConfigPath)
   /* eslint-enable @typescript-eslint/no-var-requires */
-  let projects = (config.default ? config.default : config) as IProject[]
+  let projects = (config.default ? config.default : config) as IProjectMap
   const projectNamesFromCommandLine = getProjectsFromCommmandLine()
-  if (projectNamesFromCommandLine.length > 0) {
-    projects = projectNamesFromCommandLine
-      .map(name => {
-        return projects.find(p => p.name === name)!
-      })
-      .filter(Boolean)
+  for (const name in projects) {
+    projects[name].name = name
   }
-  for (const i in projects) {
-    if (!projects.hasOwnProperty(i)) {
-      continue
-    }
-    const project = projects[i]
+  if (projectNamesFromCommandLine.length > 0) {
+    projects = projectNamesFromCommandLine.reduce<IProjectMap>((r, v) => {
+      if (v in projects) {
+        r[v] = projects[v]
+      }
+      return r
+    }, {})
+  }
+  for (const name in projects) {
+    const project = projects[name]
     // 建立dest文件夹
     const dest = join(cwd, project.dest)
     if (!existsSync(dest)) {
       mkdirSync(dest)
     }
-    const projectPath = join(dest, project.name)
+    const projectPath = join(dest, name)
     // 在dest文件夹内建立项目文件夹
     if (!existsSync(projectPath)) {
       mkdirSync(projectPath)
@@ -77,13 +78,5 @@ export const run = async () => {
     await prettierWrite(mockResponsePath, warningComment + mockRequestsContent)
     const indexFilePath = join(projectPath, 'index.ts')
     await prettierWrite(indexFilePath, warningComment + serviceIndexFileContent)
-
-    // 每个项目的拦截器文件只在第一次生成时copy一次
-    // 这个文件可能会写入一些请求的配置
-    // 不应该被覆盖
-    // const projectInterceptorFile = join(projectPath, 'interceptor.ts')
-    // if (!existsSync(projectInterceptorFile)) {
-    //   copyFileSync(interceptorFilePath, projectInterceptorFile)
-    // }
   }
 }
