@@ -47,6 +47,14 @@ inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franc
 
 ![logo](./logo.png)
 
+## Similar packages
+
+* [pont](https://github.com/alibaba/pont)
+
+* [OpenAPI Generator](https://openapi-generator.tech/)
+
+    It has many languages support. I try it and read the generated ts files and found it need more compatibility efferts for non-standard swagger doc support.
+
 ## Note
 
 Support OpenAPI Specification v2.

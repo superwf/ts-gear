@@ -1,11 +1,12 @@
 import { EOL } from 'os'
 
-import { forEach, upperFirst, camelCase } from 'lodash'
+import { forEach, upperFirst } from 'lodash'
 
 import { getDefinition } from 'src/tool/getDefinition'
 import { HttpMethod, JSONSchema } from 'src/interface'
 import { refMap, definitionMap, requestMap } from 'src/global'
 import { traverseSchema } from 'src/tool/traverseSchema'
+import { camelCase } from 'src/tool/camelCase'
 
 /**
  * collect definition
@@ -15,7 +16,6 @@ export const assembleSchemaToGlobal = (schema: JSONSchema) => {
   const definitions = getDefinition(schema)
   for (const name in definitions) {
     definitionMap[name] = {
-      definitionName: name,
       typeName: name,
       schema: definitions[name],
     }
@@ -26,9 +26,14 @@ export const assembleSchemaToGlobal = (schema: JSONSchema) => {
         path,
         httpMethod: httpMethod as HttpMethod,
         schema: requestSchema,
-        typescriptContent: '',
         deprecated: requestSchema.deprecated,
-        doc: [...requestSchema.tags, requestSchema.summary, requestSchema.description].filter(Boolean).join(EOL),
+        doc: [
+          ...requestSchema.tags,
+          requestSchema.summary,
+          requestSchema.description,
+          requestSchema.produces && `produces: ${requestSchema.produces}`,
+          requestSchema.consumes && `consumes: ${requestSchema.consumes}`,
+        ].filter(Boolean),
         // responses: IResponse
         // parameters: [],
       }

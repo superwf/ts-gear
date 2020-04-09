@@ -9,7 +9,6 @@ export const polyfillRefToDefinition = () => {
     if (!(ref in definitionMap)) {
       const name = removeGenericSymbol(ref)
       definitionMap[ref] = {
-        definitionName: name,
         typeName: name,
         typescriptContent: `export type ${name} = any`,
       }

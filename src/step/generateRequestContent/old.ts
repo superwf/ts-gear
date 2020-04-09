@@ -6,12 +6,12 @@ import { camelCase, forEach, get, isEmpty, upperFirst } from 'lodash'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 
 import { assembleRequestParam } from './assembleRequestParam'
-// import { interceptRequest, interceptResponse } from './interceptor'
-import { IPaths, JSONSchema, IProject } from './interface'
-import { compile } from './source'
-import { transformSwaggerPropertyToTsType } from './tool/transformSwaggerPropertyToTsType'
-import { transformSwaggerPathToRouterPath } from './tool/transformSwaggerPathToRouterPath'
-import { generateMockData } from './generateMockData'
+import { generateMockData } from './mock'
+
+import { IPaths, JSONSchema, IProject } from 'src/interface'
+import { compile } from 'src/source'
+import { transformSwaggerPropertyToTsType } from 'src/tool/transformSwaggerPropertyToTsType'
+import { transformSwaggerPathToRouterPath } from 'src/tool/transformSwaggerPathToRouterPath'
 
 /** 将paths里的各种请求参数组装成IProperty的数据结构 */
 export const generateRequestFileContent = async (schema: JSONSchema, $RefsInPaths: string[], project: IProject) => {

@@ -24,7 +24,7 @@ export const generateDefinitionContent = (project: IProject) => {
     const schema = definition.schema!
     if (schema.type === 'object') {
       if (schema.properties) {
-        const preferInterface = !!project.preferInterface
+        const preferInterface = Boolean(project.preferInterface)
         const klass = preferInterface
           ? source.addInterface({
               isExported: true,

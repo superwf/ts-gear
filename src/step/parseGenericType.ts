@@ -13,7 +13,8 @@ export const checkAndUpdateDefinitionTypeName = (definitionName: string) => {
   if (hasGenericSymbol(definitionName)) {
     const definition = definitionMap[definitionName]
     /** generac type */
-    const [typeName, ...typeParameters] = definitionName.split(/<|>/).filter(Boolean)
+    const [typeName, ...typeParameters] = definitionName.split(/<|>|,/).filter(Boolean)
+    console.log(typeName, typeParameters)
     // const typeParameters = definitionName.replace(/(^[^<]+<)|(>$)/, '').split(',')
     if (definition.schema) {
       const allSubTypeInSchema = typeParameters.every(subTypeName => {

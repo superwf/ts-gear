@@ -100,7 +100,7 @@ export interface IParameterSchema {
   header?: JSONSchema
 }
 
-export type TPathMatcherFunction = RegExp | ((url: string) => boolean)
+export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
 
 export interface IProject {
   name?: string
@@ -127,14 +127,29 @@ export interface IProject {
   pathMatcher?: TPathMatcherFunction
   requester: Requester
 
-  /** by default, definiton will generate ts "class"
+  /**
+   * @default false
+   * by default, definiton will generate ts "class"
    * "class" can keep the property default value
    * set this to true to generate "interface" instead of "class"
    * */
   preferInterface?: boolean
 
+  /** @default false */
   withHost?: boolean
+  /** @default false */
   withBasePath?: boolean
+
+  /**
+   * @default true
+   * ts-gear try to keep the generic type for all definition
+   * but real world swagger doc has many bad definition
+   * if generic type make some error
+   * assign "false" to this option
+   * ts-gear will not generate generic type
+   * the process of generating typescript content will be more stable.
+   * */
+  keepGeneric?: boolean
 
   /** if your swagger doc has non english word defined,
    * choose one engine try transate those words to english
@@ -166,8 +181,6 @@ export interface IGenericType {
 }
 
 export interface ISwaggerDefinition {
-  // cleaned name, may be generic as A<B>
-  definitionName: string
   // no generic simbol type name
   typeName?: string
   schema?: JSONSchema
@@ -179,15 +192,15 @@ export interface ISwaggerRequest {
   path: string
   httpMethod: HttpMethod
   schema: JSONSchema
-  typescriptContent: string
+  typescriptContent?: string
   parameters?: IParameter[]
   responses?: IResponse
   deprecated?: boolean
-  /** summary and description */
-  doc?: string
-  consumes?: string[]
-  produces?: string[]
-  tags?: string[]
+  /** tags, summary and description */
+  doc?: string[]
+  // consumes?: string[]
+  // produces?: string[]
+  // tags?: string[]
 }
 
 /** definition name may be changed when parsing generic type
@@ -199,6 +212,7 @@ export interface IRefMap {
   [origin: string]: string
 }
 export interface IDefinitionMap {
+  // key: cleaned name, may be generic as A<B>
   [definitionName: string]: ISwaggerDefinition
 }
 export interface IRequestMap {

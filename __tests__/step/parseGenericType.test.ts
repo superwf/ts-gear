@@ -1,79 +1,13 @@
-import { parseDefinitionGenericType, parseGenericName } from 'src/tool/parseGenericType'
-import { definitionMap } from 'src/global'
+import { parseGenericType } from 'src/step/parseGenericType'
+import { definitionMap, restore } from 'src/global'
 
-describe('parseGenericName', () => {
-  it('parse simple type', () => {
-    expect(parseGenericName('abc')).toEqual({
-      name: 'abc',
-      top: true,
-    })
+describe('parse definition with generic type', () => {
+  afterEach(() => {
+    restore()
   })
-
-  it('starts with <', () => {
-    expect(() => {
-      parseGenericName('<abc>')
-    }).toThrow()
-  })
-
-  it('parse one sub type', () => {
-    expect(parseGenericName('abc<def>')).toEqual({
-      name: 'abc',
-      top: true,
-      children: [
-        {
-          name: 'def',
-          top: false,
-        },
-      ],
-    })
-  })
-
-  it('parse more sub type', () => {
-    expect(parseGenericName('abc<def,efg>')).toEqual({
-      name: 'abc',
-      top: true,
-      children: [
-        {
-          name: 'def',
-          top: false,
-        },
-        {
-          name: 'efg',
-          top: false,
-        },
-      ],
-    })
-  })
-
-  it('parse more sub in sub type', () => {
-    expect(parseGenericName('abc<def,efg<hij>>')).toEqual({
-      name: 'abc',
-      top: true,
-      children: [
-        {
-          name: 'def',
-          top: false,
-        },
-        {
-          name: 'efg',
-          top: false,
-          children: [
-            {
-              name: 'hij',
-              top: false,
-            },
-          ],
-        },
-      ],
-    })
-  })
-})
-
-describe('parse definition generic type', () => {
   it('parse one sub type', () => {
     const name = 'PageVO<User>'
     definitionMap[name] = {
-      definitionName: name,
       typeName: '',
       schema: {
         type: 'object',
@@ -87,6 +21,69 @@ describe('parse definition generic type', () => {
         },
       },
     }
-    parseDefinitionGenericType()
+    parseGenericType()
+    expect(definitionMap[name].typeName).toBe('PageVO')
+    expect(definitionMap[name].typeParameters).toEqual(['User'])
+  })
+
+  it('remove generic type symbol when ref not contain in schema', () => {
+    const name = 'PageVO<User>'
+    definitionMap[name] = {
+      typeName: '',
+      schema: {
+        type: 'object',
+        properties: {
+          pageNo: {
+            type: 'number',
+          },
+        },
+      },
+    }
+    parseGenericType()
+    console.log(definitionMap)
+    expect(definitionMap[name].typeName).toBe('PageVOUser')
+    expect(definitionMap[name].typeParameters).toBe(undefined)
+  })
+
+  it('remove more generic type symbol when ref not contain in schema', () => {
+    const name = 'PageVO<User,Role>'
+    definitionMap[name] = {
+      typeName: '',
+      schema: {
+        type: 'object',
+        properties: {
+          pageNo: {
+            type: 'number',
+          },
+        },
+      },
+    }
+    parseGenericType()
+    expect(definitionMap[name].typeName).toBe('PageVOUserRole')
+    expect(definitionMap[name].typeParameters).toBe(undefined)
+  })
+
+  it('parse two sub type', () => {
+    const name = 'PageVO<User,Role>'
+    definitionMap[name] = {
+      typeName: '',
+      schema: {
+        type: 'object',
+        properties: {
+          pageNo: {
+            type: 'number',
+          },
+          user: {
+            $ref: 'User',
+          },
+          role: {
+            $ref: 'Role',
+          },
+        },
+      },
+    }
+    parseGenericType()
+    expect(definitionMap[name].typeName).toBe('PageVO')
+    expect(definitionMap[name].typeParameters).toEqual(['User', 'Role'])
   })
 })

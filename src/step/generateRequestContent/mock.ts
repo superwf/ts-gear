@@ -1,7 +1,9 @@
-// copy from swagger-ui and modified to ts
+/** copy from swagger-ui https://github.com/swagger-api/swagger-ui/blob/master/src/core/plugins/samples/fn.js
+ * modify the js to ts */
+
 import { isObject, isFunction, castArray, memoize } from 'lodash'
 
-import { JSONSchema } from './interface'
+import { JSONSchema } from 'src/interface'
 
 // Deeply strips a specific key from an object.
 //

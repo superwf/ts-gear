@@ -17,7 +17,7 @@ export const step = async (schema: JSONSchema, project: IProject) => {
   if (project.translationEngine) {
     await translateSchema(schema, project.translationEngine)
   }
-  cleanRefAndDefinitionName(schema)
+  cleanRefAndDefinitionName(schema, project.keepGeneric)
   assembleSchemaToGlobal(schema)
   parseGenericType()
   polyfillRefToDefinition()

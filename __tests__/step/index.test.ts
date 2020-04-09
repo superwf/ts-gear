@@ -14,11 +14,13 @@ describe('run step', () => {
   it('definition typescriptContent', () => {
     const project = projects.projectE
     const schema = cloneDeep(projectESchema) as JSONSchema
-    cleanRefAndDefinitionName(schema)
+    cleanRefAndDefinitionName(schema, project.keepGeneric)
     assembleSchemaToGlobal(schema)
     console.log(definitionMap)
-    parseGenericType()
-    console.log(definitionMap)
+    if (project.keepGeneric !== false) {
+      parseGenericType()
+      console.log(definitionMap)
+    }
     polyfillRefToDefinition()
     console.log(definitionMap)
     generateDefinitionContent(project)
