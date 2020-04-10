@@ -1,11 +1,12 @@
+import { Spec } from 'swagger-schema-official'
+
 import { traverseSchema } from 'src/tool/traverseSchema'
 import { cleanName } from 'src/tool/cleanName'
 import { getDefinition } from 'src/tool/getDefinition'
-import { JSONSchema } from 'src/interface'
 
 /** use cleanName for all "$ref" and "definitions" names
  * */
-export const cleanRefAndDefinitionName = (schema: JSONSchema, keepGeneric = true) => {
+export const cleanRefAndDefinitionName = (schema: Spec, keepGeneric = true) => {
   const definitions = getDefinition(schema)
   Object.getOwnPropertyNames(definitions).forEach(name => {
     const newName = cleanName(name, keepGeneric)

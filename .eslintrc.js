@@ -66,6 +66,7 @@ module.exports = {
     ],
 
     'import/prefer-default-export': 0,
+    'import/no-unresolved': ['error', { ignore: ['swagger-schema-official'] }],
     'no-param-reassign': 0,
 
     // let prettier handle indent

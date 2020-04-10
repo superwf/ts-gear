@@ -1,18 +1,18 @@
-import { EOL } from 'os'
-
 import { forEach, upperFirst } from 'lodash'
+import { Spec } from 'swagger-schema-official'
 
 import { getDefinition } from 'src/tool/getDefinition'
-import { HttpMethod, JSONSchema } from 'src/interface'
-import { refMap, definitionMap, requestMap } from 'src/global'
+import { HttpMethod } from 'src/interface'
+import { refMap, definitionMap, requestMap, httpMethods } from 'src/global'
 import { traverseSchema } from 'src/tool/traverseSchema'
 import { camelCase } from 'src/tool/camelCase'
+import { assembleDoc } from 'src/tool/assembleDoc'
 
 /**
  * collect definition
  * collect request
  * */
-export const assembleSchemaToGlobal = (schema: JSONSchema) => {
+export const assembleSchemaToGlobal = (schema: Spec) => {
   const definitions = getDefinition(schema)
   for (const name in definitions) {
     definitionMap[name] = {
@@ -20,22 +20,18 @@ export const assembleSchemaToGlobal = (schema: JSONSchema) => {
       schema: definitions[name],
     }
   }
-  forEach(schema.paths, (pathSchema: JSONSchema, path: string) => {
-    forEach(pathSchema, (requestSchema: JSONSchema, httpMethod: string) => {
-      requestMap[`${httpMethod}${upperFirst(camelCase(path))}`] = {
-        path,
-        httpMethod: httpMethod as HttpMethod,
-        schema: requestSchema,
-        deprecated: requestSchema.deprecated,
-        doc: [
-          ...requestSchema.tags,
-          requestSchema.summary,
-          requestSchema.description,
-          requestSchema.produces && `produces: ${requestSchema.produces}`,
-          requestSchema.consumes && `consumes: ${requestSchema.consumes}`,
-        ].filter(Boolean),
-        // responses: IResponse
-        // parameters: [],
+  forEach(schema.paths, (pathSchema /** Path */, pathName) => {
+    forEach(httpMethods, httpMethod => {
+      const operation = pathSchema[httpMethod]
+      if (operation && !operation.deprecated) {
+        requestMap[`${httpMethod}${upperFirst(camelCase(pathName))}`] = {
+          pathName,
+          httpMethod: httpMethod as HttpMethod,
+          schema: operation!,
+          doc: assembleDoc(operation),
+          responses: operation.responses,
+          parameters: operation.parameters,
+        }
       }
     })
   })

@@ -1,52 +1,24 @@
 import { EOL } from 'os'
 
+import { Schema, BodyParameter, Response } from 'swagger-schema-official'
 import { map } from 'lodash'
 
-import { JSONSchema } from 'src/interface'
 import { refMap } from 'src/global'
 
+const isBodyParameter = (schema: Schema | BodyParameter | Response): schema is Required<BodyParameter | Response> =>
+  'schema' in schema
+
 /** 将schema转换为ts的类型 */
-const transform = (property: JSONSchema): string => {
-  const { type, enum: enumValues, items, schema, $ref, oneOf, anyOf, allOf, not } = property
+const transform = (schema: Schema | BodyParameter | Response): string => {
+  if (isBodyParameter(schema)) {
+    return transform(schema.schema)
+  }
+  const { type, enum: enumValues, items, $ref } = schema as Schema
   if (enumValues) {
     return `'${enumValues.join("' | '")}'`
   }
   if ($ref) {
     return refMap[$ref]
-  }
-  if (schema) {
-    return transform(schema)
-  }
-
-  // https://swagger.io/docs/specification/data-models/oneof-anyof-allof-not/
-  // only openapi 3.0 need process oneOf,anyOf,allOf and discriminator
-  // oneOf, anyOf, allOf对应的应该是数组，每个成员有$ref
-  // TODO deal discriminator case
-  if (oneOf) {
-    if (Array.isArray(property.oneOf)) {
-      return property.oneOf.map(prop => transform(prop)).join(' | ')
-    }
-    return 'any'
-  }
-
-  // use Partial for anyOf
-  if (anyOf) {
-    if (Array.isArray(property.oneOf)) {
-      return `Partial<${property.oneOf.map(prop => transform(prop)).join(' & ')}>`
-    }
-    return 'any'
-  }
-  // 必须拥有所有对象属性的并集
-  if (allOf) {
-    if (Array.isArray(property.oneOf)) {
-      return `Required<${property.oneOf.map(prop => transform(prop)).join(' & ')}>`
-    }
-    return 'any'
-  }
-
-  // 这个做不到覆盖所有情况，用any，更省心
-  if (not) {
-    return `any`
   }
 
   switch (type) {
@@ -56,8 +28,6 @@ const transform = (property: JSONSchema): string => {
       return 'boolean'
     case 'file':
       return 'File'
-    case 'null':
-      return 'null'
     case 'integer':
     case 'number':
       return 'number'
@@ -68,11 +38,15 @@ const transform = (property: JSONSchema): string => {
       }
       // 使用Array<>而不是[]，因为里面的内容可能是复杂结构，例如枚举
       // 使用[]作为结尾时会产生错误结果
-      return `Array<${transform(items!)}>`
+      if (Array.isArray(items)) {
+        return `Array<${items.map(transform).join(' | ')}>`
+      } else {
+        return `Array<${transform(items!)}>`
+      }
     case 'object':
-      const { properties, additionalProperties, required } = property
+      const { properties, additionalProperties, required } = schema as Schema
       if (properties) {
-        const obj = map(properties, (prop: JSONSchema, name: string) => {
+        const obj = map(properties, (prop, name: string) => {
           const optionalMark = required && required.includes(name) ? '' : '?'
           return `${name}${optionalMark}: ${transform(prop)}`
         }).join(EOL)
@@ -95,4 +69,4 @@ const transform = (property: JSONSchema): string => {
   }
 }
 
-export const transformSwaggerPropertyToTsType = transform
+export const schemaToTypescript = transform

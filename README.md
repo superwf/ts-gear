@@ -55,6 +55,10 @@ inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franc
 
     It has many languages support. I try it and read the generated ts files and found it need more compatibility efferts for non-standard swagger doc support.
 
+* [oazapfts](https://github.com/cellular/oazapfts)
+
+    almost the same as this project.
+
 ## Note
 
 Support OpenAPI Specification v2.

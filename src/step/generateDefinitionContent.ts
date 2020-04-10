@@ -1,16 +1,10 @@
-import {
-  IndexSignatureDeclarationStructure,
-  OptionalKind,
-  PropertyDeclarationStructure,
-  Scope,
-  PropertySignatureStructure,
-} from 'ts-morph'
+import { OptionalKind, PropertyDeclarationStructure, Scope, PropertySignatureStructure } from 'ts-morph'
 
-import { transformSwaggerPropertyToTsType } from 'src/tool/transformSwaggerPropertyToTsType'
-// import { hasGenericSymbol } from 'src/tool/genericType'
+import { schemaToTypescript } from 'src/tool/schemaToTypescript'
 import { sow, harvest } from 'src/source'
-import { JSONSchema, IProject } from 'src/interface'
+import { IProject } from 'src/interface'
 import { definitionMap } from 'src/global'
+import { assembleDoc } from 'src/tool/assembleDoc'
 
 /** generate on definition ts content */
 export const generateDefinitionContent = (project: IProject) => {
@@ -43,57 +37,46 @@ export const generateDefinitionContent = (project: IProject) => {
           const property = schema!.properties![name]
           const klassStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
             name,
-            type: transformSwaggerPropertyToTsType(property),
+            type: schemaToTypescript(property),
             scope: Scope.Public,
             hasQuestionToken: !schema.required || !schema.required.includes(name),
-            docs: [],
+            docs: assembleDoc(property),
           }
           /** interface property can not has default value
             so use class as type */
           if (!preferInterface && Reflect.has(property, 'default')) {
             klassStructure.initializer = String(property.default)
           }
-          if (Reflect.has(property, 'description')) {
-            klassStructure.docs!.push(String(property.description))
-          }
-          if (Reflect.has(property, 'format')) {
-            klassStructure.docs!.push(`format: ${property.format!}`)
-          }
           klass.addProperty(klassStructure)
         }
         // 没有properties，会有additionalProperties
       } else if (schema.additionalProperties) {
+        const additionalProperties = schema.additionalProperties
         // class doesn`t has "addIndexSignature", so use interface
-        const interFace = source.addInterface({
+        source.addInterface({
           isExported: true,
           name: title,
-          docs: [],
+          docs: typeof additionalProperties !== 'boolean' ? assembleDoc(additionalProperties) : [],
+          indexSignatures: [
+            {
+              keyName: 'key',
+              keyType: 'string',
+              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties),
+            },
+          ],
         })
-        const additionalProperties = schema.additionalProperties as JSONSchema
-        const interfaceStructure: OptionalKind<IndexSignatureDeclarationStructure> = {
-          keyName: 'key',
-          keyType: 'string',
-          returnType: transformSwaggerPropertyToTsType(additionalProperties),
-        }
-        if (Reflect.has(additionalProperties, 'description')) {
-          interfaceStructure.docs!.push(String(additionalProperties.description))
-        }
-        if (Reflect.has(additionalProperties, 'format')) {
-          interfaceStructure.docs!.push(`format: ${additionalProperties.format!}`)
-        }
-        interFace.addIndexSignature(interfaceStructure)
       } else {
         source.addTypeAlias({
           isExported: true,
           name: title,
-          type: transformSwaggerPropertyToTsType(schema),
+          type: schemaToTypescript(schema),
         })
       }
     } else {
       source.addTypeAlias({
         isExported: true,
         name: title,
-        type: transformSwaggerPropertyToTsType(schema),
+        type: schemaToTypescript(schema),
       })
     }
     definition.typescriptContent = harvest(source)

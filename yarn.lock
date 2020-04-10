@@ -1556,6 +1556,11 @@
   resolved "http://registry.m.jd.com/@types/stack-utils/download/@types/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha1-CoUdO9lkmPolwzq3J47TvWXwbD4=
 
+"@types/swagger-schema-official@^2.0.21":
+  version "2.0.21"
+  resolved "http://registry.m.jd.com/@types/swagger-schema-official/download/@types/swagger-schema-official-2.0.21.tgz#56812a86dcd57ba60e5c51705ee96a2b2dc9b374"
+  integrity sha1-VoEqhtzVe6YOXFFwXulqKy3Js3Q=
+
 "@types/traverse@^0.6.25-alpha":
   version "0.6.32"
   resolved "http://registry.m.jd.com/@types/traverse/download/@types/traverse-0.6.32.tgz#f9fdfa40cd4898deaa975a14511aec731de8235e"

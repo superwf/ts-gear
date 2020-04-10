@@ -1,14 +1,14 @@
 import { IndexSignatureDeclarationStructure, OptionalKind, PropertyDeclarationStructure, Scope } from 'ts-morph'
+import { Schema } from 'swagger-schema-official'
 
-import { transformSwaggerPropertyToTsType } from './transformSwaggerPropertyToTsType'
+import { schemaToTypescript } from './schemaToTypescript'
 
+import { hasGenericSymbol } from 'src/tool/genericType'
 import { sow, harvest } from 'src/source'
-import { JSONSchema } from 'src/interface'
 import { definitionMap } from 'src/global'
-import { hasGenericSymbol } from 'src/tool/parseGenericType'
 
 /** generate on definition ts content */
-export const generateDefinitionContent = (definition: JSONSchema, title: string) => {
+export const generateDefinitionContent = (definition: Schema, title: string) => {
   const source = sow()
   if (hasGenericSymbol(title)) {
     const names = title.split(/<|>/).filter(Boolean)
@@ -20,7 +20,7 @@ export const generateDefinitionContent = (definition: JSONSchema, title: string)
         name: parentTypeName,
         typeParameters: typeParameters,
       })
-      definitionMap[parentTypeName] = ''
+      // definitionMap[parentTypeName] = ''
       if (definition.description) {
         klass.addJsDoc(definition.description)
       }
@@ -28,7 +28,7 @@ export const generateDefinitionContent = (definition: JSONSchema, title: string)
         const property = definition!.properties![name]
         const klassStructure: OptionalKind<PropertyDeclarationStructure> = {
           name,
-          type: transformSwaggerPropertyToTsType(property),
+          type: schemaToTypescript(property),
           scope: Scope.Public,
           hasQuestionToken: !definition.required || !definition.required.includes(name),
         }
@@ -57,7 +57,7 @@ export const generateDefinitionContent = (definition: JSONSchema, title: string)
           const property = definition!.properties![name]
           const klassStructure: OptionalKind<PropertyDeclarationStructure> = {
             name,
-            type: transformSwaggerPropertyToTsType(property),
+            type: schemaToTypescript(property),
             scope: Scope.Public,
             hasQuestionToken: !definition.required || !definition.required.includes(name),
           }
@@ -78,11 +78,11 @@ export const generateDefinitionContent = (definition: JSONSchema, title: string)
           isExported: true,
           name: title,
         })
-        const additionalProperties = definition.additionalProperties as JSONSchema
+        const additionalProperties = definition.additionalProperties as Schema
         const interfaceStructure: OptionalKind<IndexSignatureDeclarationStructure> = {
           keyName: 'key',
           keyType: 'string',
-          returnType: transformSwaggerPropertyToTsType(additionalProperties),
+          returnType: schemaToTypescript(additionalProperties),
         }
         if (Reflect.has(additionalProperties, 'description')) {
           interfaceStructure.docs = [String(additionalProperties.description)]
@@ -92,14 +92,14 @@ export const generateDefinitionContent = (definition: JSONSchema, title: string)
         source.addTypeAlias({
           isExported: true,
           name: title,
-          type: transformSwaggerPropertyToTsType(definition),
+          type: schemaToTypescript(definition),
         })
       }
     } else {
       source.addTypeAlias({
         isExported: true,
         name: title,
-        type: transformSwaggerPropertyToTsType(definition),
+        type: schemaToTypescript(definition),
       })
     }
   }

@@ -1,4 +1,5 @@
-import { JSONSchema4 } from 'json-schema'
+// import { JSONSchema4 } from 'json-schema'
+import { Path, Schema, Operation, Response, Reference, Parameter, BaseParameter } from 'swagger-schema-official'
 import * as translation from 'translation.js'
 
 /** baidu and google can handle different language automaticly
@@ -6,9 +7,8 @@ import * as translation from 'translation.js'
  * */
 export type TranslationEngine = Exclude<keyof typeof translation, 'youdao'>
 
-export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
-
-export type JSONSchema = JSONSchema4
+export type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>
+// export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
 
 /** url param in path
  * e.g. /api/abc/:id
@@ -50,9 +50,9 @@ export interface IParameter {
   description: string
   required: boolean
   type: string
-  items?: JSONSchema
+  items?: Schema
   format?: string
-  schema?: JSONSchema
+  schema?: Schema
 }
 
 interface IResponse {
@@ -62,7 +62,7 @@ interface IResponse {
   // }
   [key: string]: {
     description: string
-    schema?: JSONSchema
+    schema?: Schema
   }
 }
 
@@ -90,14 +90,14 @@ export interface IPaths {
   [k: string]: IRequest
 }
 
+type Property<T extends any, K extends keyof T> = T[K]
+
+type RequestParameterPosition = Property<BaseParameter, 'in'>
+
 /** general request parameters defined in json schema
  **/
-export interface IParameterSchema {
-  query?: JSONSchema
-  body?: JSONSchema
-  path?: JSONSchema
-  formData?: JSONSchema
-  header?: JSONSchema
+export type IParameterSchema = {
+  [key in RequestParameterPosition]: Schema
 }
 
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
@@ -173,34 +173,29 @@ export interface IProjectRequesterMap {
   [name: string]: Requester
 }
 
-/** generic type */
-export interface IGenericType {
-  name: string
-  children?: IGenericType[]
-  top?: boolean
+export interface IAssembleRequestParameter {
+  typeName?: string
+  schema?: Schema
+  typescriptContent?: string[]
 }
 
 export interface ISwaggerDefinition {
   // no generic simbol type name
   typeName?: string
-  schema?: JSONSchema
+  schema?: Schema
   typescriptContent?: string
   typeParameters?: string[]
 }
 
 export interface ISwaggerRequest {
-  path: string
+  pathName: string
   httpMethod: HttpMethod
-  schema: JSONSchema
+  schema: Operation
   typescriptContent?: string
-  parameters?: IParameter[]
-  responses?: IResponse
-  deprecated?: boolean
+  parameters?: Array<Parameter | Reference>
+  responses: { [responseName: string]: Response | Reference }
   /** tags, summary and description */
   doc?: string[]
-  // consumes?: string[]
-  // produces?: string[]
-  // tags?: string[]
 }
 
 /** definition name may be changed when parsing generic type

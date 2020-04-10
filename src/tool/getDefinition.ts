@@ -1,13 +1,8 @@
-import { JSONSchema } from 'src/interface'
+import { Spec } from 'swagger-schema-official'
 
 /**
- * return definitions part depends swagger version
+ * return definitions
  * */
-export const getDefinition = (schema: JSONSchema) => {
-  if (schema.swagger === '2.0') {
-    return schema.definitions!
-  }
-  if (schema.swagger === '3.0') {
-    return schema.components.schemas!
-  }
+export const getDefinition = (schema: Spec) => {
+  return schema.definitions!
 }

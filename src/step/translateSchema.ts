@@ -1,15 +1,23 @@
+import { Spec } from 'swagger-schema-official'
 import { find } from 'lodash'
 
 import { traverseSchema } from 'src/tool/traverseSchema'
-import { TranslationEngine, JSONSchema, IWordsMap } from 'src/interface'
+import { TranslationEngine, IWordsMap } from 'src/interface'
 import { translate } from 'src/tool/translate'
 
 // copy some translate part from pont src/scripts/base.ts
 export const cnReg = /[\u4e00-\u9fa5]/
 
 /** gather all words those need to be translated in schema */
-export const gatherNonEnglishWords = (schema: JSONSchema) => {
+export const gatherNonEnglishWords = (schema: Spec) => {
   const originWordSet: Set<string> = new Set()
+
+  Object.getOwnPropertyNames(schema.definitions!).forEach(k => {
+    k = String(k)
+    if (cnReg.test(k)) {
+      originWordSet.add(k)
+    }
+  })
 
   traverseSchema(schema, ({ value, key }) => {
     if (key === '$ref' && typeof value === 'string') {
@@ -17,14 +25,6 @@ export const gatherNonEnglishWords = (schema: JSONSchema) => {
         // remove "#/definition/" prefix
         originWordSet.add(value.replace(/^#\/.+\//, ''))
       }
-    }
-    if (key === 'definitions') {
-      Reflect.ownKeys(value).forEach(k => {
-        k = String(k)
-        if (cnReg.test(k)) {
-          originWordSet.add(k)
-        }
-      })
     }
   })
   return Array.from(originWordSet)
@@ -59,7 +59,7 @@ export const generateTranslationMap = async (originWords: string[], engine: Tran
 }
 
 /** update words those need to be translated in schema */
-export const updateSchema = (schema: JSONSchema, wordsMap: IWordsMap) => {
+export const updateSchema = (schema: Spec, wordsMap: IWordsMap) => {
   const { definitions } = schema
   Object.getOwnPropertyNames(definitions!).forEach(k => {
     if (k in wordsMap) {
@@ -87,7 +87,7 @@ export const updateSchema = (schema: JSONSchema, wordsMap: IWordsMap) => {
  * just update the schema parame object
  * not return a new object
  * */
-export const translateSchema = async (schema: JSONSchema, engineName: TranslationEngine) => {
+export const translateSchema = async (schema: Spec, engineName: TranslationEngine) => {
   const words = gatherNonEnglishWords(schema)
   const map = await generateTranslationMap(words, engineName)
   updateSchema(schema, map)
