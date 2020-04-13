@@ -1,6 +1,17 @@
 // import { JSONSchema4 } from 'json-schema'
-import { Path, Schema, Operation, Response, Reference, Parameter, BaseParameter } from 'swagger-schema-official'
+import {
+  Path,
+  Schema,
+  Operation,
+  Response,
+  Reference,
+  Parameter,
+  BaseParameter,
+  ParameterType,
+} from 'swagger-schema-official'
 import * as translation from 'translation.js'
+
+import { PropertyOf } from 'src/typeHelper.d'
 
 /** baidu and google can handle different language automaticly
  * youdao must assign the language type
@@ -44,60 +55,65 @@ export interface ITraverseSchemaNode {
 }
 
 /** generial request parameter */
-export interface IParameter {
-  name: string
-  in: keyof IParameterSchema
-  description: string
-  required: boolean
-  type: string
-  items?: Schema
-  format?: string
-  schema?: Schema
-}
+// export interface IParameter {
+//   name: string
+//   in: keyof IParameterSchema
+//   description: string
+//   required: boolean
+//   type: ParameterType
+//   items?: Schema
+//   format?: string
+//   schema?: Schema
+// }
 
-interface IResponse {
-  // '200'?: {
-  //   description: string
-  //   schema: IResponseSchema
-  // }
-  [key: string]: {
-    description: string
-    schema?: Schema
-  }
-}
+// interface IResponse {
+//   // '200'?: {
+//   //   description: string
+//   //   schema: IResponseSchema
+//   // }
+//   [key: string]: {
+//     description: string
+//     schema?: Schema
+//   }
+// }
 
 /** swagger "paths" http request type */
-export interface IRequestDetail {
-  parameters?: IParameter[]
-  summary?: string
-  description?: string
-  operationId?: string
-  produces: string[]
-  tags: string[]
-  responses: IResponse
-  security?: any
-  deprecated: boolean
-}
+// export interface IRequestDetail {
+//   parameters?: IParameter[]
+//   summary?: string
+//   description?: string
+//   operationId?: string
+//   produces: string[]
+//   tags: string[]
+//   responses: IResponse
+//   security?: any
+//   deprecated: boolean
+// }
 
-interface IRequest {
-  /** http method */
-  [path: string]: IRequestDetail
-}
+// interface IRequest {
+//   /** http method */
+//   [path: string]: IRequestDetail
+// }
 
 /** swagger "paths" */
-export interface IPaths {
-  /** api url path */
-  [k: string]: IRequest
-}
+// export interface IPaths {
+//   /** api url path */
+//   [k: string]: IRequest
+// }
 
-type Property<T extends any, K extends keyof T> = T[K]
-
-type RequestParameterPosition = Property<BaseParameter, 'in'>
+export type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>
 
 /** general request parameters defined in json schema
  **/
-export type IParameterSchema = {
-  [key in RequestParameterPosition]: Schema
+export type ParameterPositionMap = {
+  [key in RequestParameterPosition]?: {
+    type: ParameterType // always 'object'
+    name: RequestParameterPosition
+    required: string[]
+    // parameters: Array<Parameter | Reference>
+    properties?: { [propertyName: string]: Omit<Parameter, 'required'> | Reference }
+    schema?: Schema
+  }
 }
 
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
@@ -179,6 +195,13 @@ export interface IAssembleRequestParameter {
   typescriptContent?: string[]
 }
 
+export interface IAssembleResponse {
+  responseTypeContent: string
+  successTypeContent: string
+  responseTypeName: string
+  successTypeName: string
+}
+
 export interface ISwaggerDefinition {
   // no generic simbol type name
   typeName?: string
@@ -211,7 +234,7 @@ export interface IDefinitionMap {
   [definitionName: string]: ISwaggerDefinition
 }
 export interface IRequestMap {
-  [name: string]: ISwaggerRequest
+  [requestFunctionName: string]: ISwaggerRequest
 }
 
 /** key: origin word, value: translated english word */

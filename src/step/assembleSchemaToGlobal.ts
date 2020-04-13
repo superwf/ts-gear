@@ -10,7 +10,7 @@ import { assembleDoc } from 'src/tool/assembleDoc'
 
 /**
  * collect definition
- * collect request
+ * collect request, skip deprecated ones
  * */
 export const assembleSchemaToGlobal = (schema: Spec) => {
   const definitions = getDefinition(schema)

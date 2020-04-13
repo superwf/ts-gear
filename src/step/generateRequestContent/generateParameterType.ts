@@ -1,44 +1,35 @@
-import { isEmpty, groupBy, property, forEach } from 'lodash'
+import { Parameter, Reference } from 'swagger-schema-official'
+import { isEmpty, upperFirst } from 'lodash'
 
 import { assembleRequestParam } from './assembleRequestParam'
 
-import { IParameter, JSONSchema } from 'src/interface'
+import { RequestParameterPosition } from 'src/interface'
+import { schemaToTypescript } from 'src/tool/schemaToTypescript'
 import { sow, harvest } from 'src/source'
-import { transformSwaggerPropertyToTsType } from 'src/tool/transformSwaggerPropertyToTsType'
+// import { ParameterPositionMap } from 'src/interface'
 
 /**
  * @param name request function parameter interface name
  * @param parameters swagger request parameters
  * */
-export const generateParameterType = (name: string, parameters?: IParameter[]): string => {
-  if (!parameters) {
-    return ''
-  }
-  // const groupedParameters = groupBy(parameters, property('in'))
-  const assembledParameters = assembleRequestParam(parameters)
+export const generateParameterType = (functionName: string, parameters: Array<Parameter | Reference>) => {
   const source = sow()
+  const parameterTypeName = `I${upperFirst(functionName)}Option`
   const inter = source.addInterface({
     isExported: true,
-    name,
+    name: parameterTypeName,
   })
-  forEach<JSONSchema>(assembledParameters, (schema, position) => {
-    if (position === 'body' && !isEmpty(schema.properties)) {
-      const keys = Object.getOwnPropertyNames(schema.properties)
-      if (keys.length > 0) {
-        const key = keys[0]
-        inter.addProperty({
-          name,
-          type: transformSwaggerPropertyToTsType(schema.properties[key]),
-          hasQuestionToken: !schema.required || schema.required.length === 0,
-        })
-      }
-    } else {
-      inter.addProperty({
-        name: position,
-        type: transformSwaggerPropertyToTsType(schema),
-        hasQuestionToken: !schema!.required || schema!.required.length === 0,
-      })
-    }
+  const assembledParameters = assembleRequestParam(parameters)
+  ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach(position => {
+    const param = assembledParameters[position]!
+    inter.addProperty({
+      name: position,
+      type: schemaToTypescript(param),
+      hasQuestionToken: isEmpty(param.required),
+    })
   })
-  return harvest(source)
+  return {
+    parameterTypeName,
+    parameterTypeContent: harvest(source),
+  }
 }

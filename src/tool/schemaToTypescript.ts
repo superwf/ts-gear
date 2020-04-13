@@ -1,6 +1,6 @@
 import { EOL } from 'os'
 
-import { Schema, BodyParameter, Response } from 'swagger-schema-official'
+import { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
 import { map } from 'lodash'
 
 import { refMap } from 'src/global'
@@ -9,7 +9,7 @@ const isBodyParameter = (schema: Schema | BodyParameter | Response): schema is R
   'schema' in schema
 
 /** 将schema转换为ts的类型 */
-const transform = (schema: Schema | BodyParameter | Response): string => {
+const transform = (schema: Schema | BodyParameter | Response | Parameter): string => {
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }
@@ -20,7 +20,6 @@ const transform = (schema: Schema | BodyParameter | Response): string => {
   if ($ref) {
     return refMap[$ref]
   }
-
   switch (type) {
     case 'string':
       return 'string'
