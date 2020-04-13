@@ -20,6 +20,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
 
   const resultContent: string[] = []
   for (const requestFunctionName in requestMap) {
+    const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
     if (pathMatcher) {
@@ -36,16 +37,16 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     if (request.parameters) {
       const parameterType = generateParameterType(requestFunctionName, request.parameters)
       parameterTypeName = parameterType.parameterTypeName
-      resultContent.push(parameterType.parameterTypeContent)
+      requestTypeScriptContent.push(parameterType.parameterTypeContent)
     }
     const responseType = generateResponseType(requestFunctionName, request.responses)
-    resultContent.push(responseType.responseTypeContent)
-    resultContent.push(responseType.successTypeContent)
+    requestTypeScriptContent.push(responseType.responseTypeContent)
+    requestTypeScriptContent.push(responseType.successTypeContent)
     const urlPath = join(spec.basePath || '', transformSwaggerPathToRouterPath(String(request.pathName)))
     const source = sow()
     const functionStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
-    }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}})`
+    }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<any>`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
       name: requestFunctionName,
       isExported: true,
@@ -61,8 +62,12 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
       })
     }
     source.addFunction(functionData)
-    resultContent.push(harvest(source))
+    requestTypeScriptContent.push(harvest(source))
+    /** store typescript content to requestMap */
+    request.typescriptContent = requestTypeScriptContent.join(EOL)
+    resultContent.push(request.typescriptContent)
   }
 
+  /** return value only for test and debug */
   return resultContent.join(EOL)
 }

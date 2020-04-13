@@ -12,15 +12,15 @@ import { assembleDoc } from 'src/tool/assembleDoc'
  * collect definition
  * collect request, skip deprecated ones
  * */
-export const assembleSchemaToGlobal = (schema: Spec) => {
-  const definitions = getDefinition(schema)
+export const assembleSchemaToGlobal = (spec: Spec) => {
+  const definitions = getDefinition(spec)
   for (const name in definitions) {
     definitionMap[name] = {
       typeName: name,
       schema: definitions[name],
     }
   }
-  forEach(schema.paths, (pathSchema /** Path */, pathName) => {
+  forEach(spec.paths, (pathSchema /** Path */, pathName) => {
     forEach(httpMethods, httpMethod => {
       const operation = pathSchema[httpMethod]
       if (operation && !operation.deprecated) {
@@ -35,7 +35,7 @@ export const assembleSchemaToGlobal = (schema: Spec) => {
       }
     })
   })
-  traverseSchema(schema, ({ value, key }) => {
+  traverseSchema(spec, ({ value, key }) => {
     if (key === '$ref' && typeof value === 'string') {
       refMap[value] = value
     }

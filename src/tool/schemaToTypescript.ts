@@ -4,12 +4,20 @@ import { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-offic
 import { map } from 'lodash'
 
 import { refMap } from 'src/global'
+import { assembleDoc } from 'src/tool/assembleDoc'
 
-const isBodyParameter = (schema: Schema | BodyParameter | Response): schema is Required<BodyParameter | Response> =>
-  'schema' in schema
+type SchemaOption = Schema | BodyParameter | Response | Parameter
+
+const isBodyParameter = (schema: SchemaOption): schema is Required<BodyParameter | Response> => 'schema' in schema
+
+/** generate inline property doc */
+const generatePropertyDoc = (schema: SchemaOption) => {
+  const docs = assembleDoc(schema)
+  return docs ? `/**${EOL}${docs.join(EOL)} */${EOL}` : ''
+}
 
 /** 将schema转换为ts的类型 */
-const transform = (schema: Schema | BodyParameter | Response | Parameter): string => {
+const transform = (schema: SchemaOption): string => {
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }
@@ -46,16 +54,14 @@ const transform = (schema: Schema | BodyParameter | Response | Parameter): strin
       const { properties, additionalProperties, required } = schema as Schema
       if (properties) {
         const obj = map(properties, (prop, name: string) => {
-          const optionalMark = required && required.includes(name) ? '' : '?'
-          return `${name}${optionalMark}: ${transform(prop)}`
+          const questionToken = required && required.includes(name) ? '' : '?'
+          return `${generatePropertyDoc(prop)}${name}${questionToken}: ${transform(prop)}`
         }).join(EOL)
         let additionalProps = ''
         if (additionalProperties) {
-          if (additionalProperties === true) {
-            additionalProps = `${EOL}[k: string]: any`
-          } else {
-            additionalProps = `${EOL}[k: string]: ${transform(additionalProperties)}`
-          }
+          additionalProps = `${generatePropertyDoc(schema)}[propertyName: string]: ${
+            additionalProperties === true ? 'any' : transform(additionalProperties)
+          }`
         }
         return `{${EOL}${obj}${additionalProps}${EOL}}`
       }

@@ -36,7 +36,7 @@ export const generateResponseType = (
     })
     responseTypeContent = harvest(source)
     const firstResponseStatus = responseStatuses[0]
-    if (firstResponseStatus.startsWith('2')) {
+    if (firstResponseStatus.startsWith('2') || firstResponseStatus === 'default') {
       successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, '${firstResponseStatus}'>`
     }
   }

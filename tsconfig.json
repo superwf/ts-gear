@@ -1,10 +1,9 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "esnext"],
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
@@ -18,7 +17,6 @@
     "jsx": "react",
     "outDir": "bin",
     "baseUrl": ".",
-    "typeRoots": ["node_modules/@types", "typings"],
     "strictPropertyInitialization": false,
     "paths": {
       "src/*": ["./src/*"],

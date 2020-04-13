@@ -18,6 +18,7 @@ export const generateParameterType = (functionName: string, parameters: Array<Pa
   const inter = source.addInterface({
     isExported: true,
     name: parameterTypeName,
+    docs: [`request parameter type for ${functionName}`],
   })
   const assembledParameters = assembleRequestParam(parameters)
   ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach(position => {
@@ -26,6 +27,7 @@ export const generateParameterType = (functionName: string, parameters: Array<Pa
       name: position,
       type: schemaToTypescript(param),
       hasQuestionToken: isEmpty(param.required),
+      docs: param.docs,
     })
   })
   return {

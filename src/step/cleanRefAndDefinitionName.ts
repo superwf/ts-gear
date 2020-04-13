@@ -6,8 +6,8 @@ import { getDefinition } from 'src/tool/getDefinition'
 
 /** use cleanName for all "$ref" and "definitions" names
  * */
-export const cleanRefAndDefinitionName = (schema: Spec, keepGeneric = true) => {
-  const definitions = getDefinition(schema)
+export const cleanRefAndDefinitionName = (spec: Spec, keepGeneric = true) => {
+  const definitions = getDefinition(spec)
   Object.getOwnPropertyNames(definitions).forEach(name => {
     const newName = cleanName(name, keepGeneric)
     if (newName !== name) {
@@ -16,7 +16,7 @@ export const cleanRefAndDefinitionName = (schema: Spec, keepGeneric = true) => {
       definitions[newName] = origin
     }
   })
-  traverseSchema(schema, ({ value, parent, key }) => {
+  traverseSchema(spec, ({ value, parent, key }) => {
     if (key === '$ref' && typeof value === 'string') {
       value = cleanName(value, keepGeneric)
       parent.$ref = cleanName(value, keepGeneric)

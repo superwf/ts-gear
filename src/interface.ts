@@ -11,40 +11,24 @@ import {
 } from 'swagger-schema-official'
 import * as translation from 'translation.js'
 
-import { PropertyOf } from 'src/typeHelper.d'
-
-/** baidu and google can handle different language automaticly
+/** baidu and google can handle different language automatically
  * youdao must assign the language type
  * */
 export type TranslationEngine = Exclude<keyof typeof translation, 'youdao'>
 
 export type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>
-// export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'head' | 'options'
-
-/** url param in path
- * e.g. /api/abc/:id
- * */
-export interface IPath {
-  [k: string]: string | number | undefined
-}
-
-/** url query */
-export interface IQuery {
-  [k: string]: any
-}
-
-/** your fetch function signature */
-export type Requester = (url: string, param: IRequestParameter) => Promise<any>
 
 /** request parameter option */
-export interface IRequestParameter {
-  query?: IQuery
-  body?: any
-  path?: IPath
-  formData?: any
-  header?: any
+export type IRequestParameter = {
   method: HttpMethod
+  basePath?: string
+  host?: string
+} & {
+  [position in HttpMethod]?: any
 }
+
+/** requester function signature */
+export type Requester = (url: string, param: IRequestParameter) => Promise<any>
 
 /** json schema traverse datatype */
 export interface ITraverseSchemaNode {
@@ -53,53 +37,6 @@ export interface ITraverseSchemaNode {
   parent: any
   path: string[]
 }
-
-/** generial request parameter */
-// export interface IParameter {
-//   name: string
-//   in: keyof IParameterSchema
-//   description: string
-//   required: boolean
-//   type: ParameterType
-//   items?: Schema
-//   format?: string
-//   schema?: Schema
-// }
-
-// interface IResponse {
-//   // '200'?: {
-//   //   description: string
-//   //   schema: IResponseSchema
-//   // }
-//   [key: string]: {
-//     description: string
-//     schema?: Schema
-//   }
-// }
-
-/** swagger "paths" http request type */
-// export interface IRequestDetail {
-//   parameters?: IParameter[]
-//   summary?: string
-//   description?: string
-//   operationId?: string
-//   produces: string[]
-//   tags: string[]
-//   responses: IResponse
-//   security?: any
-//   deprecated: boolean
-// }
-
-// interface IRequest {
-//   /** http method */
-//   [path: string]: IRequestDetail
-// }
-
-/** swagger "paths" */
-// export interface IPaths {
-//   /** api url path */
-//   [k: string]: IRequest
-// }
 
 export type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>
 
@@ -110,9 +47,9 @@ export type ParameterPositionMap = {
     type: ParameterType // always 'object'
     name: RequestParameterPosition
     required: string[]
-    // parameters: Array<Parameter | Reference>
     properties?: { [propertyName: string]: Omit<Parameter, 'required'> | Reference }
     schema?: Schema
+    docs: string[]
   }
 }
 

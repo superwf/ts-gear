@@ -2,9 +2,11 @@ import { Parameter, Reference } from 'swagger-schema-official'
 
 import { ParameterPositionMap } from 'src/interface'
 import { isReference } from 'src/tool/isReference'
+import { assembleDoc } from 'src/tool/assembleDoc'
 
 /** assemble parameters to type ParameterPositionMap
- * body has a useless nest 'body' property, will generate type as
+ *
+ * NOTD: body has a useless nest 'body' property, will generate type as
  * { body: { body: Pet } }
  * remove it to generate as below
  * { body: Pet }
@@ -30,6 +32,7 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
             name: 'body',
             required: parameter.required ? [parameter.name] : [],
             schema: parameter.schema,
+            docs: assembleDoc(parameter),
           }
         } else {
           map[parameter.in] = {
@@ -39,6 +42,7 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
             properties: {
               [parameter.name]: parameter,
             },
+            docs: assembleDoc(parameter),
           }
         }
       }

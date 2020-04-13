@@ -6,6 +6,7 @@ import { translateSchema } from './translateSchema'
 import { parseGenericType } from './parseGenericType'
 import { polyfillRefToDefinition } from './polyfillRefToDefinition'
 import { generateDefinitionContent } from './generateDefinitionContent'
+import { generateRequestContent } from './generateRequestContent'
 
 import { IProject } from 'src/interface'
 
@@ -15,13 +16,14 @@ import { IProject } from 'src/interface'
  * 3. process generic type names.
  * 4. assemble requests and definitions to global map variables.
  */
-export const step = async (schema: Spec, project: IProject) => {
+export const step = async (spec: Spec, project: IProject) => {
   if (project.translationEngine) {
-    await translateSchema(schema, project.translationEngine)
+    await translateSchema(spec, project.translationEngine)
   }
-  cleanRefAndDefinitionName(schema, project.keepGeneric)
-  assembleSchemaToGlobal(schema)
+  cleanRefAndDefinitionName(spec, project.keepGeneric)
+  assembleSchemaToGlobal(spec)
   parseGenericType()
   polyfillRefToDefinition()
   generateDefinitionContent(project)
+  generateRequestContent(spec, project)
 }

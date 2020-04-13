@@ -1,7 +1,9 @@
-import { Schema, Operation } from 'swagger-schema-official'
+import { EOL } from 'os'
+
+import { Schema, Operation, Parameter } from 'swagger-schema-official'
 
 /** add many possible properties to doc */
-export const assembleDoc = (schema: Schema | Operation) => {
+export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   const docs: string[] = []
   if ('description' in schema) {
     docs.push(String(schema.description))
@@ -24,5 +26,8 @@ export const assembleDoc = (schema: Schema | Operation) => {
   if ('consumes' in schema) {
     docs.push(`consumes: ${schema.consumes}`)
   }
-  return docs
+  if (docs.length === 0) {
+    return undefined
+  }
+  return [docs.filter(Boolean).join(EOL)]
 }
