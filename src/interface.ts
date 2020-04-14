@@ -56,7 +56,7 @@ export type ParameterPositionMap = {
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
 
 export interface IProject {
-  name?: string
+  name: string
 
   /** the api files will be generated to
    * @default './service'

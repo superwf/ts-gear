@@ -1,290 +1,568 @@
-/** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
+/** Do not modify this file manually.
+its content will be overwriten next time execute the `tsg` command. */
 import projects from '../../ts-gear'
-import { Pet, ApiResponse, Order, User } from './definitions'
 
-const project = projects.find(p => p.name === 'pet')!
-if (!project) {
-  throw new Error(
-    'project pet not found, check project name in your "ts-gear.ts"',
-  )
-}
-const { requester } = project
-
-export interface IPostPetParam {
+import { PropertyOf, Pet, ApiResponse, Order, User } from './definition'
+const { requester } = projects.find(p => p.name === 'pet')!
+/** request parameter type for putPet */
+export interface IPutPetOption {
+  /** Pet object that needs to be added to the store */
   body: Pet
 }
 
-/** Add a new pet to the store */
-export function postPet(option: IPostPetParam): Promise<any> {
-  return requester('/v2/pet', { ...option, method: 'post' })
+export interface IPutPetResponse {
+  /** Invalid ID supplied */
+  400: any
+  /** Pet not found */
+  404: any
+  /** Validation exception */
+  405: any
 }
 
-postPet.method = 'post'
+export type IPutPetResponseSuccess = any
+/**
+ * Update an existing pet
+ * tags: pet
+ * produces: application／xml,application/json
+ * consumes: application／json,application/xml
+ */
+export function putPet(option: IPutPetOption): Promise<IPutPetResponseSuccess> {
+  return requester('/v2/pet', { method: 'put', ...option }) as Promise<any>
+}
 
-export interface IPutPetParam {
+/** request parameter type for postPet */
+export interface IPostPetOption {
+  /** Pet object that needs to be added to the store */
   body: Pet
 }
 
-/** Update an existing pet */
-export function putPet(option: IPutPetParam): Promise<any> {
-  return requester('/v2/pet', { ...option, method: 'put' })
+export interface IPostPetResponse {
+  /** Invalid input */
+  405: any
 }
 
-putPet.method = 'put'
+export type IPostPetResponseSuccess = any
+/**
+ * Add a new pet to the store
+ * tags: pet
+ * produces: application／xml,application/json
+ * consumes: application／json,application/xml
+ */
+export function postPet(option: IPostPetOption): Promise<IPostPetResponseSuccess> {
+  return requester('/v2/pet', { method: 'post', ...option }) as Promise<any>
+}
 
-export interface IGetPetFindByStatusParam {
+/** request parameter type for getPetFindByStatus */
+export interface IGetPetFindByStatusOption {
+  /** Status values that need to be considered for filter */
   query: {
+    /**
+        Status values that need to be considered for filter */
     status: Array<'available' | 'pending' | 'sold'>
   }
 }
 
-type GetPetFindByStatusResponse = Array<Pet>
+export interface IGetPetFindByStatusResponse {
+  /** successful operation */
+  200: Array<Pet>
+  /** Invalid status value */
+  400: any
+}
+
+export type IGetPetFindByStatusResponseSuccess = PropertyOf<IGetPetFindByStatusResponse, 200>
 /**
- * Finds Pets by status
  * Multiple status values can be provided with comma separated strings
+ * Finds Pets by status
+ * tags: pet
+ * produces: application／xml,application/json
  */
-export function getPetFindByStatus(
-  option: IGetPetFindByStatusParam,
-): Promise<GetPetFindByStatusResponse> {
-  return requester('/v2/pet/findByStatus', { ...option, method: 'get' })
+export function getPetFindByStatus(option: IGetPetFindByStatusOption): Promise<IGetPetFindByStatusResponseSuccess> {
+  return requester('/v2/pet/findByStatus', {
+    method: 'get',
+    ...option,
+  }) as Promise<any>
 }
 
-getPetFindByStatus.method = 'get'
-
-export interface IGetPetPetIdParam {
+/** request parameter type for getPetPetId */
+export interface IGetPetPetIdOption {
+  /**
+   * ID of pet to return
+   * format: int64
+   */
   path: {
+    /**
+        ID of pet to return
+        format: int64 */
     petId: number
   }
 }
 
+export interface IGetPetPetIdResponse {
+  /** successful operation */
+  200: Pet
+  /** Invalid ID supplied */
+  400: any
+  /** Pet not found */
+  404: any
+}
+
+export type IGetPetPetIdResponseSuccess = PropertyOf<IGetPetPetIdResponse, 200>
 /**
- * Find pet by ID
  * Returns a single pet
+ * Find pet by ID
+ * tags: pet
+ * produces: application／xml,application/json
  */
-export function getPetPetId(option: IGetPetPetIdParam): Promise<Pet> {
-  return requester('/v2/pet/:petId', { ...option, method: 'get' })
+export function getPetPetId(option: IGetPetPetIdOption): Promise<IGetPetPetIdResponseSuccess> {
+  return requester('/v2/pet/:petId', { method: 'get', ...option }) as Promise<any>
 }
 
-getPetPetId.method = 'get'
-
-export interface IPostPetPetIdParam {
+/** request parameter type for postPetPetId */
+export interface IPostPetPetIdOption {
+  /**
+   * ID of pet that needs to be updated
+   * format: int64
+   */
   path: {
+    /**
+        ID of pet that needs to be updated
+        format: int64 */
     petId: number
   }
+  /** Updated name of the pet */
   formData?: {
+    /**
+        Updated name of the pet */
     name?: string
+    /**
+        Updated status of the pet */
     status?: string
   }
 }
 
-/** Updates a pet in the store with form data */
-export function postPetPetId(option: IPostPetPetIdParam): Promise<any> {
-  return requester('/v2/pet/:petId', { ...option, method: 'post' })
+export interface IPostPetPetIdResponse {
+  /** Invalid input */
+  405: any
 }
 
-postPetPetId.method = 'post'
+export type IPostPetPetIdResponseSuccess = any
+/**
+ * Updates a pet in the store with form data
+ * tags: pet
+ * produces: application／xml,application/json
+ * consumes: application／x-www-form-urlencoded
+ */
+export function postPetPetId(option: IPostPetPetIdOption): Promise<IPostPetPetIdResponseSuccess> {
+  return requester('/v2/pet/:petId', { method: 'post', ...option }) as Promise<any>
+}
 
-export interface IDeletePetPetIdParam {
+/** request parameter type for deletePetPetId */
+export interface IDeletePetPetIdOption {
   header?: {
     api_key?: string
   }
+  /**
+   * Pet id to delete
+   * format: int64
+   */
   path: {
+    /**
+        Pet id to delete
+        format: int64 */
     petId: number
   }
 }
 
-/** Deletes a pet */
-export function deletePetPetId(option: IDeletePetPetIdParam): Promise<any> {
-  return requester('/v2/pet/:petId', { ...option, method: 'delete' })
+export interface IDeletePetPetIdResponse {
+  /** Invalid ID supplied */
+  400: any
+  /** Pet not found */
+  404: any
 }
 
-deletePetPetId.method = 'delete'
+export type IDeletePetPetIdResponseSuccess = any
+/**
+ * Deletes a pet
+ * tags: pet
+ * produces: application／xml,application/json
+ */
+export function deletePetPetId(option: IDeletePetPetIdOption): Promise<IDeletePetPetIdResponseSuccess> {
+  return requester('/v2/pet/:petId', {
+    method: 'delete',
+    ...option,
+  }) as Promise<any>
+}
 
-export interface IPostPetPetIdUploadImageParam {
+/** request parameter type for postPetPetIdUploadImage */
+export interface IPostPetPetIdUploadImageOption {
+  /**
+   * ID of pet to update
+   * format: int64
+   */
   path: {
+    /**
+        ID of pet to update
+        format: int64 */
     petId: number
   }
+  /** Additional data to pass to server */
   formData?: {
+    /**
+        Additional data to pass to server */
     additionalMetadata?: string
+    /**
+        file to upload */
     file?: File
   }
 }
 
-/** uploads an image */
-export function postPetPetIdUploadImage(
-  option: IPostPetPetIdUploadImageParam,
-): Promise<ApiResponse> {
-  return requester('/v2/pet/:petId/uploadImage', { ...option, method: 'post' })
+export interface IPostPetPetIdUploadImageResponse {
+  /** successful operation */
+  200: ApiResponse
 }
 
-postPetPetIdUploadImage.method = 'post'
-
-type GetStoreInventoryResponse = any
+export type IPostPetPetIdUploadImageResponseSuccess = PropertyOf<IPostPetPetIdUploadImageResponse, 200>
 /**
- * Returns pet inventories by status
- * Returns a map of status codes to quantities
+ * uploads an image
+ * tags: pet
+ * produces: application／json
+ * consumes: multipart／form-data
  */
-export function getStoreInventory(): Promise<GetStoreInventoryResponse> {
-  return requester('/v2/store/inventory', { method: 'get' })
+export function postPetPetIdUploadImage(
+  option: IPostPetPetIdUploadImageOption,
+): Promise<IPostPetPetIdUploadImageResponseSuccess> {
+  return requester('/v2/pet/:petId/uploadImage', {
+    method: 'post',
+    ...option,
+  }) as Promise<any>
 }
 
-getStoreInventory.method = 'get'
+export interface IGetStoreInventoryResponse {
+  /** successful operation */
+  200: any
+}
 
-export interface IPostStoreOrderParam {
+export type IGetStoreInventoryResponseSuccess = PropertyOf<IGetStoreInventoryResponse, 200>
+/**
+ * Returns a map of status codes to quantities
+ * Returns pet inventories by status
+ * tags: store
+ * produces: application／json
+ */
+export function getStoreInventory(): Promise<IGetStoreInventoryResponseSuccess> {
+  return requester('/v2/store/inventory', { method: 'get' }) as Promise<any>
+}
+
+/** request parameter type for postStoreOrder */
+export interface IPostStoreOrderOption {
+  /** order placed for purchasing the pet */
   body: Order
 }
 
-/** Place an order for a pet */
-export function postStoreOrder(option: IPostStoreOrderParam): Promise<Order> {
-  return requester('/v2/store/order', { ...option, method: 'post' })
+export interface IPostStoreOrderResponse {
+  /** successful operation */
+  200: Order
+  /** Invalid Order */
+  400: any
 }
 
-postStoreOrder.method = 'post'
+export type IPostStoreOrderResponseSuccess = PropertyOf<IPostStoreOrderResponse, 200>
+/**
+ * Place an order for a pet
+ * tags: store
+ * produces: application／xml,application/json
+ */
+export function postStoreOrder(option: IPostStoreOrderOption): Promise<IPostStoreOrderResponseSuccess> {
+  return requester('/v2/store/order', { method: 'post', ...option }) as Promise<any>
+}
 
-export interface IGetStoreOrderOrderIdParam {
+/** request parameter type for getStoreOrderOrderId */
+export interface IGetStoreOrderOrderIdOption {
+  /**
+   * ID of pet that needs to be fetched
+   * format: int64
+   */
   path: {
+    /**
+        ID of pet that needs to be fetched
+        format: int64 */
     orderId: number
   }
 }
 
+export interface IGetStoreOrderOrderIdResponse {
+  /** successful operation */
+  200: Order
+  /** Invalid ID supplied */
+  400: any
+  /** Order not found */
+  404: any
+}
+
+export type IGetStoreOrderOrderIdResponseSuccess = PropertyOf<IGetStoreOrderOrderIdResponse, 200>
 /**
- * Find purchase order by ID
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+ * Find purchase order by ID
+ * tags: store
+ * produces: application／xml,application/json
  */
 export function getStoreOrderOrderId(
-  option: IGetStoreOrderOrderIdParam,
-): Promise<Order> {
-  return requester('/v2/store/order/:orderId', { ...option, method: 'get' })
+  option: IGetStoreOrderOrderIdOption,
+): Promise<IGetStoreOrderOrderIdResponseSuccess> {
+  return requester('/v2/store/order/:orderId', {
+    method: 'get',
+    ...option,
+  }) as Promise<any>
 }
 
-getStoreOrderOrderId.method = 'get'
-
-export interface IDeleteStoreOrderOrderIdParam {
+/** request parameter type for deleteStoreOrderOrderId */
+export interface IDeleteStoreOrderOrderIdOption {
+  /**
+   * ID of the order that needs to be deleted
+   * format: int64
+   */
   path: {
+    /**
+        ID of the order that needs to be deleted
+        format: int64 */
     orderId: number
   }
 }
 
-/**
- * Delete purchase order by ID
- * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
- */
-export function deleteStoreOrderOrderId(
-  option: IDeleteStoreOrderOrderIdParam,
-): Promise<any> {
-  return requester('/v2/store/order/:orderId', { ...option, method: 'delete' })
+export interface IDeleteStoreOrderOrderIdResponse {
+  /** Invalid ID supplied */
+  400: any
+  /** Order not found */
+  404: any
 }
 
-deleteStoreOrderOrderId.method = 'delete'
+export type IDeleteStoreOrderOrderIdResponseSuccess = any
+/**
+ * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+ * Delete purchase order by ID
+ * tags: store
+ * produces: application／xml,application/json
+ */
+export function deleteStoreOrderOrderId(
+  option: IDeleteStoreOrderOrderIdOption,
+): Promise<IDeleteStoreOrderOrderIdResponseSuccess> {
+  return requester('/v2/store/order/:orderId', {
+    method: 'delete',
+    ...option,
+  }) as Promise<any>
+}
 
-export interface IPostUserParam {
+/** request parameter type for postUser */
+export interface IPostUserOption {
+  /** Created user object */
   body: User
 }
 
+export interface IPostUserResponse {
+  /** successful operation */
+  default: any
+}
+
+export type IPostUserResponseSuccess = PropertyOf<IPostUserResponse, 'default'>
 /**
- * Create user
  * This can only be done by the logged in user.
+ * Create user
+ * tags: user
+ * produces: application／xml,application/json
  */
-export function postUser(option: IPostUserParam): Promise<any> {
-  return requester('/v2/user', { ...option, method: 'post' })
+export function postUser(option: IPostUserOption): Promise<IPostUserResponseSuccess> {
+  return requester('/v2/user', { method: 'post', ...option }) as Promise<any>
 }
 
-postUser.method = 'post'
-
-export interface IPostUserCreateWithArrayParam {
+/** request parameter type for postUserCreateWithArray */
+export interface IPostUserCreateWithArrayOption {
+  /** List of user object */
   body: Array<User>
 }
 
-/** Creates list of users with given input array */
+export interface IPostUserCreateWithArrayResponse {
+  /** successful operation */
+  default: any
+}
+
+export type IPostUserCreateWithArrayResponseSuccess = PropertyOf<IPostUserCreateWithArrayResponse, 'default'>
+/**
+ * Creates list of users with given input array
+ * tags: user
+ * produces: application／xml,application/json
+ */
 export function postUserCreateWithArray(
-  option: IPostUserCreateWithArrayParam,
-): Promise<any> {
-  return requester('/v2/user/createWithArray', { ...option, method: 'post' })
+  option: IPostUserCreateWithArrayOption,
+): Promise<IPostUserCreateWithArrayResponseSuccess> {
+  return requester('/v2/user/createWithArray', {
+    method: 'post',
+    ...option,
+  }) as Promise<any>
 }
 
-postUserCreateWithArray.method = 'post'
-
-export interface IPostUserCreateWithListParam {
+/** request parameter type for postUserCreateWithList */
+export interface IPostUserCreateWithListOption {
+  /** List of user object */
   body: Array<User>
 }
 
-/** Creates list of users with given input array */
-export function postUserCreateWithList(
-  option: IPostUserCreateWithListParam,
-): Promise<any> {
-  return requester('/v2/user/createWithList', { ...option, method: 'post' })
+export interface IPostUserCreateWithListResponse {
+  /** successful operation */
+  default: any
 }
 
-postUserCreateWithList.method = 'post'
+export type IPostUserCreateWithListResponseSuccess = PropertyOf<IPostUserCreateWithListResponse, 'default'>
+/**
+ * Creates list of users with given input array
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function postUserCreateWithList(
+  option: IPostUserCreateWithListOption,
+): Promise<IPostUserCreateWithListResponseSuccess> {
+  return requester('/v2/user/createWithList', {
+    method: 'post',
+    ...option,
+  }) as Promise<any>
+}
 
-export interface IGetUserLoginParam {
+/** request parameter type for getUserLogin */
+export interface IGetUserLoginOption {
+  /** The user name for login */
   query: {
+    /**
+        The user name for login */
     username: string
+    /**
+        The password for login in clear text */
     password: string
   }
 }
 
-type GetUserLoginResponse = string
-/** Logs user into the system */
-export function getUserLogin(
-  option: IGetUserLoginParam,
-): Promise<GetUserLoginResponse> {
-  return requester('/v2/user/login', { ...option, method: 'get' })
+export interface IGetUserLoginResponse {
+  /** successful operation */
+  200: string
+  /** Invalid username／password supplied */
+  400: any
 }
 
-getUserLogin.method = 'get'
-
-/** Logs out current logged in user session */
-export function getUserLogout(): Promise<any> {
-  return requester('/v2/user/logout', { method: 'get' })
+export type IGetUserLoginResponseSuccess = PropertyOf<IGetUserLoginResponse, 200>
+/**
+ * Logs user into the system
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function getUserLogin(option: IGetUserLoginOption): Promise<IGetUserLoginResponseSuccess> {
+  return requester('/v2/user/login', { method: 'get', ...option }) as Promise<any>
 }
 
-getUserLogout.method = 'get'
+export interface IGetUserLogoutResponse {
+  /** successful operation */
+  default: any
+}
 
-export interface IGetUserUsernameParam {
+export type IGetUserLogoutResponseSuccess = PropertyOf<IGetUserLogoutResponse, 'default'>
+/**
+ * Logs out current logged in user session
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function getUserLogout(): Promise<IGetUserLogoutResponseSuccess> {
+  return requester('/v2/user/logout', { method: 'get' }) as Promise<any>
+}
+
+/** request parameter type for getUserUsername */
+export interface IGetUserUsernameOption {
+  /** The name that needs to be fetched. Use user1 for testing. */
   path: {
+    /**
+        The name that needs to be fetched. Use user1 for testing.  */
     username: string
   }
 }
 
-/** Get user by user name */
-export function getUserUsername(option: IGetUserUsernameParam): Promise<User> {
-  return requester('/v2/user/:username', { ...option, method: 'get' })
+export interface IGetUserUsernameResponse {
+  /** successful operation */
+  200: User
+  /** Invalid username supplied */
+  400: any
+  /** User not found */
+  404: any
 }
 
-getUserUsername.method = 'get'
+export type IGetUserUsernameResponseSuccess = PropertyOf<IGetUserUsernameResponse, 200>
+/**
+ * Get user by user name
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function getUserUsername(option: IGetUserUsernameOption): Promise<IGetUserUsernameResponseSuccess> {
+  return requester('/v2/user/:username', {
+    method: 'get',
+    ...option,
+  }) as Promise<any>
+}
 
-export interface IPutUserUsernameParam {
+/** request parameter type for putUserUsername */
+export interface IPutUserUsernameOption {
+  /** name that need to be updated */
   path: {
+    /**
+        name that need to be updated */
     username: string
   }
+  /** Updated user object */
   body: User
 }
 
-/**
- * Updated user
- * This can only be done by the logged in user.
- */
-export function putUserUsername(option: IPutUserUsernameParam): Promise<any> {
-  return requester('/v2/user/:username', { ...option, method: 'put' })
+export interface IPutUserUsernameResponse {
+  /** Invalid user supplied */
+  400: any
+  /** User not found */
+  404: any
 }
 
-putUserUsername.method = 'put'
+export type IPutUserUsernameResponseSuccess = any
+/**
+ * This can only be done by the logged in user.
+ * Updated user
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function putUserUsername(option: IPutUserUsernameOption): Promise<IPutUserUsernameResponseSuccess> {
+  return requester('/v2/user/:username', {
+    method: 'put',
+    ...option,
+  }) as Promise<any>
+}
 
-export interface IDeleteUserUsernameParam {
+/** request parameter type for deleteUserUsername */
+export interface IDeleteUserUsernameOption {
+  /** The name that needs to be deleted */
   path: {
+    /**
+        The name that needs to be deleted */
     username: string
   }
 }
 
-/**
- * Delete user
- * This can only be done by the logged in user.
- */
-export function deleteUserUsername(
-  option: IDeleteUserUsernameParam,
-): Promise<any> {
-  return requester('/v2/user/:username', { ...option, method: 'delete' })
+export interface IDeleteUserUsernameResponse {
+  /** Invalid username supplied */
+  400: any
+  /** User not found */
+  404: any
 }
 
-deleteUserUsername.method = 'delete'
+export type IDeleteUserUsernameResponseSuccess = any
+/**
+ * This can only be done by the logged in user.
+ * Delete user
+ * tags: user
+ * produces: application／xml,application/json
+ */
+export function deleteUserUsername(option: IDeleteUserUsernameOption): Promise<IDeleteUserUsernameResponseSuccess> {
+  return requester('/v2/user/:username', {
+    method: 'delete',
+    ...option,
+  }) as Promise<any>
+}

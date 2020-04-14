@@ -1,4 +1,4 @@
-import { Parameter, Spec } from 'swagger-schema-official'
+import { Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
 
 import { generateRequestContent } from 'src/step/generateRequestContent'
@@ -14,7 +14,7 @@ describe('src/step/generateRequestContent', () => {
     const schema = cloneDeep(petSchema) as Spec
     cleanRefAndDefinitionName(schema, true)
     assembleSchemaToGlobal(schema)
-    const content = generateRequestContent(schema, projects.pet)
+    const content = generateRequestContent(schema, projects[0])
     console.log(content)
     restore()
   })

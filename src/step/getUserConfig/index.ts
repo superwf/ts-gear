@@ -2,7 +2,7 @@ import { join } from 'path'
 
 import { getProjectsFromCommmandLine } from './cliOption'
 
-import { IProjectMap } from 'src/interface'
+import { IProject, IProjectMap } from 'src/interface'
 
 /***/
 export const getUserConfig = (): IProjectMap => {
@@ -11,18 +11,23 @@ export const getUserConfig = (): IProjectMap => {
   /* eslint-disable @typescript-eslint/no-var-requires */
   const config = require(tsGearConfigPath)
   /* eslint-enable @typescript-eslint/no-var-requires */
-  let projects = (config.default ? config.default : config) as IProjectMap
+  const projects = (config.default ? config.default : config) as IProject[]
   const projectNamesFromCommandLine = getProjectsFromCommmandLine()
-  for (const name in projects) {
-    projects[name].name = name
-  }
+  // for (const name in projects) {
+  //   projects[name].name = name
+  // }
+  const projectMap: IProjectMap = {}
   if (projectNamesFromCommandLine.length > 0) {
-    projects = projectNamesFromCommandLine.reduce<IProjectMap>((r, v) => {
-      if (v in projects) {
-        r[v] = projects[v]
+    projectNamesFromCommandLine.forEach((name: string) => {
+      const project = projects.find(p => p.name === name)
+      if (project) {
+        projectMap[name] = project
       }
-      return r
-    }, {})
+    })
+  } else {
+    projects.forEach(project => {
+      projectMap[project.name] = project
+    })
   }
-  return projects
+  return projectMap
 }

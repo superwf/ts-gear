@@ -14,7 +14,7 @@ import { transformSwaggerPathToRouterPath } from 'src/tool/transformSwaggerPathT
 import { requestMap } from 'src/global'
 import { assembleDoc } from 'src/tool/assembleDoc'
 
-/** 将paths里的各种请求参数组装成IProperty的数据结构 */
+/** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: IProject) => {
   const { pathMatcher, withBasePath, withHost } = project
 
@@ -34,7 +34,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     }
 
     let parameterTypeName = ''
-    if (request.parameters) {
+    if (request.parameters && request.parameters.length > 0) {
       const parameterType = generateParameterType(requestFunctionName, request.parameters)
       parameterTypeName = parameterType.parameterTypeName
       requestTypeScriptContent.push(parameterType.parameterTypeContent)

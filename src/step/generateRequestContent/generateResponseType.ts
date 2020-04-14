@@ -29,7 +29,7 @@ export const generateResponseType = (
     })
     responseStatuses.forEach(status => {
       inter.addProperty({
-        name: status,
+        name: String(status),
         type: schemaToTypescript(responses[status]),
         docs: assembleDoc(responses[status]),
       })
@@ -37,7 +37,11 @@ export const generateResponseType = (
     responseTypeContent = harvest(source)
     const firstResponseStatus = responseStatuses[0]
     if (firstResponseStatus.startsWith('2') || firstResponseStatus === 'default') {
-      successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, '${firstResponseStatus}'>`
+      if (Number.isNaN(Number(firstResponseStatus))) {
+        successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, '${firstResponseStatus}'>`
+      } else {
+        successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, ${firstResponseStatus}>`
+      }
     }
   }
   return {

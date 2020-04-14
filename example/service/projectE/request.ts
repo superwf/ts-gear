@@ -1,24 +1,39 @@
-/** Don`t modify this file manually, its content will be overwriten next time execute the `tsg` command. */
-import projects from '../../ts-gear'
-import { ReplyVOint } from './definitions'
-
-const project = projects.find(p => p.name === 'projectE')!
-if (!project) {
-  throw new Error(
-    'project projectE not found, check project name in your "ts-gear.ts"',
-  )
-}
-const { requester } = project
-
-export interface IDeleteApiDataboardBoardEsParam {
-  body?: Array<string>
+/** Do not modify this file manually.
+its content will be overwriten next time execute the `tsg` command. */
+import projects from "../../ts-gear";
+import { PropertyOf, ReplyVOInt } from "./definition";
+const { requester } = projects.find(p => p.name === "projectE")!;
+/** request parameter type for deleteApiDataboardBoardEs */
+export interface IDeleteApiDataboardBoardEsOption {
+  /** 索引数组 */
+  body?: Array<string>;
 }
 
-/** 删除索引 */
+export interface IDeleteApiDataboardBoardEsResponse {
+  /** OK */
+  200: ReplyVOInt;
+  /** No Content */
+  204: any;
+  /** Unauthorized */
+  401: any;
+  /** Forbidden */
+  403: any;
+}
+
+export type IDeleteApiDataboardBoardEsResponseSuccess = PropertyOf<
+  IDeleteApiDataboardBoardEsResponse,
+  200
+>;
+/**
+ * 删除索引
+ * tags: Es
+ * produces: *／*
+ */
 export function deleteApiDataboardBoardEs(
-  option: IDeleteApiDataboardBoardEsParam,
-): Promise<ReplyVOint> {
-  return requester('/api/databoard/board/es', { ...option, method: 'delete' })
+  option: IDeleteApiDataboardBoardEsOption
+): Promise<IDeleteApiDataboardBoardEsResponseSuccess> {
+  return requester("/api/databoard/board/es", {
+    method: "delete",
+    ...option
+  }) as Promise<any>;
 }
-
-deleteApiDataboardBoardEs.method = 'delete'

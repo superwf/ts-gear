@@ -1,4 +1,4 @@
-import { IProject } from './interface'
+import { IProject } from 'src/interface'
 
 export const mapProject = (projects: IProject[]) => {
   return projects.reduce<{ [name: string]: IProject }>((r, v) => {

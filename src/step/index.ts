@@ -10,6 +10,19 @@ import { generateRequestContent } from './generateRequestContent'
 
 import { IProject } from 'src/interface'
 
+export * from './getUserConfig'
+export * from './fetchSwagger'
+export * from './prepareProjectDirectory'
+export * from './translateSchema'
+export * from './assembleSchemaToGlobal'
+export * from './cleanRefAndDefinitionName'
+export * from './parseGenericType'
+export * from './assembleRefsInPath'
+export * from './polyfillRefToDefinition'
+export * from './generateDefinitionContent'
+export * from './generateRequestContent'
+export * from './writeProject'
+
 /**
  * 1. translate if transate engine is assigned.
  * 2. format unregular charators in $ref and definitions.

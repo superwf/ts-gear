@@ -8,24 +8,22 @@ import { IProject } from 'src/interface'
 /**
  * fetch remote spec if url starts with "http"
  * or use "require" read local file.
- * 远程接口的swagger如果有验证限制不能直接访问，
- * 自己copy成json文件本地加载最方便
- * 如果需要自动化，参照fetch文档 https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
- * 在配置文件的fetchOption按RequestInit接口格式添加验证参数
+ * when remote swagger doc has auth, the best way is download the spec to local, and assign the local file path.
+ * the second param ref is https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * */
-export const fetchSwaggerJSONSchema = async (project: IProject, init?: RequestInit) => {
+export const fetchSwagger = async (project: IProject) => {
   const url = project.source
   if (url.startsWith('http')) {
     const verbose = `project: ${project.name} url: ${url}`
     info(`start fetching ${verbose}`)
-    const res = await fetch(url, init)
+    const res = await fetch(url, project.fetchSwaggerDocOption)
     const swaggerSchema = await res.json()
     info(`got ${verbose}}`)
     return swaggerSchema
   }
   const cwd = process.cwd()
   const source = join(cwd, project.source)
-  // json文件直接require
+  // use require for json file
   if (!source.endsWith('.json')) {
     error('user config file should ends with `.json`')
   }

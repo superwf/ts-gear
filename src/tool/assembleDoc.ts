@@ -29,5 +29,11 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if (docs.length === 0) {
     return undefined
   }
-  return [docs.filter(Boolean).join(EOL)]
+  return [
+    docs
+      .filter(Boolean)
+      /** replace invalid comment charator */
+      .map(doc => doc.replace('/', '／'))
+      .join(EOL),
+  ]
 }

@@ -18,7 +18,6 @@ export const cleanRefAndDefinitionName = (spec: Spec, keepGeneric = true) => {
   })
   traverseSchema(spec, ({ value, parent, key }) => {
     if (key === '$ref' && typeof value === 'string') {
-      value = cleanName(value, keepGeneric)
       parent.$ref = cleanName(value, keepGeneric)
     }
   })

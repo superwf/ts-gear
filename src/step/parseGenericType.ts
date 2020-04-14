@@ -17,16 +17,16 @@ export const checkAndUpdateDefinitionTypeName = (definitionName: string) => {
     console.log(typeName, typeParameters)
     // const typeParameters = definitionName.replace(/(^[^<]+<)|(>$)/, '').split(',')
     if (definition.schema) {
-      const allSubTypeInSchema = typeParameters.every(subTypeName => {
-        let inSchema = false
+      const allSubTypeInSelf = typeParameters.every(subTypeName => {
+        let inSelf = false
         traverseSchema(definition.schema!, ({ value, key }) => {
           if (key === '$ref' && value === subTypeName) {
-            inSchema = true
+            inSelf = true
           }
         })
-        return inSchema
+        return inSelf
       })
-      if (!allSubTypeInSchema) {
+      if (!allSubTypeInSelf) {
         definition.typeName = removeGenericSymbol(definitionName)
       } else {
         definition.typeName = typeName
