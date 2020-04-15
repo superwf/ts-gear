@@ -3,7 +3,6 @@ import { EOL } from 'os'
 import { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
 import { map } from 'lodash'
 
-import { refMap } from 'src/global'
 import { assembleDoc } from 'src/tool/assembleDoc'
 
 type SchemaOption = Schema | BodyParameter | Response | Parameter
@@ -21,12 +20,12 @@ const transform = (schema: SchemaOption): string => {
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }
-  const { type, enum: enumValues, items, $ref } = schema as Schema
+  const { type, enum: enumValues, items, $ref, properties, additionalProperties, required } = schema as Schema
   if (enumValues) {
     return `'${enumValues.join("' | '")}'`
   }
   if ($ref) {
-    return refMap[$ref]
+    return $ref
   }
   switch (type) {
     case 'string':
@@ -41,17 +40,19 @@ const transform = (schema: SchemaOption): string => {
     case 'array':
       // array可以没有items，但在同级有$ref
       if ($ref) {
-        return `Array<${refMap[$ref]}>`
+        return `Array<${$ref}>`
       }
       // 使用Array<>而不是[]，因为里面的内容可能是复杂结构，例如枚举
       // 使用[]作为结尾时会产生错误结果
       if (Array.isArray(items)) {
-        return `Array<${items.map(transform).join(' | ')}>`
-      } else {
-        return `Array<${transform(items!)}>`
+        return `Array<${items.map(item => transform(item)).join(' | ')}>`
       }
+      if (!items) {
+        return `Array<any>`
+      }
+      return `Array<${transform(items)}>`
+
     case 'object':
-      const { properties, additionalProperties, required } = schema as Schema
       if (properties) {
         const obj = map(properties, (prop, name: string) => {
           const questionToken = required && required.includes(name) ? '' : '?'

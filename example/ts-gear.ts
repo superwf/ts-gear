@@ -16,6 +16,12 @@ const projects: IProject[] = [
     source: 'fixture/projectE.json',
     requester: axiosRequester(),
   },
+  {
+    name: 'ignore',
+    dest: './service',
+    source: 'fixture/ignore.json',
+    requester: fetchRequester(),
+  },
   // {
   //   name: 'projectPont',
   //   source: 'fixture/pontFixture.json',

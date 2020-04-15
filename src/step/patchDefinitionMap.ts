@@ -1,10 +1,13 @@
 import { refMap, definitionMap } from 'src/global'
-import { removeGenericSymbol } from 'src/tool/genericType'
+import { hasGenericSymbol, parseGenericNames, removeGenericSymbol } from 'src/tool/genericType'
 
 /** check any ref, if not exist in definition
  * add it to definitionMap, treat as any
+ * if has type with no generic type and type with generic type
+ * use the one has generic type
+ * remove the one has no generic type
  * */
-export const polyfillRefToDefinition = () => {
+export const patchDefinitionMap = (keepGeneric: boolean) => {
   const definitions = Object.values(definitionMap)
   for (const ref in refMap) {
     if (!(ref in definitionMap)) {

@@ -17,27 +17,23 @@ const pathAlias = reduce(
 
 module.exports = {
   parser: '@typescript-eslint/parser',
-  plugins: ['import', 'prettier', 'jest'],
+  plugins: ['import', 'prettier'],
   parserOptions: {
     ecmaVersion: 2018,
     sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
   },
   extends: [
+    'airbnb-base',
     'plugin:@typescript-eslint/recommended',
     'prettier',
-    'plugin:import/errors',
-    'plugin:import/warnings',
+    // 'plugin:import/errors',
+    // 'plugin:import/warnings',
     'plugin:import/typescript',
-    'plugin:jest/recommended',
   ],
 
   env: {
     browser: true,
     node: true,
-    jest: true,
     es6: true,
   },
   rules: {
@@ -68,6 +64,16 @@ module.exports = {
     'import/prefer-default-export': 0,
     'import/no-unresolved': ['error', { ignore: ['swagger-schema-official'] }],
     'no-param-reassign': 0,
+    "import/extensions": [
+      "error",
+      "ignorePackages",
+      {
+        "js": "never",
+        "jsx": "never",
+        "ts": "never",
+        "tsx": "never"
+      }
+    ],
 
     // let prettier handle indent
     '@typescript-eslint/indent': 0,

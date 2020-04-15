@@ -4,12 +4,13 @@ import * as URL from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
-import { IRequestParameter } from '../interface'
+import { IRequestParameter } from 'src/interface'
 
 const jsonType = 'application/json'
 
-/** 将query与path参数都挂到url上去
- * transform parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) to '/api/abc/123?name=def'
+/** add query and path parameters to url
+ * e.g.
+ * parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) => '/api/abc/123?name=def'
  * */
 export const parseUrl = (url: string, option?: IRequestParameter): string => {
   if (option) {

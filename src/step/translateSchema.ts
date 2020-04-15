@@ -31,7 +31,7 @@ export const gatherNonEnglishWords = (spec: Spec) => {
 }
 
 // when the translation result repeat, add a unique number as suffix.
-// so every word uniq.
+// make every word uniq.
 let $wordCount = 1
 
 /**
@@ -46,14 +46,17 @@ export const generateTranslationMap = async (originWords: string[], engine: Tran
   const wordsMap: IWordsMap = {}
 
   if (originWords.length > 0) {
-    for (const word of originWords) {
-      let newWord = String(await translate(word, engine))
-      // if translated word repeat, add number as suffix
-      if (find(wordsMap, v => v === newWord)) {
-        newWord = `${newWord}${$wordCount++}`
-      }
-      wordsMap[word] = newWord
-    }
+    await Promise.all(
+      originWords.map(async word => {
+        let newWord = String(await translate(word, engine))
+        // if translated word repeat, add number as suffix
+        if (find(wordsMap, v => v === newWord)) {
+          newWord = `${newWord}${$wordCount}`
+          $wordCount += 1
+        }
+        wordsMap[word] = newWord
+      }),
+    )
   }
   return wordsMap
 }

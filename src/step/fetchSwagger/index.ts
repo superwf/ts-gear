@@ -27,5 +27,6 @@ export const fetchSwagger = async (project: IProject) => {
   if (!source.endsWith('.json')) {
     error('user config file should ends with `.json`')
   }
+  /* eslint-disable-next-line global-require,import/no-dynamic-require */
   return require(source)
 }

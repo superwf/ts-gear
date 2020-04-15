@@ -17,8 +17,15 @@ export const writeProject = (project: IProject) => {
   const cwd = process.cwd()
   const dest = join(cwd, project.dest, project.name)
 
+  const definitionTypeNameSet = new Set<string>()
   const definitionContent = Object.getOwnPropertyNames(definitionMap)
     .map(name => {
+      // prevent repeat definition
+      const typeName = definitionMap[name].typeName!
+      if (definitionTypeNameSet.has(typeName!)) {
+        return ''
+      }
+      definitionTypeNameSet.add(typeName)
       return definitionMap[name].typescriptContent
     })
     .join(EOL)

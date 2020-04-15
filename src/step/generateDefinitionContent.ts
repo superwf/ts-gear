@@ -3,15 +3,17 @@ import { OptionalKind, PropertyDeclarationStructure, Scope, PropertySignatureStr
 import { schemaToTypescript } from 'src/tool/schemaToTypescript'
 import { sow, harvest } from 'src/source'
 import { IProject } from 'src/interface'
-import { definitionMap } from 'src/global'
+import { getGlobal } from 'src/global'
 import { assembleDoc } from 'src/tool/assembleDoc'
 
 /** generate on definition ts content */
 export const generateDefinitionContent = (project: IProject) => {
-  for (const key in definitionMap) {
-    const definition = definitionMap[key]
-    if (definition.typescriptContent) {
-      continue
+  const { definitionMap } = getGlobal(project)
+  Object.values(definitionMap).forEach(definition => {
+    // no schema definition is generated at assembleSchemaToGlobal
+    // line 37
+    if (definition.typescriptContent || !definition.schema) {
+      return
     }
     const source = sow()
     const title = definition.typeName!
@@ -24,20 +26,19 @@ export const generateDefinitionContent = (project: IProject) => {
               isExported: true,
               name: title,
               typeParameters: definition.typeParameters,
+              docs: assembleDoc(schema),
             })
           : source.addClass({
               isExported: true,
               name: title,
               typeParameters: definition.typeParameters,
+              docs: assembleDoc(schema),
             })
-        if (schema.description) {
-          klass.addJsDoc(schema.description)
-        }
-        for (const name of Object.getOwnPropertyNames(schema.properties)) {
+        Object.getOwnPropertyNames(schema.properties).forEach(name => {
           const property = schema!.properties![name]
-          const klassStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
+          const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
             name,
-            type: schemaToTypescript(property),
+            type: schemaToTypescript(property, project),
             scope: Scope.Public,
             hasQuestionToken: !schema.required || !schema.required.includes(name),
             docs: assembleDoc(property),
@@ -45,13 +46,13 @@ export const generateDefinitionContent = (project: IProject) => {
           /** interface property can not has default value
             so use class as type */
           if (!preferInterface && Reflect.has(property, 'default')) {
-            klassStructure.initializer = String(property.default)
+            propertyStructure.initializer = String(property.default)
           }
-          klass.addProperty(klassStructure)
-        }
+          klass.addProperty(propertyStructure)
+        })
         // 没有properties，会有additionalProperties
       } else if (schema.additionalProperties) {
-        const additionalProperties = schema.additionalProperties
+        const { additionalProperties } = schema
         // class doesn`t has "addIndexSignature", so use interface
         source.addInterface({
           isExported: true,
@@ -61,7 +62,7 @@ export const generateDefinitionContent = (project: IProject) => {
             {
               keyName: 'key',
               keyType: 'string',
-              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties),
+              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties, project),
             },
           ],
         })
@@ -69,16 +70,18 @@ export const generateDefinitionContent = (project: IProject) => {
         source.addTypeAlias({
           isExported: true,
           name: title,
-          type: schemaToTypescript(schema),
+          type: schemaToTypescript(schema, project),
+          docs: assembleDoc(schema),
         })
       }
     } else {
       source.addTypeAlias({
         isExported: true,
         name: title,
-        type: schemaToTypescript(schema),
+        type: schemaToTypescript(schema, project),
+        docs: assembleDoc(schema),
       })
     }
     definition.typescriptContent = harvest(source)
-  }
+  })
 }

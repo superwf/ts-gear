@@ -6,7 +6,7 @@ import { getDefinition } from 'src/tool/getDefinition'
 
 /** use cleanName for all "$ref" and "definitions" names
  * */
-export const cleanRefAndDefinitionName = (spec: Spec, keepGeneric = true) => {
+export const cleanRefAndDefinitionName = (spec: Spec, keepGeneric: boolean) => {
   const definitions = getDefinition(spec)
   Object.getOwnPropertyNames(definitions).forEach(name => {
     const newName = cleanName(name, keepGeneric)

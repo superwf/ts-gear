@@ -18,13 +18,15 @@ export type TranslationEngine = Exclude<keyof typeof translation, 'youdao'>
 
 export type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>
 
+export type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>
+
 /** request parameter option */
 export type IRequestParameter = {
   method: HttpMethod
   basePath?: string
   host?: string
 } & {
-  [position in HttpMethod]?: any
+  [position in RequestParameterPosition]?: any
 }
 
 /** requester function signature */
@@ -38,10 +40,9 @@ export interface ITraverseSchemaNode {
   path: string[]
 }
 
-export type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>
-
-/** general request parameters defined in json schema
- **/
+/**
+ * general request parameters defined in json schema
+ * */
 export type ParameterPositionMap = {
   [key in RequestParameterPosition]?: {
     type: ParameterType // always 'object'
@@ -122,10 +123,6 @@ export interface IProjectMap {
   [name: string]: IProject
 }
 
-export interface IProjectRequesterMap {
-  [name: string]: Requester
-}
-
 export interface IAssembleRequestParameter {
   typeName?: string
   schema?: Schema
@@ -141,7 +138,7 @@ export interface IAssembleResponse {
 
 export interface ISwaggerDefinition {
   // no generic simbol type name
-  typeName?: string
+  typeName: string
   schema?: Schema
   typescriptContent?: string
   typeParameters?: string[]
@@ -154,8 +151,6 @@ export interface ISwaggerRequest {
   typescriptContent?: string
   parameters?: Array<Parameter | Reference>
   responses: { [responseName: string]: Response | Reference }
-  /** tags, summary and description */
-  doc?: string[]
 }
 
 /** definition name may be changed when parsing generic type
@@ -164,7 +159,7 @@ export interface ISwaggerRequest {
  * */
 export interface IRefMap {
   /** key: maybe generic, as "A<B>", value: trimed generic symbol, as "AB" */
-  [origin: string]: string
+  [origin: string]: ISwaggerDefinition
 }
 export interface IDefinitionMap {
   // key: cleaned name, may be generic as A<B>
@@ -177,4 +172,20 @@ export interface IRequestMap {
 /** key: origin word, value: translated english word */
 export interface IWordsMap {
   [k: string]: string
+}
+
+/** global variables per project */
+export interface IProjectGlobal {
+  definitionMap: IDefinitionMap
+  /** all Reference $ref name use this map
+   * key is original ref name
+   * value is definition
+   * */
+  refMap: IRefMap
+  requestMap: IRequestMap
+  requestRefs: Set<string>
+  requestRefMap: IDefinitionMap
+}
+export interface IProjectGlobalMap {
+  [projectName: string]: IProjectGlobal
 }

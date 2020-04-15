@@ -1,33 +1,25 @@
 import { join } from 'path'
 
-import { getProjectsFromCommmandLine } from './cliOption'
+import { getProjectNamesFromCommmandLine } from './cliOption'
 
-import { IProject, IProjectMap } from 'src/interface'
+import { IProject } from 'src/interface'
 
-/***/
-export const getUserConfig = (): IProjectMap => {
+/** get user config
+ * filter if any cli option
+ * return project mapped by name
+ * */
+export const getUserConfig = (): IProject[] => {
   const cwd = process.cwd()
   const tsGearConfigPath = join(cwd, 'ts-gear')
-  /* eslint-disable @typescript-eslint/no-var-requires */
+  /* eslint-disable */
   const config = require(tsGearConfigPath)
-  /* eslint-enable @typescript-eslint/no-var-requires */
+  /* eslint-enable */
   const projects = (config.default ? config.default : config) as IProject[]
-  const projectNamesFromCommandLine = getProjectsFromCommmandLine()
-  // for (const name in projects) {
-  //   projects[name].name = name
-  // }
-  const projectMap: IProjectMap = {}
+  const projectNamesFromCommandLine = getProjectNamesFromCommmandLine()
   if (projectNamesFromCommandLine.length > 0) {
-    projectNamesFromCommandLine.forEach((name: string) => {
-      const project = projects.find(p => p.name === name)
-      if (project) {
-        projectMap[name] = project
-      }
-    })
-  } else {
-    projects.forEach(project => {
-      projectMap[project.name] = project
+    return projects.filter(project => {
+      return projectNamesFromCommandLine.some(name => name === project.name)
     })
   }
-  return projectMap
+  return projects
 }

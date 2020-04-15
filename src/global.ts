@@ -1,21 +1,27 @@
-import { IRefMap, IDefinitionMap, IRequestMap, IProjectRequesterMap, HttpMethod } from 'src/interface'
+import { IProjectGlobalMap, IProject, HttpMethod } from 'src/interface'
+import { clearObject } from 'src/tool/clearObject'
 
-export let definitionMap: IDefinitionMap = {}
-/** all Reference $ref name use this map
- * key is original ref name
- * value is clean ref name, may be from A<B> to AB
- * */
-export let refMap: IRefMap = {}
-export let requestMap: IRequestMap = {}
-export let projectRequesterMap: IProjectRequesterMap = {}
-export let requestRefs: Set<string> = new Set()
+const projectGlobal: IProjectGlobalMap = {}
 
-export const restore = () => {
-  definitionMap = {}
-  refMap = {}
-  requestMap = {}
-  projectRequesterMap = {}
-  requestRefs = new Set()
+export const getGlobal = (project: IProject) => {
+  if (!projectGlobal[project.name]) {
+    projectGlobal[project.name] = {
+      definitionMap: {},
+      refMap: {},
+      requestMap: {},
+      requestRefMap: {},
+      requestRefs: new Set(),
+    }
+  }
+  return projectGlobal[project.name]
+}
+
+export const restore = (project: IProject) => {
+  const g = projectGlobal[project.name]
+  clearObject(g.definitionMap)
+  clearObject(g.refMap)
+  clearObject(g.requestMap)
+  g.requestRefs.clear()
 }
 
 export const httpMethods: HttpMethod[] = ['get', 'put', 'post', 'delete', 'options', 'head', 'patch']

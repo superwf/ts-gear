@@ -2,24 +2,25 @@ import { forEach, upperFirst } from 'lodash'
 import { Spec } from 'swagger-schema-official'
 
 import { getDefinition } from 'src/tool/getDefinition'
-import { HttpMethod } from 'src/interface'
-import { refMap, definitionMap, requestMap, httpMethods } from 'src/global'
-import { traverseSchema } from 'src/tool/traverseSchema'
+import { HttpMethod, IProject } from 'src/interface'
+import { getGlobal, httpMethods } from 'src/global'
+// import { traverseSchema } from 'src/tool/traverseSchema'
 import { camelCase } from 'src/tool/camelCase'
-import { assembleDoc } from 'src/tool/assembleDoc'
+// import { hasGenericSymbol, parseGenericNames } from 'src/tool/genericType'
 
 /**
  * collect definition
- * collect request, skip deprecated ones
+ * collect request, skip deprecated
  * */
-export const assembleSchemaToGlobal = (spec: Spec) => {
+export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
+  const { definitionMap, requestMap } = getGlobal(project)
   const definitions = getDefinition(spec)
-  for (const name in definitions) {
+  Object.getOwnPropertyNames(definitions).forEach(name => {
     definitionMap[name] = {
       typeName: name,
       schema: definitions[name],
     }
-  }
+  })
   forEach(spec.paths, (pathSchema /** Path */, pathName) => {
     forEach(httpMethods, httpMethod => {
       const operation = pathSchema[httpMethod]
@@ -28,16 +29,20 @@ export const assembleSchemaToGlobal = (spec: Spec) => {
           pathName,
           httpMethod: httpMethod as HttpMethod,
           schema: operation!,
-          doc: assembleDoc(operation),
           responses: operation.responses,
           parameters: operation.parameters,
         }
       }
     })
   })
-  traverseSchema(spec, ({ value, key }) => {
-    if (key === '$ref' && typeof value === 'string') {
-      refMap[value] = value
-    }
-  })
+  // traverseSchema(spec.paths, ({ value, key }) => {
+  //   if (key === '$ref' && typeof value === 'string') {
+  //     if (!(value in definitionMap)) {
+  //       definitionMap[value] = {
+  //         typeName: value,
+  //       }
+  //     }
+  //     requestRefMap[value] = definitionMap[value]
+  //   }
+  // })
 }
