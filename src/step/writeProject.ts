@@ -3,7 +3,7 @@ import { join } from 'path'
 
 import { importAllDefinition } from './importAllDefinition'
 
-import { definitionMap, requestMap } from 'src/global'
+import { getGlobal } from 'src/global'
 import { prettierWrite } from 'src/tool/prettierWrite'
 import { IProject } from 'src/interface'
 import { warningComment } from 'src/content/warningComment'
@@ -14,6 +14,7 @@ import { propertyOf } from 'src/content/propertyOfHelper'
 /** gather global typescript content
  * write to project dir */
 export const writeProject = (project: IProject) => {
+  const { definitionMap, requestMap } = getGlobal(project)
   const cwd = process.cwd()
   const dest = join(cwd, project.dest, project.name)
 
@@ -38,7 +39,9 @@ export const writeProject = (project: IProject) => {
     .join(EOL)
   const requesterResult = requester(project)
   prettierWrite(
-    [warningComment, requesterResult.import, importAllDefinition(), requesterResult.code, requestContent].join(EOL),
+    [warningComment, requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
+      EOL,
+    ),
     join(dest, 'request.ts'),
   )
 

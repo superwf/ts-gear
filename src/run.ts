@@ -22,7 +22,7 @@ export const run = () => {
     if (project.keepGeneric) {
       step.parseGenericType(project)
     }
-    step.patchDefinitionMap(keepGeneric)
+    // step.patchDefinitionMap(keepGeneric)
     // step.assembleRefsInPath(spec, keepGeneric)
     step.generateDefinitionContent(project)
     step.generateRequestContent(spec, project)

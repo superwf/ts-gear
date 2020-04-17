@@ -11,25 +11,26 @@ import { IProject } from 'src/interface'
 import { sow, harvest } from 'src/source'
 // import { schemaToTypescript } from 'src/tool/schemaToTypescript'
 import { transformSwaggerPathToRouterPath } from 'src/tool/transformSwaggerPathToRouterPath'
-import { requestMap } from 'src/global'
+import { getGlobal } from 'src/global'
 import { assembleDoc } from 'src/tool/assembleDoc'
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: IProject) => {
   const { pathMatcher, withBasePath, withHost } = project
+  const { requestMap } = getGlobal(project)
 
   const resultContent: string[] = []
-  for (const requestFunctionName in requestMap) {
+  Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
     if (pathMatcher) {
       if (typeof pathMatcher === 'function') {
         if (!pathMatcher(request.pathName, httpMethod)) {
-          continue
+          return
         }
       } else if (!pathMatcher.test(request.pathName)) {
-        continue
+        return
       }
     }
 
@@ -66,7 +67,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     /** store typescript content to requestMap */
     request.typescriptContent = requestTypeScriptContent.join(EOL)
     resultContent.push(request.typescriptContent)
-  }
+  })
 
   /** return value only for test and debug */
   return resultContent.join(EOL)

@@ -1,9 +1,18 @@
-import { requestRefs } from 'src/global'
+import { getGlobal } from 'src/global'
+import { IProject } from 'src/interface'
 
-export const importAllDefinition = () => {
+export const importAllDefinition = (project: IProject) => {
+  const { requestRefMap } = getGlobal(project)
+  const refSet = new Set<string>()
+  Object.getOwnPropertyNames(requestRefMap).forEach(name => {
+    name
+      .split(/<|>|,/)
+      .filter(Boolean)
+      .forEach(n => {
+        refSet.add(n)
+      })
+  })
   const importNames: string[] = ['PropertyOf']
-  if (requestRefs.size > 0) {
-    importNames.push(...Array.from(requestRefs))
-  }
+  importNames.push(...Array.from(refSet))
   return `import { ${importNames.join(',')} } from './definition'`
 }

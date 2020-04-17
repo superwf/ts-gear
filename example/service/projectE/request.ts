@@ -1,7 +1,7 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import projects from "../../ts-gear";
-import { PropertyOf, ReplyVOInt } from "./definition";
+import { PropertyOf, Int } from "./definition";
 const { requester } = projects.find(p => p.name === "projectE")!;
 /** request parameter type for deleteApiDataboardBoardEs */
 export interface IDeleteApiDataboardBoardEsOption {
@@ -11,7 +11,7 @@ export interface IDeleteApiDataboardBoardEsOption {
 
 export interface IDeleteApiDataboardBoardEsResponse {
   /** OK */
-  200: ReplyVOInt;
+  200: ReplyVO<Int>;
   /** No Content */
   204: any;
   /** Unauthorized */

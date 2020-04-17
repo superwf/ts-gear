@@ -1,7 +1,7 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import projects from "../../ts-gear";
-import { PropertyOf, Pet, ApiResponse, Order, User } from "./definition";
+import { PropertyOf } from "./definition";
 const { requester } = projects.find(p => p.name === "pet")!;
 /** request parameter type for putPet */
 export interface IPutPetOption {

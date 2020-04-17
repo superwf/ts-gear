@@ -38,7 +38,7 @@ export const generateDefinitionContent = (project: IProject) => {
           const property = schema!.properties![name]
           const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
             name,
-            type: schemaToTypescript(property, project),
+            type: schemaToTypescript(property),
             scope: Scope.Public,
             hasQuestionToken: !schema.required || !schema.required.includes(name),
             docs: assembleDoc(property),
@@ -62,7 +62,7 @@ export const generateDefinitionContent = (project: IProject) => {
             {
               keyName: 'key',
               keyType: 'string',
-              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties, project),
+              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties),
             },
           ],
         })
@@ -70,7 +70,7 @@ export const generateDefinitionContent = (project: IProject) => {
         source.addTypeAlias({
           isExported: true,
           name: title,
-          type: schemaToTypescript(schema, project),
+          type: schemaToTypescript(schema),
           docs: assembleDoc(schema),
         })
       }
@@ -78,7 +78,7 @@ export const generateDefinitionContent = (project: IProject) => {
       source.addTypeAlias({
         isExported: true,
         name: title,
-        type: schemaToTypescript(schema, project),
+        type: schemaToTypescript(schema),
         docs: assembleDoc(schema),
       })
     }

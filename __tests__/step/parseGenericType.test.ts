@@ -1,12 +1,13 @@
 import { Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
 
-import { checkAndUpdateDefinitionTypeName, parseGenericType } from 'src/step/parseGenericType'
+import { checkAndUpdateDefinitionTypeName, parseGenericType, guessGenericTypeName } from 'src/step/parseGenericType'
 import { cleanRefAndDefinitionName } from 'src/step/cleanRefAndDefinitionName'
 import { assembleSchemaToGlobal } from 'src/step/assembleSchemaToGlobal'
 import projects from 'example/ts-gear'
 import { getGlobal, restore } from 'src/global'
 import projectESpec from 'example/fixture/projectE.json'
+import { IDefinitionMap } from 'src/interface'
 
 describe('parse definition with generic type', () => {
   let spec: Spec
@@ -21,7 +22,7 @@ describe('parse definition with generic type', () => {
     restore(project)
   })
 
-  it.only('checkAndUpdateDefinitionTypeName', () => {
+  it('checkAndUpdateDefinitionTypeName', () => {
     checkAndUpdateDefinitionTypeName(getGlobal(project))
     const { definitionMap } = getGlobal(project)
     console.log(JSON.stringify(definitionMap, null, 2))
@@ -88,8 +89,8 @@ describe('parse definition with generic type', () => {
     expect(definitionMap[name].typeParameters).toBe(undefined)
   })
 
-  it('parse two sub type', () => {
-    const name = 'PageVO<User,Role>'
+  it.only('parse two sub type', () => {
+    const name = 'Page<User,Role>'
     const { definitionMap } = getGlobal(project)
     definitionMap[name] = {
       typeName: '',
@@ -109,7 +110,32 @@ describe('parse definition with generic type', () => {
       },
     }
     parseGenericType(project)
-    expect(definitionMap[name].typeName).toBe('PageVO')
-    expect(definitionMap[name].typeParameters).toEqual(['User', 'Role'])
+    console.log(definitionMap)
+    // expect(definitionMap[name].typeName).toBe('PageVO')
+    // expect(definitionMap[name].typeParameters).toEqual(['User', 'Role'])
+  })
+
+  it('guessGenericTypeName', () => {
+    const definitionMap: IDefinitionMap = {
+      A: { typeName: 'A' },
+      // B: { typeName: 'B' },
+    }
+    const name = guessGenericTypeName(
+      {
+        name: 'A',
+        children: [
+          {
+            name: 'B',
+            children: [
+              {
+                name: 'C',
+              },
+            ],
+          },
+        ],
+      },
+      definitionMap,
+    )
+    console.log(name)
   })
 })

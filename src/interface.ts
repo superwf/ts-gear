@@ -50,7 +50,7 @@ export type ParameterPositionMap = {
     required: string[]
     properties?: { [propertyName: string]: Omit<Parameter, 'required'> | Reference }
     schema?: Schema
-    docs: string[]
+    docs?: string[]
   }
 }
 
@@ -155,7 +155,7 @@ export interface ISwaggerRequest {
 
 export interface IGenericNameNode {
   name: string
-  level: number
+  level?: number
   children?: IGenericNameNode[]
   parent?: IGenericNameNode
 }
