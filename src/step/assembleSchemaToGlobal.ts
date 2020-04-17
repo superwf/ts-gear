@@ -9,8 +9,8 @@ import { camelCase } from 'src/tool/camelCase'
 // import { hasGenericSymbol, parseGenericNames } from 'src/tool/genericType'
 
 /**
- * collect definition
- * collect request, skip deprecated
+ * collect definition to definitionMap
+ * collect request to requestMap, skip deprecated
  * */
 export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
   const { definitionMap, requestMap } = getGlobal(project)

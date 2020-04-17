@@ -153,6 +153,13 @@ export interface ISwaggerRequest {
   responses: { [responseName: string]: Response | Reference }
 }
 
+export interface IGenericNameNode {
+  name: string
+  level: number
+  children?: IGenericNameNode[]
+  parent?: IGenericNameNode
+}
+
 /** definition name may be changed when parsing generic type
  * then the ref name can not find the map in definition
  * use this map to link the changed definition and ref name.

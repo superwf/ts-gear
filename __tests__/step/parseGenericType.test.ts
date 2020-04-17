@@ -1,12 +1,35 @@
-import { parseGenericType } from 'src/step/parseGenericType'
-import { definitionMap, restore } from 'src/global'
+import { Spec } from 'swagger-schema-official'
+import { cloneDeep } from 'lodash'
+
+import { checkAndUpdateDefinitionTypeName, parseGenericType } from 'src/step/parseGenericType'
+import { cleanRefAndDefinitionName } from 'src/step/cleanRefAndDefinitionName'
+import { assembleSchemaToGlobal } from 'src/step/assembleSchemaToGlobal'
+import projects from 'example/ts-gear'
+import { getGlobal, restore } from 'src/global'
+import projectESpec from 'example/fixture/projectE.json'
 
 describe('parse definition with generic type', () => {
-  afterEach(() => {
-    restore()
+  let spec: Spec
+  const project = projects[1]
+  beforeEach(() => {
+    spec = (cloneDeep(projectESpec) as unknown) as Spec
+    const keepGeneric = Boolean(project.keepGeneric)
+    cleanRefAndDefinitionName(spec, keepGeneric)
+    assembleSchemaToGlobal(spec, project)
   })
+  afterEach(() => {
+    restore(project)
+  })
+
+  it.only('checkAndUpdateDefinitionTypeName', () => {
+    checkAndUpdateDefinitionTypeName(getGlobal(project))
+    const { definitionMap } = getGlobal(project)
+    console.log(JSON.stringify(definitionMap, null, 2))
+  })
+
   it('parse one sub type', () => {
     const name = 'PageVO<User>'
+    const { definitionMap } = getGlobal(project)
     definitionMap[name] = {
       typeName: '',
       schema: {
@@ -21,13 +44,14 @@ describe('parse definition with generic type', () => {
         },
       },
     }
-    parseGenericType()
+    parseGenericType(project)
     expect(definitionMap[name].typeName).toBe('PageVO')
     expect(definitionMap[name].typeParameters).toEqual(['User'])
   })
 
   it('remove generic type symbol when ref not contain in schema', () => {
     const name = 'PageVO<User>'
+    const { definitionMap } = getGlobal(project)
     definitionMap[name] = {
       typeName: '',
       schema: {
@@ -39,7 +63,7 @@ describe('parse definition with generic type', () => {
         },
       },
     }
-    parseGenericType()
+    parseGenericType(project)
     console.log(definitionMap)
     expect(definitionMap[name].typeName).toBe('PageVOUser')
     expect(definitionMap[name].typeParameters).toBe(undefined)
@@ -47,6 +71,7 @@ describe('parse definition with generic type', () => {
 
   it('remove more generic type symbol when ref not contain in schema', () => {
     const name = 'PageVO<User,Role>'
+    const { definitionMap } = getGlobal(project)
     definitionMap[name] = {
       typeName: '',
       schema: {
@@ -58,13 +83,14 @@ describe('parse definition with generic type', () => {
         },
       },
     }
-    parseGenericType()
+    parseGenericType(project)
     expect(definitionMap[name].typeName).toBe('PageVOUserRole')
     expect(definitionMap[name].typeParameters).toBe(undefined)
   })
 
   it('parse two sub type', () => {
     const name = 'PageVO<User,Role>'
+    const { definitionMap } = getGlobal(project)
     definitionMap[name] = {
       typeName: '',
       schema: {
@@ -82,7 +108,7 @@ describe('parse definition with generic type', () => {
         },
       },
     }
-    parseGenericType()
+    parseGenericType(project)
     expect(definitionMap[name].typeName).toBe('PageVO')
     expect(definitionMap[name].typeParameters).toEqual(['User', 'Role'])
   })

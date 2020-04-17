@@ -1,6 +1,6 @@
 import { isEqual } from 'lodash'
 
-import { ISwaggerDefinition } from 'src/interface'
+import { ISwaggerDefinition, IGenericNameNode } from 'src/interface'
 
 export const hasGenericSymbol = (name: string) => {
   return name.includes('<')
@@ -8,17 +8,49 @@ export const hasGenericSymbol = (name: string) => {
 
 export const removeGenericSymbol = (name: string) => name.replace(/<|>|,/g, '')
 
-/** process only one level generic type
- * A<B,C> => {parent: 'A', children: ['B', 'C']}
- * A<B<C>> => {parent: 'A', children: ['B<C>']}
- * */
+/** process generic type name */
 export const parseGenericNames = (name: string) => {
-  const parent = name.replace(/<.+$/i, '')
-  const children = name.replace(/(^.+?<)|(>$)/gi, '')
-  return {
-    parent,
-    children: children.split(','),
+  let currentNode: IGenericNameNode = { name: '', level: 0 }
+  let parentNode: IGenericNameNode | undefined = currentNode
+  let nestLevel = 0
+  const result: IGenericNameNode[] = [currentNode]
+  for (let i = 0; i < name.length; i += 1) {
+    const c = name[i]
+    if (c === '<') {
+      currentNode.level = nestLevel
+      parentNode = currentNode
+      currentNode = { name: '', level: nestLevel, parent: parentNode }
+      parentNode.children = parentNode.children || []
+      parentNode.children.push(currentNode)
+      nestLevel += 1
+      result.push(currentNode)
+    } else if (c === '>') {
+      parentNode = parentNode!.parent
+      if (currentNode.name) {
+        currentNode.level = nestLevel
+        currentNode = { name: '', level: nestLevel, parent: parentNode }
+      }
+      nestLevel -= 1
+    } else if (c === ',') {
+      currentNode = { name: '', level: nestLevel, parent: parentNode }
+      parentNode!.children!.push(currentNode)
+      result.push(currentNode)
+    } else {
+      currentNode.name += c
+    }
   }
+  return result
+}
+
+/** from generic name node to name string
+ * reverse of parseGenericNames
+ * */
+export const getGenericNameFromNode = (node: IGenericNameNode): string => {
+  const { name, children } = node
+  if (!children) {
+    return name
+  }
+  return `${name}<${children.map(c => getGenericNameFromNode(c)).join(',')}>`
 }
 
 export const isSameGenericType = (definition1: ISwaggerDefinition, definition2: ISwaggerDefinition) => {

@@ -114,6 +114,28 @@
         }
       },
       "title": "PageVO«ListVO»"
+    },
+    "ReplyVO«PageVO«FollowRecordVO»»": {
+      "type": "object",
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "000000",
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«FollowRecordVO»",
+          "originalRef": "PageVO«FollowRecordVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«FollowRecordVO»»"
     }
   }
 }

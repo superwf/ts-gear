@@ -2,7 +2,7 @@ import { traverseSchema } from 'src/tool/traverseSchema'
 import { getGlobal } from 'src/global'
 import { hasGenericSymbol, removeGenericSymbol, parseGenericNames } from 'src/tool/genericType'
 // import { cleanName } from 'src/tool/cleanName'
-import { IProject, IProjectGlobal, IDefinitionMap } from 'src/interface'
+import { IProject, IProjectGlobal } from 'src/interface'
 // import { sow, harvest } from 'src/source'
 
 /** check generic type
@@ -17,24 +17,34 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
     const definition = definitionMap[definitionName]
     if (hasGenericSymbol(definition.typeName)) {
       /** generac type */
-      const { parent: typeName, children: typeParameters } = parseGenericNames(definitionName)
+      const { parent: typeName, children: typeParameters, childMap } = parseGenericNames(definitionName)
       // console.log(typeName, typeParameters)
       // const typeParameters = definitionName.replace(/(^[^<]+<)|(>$)/, '').split(',')
       if (definition.schema) {
-        const allSubTypeInSelf = typeParameters.every(subTypeName => {
-          let inSelf = false
-          traverseSchema(definition.schema!, ({ value, key }) => {
-            if (key === '$ref' && value === subTypeName) {
-              inSelf = true
+        const inSelfMap = typeParameters.reduce<{ [subTypeName: string]: boolean }>((r, v) => {
+          r[v] = false
+          return r
+        }, {})
+        typeParameters.forEach(subTypeName => {
+          traverseSchema(definition.schema!, ({ value, key, parent }) => {
+            if (key === '$ref' && value === childMap[subTypeName]) {
+              // anyway, remove all sub type name generic symbol
+              parent.$ref = subTypeName
+              inSelfMap[subTypeName] = true
             }
           })
-          return inSelf
         })
-        if (!allSubTypeInSelf) {
-          definition.typeName = removeGenericSymbol(definitionName)
-        } else {
+        if (Object.values(inSelfMap).every(Boolean)) {
           definition.typeName = typeName
           definition.typeParameters = typeParameters
+          /**
+           * and create a new definition with the typeName as key
+           * */
+          definitionMap[typeName] = {
+            ...definition,
+          }
+        } else {
+          definition.typeName = removeGenericSymbol(definitionName)
         }
       }
     }
@@ -65,5 +75,5 @@ export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
 export const parseGenericType = (project: IProject) => {
   const projectGlobal = getGlobal(project)
   checkAndUpdateDefinitionTypeName(projectGlobal)
-  checkAndUpdateRequestRef(projectGlobal)
+  // checkAndUpdateRequestRef(projectGlobal)
 }

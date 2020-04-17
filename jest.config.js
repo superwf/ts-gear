@@ -17,8 +17,6 @@ const pathAlias = reduce(
 
 module.exports = {
   testEnvironment: 'node',
-  setupFiles: ['<rootDir>/jest/setup.js'],
-  // setupFilesAfterEnv: ['<rootDir>/jest/afterSetup.js'],
   moduleNameMapper: {
     ...reduce(
       pathAlias,

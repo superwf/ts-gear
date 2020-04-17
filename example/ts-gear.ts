@@ -14,6 +14,7 @@ const projects: IProject[] = [
     name: 'projectE',
     dest: './service',
     source: 'fixture/projectE.json',
+    keepGeneric: true,
     requester: axiosRequester(),
   },
   {
