@@ -3,7 +3,7 @@
  * remove "#/definitions/"
  * remove "#/components/schema/"
  * remove all spaces
- * remove all non english charator, like 😝
+ * remove all non english charator, like "😝"
  * replace "«" with "<" when keepGeneric
  * replace "»" with ">" when keepGeneric
  * upper case each word first charator
@@ -18,18 +18,14 @@ export const cleanName = (name: string, keepGeneric: boolean) => {
       return ''
     }
     if (keepGeneric) {
+      /* eslint-disable-next-line default-case */
       switch (target) {
         case '«':
+        case '<':
           return '<'
         case '»':
+        case '>':
           return '>'
-      }
-    } else {
-      switch (target) {
-        case '«':
-          return ''
-        case '»':
-          return ''
       }
     }
     if (/[^a-z]/i.test(target)) {

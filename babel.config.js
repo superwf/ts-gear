@@ -18,7 +18,7 @@ const pathAlias = reduce(
 )
 
 module.exports = {
-  presets: ['react-app'],
+  presets: [['@babel/preset-env', { targets: { node: 'current' } }], '@babel/preset-typescript'],
   plugins: [
     // 与tsconfig.json统一加载路径别名
     [

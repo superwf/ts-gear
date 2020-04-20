@@ -18,14 +18,16 @@ export const fetchSwagger = async (project: IProject) => {
     info(`start fetching ${verbose}`)
     const res = await fetch(url, project.fetchSwaggerDocOption)
     const swaggerSchema = await res.json()
-    info(`got ${verbose}}`)
+    info(`got swagger sped from ${verbose}}`)
     return swaggerSchema
   }
   const cwd = process.cwd()
   const source = join(cwd, project.source)
   // use require for json file
   if (!source.endsWith('.json')) {
-    error('user config file should ends with `.json`')
+    const message = 'user config file should ends with `.json`'
+    error(message)
+    throw new Error(message)
   }
   /* eslint-disable-next-line global-require,import/no-dynamic-require */
   return require(source)

@@ -105,17 +105,23 @@ export interface IProject {
    * */
   keepGeneric?: boolean
 
-  /** if your swagger doc has non english word defined,
-   * choose one engine try transate those words to english
-   * this is not for human reading, is for program variable name
-   * because translation depend on ouside network, it is not stable, you may need to retry many times to translate successfuly.
-   * when you generate your api, then change the engine and regenerate new api, the translate output will definitely be different, so the api will be different too.
+  /** if your swagger doc has some non english words in definitions keys or some $ref position,
+   * choose an engine to transate those words to english
+   * the translated results are not for human reading, but for program variable names.
+   * because translation depends on internet, you may need to retry some times to get results successfuly.
+   * once your api is generated, change to another engine and regenerate new api, the translate output will definitely be different, so the api content will be different too.
    *
    * most case you don`t need this option, try to persuade your teammate to correct the swagger doc to english is a better way.
-   * if there are unregular charator, and you can not fix it.
+   * if there are unregular charator, and you can not fix it,
    * try to use an engine provided by "translation.js"
+   * "baidu" or "google"
    * */
   translationEngine?: TranslationEngine
+
+  /** use swagger sample data mock response data
+   * usually usage: process.env.NODE_ENV === 'test'
+   * */
+  mockResponse?: boolean
 }
 
 export interface IProjectMap {
@@ -188,10 +194,8 @@ export interface IProjectGlobal {
    * key is original ref name
    * value is definition
    * */
-  refMap: IRefMap
   requestMap: IRequestMap
-  requestRefs: Set<string>
-  requestRefMap: IDefinitionMap
+  requestRefSet: Set<string>
 }
 export interface IProjectGlobalMap {
   [projectName: string]: IProjectGlobal

@@ -3,7 +3,18 @@ its content will be overwriten next time execute the `tsg` command. */
 export type PropertyOf<T extends any, K extends keyof T> = T[K];
 export type BodyBuilder = any;
 
-export class PageVO<ListVO> {
+export class ReplyVO<PageVOFollowRecordVO = any> {
+  /** 响应代码【0正确,非0错误】 */
+  public code: string;
+  /** 返回数据 */
+  public data?: PageVOFollowRecordVO;
+  /** 结果描述 */
+  public message: string;
+}
+
+export type PageVOListVO = PageVO<ListVO>;
+export type ReplyVOPageVOFollowRecordVO = ReplyVO<PageVO<FollowRecordVO>>;
+export class PageVO<ListVO = any> {
   /** 数据列表 */
   public entities: Array<ListVO>;
   /**

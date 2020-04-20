@@ -19,11 +19,10 @@ export const run = () => {
     const keepGeneric = Boolean(project.keepGeneric)
     step.cleanRefAndDefinitionName(spec, keepGeneric)
     step.assembleSchemaToGlobal(spec, project)
-    if (project.keepGeneric) {
+    if (keepGeneric) {
       step.parseGenericType(project)
     }
-    // step.patchDefinitionMap(keepGeneric)
-    // step.assembleRefsInPath(spec, keepGeneric)
+    step.collectRefsInRequestAndPatchDefinition(project)
     step.generateDefinitionContent(project)
     step.generateRequestContent(spec, project)
     step.writeProject(project)

@@ -1,7 +1,7 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import projects from "../../ts-gear";
-import { PropertyOf, Int } from "./definition";
+import { PropertyOf, ReplyVO, Int } from "./definition";
 const { requester } = projects.find(p => p.name === "projectE")!;
 /** request parameter type for deleteApiDataboardBoardEs */
 export interface IDeleteApiDataboardBoardEsOption {
@@ -32,8 +32,12 @@ export type IDeleteApiDataboardBoardEsResponseSuccess = PropertyOf<
 export function deleteApiDataboardBoardEs(
   option: IDeleteApiDataboardBoardEsOption
 ): Promise<IDeleteApiDataboardBoardEsResponseSuccess> {
-  return requester("/api/databoard/board/es", {
-    method: "delete",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/api/databoard/board/es", {
+      method: "delete",
+      ...option
+    }) as Promise<any>;
+  }
 }

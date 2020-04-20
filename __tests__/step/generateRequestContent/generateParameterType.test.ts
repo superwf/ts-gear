@@ -2,18 +2,23 @@ import { Parameter, Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
 
 import { generateParameterType } from 'src/step/generateRequestContent/generateParameterType'
-import petSchema from 'example/fixture/pet.json'
-import { cleanRefAndDefinitionName } from 'src/step/cleanRefAndDefinitionName'
-import { assembleSchemaToGlobal } from 'src/step/assembleSchemaToGlobal'
+import petSpec from 'example/fixture/pet.json'
+import * as step from 'src/step'
 import { restore } from 'src/global'
-// import projects from 'example/ts-gear'
+import { IProject } from 'src/interface'
 
 describe('src/step/generateRequestContent/generateParameterType', () => {
+  const project: IProject = {
+    name: 'pet',
+    dest: './service',
+    source: 'fixture/pet.json',
+    requester: () => Promise.resolve(),
+  }
   it('generateParameterType', () => {
-    const schema = cloneDeep(petSchema) as Spec
-    cleanRefAndDefinitionName(schema, true)
-    assembleSchemaToGlobal(schema)
-    let content = generateParameterType('IReqParam', schema.paths['/pet'].post!.parameters as Parameter[])
+    const spec = cloneDeep(petSpec) as Spec
+    step.cleanRefAndDefinitionName(spec, true)
+    step.assembleSchemaToGlobal(spec, project)
+    let content = generateParameterType('IReqParam', spec.paths['/pet'].post!.parameters as Parameter[])
     console.log(content)
     // content = generateParameterType('IReqParam', schema.paths['/pet/{petId}'].post!.parameters as Parameter[])
     // console.log(content)
@@ -22,9 +27,9 @@ describe('src/step/generateRequestContent/generateParameterType', () => {
     // console.log(content)
     content = generateParameterType(
       'postUserCreateWithList',
-      schema.paths['/user/createWithList'].post!.parameters as Parameter[],
+      spec.paths['/user/createWithList'].post!.parameters as Parameter[],
     )
     console.log(content)
-    restore()
+    restore(project)
   })
 })

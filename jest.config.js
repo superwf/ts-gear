@@ -17,6 +17,10 @@ const pathAlias = reduce(
 
 module.exports = {
   testEnvironment: 'node',
+  moduleFileExtensions: ['ts', 'tsx', 'js'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts'],
+  coverageReporters: ['text-summary', 'text'],
+  testRegex: '__tests__/.*\\.test\\.(ts|tsx)$',
   moduleNameMapper: {
     ...reduce(
       pathAlias,

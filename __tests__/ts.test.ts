@@ -1,3 +1,4 @@
+/** try some ts methods */
 import * as ts from 'typescript'
 
 describe('ts', () => {
@@ -6,13 +7,7 @@ describe('ts', () => {
       newLine: ts.NewLineKind.LineFeed,
     })
     function printNode(node: ts.Node) {
-      const file = ts.createSourceFile(
-        'someFileName.ts',
-        '',
-        ts.ScriptTarget.Latest,
-        /*setParentNodes*/ false,
-        ts.ScriptKind.TS,
-      )
+      const file = ts.createSourceFile('someFileName.ts', '', ts.ScriptTarget.Latest, false, ts.ScriptKind.TS)
       return printer.printNode(ts.EmitHint.Unspecified, node, file)
     }
     const s1 = ts.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword)
@@ -30,8 +25,18 @@ describe('ts', () => {
       ),
     )
 
-    const s3 = ts.createTypeLiteralNode(
+    const s3 = ts.createVariableStatement(
       [],
+      ts.createVariableDeclarationList(
+        [
+          ts.createVariableDeclaration(
+            'path',
+            ts.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
+            ts.createLiteral('path'),
+          ),
+        ],
+        ts.NodeFlags.Const,
+      ),
     )
     console.log(printNode(s1))
     console.log(printNode(s2))

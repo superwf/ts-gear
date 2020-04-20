@@ -4,18 +4,23 @@ import { cloneDeep } from 'lodash'
 import { generateRequestContent } from 'src/step/generateRequestContent'
 import petSchema from 'example/fixture/pet.json'
 import projects from 'example/ts-gear'
-import { cleanRefAndDefinitionName } from 'src/step/cleanRefAndDefinitionName'
-import { assembleSchemaToGlobal } from 'src/step/assembleSchemaToGlobal'
+import * as step from 'src/step'
 import { restore } from 'src/global'
-// import projects from 'example/ts-gear'
+import { IProject } from 'src/interface'
 
 describe('src/step/generateRequestContent', () => {
+  const project: IProject = {
+    name: 'pet',
+    dest: './service',
+    source: 'fixture/pet.json',
+    requester: () => Promise.resolve(),
+  }
   it('generateRequestContent', () => {
     const schema = cloneDeep(petSchema) as Spec
-    cleanRefAndDefinitionName(schema, true)
-    assembleSchemaToGlobal(schema)
+    step.cleanRefAndDefinitionName(schema, true)
+    step.assembleSchemaToGlobal(schema, project)
     const content = generateRequestContent(schema, projects[0])
     console.log(content)
-    restore()
+    restore(project)
   })
 })

@@ -10,7 +10,7 @@ export const translateEngines = {
 /** change the engine, the result will definitely be different.
  * better not use this.
  * */
-export const translate = async (text: string, engineName: TranslationEngine) => {
+export async function translate(text: string, engineName: TranslationEngine) {
   try {
     const res = await translateEngines[engineName].translate({
       text,
@@ -19,6 +19,6 @@ export const translate = async (text: string, engineName: TranslationEngine) => 
     })
     return res.result!.join('')
   } catch (e) {
-    console.error(`translate word "${text}" by engine "${engineName}" fail, error: `, e)
+    throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e}`)
   }
 }

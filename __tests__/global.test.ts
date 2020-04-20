@@ -1,11 +1,32 @@
-import { restore, refMap } from 'src/global'
+import { restore, getGlobal } from 'src/global'
+import { IProject } from 'src/interface'
 
 describe('src/global', () => {
+  const project: IProject = {
+    name: 'pet',
+    dest: './service',
+    source: 'fixture/pet.json',
+    requester: () => Promise.resolve(),
+  }
   it('restore', () => {
-    expect(refMap).toEqual({})
-    refMap.c1 = 'c1'
-    expect(refMap).toEqual({ c1: 'c1' })
-    restore()
-    expect(refMap).toEqual({})
+    const { definitionMap, requestMap, requestRefSet } = getGlobal(project)
+    expect(definitionMap).toEqual({})
+    expect(requestMap).toEqual({})
+    expect(requestRefSet.size).toBe(0)
+
+    definitionMap.aaa = {
+      typeName: 'AAA',
+    }
+    requestMap.aaa = {
+      pathName: 'aaa',
+      httpMethod: 'get',
+      responses: [] as any,
+      schema: {} as any,
+    }
+    requestRefSet.add('a')
+    restore(project)
+    expect(requestRefSet.size).toBe(0)
+    expect(definitionMap).toEqual({})
+    expect(requestMap).toEqual({})
   })
 })

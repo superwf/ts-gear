@@ -9,7 +9,7 @@ import { ITraverseSchemaNode } from 'src/interface'
  * @param the function will be called recursively on each schema node
  * */
 export const traverseSchema = (obj: { [k: string]: any }, func: (v: ITraverseSchemaNode) => void): void => {
-  traverse(obj).forEach(function(this: any, value: any) {
+  traverse(obj).forEach(function traverseSchemaNode(this: any, value: any) {
     // check circular
     if (this.circular || !this.key || this.key === 'required') {
       return
@@ -21,5 +21,14 @@ export const traverseSchema = (obj: { [k: string]: any }, func: (v: ITraverseSch
       path: this.path,
     }
     func(node)
+  })
+}
+
+/** only travers "$ref" */
+export const traverse$Ref = (obj: { [k: string]: any }, func: (v: string) => void): void => {
+  traverseSchema(obj, ({ key, value }) => {
+    if (key === '$ref' && typeof value === 'string') {
+      func(value)
+    }
   })
 }

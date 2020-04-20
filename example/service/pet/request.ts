@@ -1,7 +1,7 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import projects from "../../ts-gear";
-import { PropertyOf } from "./definition";
+import { PropertyOf, Pet, ApiResponse, Order, User } from "./definition";
 const { requester } = projects.find(p => p.name === "pet")!;
 /** request parameter type for putPet */
 export interface IPutPetOption {
@@ -26,7 +26,11 @@ export type IPutPetResponseSuccess = any;
  * consumes: application／json,application/xml
  */
 export function putPet(option: IPutPetOption): Promise<IPutPetResponseSuccess> {
-  return requester("/v2/pet", { method: "put", ...option }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/pet", { method: "put", ...option }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postPet */
@@ -50,7 +54,11 @@ export type IPostPetResponseSuccess = any;
 export function postPet(
   option: IPostPetOption
 ): Promise<IPostPetResponseSuccess> {
-  return requester("/v2/pet", { method: "post", ...option }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/pet", { method: "post", ...option }) as Promise<any>;
+  }
 }
 
 /** request parameter type for getPetFindByStatus */
@@ -83,10 +91,23 @@ export type IGetPetFindByStatusResponseSuccess = PropertyOf<
 export function getPetFindByStatus(
   option: IGetPetFindByStatusOption
 ): Promise<IGetPetFindByStatusResponseSuccess> {
-  return requester("/v2/pet/findByStatus", {
-    method: "get",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve([
+      {
+        id: 0,
+        category: { id: 0, pet: "", name: "string" },
+        name: "doggie",
+        photoUrls: ["string"],
+        tags: [{ id: 0, name: "string" }],
+        status: "available"
+      }
+    ]);
+  } else {
+    return requester("/v2/pet/findByStatus", {
+      method: "get",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for getPetPetId */
@@ -122,9 +143,20 @@ export type IGetPetPetIdResponseSuccess = PropertyOf<IGetPetPetIdResponse, 200>;
 export function getPetPetId(
   option: IGetPetPetIdOption
 ): Promise<IGetPetPetIdResponseSuccess> {
-  return requester("/v2/pet/:petId", { method: "get", ...option }) as Promise<
-    any
-  >;
+  if (project.mockResponse) {
+    return Promise.resolve({
+      id: 0,
+      category: { id: 0, pet: "", name: "string" },
+      name: "doggie",
+      photoUrls: ["string"],
+      tags: [{ id: 0, name: "string" }],
+      status: "available"
+    });
+  } else {
+    return requester("/v2/pet/:petId", { method: "get", ...option }) as Promise<
+      any
+    >;
+  }
 }
 
 /** request parameter type for postPetPetId */
@@ -165,9 +197,14 @@ export type IPostPetPetIdResponseSuccess = any;
 export function postPetPetId(
   option: IPostPetPetIdOption
 ): Promise<IPostPetPetIdResponseSuccess> {
-  return requester("/v2/pet/:petId", { method: "post", ...option }) as Promise<
-    any
-  >;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/pet/:petId", {
+      method: "post",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for deletePetPetId */
@@ -203,10 +240,14 @@ export type IDeletePetPetIdResponseSuccess = any;
 export function deletePetPetId(
   option: IDeletePetPetIdOption
 ): Promise<IDeletePetPetIdResponseSuccess> {
-  return requester("/v2/pet/:petId", {
-    method: "delete",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/pet/:petId", {
+      method: "delete",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postPetPetIdUploadImage */
@@ -250,10 +291,14 @@ export type IPostPetPetIdUploadImageResponseSuccess = PropertyOf<
 export function postPetPetIdUploadImage(
   option: IPostPetPetIdUploadImageOption
 ): Promise<IPostPetPetIdUploadImageResponseSuccess> {
-  return requester("/v2/pet/:petId/uploadImage", {
-    method: "post",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve({ code: 0, type: "string", message: "string" });
+  } else {
+    return requester("/v2/pet/:petId/uploadImage", {
+      method: "post",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 export interface IGetStoreInventoryResponse {
@@ -274,7 +319,15 @@ export type IGetStoreInventoryResponseSuccess = PropertyOf<
 export function getStoreInventory(): Promise<
   IGetStoreInventoryResponseSuccess
 > {
-  return requester("/v2/store/inventory", { method: "get" }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve({
+      additionalProp1: 0,
+      additionalProp2: 0,
+      additionalProp3: 0
+    });
+  } else {
+    return requester("/v2/store/inventory", { method: "get" }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postStoreOrder */
@@ -302,9 +355,21 @@ export type IPostStoreOrderResponseSuccess = PropertyOf<
 export function postStoreOrder(
   option: IPostStoreOrderOption
 ): Promise<IPostStoreOrderResponseSuccess> {
-  return requester("/v2/store/order", { method: "post", ...option }) as Promise<
-    any
-  >;
+  if (project.mockResponse) {
+    return Promise.resolve({
+      id: 0,
+      petId: 0,
+      quantity: 0,
+      shipDate: "2019-09-03T00:00:00.000Z",
+      status: "placed",
+      complete: false
+    });
+  } else {
+    return requester("/v2/store/order", {
+      method: "post",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for getStoreOrderOrderId */
@@ -343,10 +408,21 @@ export type IGetStoreOrderOrderIdResponseSuccess = PropertyOf<
 export function getStoreOrderOrderId(
   option: IGetStoreOrderOrderIdOption
 ): Promise<IGetStoreOrderOrderIdResponseSuccess> {
-  return requester("/v2/store/order/:orderId", {
-    method: "get",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve({
+      id: 0,
+      petId: 0,
+      quantity: 0,
+      shipDate: "2019-09-03T00:00:00.000Z",
+      status: "placed",
+      complete: false
+    });
+  } else {
+    return requester("/v2/store/order/:orderId", {
+      method: "get",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for deleteStoreOrderOrderId */
@@ -380,10 +456,14 @@ export type IDeleteStoreOrderOrderIdResponseSuccess = any;
 export function deleteStoreOrderOrderId(
   option: IDeleteStoreOrderOrderIdOption
 ): Promise<IDeleteStoreOrderOrderIdResponseSuccess> {
-  return requester("/v2/store/order/:orderId", {
-    method: "delete",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/store/order/:orderId", {
+      method: "delete",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postUser */
@@ -407,7 +487,11 @@ export type IPostUserResponseSuccess = PropertyOf<IPostUserResponse, "default">;
 export function postUser(
   option: IPostUserOption
 ): Promise<IPostUserResponseSuccess> {
-  return requester("/v2/user", { method: "post", ...option }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user", { method: "post", ...option }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postUserCreateWithArray */
@@ -433,10 +517,14 @@ export type IPostUserCreateWithArrayResponseSuccess = PropertyOf<
 export function postUserCreateWithArray(
   option: IPostUserCreateWithArrayOption
 ): Promise<IPostUserCreateWithArrayResponseSuccess> {
-  return requester("/v2/user/createWithArray", {
-    method: "post",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user/createWithArray", {
+      method: "post",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for postUserCreateWithList */
@@ -462,10 +550,14 @@ export type IPostUserCreateWithListResponseSuccess = PropertyOf<
 export function postUserCreateWithList(
   option: IPostUserCreateWithListOption
 ): Promise<IPostUserCreateWithListResponseSuccess> {
-  return requester("/v2/user/createWithList", {
-    method: "post",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user/createWithList", {
+      method: "post",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for getUserLogin */
@@ -500,9 +592,13 @@ export type IGetUserLoginResponseSuccess = PropertyOf<
 export function getUserLogin(
   option: IGetUserLoginOption
 ): Promise<IGetUserLoginResponseSuccess> {
-  return requester("/v2/user/login", { method: "get", ...option }) as Promise<
-    any
-  >;
+  if (project.mockResponse) {
+    return Promise.resolve("string");
+  } else {
+    return requester("/v2/user/login", { method: "get", ...option }) as Promise<
+      any
+    >;
+  }
 }
 
 export interface IGetUserLogoutResponse {
@@ -520,7 +616,11 @@ export type IGetUserLogoutResponseSuccess = PropertyOf<
  * produces: application／xml,application/json
  */
 export function getUserLogout(): Promise<IGetUserLogoutResponseSuccess> {
-  return requester("/v2/user/logout", { method: "get" }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user/logout", { method: "get" }) as Promise<any>;
+  }
 }
 
 /** request parameter type for getUserUsername */
@@ -554,10 +654,23 @@ export type IGetUserUsernameResponseSuccess = PropertyOf<
 export function getUserUsername(
   option: IGetUserUsernameOption
 ): Promise<IGetUserUsernameResponseSuccess> {
-  return requester("/v2/user/:username", {
-    method: "get",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve({
+      id: 0,
+      username: "string",
+      firstName: "string",
+      lastName: "string",
+      email: "string",
+      password: "string",
+      phone: "string",
+      userStatus: 0
+    });
+  } else {
+    return requester("/v2/user/:username", {
+      method: "get",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for putUserUsername */
@@ -589,10 +702,14 @@ export type IPutUserUsernameResponseSuccess = any;
 export function putUserUsername(
   option: IPutUserUsernameOption
 ): Promise<IPutUserUsernameResponseSuccess> {
-  return requester("/v2/user/:username", {
-    method: "put",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user/:username", {
+      method: "put",
+      ...option
+    }) as Promise<any>;
+  }
 }
 
 /** request parameter type for deleteUserUsername */
@@ -622,8 +739,12 @@ export type IDeleteUserUsernameResponseSuccess = any;
 export function deleteUserUsername(
   option: IDeleteUserUsernameOption
 ): Promise<IDeleteUserUsernameResponseSuccess> {
-  return requester("/v2/user/:username", {
-    method: "delete",
-    ...option
-  }) as Promise<any>;
+  if (project.mockResponse) {
+    return Promise.resolve("");
+  } else {
+    return requester("/v2/user/:username", {
+      method: "delete",
+      ...option
+    }) as Promise<any>;
+  }
 }

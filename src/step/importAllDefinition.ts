@@ -2,9 +2,9 @@ import { getGlobal } from 'src/global'
 import { IProject } from 'src/interface'
 
 export const importAllDefinition = (project: IProject) => {
-  const { requestRefMap } = getGlobal(project)
+  const { requestRefSet } = getGlobal(project)
   const refSet = new Set<string>()
-  Object.getOwnPropertyNames(requestRefMap).forEach(name => {
+  Array.from(requestRefSet).forEach(name => {
     name
       .split(/<|>|,/)
       .filter(Boolean)

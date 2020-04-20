@@ -10,8 +10,6 @@ import { assembleDoc } from 'src/tool/assembleDoc'
 export const generateDefinitionContent = (project: IProject) => {
   const { definitionMap } = getGlobal(project)
   Object.values(definitionMap).forEach(definition => {
-    // no schema definition is generated at assembleSchemaToGlobal
-    // line 37
     if (definition.typescriptContent || !definition.schema) {
       return
     }
@@ -25,13 +23,23 @@ export const generateDefinitionContent = (project: IProject) => {
           ? source.addInterface({
               isExported: true,
               name: title,
-              typeParameters: definition.typeParameters,
+              typeParameters: definition.typeParameters
+                ? definition.typeParameters.map(t => ({
+                    name: t,
+                    default: 'any',
+                  }))
+                : undefined,
               docs: assembleDoc(schema),
             })
           : source.addClass({
               isExported: true,
               name: title,
-              typeParameters: definition.typeParameters,
+              typeParameters: definition.typeParameters
+                ? definition.typeParameters.map(t => ({
+                    name: t,
+                    default: 'any',
+                  }))
+                : undefined,
               docs: assembleDoc(schema),
             })
         Object.getOwnPropertyNames(schema.properties).forEach(name => {
@@ -39,7 +47,7 @@ export const generateDefinitionContent = (project: IProject) => {
           const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
             name,
             type: schemaToTypescript(property),
-            scope: Scope.Public,
+            scope: preferInterface ? undefined : Scope.Public,
             hasQuestionToken: !schema.required || !schema.required.includes(name),
             docs: assembleDoc(property),
           }

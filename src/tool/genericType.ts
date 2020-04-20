@@ -1,6 +1,6 @@
 import { isEqual } from 'lodash'
 
-import { ISwaggerDefinition, IGenericNameNode } from 'src/interface'
+import { ISwaggerDefinition, IGenericNameNode, IDefinitionMap } from 'src/interface'
 
 export const hasGenericSymbol = (name: string) => {
   return name.includes('<')
@@ -51,6 +51,21 @@ export const getGenericNameFromNode = (node: IGenericNameNode): string => {
     return name
   }
   return `${name}<${children.map(c => getGenericNameFromNode(c)).join(',')}>`
+}
+
+/** try hard to keep every nest level generic name
+ * if exist in definitionMap keep it
+ * else remove generic symbol: <>
+ * */
+export const guessGenericTypeName = (node: IGenericNameNode, definitionMap: IDefinitionMap): string => {
+  const name = getGenericNameFromNode(node)
+  if (!(node.name in definitionMap)) {
+    return removeGenericSymbol(name)
+  }
+  if (!node.children) {
+    return node.name
+  }
+  return `${node.name}<${node.children.map(c => guessGenericTypeName(c, definitionMap)).join(',')}>`
 }
 
 export const isSameGenericType = (definition1: ISwaggerDefinition, definition2: ISwaggerDefinition) => {

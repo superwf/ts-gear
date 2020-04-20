@@ -2,10 +2,12 @@ import { EOL } from 'os'
 
 import join from 'url-join'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
-import { Spec } from 'swagger-schema-official'
+import { Spec, Schema } from 'swagger-schema-official'
+import { get } from 'lodash'
 
 import { generateParameterType } from './generateParameterType'
 import { generateResponseType } from './generateResponseType'
+import { generateMockData } from './generateMockData'
 
 import { IProject } from 'src/interface'
 import { sow, harvest } from 'src/source'
@@ -45,9 +47,16 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     requestTypeScriptContent.push(responseType.successTypeContent)
     const urlPath = join(spec.basePath || '', transformSwaggerPathToRouterPath(String(request.pathName)))
     const source = sow()
-    const functionStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
+    const requesterStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
     }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<any>`
+    const mockStatment = `return Promise.resolve(${JSON.stringify(
+      generateMockData(get(request.responses, '200.schema', null) as Schema, spec.definitions),
+    )})`
+    const functionStatment = `if (project.mockResponse) {
+      ${mockStatment}
+    }
+    ${requesterStatment}`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
       name: requestFunctionName,
       isExported: true,

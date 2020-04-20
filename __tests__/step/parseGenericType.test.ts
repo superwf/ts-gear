@@ -1,22 +1,100 @@
 import { Spec } from 'swagger-schema-official'
-import { cloneDeep } from 'lodash'
 
-import { checkAndUpdateDefinitionTypeName, parseGenericType, guessGenericTypeName } from 'src/step/parseGenericType'
-import { cleanRefAndDefinitionName } from 'src/step/cleanRefAndDefinitionName'
-import { assembleSchemaToGlobal } from 'src/step/assembleSchemaToGlobal'
-import projects from 'example/ts-gear'
+import { checkAndUpdateDefinitionTypeName, checkAndUpdateRequestRef } from 'src/step/parseGenericType'
+import * as step from 'src/step'
 import { getGlobal, restore } from 'src/global'
-import projectESpec from 'example/fixture/projectE.json'
-import { IDefinitionMap } from 'src/interface'
+// import { IDefinitionMap } from 'src/interface'
+
+const spec = {
+  info: { contact: {}, license: { name: '' }, title: '', version: '' },
+  swagger: '2.0',
+  paths: {
+    '/api/req': {
+      post: {
+        parameters: [
+          {
+            in: 'body',
+            name: 'qo',
+            schema: {
+              $ref: 'ReplyVO<BatchOperateQO<Other>>',
+            },
+          },
+        ],
+        responses: {
+          '200': {
+            description: 'OK',
+            schema: {
+              $ref: 'ReplyVO<List<User>>',
+            },
+          },
+        },
+      },
+    },
+  },
+  definitions: {
+    'ReplyVO<List<User>>': {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+        },
+        data: {
+          $ref: 'List<User>',
+        },
+        message: {
+          type: 'string',
+          example: 'success',
+        },
+      },
+    },
+    'ReplyRole<List<Role>>': {
+      type: 'object',
+      properties: {
+        code: {
+          type: 'string',
+        },
+        data: {
+          $ref: 'L<Role>',
+        },
+        user: {
+          $ref: 'ReplyVO<List<User>>',
+        },
+        other: {
+          $ref: 'ReplyVO<Other>',
+        },
+        message: {
+          type: 'string',
+          example: 'success',
+        },
+      },
+    },
+    'ReplyVO<List<VV>>': {
+      type: 'object',
+      properties: {
+        data: {
+          type: 'array',
+          description: '返回数据',
+          items: {
+            $ref: 'VV',
+            originalRef: 'VV',
+          },
+        },
+      },
+    },
+  },
+} as Spec
 
 describe('parse definition with generic type', () => {
-  let spec: Spec
-  const project = projects[1]
+  const project = {
+    name: 'sample',
+    dest: './service',
+    source: 'fixture/ignore.json',
+    keepGeneric: true,
+    requester: () => Promise.resolve({}),
+  }
+
   beforeEach(() => {
-    spec = (cloneDeep(projectESpec) as unknown) as Spec
-    const keepGeneric = Boolean(project.keepGeneric)
-    cleanRefAndDefinitionName(spec, keepGeneric)
-    assembleSchemaToGlobal(spec, project)
+    step.assembleSchemaToGlobal(spec, project)
   })
   afterEach(() => {
     restore(project)
@@ -24,118 +102,22 @@ describe('parse definition with generic type', () => {
 
   it('checkAndUpdateDefinitionTypeName', () => {
     checkAndUpdateDefinitionTypeName(getGlobal(project))
-    const { definitionMap } = getGlobal(project)
+    const { definitionMap, requestMap } = getGlobal(project)
+    // console.log(JSON.stringify(definitionMap, null, 2))
+    expect(definitionMap.LRole).toEqual({
+      typeName: 'LRole',
+      typescriptContent: 'export type LRole = any',
+    })
+
+    expect(definitionMap.ReplyVO).toEqual({
+      typeName: 'ReplyVO',
+      schema: spec.definitions!['ReplyVO<List<User>>'],
+      typeParameters: ['ListUser'],
+    })
+
+    checkAndUpdateRequestRef(getGlobal(project))
+
     console.log(JSON.stringify(definitionMap, null, 2))
-  })
-
-  it('parse one sub type', () => {
-    const name = 'PageVO<User>'
-    const { definitionMap } = getGlobal(project)
-    definitionMap[name] = {
-      typeName: '',
-      schema: {
-        type: 'object',
-        properties: {
-          pageNo: {
-            type: 'number',
-          },
-          data: {
-            $ref: 'User',
-          },
-        },
-      },
-    }
-    parseGenericType(project)
-    expect(definitionMap[name].typeName).toBe('PageVO')
-    expect(definitionMap[name].typeParameters).toEqual(['User'])
-  })
-
-  it('remove generic type symbol when ref not contain in schema', () => {
-    const name = 'PageVO<User>'
-    const { definitionMap } = getGlobal(project)
-    definitionMap[name] = {
-      typeName: '',
-      schema: {
-        type: 'object',
-        properties: {
-          pageNo: {
-            type: 'number',
-          },
-        },
-      },
-    }
-    parseGenericType(project)
-    console.log(definitionMap)
-    expect(definitionMap[name].typeName).toBe('PageVOUser')
-    expect(definitionMap[name].typeParameters).toBe(undefined)
-  })
-
-  it('remove more generic type symbol when ref not contain in schema', () => {
-    const name = 'PageVO<User,Role>'
-    const { definitionMap } = getGlobal(project)
-    definitionMap[name] = {
-      typeName: '',
-      schema: {
-        type: 'object',
-        properties: {
-          pageNo: {
-            type: 'number',
-          },
-        },
-      },
-    }
-    parseGenericType(project)
-    expect(definitionMap[name].typeName).toBe('PageVOUserRole')
-    expect(definitionMap[name].typeParameters).toBe(undefined)
-  })
-
-  it.only('parse two sub type', () => {
-    const name = 'Page<User,Role>'
-    const { definitionMap } = getGlobal(project)
-    definitionMap[name] = {
-      typeName: '',
-      schema: {
-        type: 'object',
-        properties: {
-          pageNo: {
-            type: 'number',
-          },
-          user: {
-            $ref: 'User',
-          },
-          role: {
-            $ref: 'Role',
-          },
-        },
-      },
-    }
-    parseGenericType(project)
-    console.log(definitionMap)
-    // expect(definitionMap[name].typeName).toBe('PageVO')
-    // expect(definitionMap[name].typeParameters).toEqual(['User', 'Role'])
-  })
-
-  it('guessGenericTypeName', () => {
-    const definitionMap: IDefinitionMap = {
-      A: { typeName: 'A' },
-      // B: { typeName: 'B' },
-    }
-    const name = guessGenericTypeName(
-      {
-        name: 'A',
-        children: [
-          {
-            name: 'B',
-            children: [
-              {
-                name: 'C',
-              },
-            ],
-          },
-        ],
-      },
-      definitionMap,
-    )
-    console.log(name)
+    console.log(JSON.stringify(requestMap, null, 2))
   })
 })

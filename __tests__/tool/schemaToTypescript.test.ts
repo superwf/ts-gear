@@ -1,4 +1,4 @@
-import { transformSwaggerPropertyToTsType as transform } from 'src/tool/transformSwaggerPropertyToTsType'
+import { schemaToTypescript as transform } from 'src/tool/schemaToTypescript'
 
 describe('transformSwaggerPropertyToTsType', () => {
   it('number int32', () => {

@@ -11,6 +11,7 @@ describe('cleanName', () => {
 
   it('remove "#/definitions/abc«def»"', () => {
     expect(cleanName('#/definitions/abc«def»', true)).toBe('Abc<Def>')
+    expect(cleanName('#/definitions/abc<def>', true)).toBe('Abc<Def>')
   })
 
   it('remove space and upper every word first charator', () => {

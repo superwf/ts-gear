@@ -22,6 +22,7 @@ const projects: IProject[] = [
     dest: './service',
     source: 'fixture/ignore.json',
     keepGeneric: true,
+    preferInterface: true,
     requester: fetchRequester(),
   },
   // {

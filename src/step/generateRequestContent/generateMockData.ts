@@ -1,20 +1,23 @@
 /** copy from swagger-ui https://github.com/swagger-api/swagger-ui/blob/master/src/core/plugins/samples/fn.js
- * modify the js to ts */
+ * modify js to ts */
 
+import { Schema } from 'swagger-schema-official'
 import { isObject, isFunction, castArray, memoize } from 'lodash'
 
-import { JSONSchema } from 'src/interface'
+interface IDefinitions {
+  [definitionsName: string]: Schema
+}
 
 // Deeply strips a specific key from an object.
 //
 // `predicate` can be used to discriminate the stripping further,
 // by preserving the key's place in the object based on its value.
-export function deeplyStripKey(input: any, keyToStrip: string, predicate: (...args: any) => boolean) {
+export function deeplyStripKey(input: any, keyToStrip: string, predicate: (...args: any) => boolean): any {
   if (typeof input !== 'object' || Array.isArray(input) || input === null || !keyToStrip) {
     return input
   }
 
-  const obj = Object.assign({}, input)
+  const obj = { ...input }
 
   Object.keys(obj).forEach(k => {
     if (k === keyToStrip && predicate(obj[k], k)) {
@@ -51,7 +54,7 @@ const primitives = {
 
 type PrimitivesKeys = keyof typeof primitives
 
-const primitive = (schema: JSONSchema): object => {
+const primitive = (schema: Schema): object => {
   schema = objectify(schema)
   const { type, format } = schema
   const key = `${type}_${format}` as PrimitivesKeys
@@ -60,29 +63,29 @@ const primitive = (schema: JSONSchema): object => {
 
   if (isFunction(fn)) return fn(schema)
 
-  throw new Error('Unknown Type: ' + schema.type)
+  throw new Error(`Unknown Type: ${schema.type}`)
 }
 
-/** schema的$ref会有互相包含的情况，需要检查循环引用 */
+/** schema的$ref会有互相包含的情况，需要检查循环引用
+ * check circle reference
+ * */
 const schemaSet = new Set()
 
-export const sampleFromSchema: (schema: JSONSchema, definitions?: JSONSchema) => any = (
-  schema: JSONSchema,
-  definitions?: JSONSchema,
-) => {
+export const sampleFromSchema = (schema: Schema, definitions?: IDefinitions): any => {
   if (schemaSet.has(schema)) {
-    return
+    return ''
   }
   schemaSet.add(schema)
   let { type } = objectify(schema) as any
   const { example, properties, additionalProperties, items, $ref, schema: schemaSchema } = objectify(schema) as any
 
   if (example !== undefined) {
-    return deeplyStripKey(example, '$$ref', (val: any) => {
+    const r: any = deeplyStripKey(example, '$$ref', (val: any) => {
       // do a couple of quick sanity tests to ensure the value
       // looks like a $$ref that swagger-client generates.
       return typeof val === 'string' && val.indexOf('#') > -1
     })
+    return r
   }
 
   if (!type) {
@@ -91,27 +94,26 @@ export const sampleFromSchema: (schema: JSONSchema, definitions?: JSONSchema) =>
     } else if (items) {
       type = 'array'
     } else if (definitions && $ref) {
-      const definition = definitions[$ref]
+      const definition = definitions[($ref as unknown) as string]
       if (definition) {
         return sampleFromSchema(definition, definitions)
       }
-      return
+      return ''
     } else if (schemaSchema) {
       return sampleFromSchema(schemaSchema, definitions)
     } else {
-      return
+      return ''
     }
   }
 
   if (type === 'object') {
     const props = objectify(properties)
     const obj: any = {}
-    for (const name in props) {
-      if (props[name] && props[name].deprecated) {
-        continue
+    Object.getOwnPropertyNames(props).forEach(name => {
+      if (!(props[name] && props[name].deprecated)) {
+        obj[name] = sampleFromSchema(props[name], definitions)
       }
-      obj[name] = sampleFromSchema(props[name], definitions)
-    }
+    })
 
     if (additionalProperties === true) {
       obj.additionalProp1 = {}
@@ -119,8 +121,8 @@ export const sampleFromSchema: (schema: JSONSchema, definitions?: JSONSchema) =>
       const additionalProps = objectify(additionalProperties)
       const additionalPropVal = sampleFromSchema(additionalProps, definitions)
 
-      for (let i = 1; i < 4; i++) {
-        obj['additionalProp' + i] = additionalPropVal
+      for (let i = 1; i < 4; i += 1) {
+        obj[`additionalProp${i}`] = additionalPropVal
       }
     }
     return obj
@@ -128,29 +130,31 @@ export const sampleFromSchema: (schema: JSONSchema, definitions?: JSONSchema) =>
 
   if (type === 'array') {
     if (Array.isArray(items.anyOf)) {
-      return items.anyOf.map((i: JSONSchema) => sampleFromSchema(i, definitions))
+      return items.anyOf.map((i: Schema) => sampleFromSchema(i, definitions))
     }
 
     if (Array.isArray(items.oneOf)) {
-      return items.oneOf.map((i: JSONSchema) => sampleFromSchema(i, definitions))
+      return items.oneOf.map((i: Schema) => sampleFromSchema(i, definitions))
     }
 
     return [sampleFromSchema(items, definitions)]
   }
 
-  if (schema['enum']) {
-    if (schema['default']) return schema['default']
-    return castArray(schema['enum'])[0]
+  if (schema.enum) {
+    if (schema.default) {
+      return schema.default
+    }
+    return castArray(schema.enum)[0]
   }
 
   if (type === 'file') {
-    return
+    return ''
   }
 
   return primitive(schema)
 }
 
-export const generateMockData = memoize((schema: JSONSchema, definitions?: JSONSchema) => {
+export const generateMockData = memoize((schema: Schema, definitions?: IDefinitions) => {
   schemaSet.clear()
   return sampleFromSchema(schema, definitions)
 })
