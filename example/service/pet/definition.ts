@@ -1,6 +1,5 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-export type PropertyOf<T extends any, K extends keyof T> = T[K];
 export class Order {
   /** format: int64 */
   public id?: number;

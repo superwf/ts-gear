@@ -1,10 +1,17 @@
-import { OptionalKind, PropertyDeclarationStructure, Scope, PropertySignatureStructure } from 'ts-morph'
+import {
+  OptionalKind,
+  PropertyDeclarationStructure,
+  Scope,
+  PropertySignatureStructure,
+  InterfaceDeclarationStructure,
+  ClassDeclarationStructure,
+} from 'ts-morph'
 
-import { schemaToTypescript } from 'src/tool/schemaToTypescript'
-import { sow, harvest } from 'src/source'
-import { IProject } from 'src/interface'
-import { getGlobal } from 'src/global'
-import { assembleDoc } from 'src/tool/assembleDoc'
+import { schemaToTypescript } from '../tool/schemaToTypescript'
+import { sow, harvest } from '../source'
+import { IProject } from '../interface'
+import { getGlobal } from '../projectGlobalVariable'
+import { assembleDoc } from '../tool/assembleDoc'
 
 /** generate on definition ts content */
 export const generateDefinitionContent = (project: IProject) => {
@@ -19,29 +26,18 @@ export const generateDefinitionContent = (project: IProject) => {
     if (schema.type === 'object') {
       if (schema.properties) {
         const preferInterface = Boolean(project.preferInterface)
-        const klass = preferInterface
-          ? source.addInterface({
-              isExported: true,
-              name: title,
-              typeParameters: definition.typeParameters
-                ? definition.typeParameters.map(t => ({
-                    name: t,
-                    default: 'any',
-                  }))
-                : undefined,
-              docs: assembleDoc(schema),
-            })
-          : source.addClass({
-              isExported: true,
-              name: title,
-              typeParameters: definition.typeParameters
-                ? definition.typeParameters.map(t => ({
-                    name: t,
-                    default: 'any',
-                  }))
-                : undefined,
-              docs: assembleDoc(schema),
-            })
+        const declarationOptin: OptionalKind<InterfaceDeclarationStructure & ClassDeclarationStructure> = {
+          isExported: true,
+          name: title,
+          typeParameters: definition.typeParameters
+            ? definition.typeParameters.map(t => ({
+                name: t,
+                default: 'any',
+              }))
+            : undefined,
+          docs: assembleDoc(schema),
+        }
+        const klass = preferInterface ? source.addInterface(declarationOptin) : source.addClass(declarationOptin)
         Object.getOwnPropertyNames(schema.properties).forEach(name => {
           const property = schema!.properties![name]
           const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {

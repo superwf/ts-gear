@@ -1,7 +1,7 @@
-import { getGlobal } from 'src/global'
-import { traverse$Ref } from 'src/tool/traverseSchema'
-import { IProject } from 'src/interface'
-import { patchGlobalDefinitionMap } from 'src/tool/patchGlobalDefinitionMap'
+import { getGlobal } from '../projectGlobalVariable'
+import { traverse$Ref } from '../tool/traverseSchema'
+import { IProject } from '../interface'
+import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /**
  * collect refs in paths
@@ -10,6 +10,24 @@ import { patchGlobalDefinitionMap } from 'src/tool/patchGlobalDefinitionMap'
 export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
   const { requestRefSet, requestMap, definitionMap } = getGlobal(project)
   const keepGeneric = Boolean(project.keepGeneric)
+  // when not keepGeneric, definition alse need to patch
+  Object.getOwnPropertyNames(definitionMap).forEach(name => {
+    const { schema } = definitionMap[name]
+    if (schema) {
+      traverse$Ref(schema, value => {
+        if (keepGeneric) {
+          value
+            .split(/<|>|,/)
+            .filter(Boolean)
+            .forEach(typeName => {
+              patchGlobalDefinitionMap(typeName, definitionMap)
+            })
+        } else {
+          patchGlobalDefinitionMap(value, definitionMap)
+        }
+      })
+    }
+  })
   // gather ref definition names from paths
   Object.getOwnPropertyNames(requestMap).forEach(name => {
     const { schema } = requestMap[name]

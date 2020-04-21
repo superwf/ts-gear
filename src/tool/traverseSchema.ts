@@ -1,6 +1,6 @@
-import traverse from 'traverse'
+import * as traverse from 'traverse'
 
-import { ITraverseSchemaNode } from 'src/interface'
+import { ITraverseSchemaNode } from '../interface'
 
 /**
  * recursively invoked on every schema node

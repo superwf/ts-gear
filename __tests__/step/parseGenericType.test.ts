@@ -2,7 +2,7 @@ import { Spec } from 'swagger-schema-official'
 
 import { checkAndUpdateDefinitionTypeName, checkAndUpdateRequestRef } from 'src/step/parseGenericType'
 import * as step from 'src/step'
-import { getGlobal, restore } from 'src/global'
+import { getGlobal, restore } from 'src/projectGlobalVariable'
 // import { IDefinitionMap } from 'src/interface'
 
 const spec = {
@@ -78,6 +78,24 @@ const spec = {
             $ref: 'VV',
             originalRef: 'VV',
           },
+        },
+      },
+    },
+    'Result<List<Map>>': {
+      type: 'object',
+      properties: {
+        description: {
+          type: 'string',
+        },
+        result: {
+          type: 'array',
+          items: {
+            $ref: 'Map',
+          },
+        },
+        returnCode: {
+          type: 'integer',
+          format: 'int32',
         },
       },
     },

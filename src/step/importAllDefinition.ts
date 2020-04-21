@@ -1,5 +1,5 @@
-import { getGlobal } from 'src/global'
-import { IProject } from 'src/interface'
+import { getGlobal } from '../projectGlobalVariable'
+import { IProject } from '../interface'
 
 export const importAllDefinition = (project: IProject) => {
   const { requestRefSet } = getGlobal(project)
@@ -12,7 +12,6 @@ export const importAllDefinition = (project: IProject) => {
         refSet.add(n)
       })
   })
-  const importNames: string[] = ['PropertyOf']
-  importNames.push(...Array.from(refSet))
+  const importNames = Array.from(refSet)
   return `import { ${importNames.join(',')} } from './definition'`
 }

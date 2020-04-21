@@ -1,15 +1,27 @@
-// import { cloneDeep } from 'lodash'
+import { translate } from 'src/tool/translate'
 
-// import pontSchema from 'example/fixture/pontFixture.json'
-import {
-  translate,
-  // gatherNonEnglishWords,
-  // translateEngines,
-  // generateTranslationMap,
-  // updateSchema,
-} from 'src/tool/translate'
+type Translate = typeof baidu.translate
 
-describe.skip('translate by engines', () => {
+jest.mock('translation.js', () => {
+  return {
+    baidu: {
+      translate: (_args: any) => {
+        return Promise.resolve({
+          result: ['Output result « query parameter »'],
+        }) as ReturnType<Translate>
+      },
+    },
+    google: {
+      translate: (_args: any) => {
+        return Promise.resolve({
+          result: ['Output result «Query parameters»'],
+        }) as ReturnType<Translate>
+      },
+    },
+  }
+})
+
+describe('translate by engines', () => {
   it('translate by baidu', async () => {
     expect(await translate('输出结果«查询参数»', 'baidu')).toBe('Output result « query parameter »')
   }, 5000)

@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync } from 'fs'
 import { join } from 'path'
 
-import { IProject } from 'src/interface'
+import { IProject } from '../interface'
 
 export const prepareProjectDirectory = (project: IProject) => {
   const cwd = process.cwd()

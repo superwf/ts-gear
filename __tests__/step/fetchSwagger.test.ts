@@ -1,4 +1,4 @@
-// import fetchMock from 'fetch-mock'
+import { join } from 'path'
 
 import * as step from 'src/step'
 import { IProject } from 'src/interface'
@@ -12,6 +12,7 @@ jest.mock('isomorphic-fetch', () => {
 })
 
 describe('fetchSwagger', () => {
+  const cwd = process.cwd()
   it('file not ends with json', done => {
     const project: IProject = {
       name: 'abc',
@@ -23,6 +24,18 @@ describe('fetchSwagger', () => {
       expect(e.message).toBe('user config file should ends with `.json`')
       done()
     })
+  })
+
+  it('get json', async () => {
+    const project: IProject = {
+      name: 'abc',
+      source: join('example', 'package.json'),
+      dest: 'abc',
+      requester: () => Promise.resolve(),
+    }
+    const spec = await step.fetchSwagger(project)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
+    expect(spec).toEqual(require(join(cwd, 'example', 'package.json')))
   })
 
   it('fetch remote spec', async () => {

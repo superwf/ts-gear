@@ -1,4 +1,10 @@
-import { hasGenericSymbol, removeGenericSymbol, parseGenericNames, getGenericNameFromNode } from 'src/tool/genericType'
+import {
+  hasGenericSymbol,
+  removeGenericSymbol,
+  parseGenericNames,
+  getGenericNameFromNode,
+  guessGenericTypeName,
+} from 'src/tool/genericType'
 
 describe('process generic type name', () => {
   it('hasGenericSymbol', () => {
@@ -34,5 +40,32 @@ describe('process generic type name', () => {
     const name = 'A<B<C,D<G>,F<E>>>'
     const r = parseGenericNames(name)
     expect(getGenericNameFromNode(r[0])).toBe(name)
+  })
+
+  it('guessGenericTypeName', () => {
+    const name = 'A<B<C>>'
+    const node = parseGenericNames(name)
+    let guessedName = guessGenericTypeName(node[0], {
+      A: {
+        typeName: 'A',
+      },
+      C: {
+        typeName: 'C',
+      },
+    })
+    expect(guessedName).toBe('A<BC>')
+
+    guessedName = guessGenericTypeName(node[0], {
+      A: {
+        typeName: 'A',
+      },
+      B: {
+        typeName: 'B',
+      },
+      C: {
+        typeName: 'C',
+      },
+    })
+    expect(guessedName).toBe('A<B<C>>')
   })
 })

@@ -1,8 +1,8 @@
 import { Parameter, Reference } from 'swagger-schema-official'
 
-import { ParameterPositionMap } from 'src/interface'
-import { isReference } from 'src/tool/isReference'
-import { assembleDoc } from 'src/tool/assembleDoc'
+import { ParameterPositionMap } from '../../interface'
+import { isReference } from '../../tool/isReference'
+import { assembleDoc } from '../../tool/assembleDoc'
 
 /** assemble parameters to type ParameterPositionMap
  *

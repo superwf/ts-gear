@@ -1,6 +1,5 @@
 import * as step from './step'
-
-import { restore } from 'src/global'
+import { restore } from './projectGlobalVariable'
 
 /**
  * run step by step
@@ -16,7 +15,7 @@ export const run = () => {
     if (project.translationEngine) {
       await step.translateSchema(spec, project.translationEngine)
     }
-    const keepGeneric = Boolean(project.keepGeneric)
+    const keepGeneric = project.keepGeneric === undefined || project.keepGeneric
     step.cleanRefAndDefinitionName(spec, keepGeneric)
     step.assembleSchemaToGlobal(spec, project)
     if (keepGeneric) {

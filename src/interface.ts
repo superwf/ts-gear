@@ -11,6 +11,11 @@ import {
 } from 'swagger-schema-official'
 import * as translation from 'translation.js'
 
+/** interface A { n: number }
+ * type B = PropertyOf<A, 'n'> === type B = number
+ * */
+export type PropertyOf<T extends any, K extends keyof T> = T[K]
+
 /** baidu and google can handle different language automatically
  * youdao must assign the language type
  * */
@@ -57,10 +62,13 @@ export type ParameterPositionMap = {
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
 
 export interface IProject {
+  /** project name
+   * will used to mkdir in "dest"
+   * */
   name: string
 
   /** the api files will be generated to
-   * @default './service'
+   * @example './service'
    * */
   dest: string
 
@@ -71,7 +79,10 @@ export interface IProject {
    * */
   source: string
 
-  /** the param for fetch swagger doc */
+  /**
+   * the param for fetch swagger doc
+   * see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
+   * */
   fetchSwaggerDocOption?: RequestInit
 
   /** filter api path
@@ -79,6 +90,13 @@ export interface IProject {
    * use this option could avoid those to be written in your api file
    * */
   pathMatcher?: TPathMatcherFunction
+
+  /** request function
+   * ts-gear provide two available requesters out of box.
+   * or else use your own function as requester is definitily ok,
+   * request function signiture as below
+   *   (url: string, param: IRequestParameter) => Promise<any>
+   * */
   requester: Requester
 
   /**
@@ -89,9 +107,16 @@ export interface IProject {
    * */
   preferInterface?: boolean
 
-  /** @default false */
+  /**
+   * @default false
+   * when assigned true, the requester function will receive the "host"
+   * defined in swagger
+   * */
   withHost?: boolean
-  /** @default false */
+  /**
+   * @default false
+   * when assigned true, the requester function will receive the "basePath" defined in swagger
+   * */
   withBasePath?: boolean
 
   /**

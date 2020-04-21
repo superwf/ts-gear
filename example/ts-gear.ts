@@ -1,6 +1,6 @@
 import { IProject } from 'ts-gear/src/interface'
-import { requester as fetchRequester } from 'ts-gear/src/requester/fetch'
-import { requester as axiosRequester } from 'ts-gear/src/requester/axios'
+import { requester as fetchRequester } from 'ts-gear/lib/requester/fetch'
+import { requester as axiosRequester } from 'ts-gear/lib/requester/axios'
 
 const projects: IProject[] = [
   {
@@ -28,6 +28,10 @@ const projects: IProject[] = [
   // {
   //   name: 'projectPont',
   //   source: 'fixture/pontFixture.json',
+  //   dest: './service',
+  //   keepGeneric: true,
+  //   translationEngine: 'baidu',
+  //   requester: axiosRequester(),
   // },
 ]
 

@@ -1,6 +1,6 @@
 import { baidu, google } from 'translation.js'
 
-import { TranslationEngine } from 'src/interface'
+import { TranslationEngine } from '../interface'
 
 export const translateEngines = {
   baidu,
@@ -19,6 +19,6 @@ export async function translate(text: string, engineName: TranslationEngine) {
     })
     return res.result!.join('')
   } catch (e) {
-    throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e}`)
+    throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e.message}`)
   }
 }

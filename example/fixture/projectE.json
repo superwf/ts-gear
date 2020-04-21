@@ -38,24 +38,6 @@
   },
   "definitions": {
     "BodyBuilder": { "type": "object", "title": "BodyBuilder" },
-    "ReplyVO": {
-      "type": "object",
-      "required": ["code", "message"],
-      "properties": {
-        "code": {
-          "type": "string",
-          "example": "000000",
-          "description": "响应代码【0正确,非0错误】"
-        },
-        "data": { "type": "object", "description": "返回数据" },
-        "message": {
-          "type": "string",
-          "example": "success",
-          "description": "结果描述"
-        }
-      },
-      "title": "ReplyVO"
-    },
     "PageVO«ListVO»": {
       "type": "object",
       "required": [

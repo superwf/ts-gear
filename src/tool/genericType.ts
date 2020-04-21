@@ -1,6 +1,6 @@
 import { isEqual } from 'lodash'
 
-import { ISwaggerDefinition, IGenericNameNode, IDefinitionMap } from 'src/interface'
+import { ISwaggerDefinition, IGenericNameNode, IDefinitionMap } from '../interface'
 
 export const hasGenericSymbol = (name: string) => {
   return name.includes('<')
@@ -66,17 +66,4 @@ export const guessGenericTypeName = (node: IGenericNameNode, definitionMap: IDef
     return node.name
   }
   return `${node.name}<${node.children.map(c => guessGenericTypeName(c, definitionMap)).join(',')}>`
-}
-
-export const isSameGenericType = (definition1: ISwaggerDefinition, definition2: ISwaggerDefinition) => {
-  return isEqual(
-    {
-      typeName: definition1.typeName,
-      typeParameterSize: definition1.typeParameters ? definition1.typeParameters.length : 0,
-    },
-    {
-      typeName: definition2.typeName,
-      typeParameterSize: definition2.typeParameters ? definition2.typeParameters.length : 0,
-    },
-  )
 }

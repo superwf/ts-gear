@@ -1,10 +1,10 @@
 import { forEach, upperFirst } from 'lodash'
 import { Spec } from 'swagger-schema-official'
 
-import { getDefinition } from 'src/tool/getDefinition'
-import { HttpMethod, IProject } from 'src/interface'
-import { getGlobal, httpMethods } from 'src/global'
-import { camelCase } from 'src/tool/camelCase'
+import { getDefinition } from '../tool/getDefinition'
+import { HttpMethod, IProject } from '../interface'
+import { getGlobal, httpMethods } from '../projectGlobalVariable'
+import { camelCase } from '../tool/camelCase'
 
 /**
  * collect definition to definitionMap

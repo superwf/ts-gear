@@ -1,8 +1,10 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
+import { PropertyOf } from "ts-gear";
 import projects from "../../ts-gear";
-import { PropertyOf, Pet, ApiResponse, Order, User } from "./definition";
-const { requester } = projects.find(p => p.name === "pet")!;
+import { Pet, ApiResponse, Order, User } from "./definition";
+const project = projects.find(p => p.name === "pet")!;
+const { requester } = project;
 /** request parameter type for putPet */
 export interface IPutPetOption {
   /** Pet object that needs to be added to the store */
@@ -27,10 +29,9 @@ export type IPutPetResponseSuccess = any;
  */
 export function putPet(option: IPutPetOption): Promise<IPutPetResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/pet", { method: "put", ...option }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/pet", { method: "put", ...option }) as Promise<any>;
 }
 
 /** request parameter type for postPet */
@@ -55,10 +56,9 @@ export function postPet(
   option: IPostPetOption
 ): Promise<IPostPetResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/pet", { method: "post", ...option }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/pet", { method: "post", ...option }) as Promise<any>;
 }
 
 /** request parameter type for getPetFindByStatus */
@@ -101,13 +101,12 @@ export function getPetFindByStatus(
         tags: [{ id: 0, name: "string" }],
         status: "available"
       }
-    ]);
-  } else {
-    return requester("/v2/pet/findByStatus", {
-      method: "get",
-      ...option
-    }) as Promise<any>;
+    ] as any);
   }
+  return requester("/v2/pet/findByStatus", {
+    method: "get",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for getPetPetId */
@@ -151,12 +150,11 @@ export function getPetPetId(
       photoUrls: ["string"],
       tags: [{ id: 0, name: "string" }],
       status: "available"
-    });
-  } else {
-    return requester("/v2/pet/:petId", { method: "get", ...option }) as Promise<
-      any
-    >;
+    } as any);
   }
+  return requester("/v2/pet/:petId", { method: "get", ...option }) as Promise<
+    any
+  >;
 }
 
 /** request parameter type for postPetPetId */
@@ -198,13 +196,11 @@ export function postPetPetId(
   option: IPostPetPetIdOption
 ): Promise<IPostPetPetIdResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/pet/:petId", {
-      method: "post",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/pet/:petId", { method: "post", ...option }) as Promise<
+    any
+  >;
 }
 
 /** request parameter type for deletePetPetId */
@@ -241,13 +237,12 @@ export function deletePetPetId(
   option: IDeletePetPetIdOption
 ): Promise<IDeletePetPetIdResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/pet/:petId", {
-      method: "delete",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/pet/:petId", {
+    method: "delete",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for postPetPetIdUploadImage */
@@ -292,18 +287,23 @@ export function postPetPetIdUploadImage(
   option: IPostPetPetIdUploadImageOption
 ): Promise<IPostPetPetIdUploadImageResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve({ code: 0, type: "string", message: "string" });
-  } else {
-    return requester("/v2/pet/:petId/uploadImage", {
-      method: "post",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve({
+      code: 0,
+      type: "string",
+      message: "string"
+    } as any);
   }
+  return requester("/v2/pet/:petId/uploadImage", {
+    method: "post",
+    ...option
+  }) as Promise<any>;
 }
 
 export interface IGetStoreInventoryResponse {
   /** successful operation */
-  200: any;
+  200: {
+    [propertyName: string]: number;
+  };
 }
 
 export type IGetStoreInventoryResponseSuccess = PropertyOf<
@@ -324,10 +324,9 @@ export function getStoreInventory(): Promise<
       additionalProp1: 0,
       additionalProp2: 0,
       additionalProp3: 0
-    });
-  } else {
-    return requester("/v2/store/inventory", { method: "get" }) as Promise<any>;
+    } as any);
   }
+  return requester("/v2/store/inventory", { method: "get" }) as Promise<any>;
 }
 
 /** request parameter type for postStoreOrder */
@@ -363,13 +362,11 @@ export function postStoreOrder(
       shipDate: "2019-09-03T00:00:00.000Z",
       status: "placed",
       complete: false
-    });
-  } else {
-    return requester("/v2/store/order", {
-      method: "post",
-      ...option
-    }) as Promise<any>;
+    } as any);
   }
+  return requester("/v2/store/order", { method: "post", ...option }) as Promise<
+    any
+  >;
 }
 
 /** request parameter type for getStoreOrderOrderId */
@@ -416,13 +413,12 @@ export function getStoreOrderOrderId(
       shipDate: "2019-09-03T00:00:00.000Z",
       status: "placed",
       complete: false
-    });
-  } else {
-    return requester("/v2/store/order/:orderId", {
-      method: "get",
-      ...option
-    }) as Promise<any>;
+    } as any);
   }
+  return requester("/v2/store/order/:orderId", {
+    method: "get",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for deleteStoreOrderOrderId */
@@ -457,13 +453,12 @@ export function deleteStoreOrderOrderId(
   option: IDeleteStoreOrderOrderIdOption
 ): Promise<IDeleteStoreOrderOrderIdResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/store/order/:orderId", {
-      method: "delete",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/store/order/:orderId", {
+    method: "delete",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for postUser */
@@ -488,10 +483,9 @@ export function postUser(
   option: IPostUserOption
 ): Promise<IPostUserResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user", { method: "post", ...option }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user", { method: "post", ...option }) as Promise<any>;
 }
 
 /** request parameter type for postUserCreateWithArray */
@@ -518,13 +512,12 @@ export function postUserCreateWithArray(
   option: IPostUserCreateWithArrayOption
 ): Promise<IPostUserCreateWithArrayResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user/createWithArray", {
-      method: "post",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user/createWithArray", {
+    method: "post",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for postUserCreateWithList */
@@ -551,13 +544,12 @@ export function postUserCreateWithList(
   option: IPostUserCreateWithListOption
 ): Promise<IPostUserCreateWithListResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user/createWithList", {
-      method: "post",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user/createWithList", {
+    method: "post",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for getUserLogin */
@@ -593,12 +585,11 @@ export function getUserLogin(
   option: IGetUserLoginOption
 ): Promise<IGetUserLoginResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("string");
-  } else {
-    return requester("/v2/user/login", { method: "get", ...option }) as Promise<
-      any
-    >;
+    return Promise.resolve("string" as any);
   }
+  return requester("/v2/user/login", { method: "get", ...option }) as Promise<
+    any
+  >;
 }
 
 export interface IGetUserLogoutResponse {
@@ -617,10 +608,9 @@ export type IGetUserLogoutResponseSuccess = PropertyOf<
  */
 export function getUserLogout(): Promise<IGetUserLogoutResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user/logout", { method: "get" }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user/logout", { method: "get" }) as Promise<any>;
 }
 
 /** request parameter type for getUserUsername */
@@ -664,13 +654,12 @@ export function getUserUsername(
       password: "string",
       phone: "string",
       userStatus: 0
-    });
-  } else {
-    return requester("/v2/user/:username", {
-      method: "get",
-      ...option
-    }) as Promise<any>;
+    } as any);
   }
+  return requester("/v2/user/:username", {
+    method: "get",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for putUserUsername */
@@ -703,13 +692,12 @@ export function putUserUsername(
   option: IPutUserUsernameOption
 ): Promise<IPutUserUsernameResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user/:username", {
-      method: "put",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user/:username", {
+    method: "put",
+    ...option
+  }) as Promise<any>;
 }
 
 /** request parameter type for deleteUserUsername */
@@ -740,11 +728,10 @@ export function deleteUserUsername(
   option: IDeleteUserUsernameOption
 ): Promise<IDeleteUserUsernameResponseSuccess> {
   if (project.mockResponse) {
-    return Promise.resolve("");
-  } else {
-    return requester("/v2/user/:username", {
-      method: "delete",
-      ...option
-    }) as Promise<any>;
+    return Promise.resolve("" as any);
   }
+  return requester("/v2/user/:username", {
+    method: "delete",
+    ...option
+  }) as Promise<any>;
 }

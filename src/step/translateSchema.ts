@@ -1,11 +1,10 @@
 import { Spec } from 'swagger-schema-official'
 import { find } from 'lodash'
 
-import { traverseSchema } from 'src/tool/traverseSchema'
-import { TranslationEngine, IWordsMap } from 'src/interface'
-import { translate } from 'src/tool/translate'
+import { traverseSchema } from '../tool/traverseSchema'
+import { TranslationEngine, IWordsMap } from '../interface'
+import { translate } from '../tool/translate'
 
-// copy some translate part from pont src/scripts/base.ts
 export const cnReg = /[\u4e00-\u9fa5]/
 
 /** gather all words those need to be translated in spec */

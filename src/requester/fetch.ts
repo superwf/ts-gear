@@ -4,7 +4,7 @@ import * as URL from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
-import { IRequestParameter } from 'src/interface'
+import { IRequestParameter } from '../interface'
 
 const jsonType = 'application/json'
 

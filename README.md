@@ -15,6 +15,24 @@ With this tool you will know any changes in swagger in a more convenient way.
 * every project has identical "dest" directory.
 * every project has identical "withHost" and "withBasePath" option.
 
+## coverage
+
+### Statements
+
+![Statements](./coverage/badge-statements.svg)
+
+### Branches
+
+![Branches](./coverage/badge-branches.svg)
+
+### Functions
+
+![Functions](./coverage/badge-functions.svg)
+
+### Lines
+
+![Lines](./coverage/badge-lines.svg)
+
 ### process step
 
 * read user config file.

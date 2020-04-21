@@ -5,7 +5,7 @@ import { generateRequestContent } from 'src/step/generateRequestContent'
 import petSchema from 'example/fixture/pet.json'
 import projects from 'example/ts-gear'
 import * as step from 'src/step'
-import { restore } from 'src/global'
+import { restore } from 'src/projectGlobalVariable'
 import { IProject } from 'src/interface'
 
 describe('src/step/generateRequestContent', () => {

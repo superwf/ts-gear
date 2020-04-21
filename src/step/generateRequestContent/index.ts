@@ -1,25 +1,24 @@
 import { EOL } from 'os'
 
-import join from 'url-join'
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
-import { Spec, Schema } from 'swagger-schema-official'
-import { get } from 'lodash'
+import { Spec } from 'swagger-schema-official'
 
-import { generateParameterType } from './generateParameterType'
-import { generateResponseType } from './generateResponseType'
+import { IProject } from '../../interface'
+import { sow, harvest } from '../../source'
+import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
+import { getGlobal } from '../../projectGlobalVariable'
+import { assembleDoc } from '../../tool/assembleDoc'
+
 import { generateMockData } from './generateMockData'
+import { generateResponseType } from './generateResponseType'
+import { generateParameterType } from './generateParameterType'
 
-import { IProject } from 'src/interface'
-import { sow, harvest } from 'src/source'
-// import { schemaToTypescript } from 'src/tool/schemaToTypescript'
-import { transformSwaggerPathToRouterPath } from 'src/tool/transformSwaggerPathToRouterPath'
-import { getGlobal } from 'src/global'
-import { assembleDoc } from 'src/tool/assembleDoc'
+import join = require('url-join')
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: IProject) => {
   const { pathMatcher, withBasePath, withHost } = project
-  const { requestMap } = getGlobal(project)
+  const { requestMap, definitionMap } = getGlobal(project)
 
   const resultContent: string[] = []
   Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
@@ -50,9 +49,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     const requesterStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
     }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<any>`
-    const mockStatment = `return Promise.resolve(${JSON.stringify(
-      generateMockData(get(request.responses, '200.schema', null) as Schema, spec.definitions),
-    )})`
+    const mockStatment = `return Promise.resolve(${JSON.stringify(generateMockData(request, definitionMap))} as any)`
     const functionStatment = `if (project.mockResponse) {
       ${mockStatment}
     }

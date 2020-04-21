@@ -1,8 +1,8 @@
 import { Spec } from 'swagger-schema-official'
 
-import { traverseSchema } from 'src/tool/traverseSchema'
-import { cleanName } from 'src/tool/cleanName'
-import { getDefinition } from 'src/tool/getDefinition'
+import { traverseSchema } from '../tool/traverseSchema'
+import { cleanName } from '../tool/cleanName'
+import { getDefinition } from '../tool/getDefinition'
 
 /** use cleanName for all "$ref" and "definitions" names
  * mutate the spec data

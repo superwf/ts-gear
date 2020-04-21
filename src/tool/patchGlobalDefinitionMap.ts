@@ -1,4 +1,4 @@
-import { IDefinitionMap } from 'src/interface'
+import { IDefinitionMap } from '../interface'
 
 export const patchGlobalDefinitionMap = (typeName: string, definitionMap: IDefinitionMap, alias = 'any') => {
   if (!(typeName in definitionMap)) {

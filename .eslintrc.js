@@ -84,7 +84,7 @@ module.exports = {
     '@typescript-eslint/member-delimiter-style': ['error', { multiline: { delimiter: 'none' } }],
 
     // skip check var starts with "_"
-    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true, varsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true, varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
     '@typescript-eslint/explicit-member-accessibility': ['error', { overrides: { constructors: 'no-public' } }],
   },
   settings: {

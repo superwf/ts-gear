@@ -2,11 +2,9 @@
  * modify js to ts */
 
 import { Schema } from 'swagger-schema-official'
-import { isObject, isFunction, castArray, memoize } from 'lodash'
+import { find, isObject, isFunction, castArray, memoize } from 'lodash'
 
-interface IDefinitions {
-  [definitionsName: string]: Schema
-}
+import { ISwaggerRequest, IDefinitionMap } from '../../interface'
 
 // Deeply strips a specific key from an object.
 //
@@ -66,12 +64,12 @@ const primitive = (schema: Schema): object => {
   throw new Error(`Unknown Type: ${schema.type}`)
 }
 
-/** schema的$ref会有互相包含的情况，需要检查循环引用
- * check circle reference
+/**
+ * prevent schema circle reference
  * */
 const schemaSet = new Set()
 
-export const sampleFromSchema = (schema: Schema, definitions?: IDefinitions): any => {
+export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): any => {
   if (schemaSet.has(schema)) {
     return ''
   }
@@ -93,10 +91,10 @@ export const sampleFromSchema = (schema: Schema, definitions?: IDefinitions): an
       type = 'object'
     } else if (items) {
       type = 'array'
-    } else if (definitions && $ref) {
-      const definition = definitions[($ref as unknown) as string]
-      if (definition) {
-        return sampleFromSchema(definition, definitions)
+    } else if ($ref) {
+      const definitionSchema = definitions[$ref] && definitions[$ref].schema
+      if (definitionSchema) {
+        return sampleFromSchema(definitionSchema, definitions)
       }
       return ''
     } else if (schemaSchema) {
@@ -154,7 +152,13 @@ export const sampleFromSchema = (schema: Schema, definitions?: IDefinitions): an
   return primitive(schema)
 }
 
-export const generateMockData = memoize((schema: Schema, definitions?: IDefinitions) => {
+export const generateMockData = memoize((request: ISwaggerRequest, definitionMap: IDefinitionMap) => {
   schemaSet.clear()
-  return sampleFromSchema(schema, definitions)
+  if (request.responses) {
+    const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))
+    if (schema) {
+      return sampleFromSchema(schema, definitionMap)
+    }
+  }
+  return ''
 })

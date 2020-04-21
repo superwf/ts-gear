@@ -1,11 +1,9 @@
 import { upperFirst } from 'lodash'
 /**
- * lodash的camelCase在处理有非字符存在的时候的不一致行为，
- * 例如 PageVO«CisSkuListVO» => PageVOCisSkuListVO
- * 而本身已经是驼峰格式的名字会转换为尾字母小写
- * 例如 PageVOCisSkuListVO => PageVoCisSkuListVo
- * 形成不一致的命名
- * 这个自定义的camelCase统一该行为
+ * lodash camelCase will convert non word first charator lower case
+ * e.g. lodash camelCase will convert "PageVOListVO" to "PageVoListVo"
+ * use this camelCase to convert only every words first charator upper case.
+ * e.g. "PageVOListVO" to "PageVOListVO"
  *  */
 export const camelCase = (name: string) => {
   const invalidVariableCharatorReg = /[^a-z0-9]/i

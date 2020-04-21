@@ -14,8 +14,8 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if ('format' in schema) {
     docs.push(`format: ${schema.format}`)
   }
-  if ('tags' in schema) {
-    docs.push(`tags: ${schema.tags?.join()}`)
+  if ('tags' in schema && schema.tags) {
+    docs.push(`tags: ${schema.tags.join()}`)
   }
   if ('default' in schema) {
     docs.push(`default: ${schema.default}`)

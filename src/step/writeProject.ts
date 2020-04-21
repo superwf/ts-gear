@@ -1,15 +1,15 @@
 import { EOL } from 'os'
 import { join } from 'path'
 
-import { importAllDefinition } from './importAllDefinition'
+import { getGlobal } from '../projectGlobalVariable'
+import { prettierWrite } from '../tool/prettierWrite'
+import { IProject } from '../interface'
+import { warningComment } from '../content/warningComment'
+import { projectIndex } from '../content/projectIndex'
+import { requester } from '../content/requester'
+import { propertyOf } from '../content/propertyOfHelper'
 
-import { getGlobal } from 'src/global'
-import { prettierWrite } from 'src/tool/prettierWrite'
-import { IProject } from 'src/interface'
-import { warningComment } from 'src/content/warningComment'
-import { projectIndex } from 'src/content/projectIndex'
-import { requester } from 'src/content/requester'
-import { propertyOf } from 'src/content/propertyOfHelper'
+import { importAllDefinition } from './importAllDefinition'
 
 /** gather global typescript content
  * write to project dir */
@@ -30,7 +30,7 @@ export const writeProject = (project: IProject) => {
       return definitionMap[name].typescriptContent
     })
     .join(EOL)
-  prettierWrite([warningComment, propertyOf, definitionContent].join(EOL), join(dest, 'definition.ts'))
+  prettierWrite([warningComment, definitionContent].join(EOL), join(dest, 'definition.ts'))
 
   const requestContent = Object.getOwnPropertyNames(requestMap)
     .map(name => {
@@ -39,9 +39,14 @@ export const writeProject = (project: IProject) => {
     .join(EOL)
   const requesterResult = requester(project)
   prettierWrite(
-    [warningComment, requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
-      EOL,
-    ),
+    [
+      warningComment,
+      propertyOf,
+      requesterResult.import,
+      importAllDefinition(project),
+      requesterResult.code,
+      requestContent,
+    ].join(EOL),
     join(dest, 'request.ts'),
   )
 

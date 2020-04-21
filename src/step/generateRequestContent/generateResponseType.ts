@@ -1,10 +1,10 @@
 import { upperFirst } from 'lodash'
 import { Response, Reference } from 'swagger-schema-official'
 
-import { sow, harvest } from 'src/source'
-import { schemaToTypescript } from 'src/tool/schemaToTypescript'
-import { assembleDoc } from 'src/tool/assembleDoc'
-import { IAssembleResponse } from 'src/interface'
+import { sow, harvest } from '../../source'
+import { schemaToTypescript } from '../../tool/schemaToTypescript'
+import { assembleDoc } from '../../tool/assembleDoc'
+import { IAssembleResponse } from '../../interface'
 
 /**
  * when has responses spec, get an interface type and use the first 2xx member as successType

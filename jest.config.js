@@ -2,6 +2,7 @@
 const { sep, join } = require('path')
 
 const { reduce } = require('lodash')
+const { defaults: tsjPreset } = require('ts-jest/presets')
 
 const tsconfig = require('./tsconfig.json')
 /* eslint-enable @typescript-eslint/no-var-requires */
@@ -17,9 +18,14 @@ const pathAlias = reduce(
 
 module.exports = {
   testEnvironment: 'node',
+  watchPathIgnorePatterns: ['tmp', 'example'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts'],
-  coverageReporters: ['text-summary', 'text'],
+  transform: {
+    ...tsjPreset.transform,
+    '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
+  },
+  coverageReporters: ['text-summary', 'text', 'json', 'lcov', 'clover', 'json-summary'],
   testRegex: '__tests__/.*\\.test\\.(ts|tsx)$',
   moduleNameMapper: {
     ...reduce(

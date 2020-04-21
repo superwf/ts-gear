@@ -1,15 +1,14 @@
-import { traverseSchema, traverse$Ref } from 'src/tool/traverseSchema'
-import { getGlobal } from 'src/global'
+import { traverseSchema, traverse$Ref } from '../tool/traverseSchema'
+import { getGlobal } from '../projectGlobalVariable'
 import {
   hasGenericSymbol,
   removeGenericSymbol,
   parseGenericNames,
   getGenericNameFromNode,
   guessGenericTypeName,
-} from 'src/tool/genericType'
-// import { cleanName } from 'src/tool/cleanName'
-import { IProject, IProjectGlobal, ISwaggerDefinition } from 'src/interface'
-import { patchGlobalDefinitionMap } from 'src/tool/patchGlobalDefinitionMap'
+} from '../tool/genericType'
+import { IProject, IProjectGlobal, ISwaggerDefinition } from '../interface'
+import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /** check generic type
  * support nest level, as A<B> or A<B,C<D>>
@@ -60,6 +59,16 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
           definition.typescriptContent = `export type ${removeGenericSymbol(definitionName)} = ${
             parentNode.name
           }<${typeParameters.join(',')}>`
+          // typeParameters name may be nest generic type
+          // e.g A<B<C>>
+          typeParameters.forEach(typeName => {
+            if (!(typeName in definitionMap)) {
+              const nodes = parseGenericNames(typeName)
+              nodes.forEach(node => {
+                patchGlobalDefinitionMap(node.name, definitionMap)
+              })
+            }
+          })
         } else {
           parseFailedDefinitions.push(definition)
         }

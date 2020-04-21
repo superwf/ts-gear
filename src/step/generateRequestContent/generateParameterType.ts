@@ -1,12 +1,11 @@
 import { Parameter, Reference } from 'swagger-schema-official'
 import { isEmpty, upperFirst } from 'lodash'
 
-import { assembleRequestParam } from './assembleRequestParam'
+import { RequestParameterPosition } from '../../interface'
+import { schemaToTypescript } from '../../tool/schemaToTypescript'
+import { sow, harvest } from '../../source'
 
-import { RequestParameterPosition } from 'src/interface'
-import { schemaToTypescript } from 'src/tool/schemaToTypescript'
-import { sow, harvest } from 'src/source'
-// import { ParameterPositionMap } from 'src/interface'
+import { assembleRequestParam } from './assembleRequestParam'
 
 /**
  * @param name request function parameter interface name
