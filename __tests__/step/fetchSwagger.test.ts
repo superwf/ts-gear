@@ -1,15 +1,9 @@
 import { join } from 'path'
 
+import { getOnce } from 'fetch-mock'
+
 import * as step from 'src/step'
 import { IProject } from 'src/interface'
-
-jest.mock('isomorphic-fetch', () => {
-  return () => ({
-    json() {
-      return Promise.resolve({ ok: true })
-    },
-  })
-})
 
 describe('fetchSwagger', () => {
   const cwd = process.cwd()
@@ -45,8 +39,8 @@ describe('fetchSwagger', () => {
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
+    getOnce('http://abc.com', { ok: true })
     const res = await step.fetchSwagger(project)
     expect(res).toEqual({ ok: true })
-    jest.restoreAllMocks()
   })
 })

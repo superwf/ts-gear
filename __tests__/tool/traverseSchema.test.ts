@@ -1,4 +1,4 @@
-import petSchema from 'example/fixture/pet.json'
+import * as petSchema from 'example/fixture/pet.json'
 import { traverseSchema } from 'src/tool/traverseSchema'
 
 it('traverseSchema', () => {

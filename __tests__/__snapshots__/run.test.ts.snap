@@ -1,0 +1,199 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`run use cleaned spec 1`] = `
+Object {
+  "ABCOutputParameters": Object {
+    "schema": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "typeName": "ABCOutputParameters",
+  },
+  "DataTransOutput": Object {
+    "schema": Object {
+      "description": "带数据的返回数据",
+      "properties": Object {
+        "data": Object {
+          "description": "返回数据",
+          "type": "object",
+        },
+        "transCode": Object {
+          "description": "错误码。
+100000 成功
+200000 入参不合法
+400000 权限不足
+500000 服务失败",
+          "format": "int32",
+          "type": "integer",
+        },
+        "transMessage": Object {
+          "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
+          "type": "string",
+        },
+        "transMessageDetail": Object {
+          "description": "信息详情”",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "transCode",
+        "transMessage",
+        "transMessageDetail",
+      ],
+      "type": "object",
+    },
+    "typeName": "DataTransOutput",
+  },
+  "DatatransoutputOutputParameterVO": Object {
+    "schema": Object {
+      "description": "带数据的返回数据",
+      "properties": Object {
+        "data": Object {
+          "$ref": "OutputParameterVo",
+          "description": "返回数据",
+        },
+        "transCode": Object {
+          "description": "错误码。
+100000 成功
+200000 入参不合法
+400000 权限不足
+500000 服务失败",
+          "format": "int32",
+          "type": "integer",
+        },
+        "transMessage": Object {
+          "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
+          "type": "string",
+        },
+        "transMessageDetail": Object {
+          "description": "信息详情”",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "transCode",
+        "transMessage",
+        "transMessageDetail",
+      ],
+      "type": "object",
+    },
+    "typeName": "DatatransoutputOutputParameterVO",
+  },
+  "GeneralRequestParameterQueryParameter": Object {
+    "typeName": "GeneralRequestParameterQueryParameter",
+    "typescriptContent": "export type GeneralRequestParameterQueryParameter = any",
+  },
+  "GeneralRequestParameterTokenOutputParameterVO": Object {
+    "schema": Object {
+      "properties": Object {
+        "bizParamVo": Object {
+          "$ref": "OutputParameterVo",
+        },
+      },
+      "type": "object",
+    },
+    "typeName": "GeneralRequestParameterTokenOutputParameterVO",
+  },
+  "MixedChineseAndEnglishWithSpacesVo": Object {
+    "schema": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "typeName": "MixedChineseAndEnglishWithSpacesVo",
+  },
+  "OutputParameterVo": Object {
+    "schema": Object {
+      "properties": Object {
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "typeName": "OutputParameterVo",
+  },
+  "QueryParameters": Object {
+    "schema": Object {
+      "properties": Object {
+        "data": Object {
+          "additionalProperties": Object {
+            "$ref": "DataTransOutput",
+            "type": "array",
+          },
+          "type": "object",
+        },
+        "dueDay": Object {
+          "description": "开卡日",
+          "type": "string",
+        },
+        "requestChannel": Object {
+          "description": "进件渠道",
+          "type": "string",
+        },
+      },
+      "required": Array [
+        "dueDay",
+        "requestChannel",
+      ],
+      "type": "object",
+    },
+    "typeName": "QueryParameters",
+  },
+  "ResultListMap": Object {
+    "schema": Object {
+      "properties": Object {
+        "description": Object {
+          "type": "string",
+        },
+        "result": Object {
+          "items": Object {
+            "$ref": "Map",
+          },
+          "type": "array",
+        },
+        "returnCode": Object {
+          "format": "int32",
+          "type": "integer",
+        },
+      },
+      "type": "object",
+    },
+    "typeName": "ResultListMap",
+  },
+}
+`;

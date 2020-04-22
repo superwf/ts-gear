@@ -1,22 +1,24 @@
+import { join } from 'path'
+
 import { Spec } from 'swagger-schema-official'
-// import { join } from 'path'
 
 import * as step from 'src/step'
 import { IProject } from 'src/interface'
 import { getGlobal } from 'src/projectGlobalVariable'
+import { run } from 'src/run'
 
 describe('run', () => {
-  // it('with fixture', async () => {
-  //   const cwd = process.cwd()
-  //   // 以example为cwd读取ts-gear.ts
-  //   process.chdir(join(process.cwd(), 'example'))
-  //   try {
-  //     await run()
-  //   } catch (e) {
-  //     console.log(e)
-  //   }
-  //   process.chdir(cwd)
-  // })
+  it('with fixture', async () => {
+    const cwd = process.cwd()
+    // 以example为cwd读取ts-gear.ts
+    process.chdir(join(process.cwd(), 'example'))
+    try {
+      await run()
+    } catch (e) {
+      console.log(e)
+    }
+    process.chdir(cwd)
+  })
 
   it('use cleaned spec', async () => {
     const spec = {

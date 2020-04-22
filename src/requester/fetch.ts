@@ -15,9 +15,9 @@ const jsonType = 'application/json'
 export const parseUrl = (url: string, option?: IRequestParameter): string => {
   if (option) {
     if (option.path) {
-      for (const k of Object.getOwnPropertyNames(option.path)) {
+      Object.getOwnPropertyNames(option.path).forEach(k => {
         option.path[k] = encodeURIComponent(String(option.path[k]))
-      }
+      })
       url = pathToRegexp.compile(url)(option.path)
     }
     if (option.query) {
@@ -65,6 +65,9 @@ export function interceptRequest(
     ...requestInit,
     // add the default request option here
   }
+  if (option.header) {
+    requestOption.headers = option.header
+  }
   if (option && option.body) {
     let { body } = option
     // add application/json header when body is plain object
@@ -72,7 +75,7 @@ export function interceptRequest(
     if (isPlainObject(body)) {
       requestOption.headers = {
         'Content-Type': jsonType,
-        ...option.header,
+        ...requestOption.headers,
       }
       body = JSON.stringify(body)
       requestOption.body = body

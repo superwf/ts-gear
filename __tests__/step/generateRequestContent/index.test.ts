@@ -2,7 +2,7 @@ import { Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
 
 import { generateRequestContent } from 'src/step/generateRequestContent'
-import petSchema from 'example/fixture/pet.json'
+import * as petSchema from 'example/fixture/pet.json'
 import projects from 'example/ts-gear'
 import * as step from 'src/step'
 import { restore } from 'src/projectGlobalVariable'

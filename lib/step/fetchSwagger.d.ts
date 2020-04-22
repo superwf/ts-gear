@@ -1,3 +1,4 @@
+import 'isomorphic-fetch';
 import { IProject } from '../interface';
 /**
  * fetch remote spec if url starts with "http"

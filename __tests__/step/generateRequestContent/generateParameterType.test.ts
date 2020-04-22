@@ -2,7 +2,7 @@ import { Parameter, Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
 
 import { generateParameterType } from 'src/step/generateRequestContent/generateParameterType'
-import petSpec from 'example/fixture/pet.json'
+import * as petSpec from 'example/fixture/pet.json'
 import * as step from 'src/step'
 import { restore } from 'src/projectGlobalVariable'
 import { IProject } from 'src/interface'

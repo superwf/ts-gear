@@ -1,13 +1,9 @@
 import * as program from 'commander'
-import { castArray } from 'lodash'
 
 // import pkg from '../../../package.json'
 
-function collect(value: string, previous: string[]) {
-  if (!previous.includes(value)) {
-    return [...previous, value]
-  }
-  return previous
+function collect(value: string) {
+  return value.split(',')
 }
 
 interface IResult {
@@ -22,7 +18,11 @@ export const getCliOption = (): IResult => {
   program
     // .version(pkg.version)
     .usage('tsg or tsg -p projectName')
-    .option('-p, --projects <project name>', 'assign project name', collect, [])
+    .option(
+      '-p, --projects <project name>',
+      'assign project name, more names use comma split, like projectA,projectB',
+      collect,
+    )
     .option('-i, --init', 'create ts-gear config file')
     .parse(process.argv)
 
@@ -32,7 +32,11 @@ export const getCliOption = (): IResult => {
   }
   const names = program.projects
   if (names) {
-    result.names = castArray(names)
+    result.names = names
   }
+  // if not delete commander cache
+  // program will keep cache and break test
+  delete program.projects
+  delete program.init
   return result
 }

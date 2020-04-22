@@ -17,14 +17,14 @@ const projects: IProject[] = [
     keepGeneric: true,
     requester: axiosRequester(),
   },
-  {
-    name: 'ignore',
-    dest: './service',
-    source: 'fixture/ignore.json',
-    keepGeneric: true,
-    preferInterface: true,
-    requester: fetchRequester(),
-  },
+  // {
+  //   name: 'ignore',
+  //   dest: './service',
+  //   source: 'fixture/ignore.json',
+  //   keepGeneric: true,
+  //   preferInterface: true,
+  //   requester: fetchRequester(),
+  // },
   // {
   //   name: 'projectPont',
   //   source: 'fixture/pontFixture.json',

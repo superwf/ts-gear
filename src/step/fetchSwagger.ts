@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import * as fetch from 'isomorphic-fetch'
+import 'isomorphic-fetch'
 
 import { error, info } from '../tool/log'
 import { IProject } from '../interface'

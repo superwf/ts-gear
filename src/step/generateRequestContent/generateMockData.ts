@@ -69,7 +69,7 @@ const primitive = (schema: Schema): object => {
  * */
 const schemaSet = new Set()
 
-export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): any => {
+export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap): any => {
   if (schemaSet.has(schema)) {
     return ''
   }
@@ -92,13 +92,13 @@ export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): a
     } else if (items) {
       type = 'array'
     } else if ($ref) {
-      const definitionSchema = definitions[$ref] && definitions[$ref].schema
+      const definitionSchema = definitionMap[$ref] && definitionMap[$ref].schema
       if (definitionSchema) {
-        return sampleFromSchema(definitionSchema, definitions)
+        return sampleFromSchema(definitionSchema, definitionMap)
       }
       return ''
     } else if (schemaSchema) {
-      return sampleFromSchema(schemaSchema, definitions)
+      return sampleFromSchema(schemaSchema, definitionMap)
     } else {
       return ''
     }
@@ -109,7 +109,7 @@ export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): a
     const obj: any = {}
     Object.getOwnPropertyNames(props).forEach(name => {
       if (!(props[name] && props[name].deprecated)) {
-        obj[name] = sampleFromSchema(props[name], definitions)
+        obj[name] = sampleFromSchema(props[name], definitionMap)
       }
     })
 
@@ -117,7 +117,7 @@ export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): a
       obj.additionalProp1 = {}
     } else if (additionalProperties) {
       const additionalProps = objectify(additionalProperties)
-      const additionalPropVal = sampleFromSchema(additionalProps, definitions)
+      const additionalPropVal = sampleFromSchema(additionalProps, definitionMap)
 
       for (let i = 1; i < 4; i += 1) {
         obj[`additionalProp${i}`] = additionalPropVal
@@ -128,14 +128,14 @@ export const sampleFromSchema = (schema: Schema, definitions: IDefinitionMap): a
 
   if (type === 'array') {
     if (Array.isArray(items.anyOf)) {
-      return items.anyOf.map((i: Schema) => sampleFromSchema(i, definitions))
+      return items.anyOf.map((i: Schema) => sampleFromSchema(i, definitionMap))
     }
 
     if (Array.isArray(items.oneOf)) {
-      return items.oneOf.map((i: Schema) => sampleFromSchema(i, definitions))
+      return items.oneOf.map((i: Schema) => sampleFromSchema(i, definitionMap))
     }
 
-    return [sampleFromSchema(items, definitions)]
+    return [sampleFromSchema(items, definitionMap)]
   }
 
   if (schema.enum) {
