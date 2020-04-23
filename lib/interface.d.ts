@@ -1,5 +1,4 @@
 import { Path, Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
-import * as translation from 'translation.js';
 /** interface A { n: number }
  * type B = PropertyOf<A, 'n'> === type B = number
  * */
@@ -7,7 +6,7 @@ export declare type PropertyOf<T extends any, K extends keyof T> = T[K];
 /** baidu and google can handle different language automatically
  * youdao must assign the language type
  * */
-export declare type TranslationEngine = Exclude<keyof typeof translation, 'youdao'>;
+export declare type TranslationEngine = 'baidu' | 'google';
 export declare type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>;
 export declare type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>;
 /** request parameter option */
@@ -119,15 +118,6 @@ export interface IProject {
      * usually usage: process.env.NODE_ENV === 'test'
      * */
     mockResponse?: boolean;
-}
-export interface IProjectMap {
-    /** project name，will be used to create dir in the dir defined in "dest" */
-    [name: string]: IProject;
-}
-export interface IAssembleRequestParameter {
-    typeName?: string;
-    schema?: Schema;
-    typescriptContent?: string[];
 }
 export interface IAssembleResponse {
     responseTypeContent: string;

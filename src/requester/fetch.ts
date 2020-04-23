@@ -4,7 +4,7 @@ import * as URL from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
-import { IRequestParameter } from '../interface'
+import { IRequestParameter, Requester } from '../interface'
 
 const jsonType = 'application/json'
 
@@ -12,26 +12,24 @@ const jsonType = 'application/json'
  * e.g.
  * parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) => '/api/abc/123?name=def'
  * */
-export const parseUrl = (url: string, option?: IRequestParameter): string => {
-  if (option) {
-    if (option.path) {
-      Object.getOwnPropertyNames(option.path).forEach(k => {
-        option.path[k] = encodeURIComponent(String(option.path[k]))
-      })
-      url = pathToRegexp.compile(url)(option.path)
-    }
-    if (option.query) {
-      const urlObject = URL.parse(url, true) // true: let the urlObject.query is object
-      // see url#format, only search is absent, query will be used
-      delete urlObject.search
-      url = URL.format({
-        ...urlObject,
-        query: {
-          ...urlObject.query,
-          ...option.query,
-        },
-      })
-    }
+export const parseUrl = (url: string, option: IRequestParameter): string => {
+  if (option.path) {
+    Object.getOwnPropertyNames(option.path).forEach(k => {
+      option.path[k] = encodeURIComponent(String(option.path[k]))
+    })
+    url = pathToRegexp.compile(url)(option.path)
+  }
+  if (option.query) {
+    const urlObject = URL.parse(url, true) // true: let the urlObject.query is object
+    // see url#format, only search is absent, query will be used
+    delete urlObject.search
+    url = URL.format({
+      ...urlObject,
+      query: {
+        ...urlObject.query,
+        ...option.query,
+      },
+    })
   }
   return url
 }
@@ -50,9 +48,11 @@ class InterceptError extends Error {
  * */
 export function interceptRequest(
   url: string,
-  option: IRequestParameter,
-  requestInit?: RequestInit,
+  option: IRequestParameter & {
+    requestInit?: RequestInit
+  },
 ): [string, RequestInit] {
+  const { requestInit } = option
   try {
     url = parseUrl(url, option)
   } catch (e) {
@@ -68,7 +68,7 @@ export function interceptRequest(
   if (option.header) {
     requestOption.headers = option.header
   }
-  if (option && option.body) {
+  if (option.body) {
     let { body } = option
     // add application/json header when body is plain object
     // and auto json stringify the body
@@ -85,7 +85,7 @@ export function interceptRequest(
   }
   // body 与 formData 不能同时存在
   // 所以如果有formData时，直接给requestOption.body赋值即可
-  if (option && option.formData) {
+  if (option.formData) {
     const formData = new FormData()
     // 这种上传文件的情况，应该只有一维的键值对应，只用forEach处理第一层数据
     forEach(option.formData, (v: any, k: string) => {
@@ -99,7 +99,7 @@ export function interceptRequest(
 /** 根据response的header处理各种返回数据
  * 目前只是转了json和text两种，需要其他自行添加
  * */
-export function interceptResponse<T extends any>(res: Response) {
+export function interceptResponse(res: Response) {
   if (!res.ok) {
     throw new InterceptError(
       `response not ok, status: ${res.status}, ${res.statusText}, url: ${res.url}`,
@@ -109,19 +109,19 @@ export function interceptResponse<T extends any>(res: Response) {
   const contentType = res.headers.get('Content-Type')
   if (contentType) {
     if (contentType.includes(jsonType)) {
-      return res.json() as Promise<T>
+      return res.json()
     }
 
     if (contentType.includes('text/plain')) {
-      return (res.text() as unknown) as Promise<T>
+      return res.text()
     }
     // 在此处添加处理更多的response类型
   }
-  return (Promise.resolve(res) as unknown) as Promise<T>
+  return res
 }
 
 /** native fetch wrappper */
-export const requester = (requestInit?: RequestInit) => (apiUrl: string, param: IRequestParameter) => {
-  const [url, option] = interceptRequest(apiUrl, param, requestInit)
+export const requester = (requestInit?: RequestInit): Requester => (apiUrl: string, param?: IRequestParameter) => {
+  const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
   return fetch(url, option).then(interceptResponse)
 }

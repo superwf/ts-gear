@@ -1,5 +1,7 @@
 import { join } from 'path'
-import { writeFileSync } from 'fs'
+import { writeFileSync, existsSync } from 'fs'
+
+import * as prompts from 'prompts'
 
 import { IProject } from '../../interface'
 import { initConfig } from '../../content/initConfig'
@@ -11,11 +13,24 @@ import { getCliOption } from './cliOption'
  * filter if any cli option
  * return project mapped by name
  * */
-export const getUserConfig = (): IProject[] => {
+export const getUserConfig = async () => {
   const cwd = process.cwd()
   const cliOption = getCliOption()
   if (cliOption.init) {
-    writeFileSync(join(cwd, 'ts-gear.ts'), initConfig)
+    const configFilePath = join(cwd, 'ts-gear.ts')
+    if (existsSync(configFilePath)) {
+      const { overwrite } = await prompts({
+        type: 'confirm',
+        name: 'overwrite',
+        message: `${configFilePath} already exist, overwrite?`,
+        initial: true,
+      })
+      if (overwrite) {
+        writeFileSync(configFilePath, initConfig)
+      }
+    } else {
+      writeFileSync(configFilePath, initConfig)
+    }
     return []
   }
   const tsGearConfigPath = join(cwd, 'ts-gear')

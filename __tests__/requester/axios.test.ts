@@ -11,6 +11,14 @@ describe('requester fetch', () => {
     moxios.uninstall()
   })
 
+  it('simple get', async () => {
+    moxios.stubRequest('/abc', { status: 200, responseText: '{"ok":true}' })
+    const result = await requester()('/abc')
+    expect(result).toEqual({ ok: true })
+    const req = moxios.requests.mostRecent()
+    expect(req.url).toBe('/abc')
+  })
+
   it('get header', async () => {
     moxios.stubRequest('/abc', { status: 200, responseText: '{"ok":true}' })
     const result = await requester()('/abc', {
@@ -23,6 +31,32 @@ describe('requester fetch', () => {
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc')
     expect(req.headers.custom).toBe('headerValue')
+  })
+
+  it('with path', async () => {
+    moxios.stubRequest('/abc/111', { status: 200, responseText: '{"ok":true}' })
+    const result = await requester()('/abc/:id', {
+      method: 'get',
+      path: {
+        id: '111',
+      },
+    })
+    expect(result).toEqual({ ok: true })
+    const req = moxios.requests.mostRecent()
+    expect(req.url).toBe('/abc/111')
+  })
+
+  it('with wrong path', async () => {
+    try {
+      await requester()('/abc/:id/:slot', {
+        method: 'get',
+        path: {
+          id: '111',
+        },
+      })
+    } catch (e) {
+      expect(e.message).toContain('Expected "slot" to be a string')
+    }
   })
 
   it('with init option', async () => {

@@ -5,18 +5,58 @@ import { requester } from 'src/requester/fetch'
 describe('requester fetch', () => {
   it('get header', async () => {
     getOnce('/abc', { ok: true })
-    const result = await requester()('/abc', {
+    let result = await requester()('/abc', {
       method: 'get',
       header: {
         custom: 'headerValue',
       },
     })
     expect(result).toEqual({ ok: true })
-    const call = lastCall()
+    let call = lastCall()
     expect(call![0]!).toBe('/abc')
     expect(call![1]!.headers).toEqual({
       custom: 'headerValue',
     })
+
+    getOnce('/abc', { ok: true }, { overwriteRoutes: true })
+    result = await requester()('/abc')
+    call = lastCall()
+    expect(call![0]!).toBe('/abc')
+    expect(call![1]!.headers).toBe(undefined)
+  })
+
+  it('with query', async () => {
+    getOnce('/abc?d=f', { ok: true })
+    const result = await requester()('/abc', {
+      query: { d: 'f' },
+    })
+    expect(result).toEqual({ ok: true })
+    const call = lastCall()
+    expect(call![0]!).toBe('/abc?d=f')
+  })
+
+  it('intercept request', async () => {
+    getOnce('/abc', 200, { overwriteRoutes: true })
+    try {
+      await requester()('/abc/:id/:slot', {
+        path: { id: '1' },
+      })
+    } catch (e) {
+      expect(e.message).toContain('Expected "slot" to be a string')
+    }
+  })
+
+  it('response error', async () => {
+    getOnce('/return500', { status: 500 })
+    try {
+      await requester()('/return500')
+    } catch (e) {
+      expect(e.message).toContain('status: 500')
+      expect(e.message).toContain('url: /return500')
+      const call = lastCall()
+      expect(call![0]!).toBe('/return500')
+    }
+    // expect(result).toEqual({ ok: true })
   })
 
   it('with init option', async () => {
@@ -78,6 +118,21 @@ describe('requester fetch', () => {
     })
   })
 
+  it('post string body', async () => {
+    postOnce('/abc', { ok: true }, { overwriteRoutes: true })
+    const result = await requester()('/abc', {
+      method: 'post',
+      body: 'string',
+    })
+    expect(result).toEqual({ ok: true })
+    const call = lastCall()
+    expect(call![0]!).toBe('/abc')
+    expect(call![1]!).toEqual({
+      method: 'post',
+      body: 'string',
+    })
+  })
+
   it('put formData', async () => {
     ;(global as any).FormData = class {
       [k: string]: any
@@ -109,5 +164,39 @@ describe('requester fetch', () => {
     })
 
     delete (global as any).FormData
+  })
+
+  it('other content type', async () => {
+    putOnce(
+      '/abc',
+      {
+        headers: {
+          'Content-Type': 'text/xml',
+        },
+        body: '<xml />',
+      },
+      { overwriteRoutes: true },
+    )
+    const result = await requester()('/abc', {
+      method: 'put',
+    })
+    expect(result.headers.get('Content-Type')).toBe('text/xml')
+    expect(result.body).toBe('<xml />')
+  })
+
+  it('no content type', async () => {
+    putOnce(
+      '/abc',
+      {
+        headers: {},
+        body: 'rawbody',
+      },
+      { overwriteRoutes: true },
+    )
+    const result = await requester()('/abc', {
+      method: 'put',
+    })
+    expect(result.headers.get('Content-Type')).toBe(null)
+    expect(result.body).toBe('rawbody')
   })
 })

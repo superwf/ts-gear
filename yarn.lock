@@ -1509,6 +1509,11 @@
   resolved "http://registry.m.jd.com/@types/prettier/download/@types/prettier-1.19.1.tgz#33509849f8e679e4add158959fdb086440e9553f"
   integrity sha1-M1CYSfjmeeSt0ViVn9sIZEDpVT8=
 
+"@types/prompts@^2.0.5":
+  version "2.0.5"
+  resolved "http://registry.m.jd.com/@types/prompts/download/@types/prompts-2.0.5.tgz#b3cb5cd2c69a0da11b21ea6618bffdab6091336c"
+  integrity sha1-s8tc0saaDaEbIepmGL/9q2CRM2w=
+
 "@types/rimraf@^2.0.3":
   version "2.0.3"
   resolved "http://registry.m.jd.com/@types/rimraf/download/@types/rimraf-2.0.3.tgz#0199a46af106729ba14213fda7b981278d8c84f2"
@@ -6046,6 +6051,14 @@ prompts@^2.0.1:
   version "2.3.1"
   resolved "http://registry.m.jd.com/prompts/download/prompts-2.3.1.tgz#b63a9ce2809f106fa9ae1277c275b167af46ea05"
   integrity sha1-tjqc4oCfEG+prhJ3wnWxZ69G6gU=
+  dependencies:
+    kleur "^3.0.3"
+    sisteransi "^1.0.4"
+
+prompts@^2.3.2:
+  version "2.3.2"
+  resolved "http://registry.m.jd.com/prompts/download/prompts-2.3.2.tgz#480572d89ecf39566d2bd3fe2c9fccb7c4c0b068"
+  integrity sha1-SAVy2J7POVZtK9P+LJ/Mt8TAsGg=
   dependencies:
     kleur "^3.0.3"
     sisteransi "^1.0.4"

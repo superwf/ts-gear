@@ -20,7 +20,7 @@ module.exports = {
   testEnvironment: 'node',
   watchPathIgnorePatterns: ['tmp', 'example'],
   moduleFileExtensions: ['ts', 'tsx', 'js'],
-  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts'],
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts', '!src/main.ts'],
   transform: {
     ...tsjPreset.transform,
     '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',

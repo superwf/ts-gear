@@ -1,19 +1,18 @@
-##Statements   : 88.68% ( 744/839 )
+##Statements   : 91.11% ( 769/844 )
 
-##Branches     : 78.41% ( 305/389 )
+##Branches     : 80.36% ( 311/387 )
 
-##Functions    : 84% ( 126/150 )
+##Functions    : 85.33% ( 128/150 )
 
-##Lines        : 88.98% ( 727/817 )
+##Lines        : 91.23% ( 749/821 )
 
 File                                       | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s                              
 -------------------------------------------|---------|----------|---------|---------|------------------------------------------------
-All files                                  |   88.68 |    78.41 |      84 |   88.98 |                                                
- src                                       |   85.71 |       75 |     100 |   88.52 |                                                
-  index.ts                                 |       0 |      100 |     100 |       0 | 1-2                                            
-  main.ts                                  |       0 |      100 |     100 |       0 | 3-11                                           
+All files                                  |   91.11 |    80.36 |   85.33 |   91.23 |                                                
+ src                                       |   98.39 |       75 |     100 |   98.31 |                                                
+  index.ts                                 |     100 |      100 |     100 |     100 |                                                
   projectGlobalVariable.ts                 |     100 |      100 |     100 |     100 |                                                
-  run.ts                                   |   94.74 |    66.67 |     100 |   94.74 | 16                                             
+  run.ts                                   |      95 |    66.67 |     100 |      95 | 10                                             
   source.ts                                |     100 |      100 |     100 |     100 |                                                
  src/content                               |     100 |      100 |     100 |     100 |                                                
   initConfig.ts                            |     100 |      100 |     100 |     100 |                                                
@@ -21,9 +20,9 @@ All files                                  |   88.68 |    78.41 |      84 |   88
   propertyOfHelper.ts                      |     100 |      100 |     100 |     100 |                                                
   requester.ts                             |     100 |      100 |     100 |     100 |                                                
   warningComment.ts                        |     100 |      100 |     100 |     100 |                                                
- src/requester                             |   85.88 |       80 |    87.5 |   85.54 |                                                
-  axios.ts                                 |   91.18 |    85.71 |    87.5 |   90.91 | 24-25,36                                       
-  fetch.ts                                 |   82.35 |    76.92 |    87.5 |      82 | 24-27,41-42,61,83,104,120                      
+ src/requester                             |     100 |      100 |     100 |     100 |                                                
+  axios.ts                                 |     100 |      100 |     100 |     100 |                                                
+  fetch.ts                                 |     100 |      100 |     100 |     100 |                                                
  src/step                                  |   84.56 |    65.18 |   81.82 |    84.7 |                                                
   assembleSchemaToGlobal.ts                |     100 |      100 |     100 |     100 |                                                
   cleanRefAndDefinitionName.ts             |     100 |      100 |     100 |     100 |                                                
@@ -42,9 +41,9 @@ All files                                  |   88.68 |    78.41 |      84 |   88
   generateParameterType.ts                 |     100 |      100 |     100 |     100 |                                                
   generateResponseType.ts                  |     100 |     87.5 |     100 |     100 | 24                                             
   index.ts                                 |   88.89 |    54.55 |     100 |   88.89 | 29-34                                          
- src/step/getUserConfig                    |     100 |       90 |     100 |     100 |                                                
+ src/step/getUserConfig                    |     100 |    92.86 |     100 |     100 |                                                
   cliOption.ts                             |     100 |      100 |     100 |     100 |                                                
-  index.ts                                 |     100 |     87.5 |     100 |     100 | 25                                             
+  index.ts                                 |     100 |    91.67 |     100 |     100 | 40                                             
  src/tool                                  |     100 |    99.07 |     100 |     100 |                                                
   assembleDoc.ts                           |     100 |      100 |     100 |     100 |                                                
   camelCase.ts                             |     100 |      100 |     100 |     100 |                                                
