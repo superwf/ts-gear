@@ -21,7 +21,7 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
    * name is PageVO<List<User>>，but "List" or "User" does not exist in schema $ref, then it is a failed one.
    * */
   const parseFailedDefinitions: ISwaggerDefinition[] = []
-  Object.getOwnPropertyNames(projectGlobal.definitionMap).forEach(definitionName => {
+  Object.getOwnPropertyNames(projectGlobal.definitionMap).forEach((definitionName) => {
     const definition = definitionMap[definitionName]
     if (hasGenericSymbol(definitionName)) {
       if (definition.schema) {
@@ -29,15 +29,15 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
         if (parentNode.name in definition) {
           return
         }
-        const typeParameters = parentNode.children!.map(node => getGenericNameFromNode(node))
+        const typeParameters = parentNode.children!.map((node) => getGenericNameFromNode(node))
         const refNames = new Set<string>()
-        traverse$Ref(definition.schema!, value => {
+        traverse$Ref(definition.schema!, (value) => {
           refNames.add(value)
         })
         // console.log(typeParameters)
-        const allTypeParametersInSchemaRef = typeParameters.every(typeName => refNames.has(typeName))
+        const allTypeParametersInSchemaRef = typeParameters.every((typeName) => refNames.has(typeName))
         if (allTypeParametersInSchemaRef) {
-          definition.typeParameters = typeParameters.map(subTypeName => {
+          definition.typeParameters = typeParameters.map((subTypeName) => {
             traverseSchema(definition.schema!, ({ value, key, parent }) => {
               if (key === '$ref' && value === subTypeName) {
                 parent.$ref = removeGenericSymbol(subTypeName)
@@ -61,10 +61,10 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
           }<${typeParameters.join(',')}>`
           // typeParameters name may be nest generic type
           // e.g A<B<C>>
-          typeParameters.forEach(typeName => {
+          typeParameters.forEach((typeName) => {
             if (!(typeName in definitionMap)) {
               const nodes = parseGenericNames(typeName)
-              nodes.forEach(node => {
+              nodes.forEach((node) => {
                 patchGlobalDefinitionMap(node.name, definitionMap)
               })
             }
@@ -79,19 +79,19 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
     /** process the failed definition
      * add to definitionMap an "any" alias.
      * */
-    parseFailedDefinitions.forEach(definition => {
+    parseFailedDefinitions.forEach((definition) => {
       definition.typeName = removeGenericSymbol(definition.typeName)
       traverseSchema(definition.schema!, ({ value, key, parent }) => {
         if (key === '$ref' && !(value in definitionMap)) {
           if (hasGenericSymbol(value)) {
             const nodes = parseGenericNames(value)
-            if (!nodes.every(node => node.name in definitionMap)) {
+            if (!nodes.every((node) => node.name in definitionMap)) {
               const name = guessGenericTypeName(nodes[0], definitionMap)
               parent.$ref = name
               name
                 .split(/<|>|,/g)
                 .filter(Boolean)
-                .forEach(n => {
+                .forEach((n) => {
                   if (!(n in definitionMap)) {
                     patchGlobalDefinitionMap(n, definitionMap)
                   }
@@ -108,14 +108,14 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
 
 export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
   const { definitionMap, requestMap } = projectGlobal
-  Object.values(requestMap).forEach(request => {
+  Object.values(requestMap).forEach((request) => {
     traverseSchema(request.schema, ({ value, key, parent }) => {
       if (key === '$ref' && typeof value === 'string') {
         if (value in definitionMap) {
           parent.$ref = definitionMap[value].typeName
         } else if (hasGenericSymbol(value)) {
           const nodes = parseGenericNames(value)
-          const allExistInDefinitionMap = nodes.every(node => {
+          const allExistInDefinitionMap = nodes.every((node) => {
             return node.name in definitionMap
           })
           if (!allExistInDefinitionMap) {
@@ -124,7 +124,7 @@ export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
             name
               .split(/<|>|,/g)
               .filter(Boolean)
-              .forEach(n => {
+              .forEach((n) => {
                 if (!(n in definitionMap)) {
                   patchGlobalDefinitionMap(n, definitionMap)
                 }

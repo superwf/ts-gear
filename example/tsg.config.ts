@@ -1,8 +1,8 @@
-import { Options } from 'prettier'
+// import { Options } from 'prettier'
 
 import { IProject, fetchRequester, axiosRequester } from 'ts-gear'
 
-const prettierConfig: Options = {
+const prettierConfig: any = {
   semi: false,
   useTabs: false,
   singleQuote: true,

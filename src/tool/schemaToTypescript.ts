@@ -28,7 +28,7 @@ const transform = (schema: SchemaOption): string => {
     return `'${enumValues.join("' | '")}'`
   }
   if (allOf) {
-    return `${allOf.map(prop => transform(prop)).join(' & ')}`
+    return `${allOf.map((prop) => transform(prop)).join(' & ')}`
   }
   if ($ref) {
     return $ref
@@ -45,7 +45,7 @@ const transform = (schema: SchemaOption): string => {
       return 'number'
     case 'array':
       if (Array.isArray(items)) {
-        return `Array<${items.map(item => transform(item)).join(' | ')}>`
+        return `Array<${items.map((item) => transform(item)).join(' | ')}>`
       }
       if (!items) {
         return `Array<any>`
@@ -60,7 +60,7 @@ const transform = (schema: SchemaOption): string => {
       if (properties) {
         objectContent = map(properties, (prop, name: string) => {
           const questionToken = required && required.includes(name) ? '' : '?'
-          return `${generatePropertyDoc(prop)}${name}${questionToken}: ${transform(prop)}`
+          return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${transform(prop)}`
         }).join(EOL)
       }
       if (!additionalProperties) {

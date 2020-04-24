@@ -6,7 +6,7 @@ import { noop } from 'lodash'
 import * as prompts from 'prompts'
 
 import { getUserConfig } from 'src/step/getUserConfig'
-import exampleProjects from 'example/ts-gear'
+import exampleProjects from 'example/tsg.config'
 
 let overwrite = false
 let exists = false

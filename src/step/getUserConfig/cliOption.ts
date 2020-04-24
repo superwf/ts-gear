@@ -23,7 +23,7 @@ export const getCliOption = (): IResult => {
       'assign project name, more names use comma split, like projectA,projectB',
       collect,
     )
-    .option('-i, --init', 'create ts-gear config file')
+    .option('-i, --init', 'create tsg.config.ts config file')
     .parse(process.argv)
 
   const result: IResult = {

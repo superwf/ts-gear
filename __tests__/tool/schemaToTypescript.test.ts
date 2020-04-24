@@ -46,6 +46,27 @@ describe('transformSwaggerPropertyToTsType', () => {
     ).toBe("'1' | '2' | '3'")
   })
 
+  it('object with unregular property name', () => {
+    expect(
+      transform({
+        type: 'object',
+        properties: {
+          'X-Tag': {
+            type: 'integer',
+            format: 'int32',
+            example: 1,
+            description: '数据资源类型',
+          },
+        },
+      }),
+    ).toBe(`{
+/**
+数据资源类型
+format: int32 */
+'X-Tag'?: number
+}`)
+  })
+
   it('allOf', () => {
     expect(
       transform({
@@ -140,7 +161,7 @@ describe('transformSwaggerPropertyToTsType', () => {
             $ref: 'Sky',
           },
         }),
-      ).toBe(`{${EOL}name?: string${EOL}} & {${EOL}[propertyName: string]: Sky${EOL}}`)
+      ).toBe(`{${EOL}'name'?: string${EOL}} & {${EOL}[propertyName: string]: Sky${EOL}}`)
     })
   })
 

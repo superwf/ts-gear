@@ -53,7 +53,7 @@ describe('pet methods', () => {
       query,
     })
     expect(mockFetch).toHaveBeenCalledTimes(1)
-    expect(mockFetch).toHaveBeenLastCalledWith('/v2/user/login' + URL.format({ query }), {
+    expect(mockFetch).toHaveBeenLastCalledWith(`/v2/user/login${URL.format({ query })}`, {
       method: 'get',
     })
     expect(res).toEqual(mockRes)

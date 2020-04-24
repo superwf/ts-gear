@@ -1,7 +1,7 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
-import projects from '../../ts-gear'
+import projects from '../../tsg.config'
 import { ReplyVO, Int } from './definition'
 const project = projects.find((p) => p.name === 'projectE')!
 const { requester } = project

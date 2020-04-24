@@ -17,7 +17,7 @@ export const getUserConfig = async () => {
   const cwd = process.cwd()
   const cliOption = getCliOption()
   if (cliOption.init) {
-    const configFilePath = join(cwd, 'ts-gear.ts')
+    const configFilePath = join(cwd, 'tsg.config.ts')
     if (existsSync(configFilePath)) {
       const { overwrite } = await prompts({
         type: 'confirm',
@@ -33,15 +33,15 @@ export const getUserConfig = async () => {
     }
     return []
   }
-  const tsGearConfigPath = join(cwd, 'ts-gear')
+  const tsGearConfigPath = join(cwd, 'tsg.config')
   /* eslint-disable */
   const config = require(tsGearConfigPath)
   /* eslint-enable */
   let projects = (config.default ? config.default : config) as IProject[]
   const projectNamesFromCommandLine = cliOption.names
   if (projectNamesFromCommandLine.length > 0) {
-    projects = projects.filter(project => {
-      return projectNamesFromCommandLine.some(name => name === project.name)
+    projects = projects.filter((project) => {
+      return projectNamesFromCommandLine.some((name) => name === project.name)
     })
     if (projects.length === 0) {
       warn(`your input names "${cliOption.names.join(', ')}" match 0 projects, checkout and retry.`)

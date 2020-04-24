@@ -2,7 +2,8 @@ import { writeFileSync } from 'fs'
 
 import { format, Options } from 'prettier'
 
-/** read your current project prettier config
+/**
+ * read from tsg config project prettier config
  * write formatted typescript content
  * */
 export const prettierWrite = (content: string, destPath: string, option?: Options) => {

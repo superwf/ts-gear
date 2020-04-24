@@ -8,7 +8,7 @@ import { IProject } from '../interface'
 export const requester = (project: IProject) => {
   const configFileRelativePath = path.relative(path.join(project.dest, project.name), '')
   return {
-    import: `import projects from '${configFileRelativePath}/ts-gear'`,
+    import: `import projects from '${configFileRelativePath}/tsg.config'`,
     code: `const project = projects.find(p => p.name === '${project.name}')!${EOL}const { requester } = project`,
   }
 }

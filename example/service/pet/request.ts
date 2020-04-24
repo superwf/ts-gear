@@ -1,11 +1,8 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import projects from '../../ts-gear'
-
-import { Pet, ApiResponse, Order, User } from './definition'
-
 import { PropertyType } from 'ts-gear'
-
+import projects from '../../tsg.config'
+import { Pet, ApiResponse, Order, User } from './definition'
 const project = projects.find((p) => p.name === 'pet')!
 const { requester } = project
 /** request parameter type for putPet */
@@ -55,7 +52,9 @@ export type IPostPetResponseSuccess = any
  * produces: application／xml,application/json
  * consumes: application／json,application/xml
  */
-export function postPet(option: IPostPetOption): Promise<IPostPetResponseSuccess> {
+export function postPet(
+  option: IPostPetOption,
+): Promise<IPostPetResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
@@ -79,14 +78,19 @@ export interface IGetPetFindByStatusResponse {
   400: any
 }
 
-export type IGetPetFindByStatusResponseSuccess = PropertyType<IGetPetFindByStatusResponse, 200>
+export type IGetPetFindByStatusResponseSuccess = PropertyType<
+  IGetPetFindByStatusResponse,
+  200
+>
 /**
  * Multiple status values can be provided with comma separated strings
  * Finds Pets by status
  * tags: pet
  * produces: application／xml,application/json
  */
-export function getPetFindByStatus(option: IGetPetFindByStatusOption): Promise<IGetPetFindByStatusResponseSuccess> {
+export function getPetFindByStatus(
+  option: IGetPetFindByStatusOption,
+): Promise<IGetPetFindByStatusResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve([
       {
@@ -128,14 +132,19 @@ export interface IGetPetPetIdResponse {
   404: any
 }
 
-export type IGetPetPetIdResponseSuccess = PropertyType<IGetPetPetIdResponse, 200>
+export type IGetPetPetIdResponseSuccess = PropertyType<
+  IGetPetPetIdResponse,
+  200
+>
 /**
  * Returns a single pet
  * Find pet by ID
  * tags: pet
  * produces: application／xml,application/json
  */
-export function getPetPetId(option: IGetPetPetIdOption): Promise<IGetPetPetIdResponseSuccess> {
+export function getPetPetId(
+  option: IGetPetPetIdOption,
+): Promise<IGetPetPetIdResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve({
       id: 0,
@@ -146,7 +155,9 @@ export function getPetPetId(option: IGetPetPetIdOption): Promise<IGetPetPetIdRes
       status: 'available',
     } as any)
   }
-  return requester('/v2/pet/:petId', { method: 'get', ...option }) as Promise<any>
+  return requester('/v2/pet/:petId', { method: 'get', ...option }) as Promise<
+    any
+  >
 }
 
 /** request parameter type for postPetPetId */
@@ -184,11 +195,15 @@ export type IPostPetPetIdResponseSuccess = any
  * produces: application／xml,application/json
  * consumes: application／x-www-form-urlencoded
  */
-export function postPetPetId(option: IPostPetPetIdOption): Promise<IPostPetPetIdResponseSuccess> {
+export function postPetPetId(
+  option: IPostPetPetIdOption,
+): Promise<IPostPetPetIdResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
-  return requester('/v2/pet/:petId', { method: 'post', ...option }) as Promise<any>
+  return requester('/v2/pet/:petId', { method: 'post', ...option }) as Promise<
+    any
+  >
 }
 
 /** request parameter type for deletePetPetId */
@@ -221,7 +236,9 @@ export type IDeletePetPetIdResponseSuccess = any
  * tags: pet
  * produces: application／xml,application/json
  */
-export function deletePetPetId(option: IDeletePetPetIdOption): Promise<IDeletePetPetIdResponseSuccess> {
+export function deletePetPetId(
+  option: IDeletePetPetIdOption,
+): Promise<IDeletePetPetIdResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
@@ -259,7 +276,10 @@ export interface IPostPetPetIdUploadImageResponse {
   200: ApiResponse
 }
 
-export type IPostPetPetIdUploadImageResponseSuccess = PropertyType<IPostPetPetIdUploadImageResponse, 200>
+export type IPostPetPetIdUploadImageResponseSuccess = PropertyType<
+  IPostPetPetIdUploadImageResponse,
+  200
+>
 /**
  * uploads an image
  * tags: pet
@@ -289,14 +309,19 @@ export interface IGetStoreInventoryResponse {
   }
 }
 
-export type IGetStoreInventoryResponseSuccess = PropertyType<IGetStoreInventoryResponse, 200>
+export type IGetStoreInventoryResponseSuccess = PropertyType<
+  IGetStoreInventoryResponse,
+  200
+>
 /**
  * Returns a map of status codes to quantities
  * Returns pet inventories by status
  * tags: store
  * produces: application／json
  */
-export function getStoreInventory(): Promise<IGetStoreInventoryResponseSuccess> {
+export function getStoreInventory(): Promise<
+  IGetStoreInventoryResponseSuccess
+> {
   if (project.mockResponse) {
     return Promise.resolve({
       additionalProp1: 0,
@@ -320,13 +345,18 @@ export interface IPostStoreOrderResponse {
   400: any
 }
 
-export type IPostStoreOrderResponseSuccess = PropertyType<IPostStoreOrderResponse, 200>
+export type IPostStoreOrderResponseSuccess = PropertyType<
+  IPostStoreOrderResponse,
+  200
+>
 /**
  * Place an order for a pet
  * tags: store
  * produces: application／xml,application/json
  */
-export function postStoreOrder(option: IPostStoreOrderOption): Promise<IPostStoreOrderResponseSuccess> {
+export function postStoreOrder(
+  option: IPostStoreOrderOption,
+): Promise<IPostStoreOrderResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve({
       id: 0,
@@ -337,7 +367,9 @@ export function postStoreOrder(option: IPostStoreOrderOption): Promise<IPostStor
       complete: false,
     } as any)
   }
-  return requester('/v2/store/order', { method: 'post', ...option }) as Promise<any>
+  return requester('/v2/store/order', { method: 'post', ...option }) as Promise<
+    any
+  >
 }
 
 /** request parameter type for getStoreOrderOrderId */
@@ -363,7 +395,10 @@ export interface IGetStoreOrderOrderIdResponse {
   404: any
 }
 
-export type IGetStoreOrderOrderIdResponseSuccess = PropertyType<IGetStoreOrderOrderIdResponse, 200>
+export type IGetStoreOrderOrderIdResponseSuccess = PropertyType<
+  IGetStoreOrderOrderIdResponse,
+  200
+>
 /**
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  * Find purchase order by ID
@@ -440,14 +475,19 @@ export interface IPostUserResponse {
   default: any
 }
 
-export type IPostUserResponseSuccess = PropertyType<IPostUserResponse, 'default'>
+export type IPostUserResponseSuccess = PropertyType<
+  IPostUserResponse,
+  'default'
+>
 /**
  * This can only be done by the logged in user.
  * Create user
  * tags: user
  * produces: application／xml,application/json
  */
-export function postUser(option: IPostUserOption): Promise<IPostUserResponseSuccess> {
+export function postUser(
+  option: IPostUserOption,
+): Promise<IPostUserResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
@@ -465,7 +505,10 @@ export interface IPostUserCreateWithArrayResponse {
   default: any
 }
 
-export type IPostUserCreateWithArrayResponseSuccess = PropertyType<IPostUserCreateWithArrayResponse, 'default'>
+export type IPostUserCreateWithArrayResponseSuccess = PropertyType<
+  IPostUserCreateWithArrayResponse,
+  'default'
+>
 /**
  * Creates list of users with given input array
  * tags: user
@@ -494,7 +537,10 @@ export interface IPostUserCreateWithListResponse {
   default: any
 }
 
-export type IPostUserCreateWithListResponseSuccess = PropertyType<IPostUserCreateWithListResponse, 'default'>
+export type IPostUserCreateWithListResponseSuccess = PropertyType<
+  IPostUserCreateWithListResponse,
+  'default'
+>
 /**
  * Creates list of users with given input array
  * tags: user
@@ -532,17 +578,24 @@ export interface IGetUserLoginResponse {
   400: any
 }
 
-export type IGetUserLoginResponseSuccess = PropertyType<IGetUserLoginResponse, 200>
+export type IGetUserLoginResponseSuccess = PropertyType<
+  IGetUserLoginResponse,
+  200
+>
 /**
  * Logs user into the system
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserLogin(option: IGetUserLoginOption): Promise<IGetUserLoginResponseSuccess> {
+export function getUserLogin(
+  option: IGetUserLoginOption,
+): Promise<IGetUserLoginResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('string' as any)
   }
-  return requester('/v2/user/login', { method: 'get', ...option }) as Promise<any>
+  return requester('/v2/user/login', { method: 'get', ...option }) as Promise<
+    any
+  >
 }
 
 export interface IGetUserLogoutResponse {
@@ -550,7 +603,10 @@ export interface IGetUserLogoutResponse {
   default: any
 }
 
-export type IGetUserLogoutResponseSuccess = PropertyType<IGetUserLogoutResponse, 'default'>
+export type IGetUserLogoutResponseSuccess = PropertyType<
+  IGetUserLogoutResponse,
+  'default'
+>
 /**
  * Logs out current logged in user session
  * tags: user
@@ -582,13 +638,18 @@ export interface IGetUserUsernameResponse {
   404: any
 }
 
-export type IGetUserUsernameResponseSuccess = PropertyType<IGetUserUsernameResponse, 200>
+export type IGetUserUsernameResponseSuccess = PropertyType<
+  IGetUserUsernameResponse,
+  200
+>
 /**
  * Get user by user name
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserUsername(option: IGetUserUsernameOption): Promise<IGetUserUsernameResponseSuccess> {
+export function getUserUsername(
+  option: IGetUserUsernameOption,
+): Promise<IGetUserUsernameResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve({
       id: 0,
@@ -633,7 +694,9 @@ export type IPutUserUsernameResponseSuccess = any
  * tags: user
  * produces: application／xml,application/json
  */
-export function putUserUsername(option: IPutUserUsernameOption): Promise<IPutUserUsernameResponseSuccess> {
+export function putUserUsername(
+  option: IPutUserUsernameOption,
+): Promise<IPutUserUsernameResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
@@ -667,7 +730,9 @@ export type IDeleteUserUsernameResponseSuccess = any
  * tags: user
  * produces: application／xml,application/json
  */
-export function deleteUserUsername(option: IDeleteUserUsernameOption): Promise<IDeleteUserUsernameResponseSuccess> {
+export function deleteUserUsername(
+  option: IDeleteUserUsernameOption,
+): Promise<IDeleteUserUsernameResponseSuccess> {
   if (project.mockResponse) {
     return Promise.resolve('' as any)
   }
