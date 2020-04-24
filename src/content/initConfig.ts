@@ -69,6 +69,11 @@ const projects: IProject[] = [
      * usually usage: process.env.NODE_ENV === 'test'
      * */
     // mockResponse: process.env.NODE_ENV === 'test',
+
+    /** output content prettier config */
+    // prettierConfig: { 
+    //   semi: false,
+    // }
   },
 ]
 

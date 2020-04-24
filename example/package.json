@@ -5,6 +5,10 @@
   "license": "MIT",
   "dependencies": {
     "lodash": "^4.17.15",
-    "path-to-regexp": "^3.0.0"
+    "path-to-regexp": "^3.0.0",
+    "prettier": "^2.0.5"
+  },
+  "devDependencies": {
+    "@types/prettier": "^2.0.0"
   }
 }

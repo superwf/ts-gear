@@ -1,24 +1,29 @@
 import { Path, Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
+import { Options } from 'prettier';
 /** interface A { n: number }
- * type B = PropertyOf<A, 'n'> === type B = number
+ * type B = PropertyType<A, 'n'> === type B = number
  * */
-export declare type PropertyOf<T extends any, K extends keyof T> = T[K];
+export declare type PropertyType<T extends any, K extends keyof T> = T[K];
 /** baidu and google can handle different language automatically
  * youdao must assign the language type
  * */
 export declare type TranslationEngine = 'baidu' | 'google';
 export declare type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>;
-export declare type RequestParameterPosition = PropertyOf<BaseParameter, 'in'>;
+export declare type RequestParameterPosition = PropertyType<BaseParameter, 'in'>;
 /** request parameter option */
 export declare type IRequestParameter = {
-    method: HttpMethod;
+    method?: HttpMethod;
     basePath?: string;
     host?: string;
 } & {
     [position in RequestParameterPosition]?: any;
 };
 /** requester function signature */
-export declare type Requester = (url: string, param: IRequestParameter) => Promise<any>;
+export declare type Requester = (url: string, param?: IRequestParameter) => Promise<any>;
+export interface IRequestFunction<T1, T2> {
+    (option: T1): Promise<T2>;
+    setMockData(data: T2): void;
+}
 /** json schema traverse datatype */
 export interface ITraverseSchemaNode {
     value: any;
@@ -118,6 +123,8 @@ export interface IProject {
      * usually usage: process.env.NODE_ENV === 'test'
      * */
     mockResponse?: boolean;
+    /** output content prettier config */
+    prettierConfig?: Options;
 }
 export interface IAssembleResponse {
     responseTypeContent: string;

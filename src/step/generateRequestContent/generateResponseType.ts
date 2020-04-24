@@ -38,9 +38,9 @@ export const generateResponseType = (
     const firstResponseStatus = responseStatuses[0]
     if (firstResponseStatus.startsWith('2') || firstResponseStatus === 'default') {
       if (Number.isNaN(Number(firstResponseStatus))) {
-        successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, '${firstResponseStatus}'>`
+        successTypeContent = `export type ${responseTypeName}Success = PropertyType<${responseTypeName}, '${firstResponseStatus}'>`
       } else {
-        successTypeContent = `export type ${responseTypeName}Success = PropertyOf<${responseTypeName}, ${firstResponseStatus}>`
+        successTypeContent = `export type ${responseTypeName}Success = PropertyType<${responseTypeName}, ${firstResponseStatus}>`
       }
     }
   }

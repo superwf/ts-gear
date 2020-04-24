@@ -3,4 +3,4 @@ import { IProject } from '../../interface';
  * filter if any cli option
  * return project mapped by name
  * */
-export declare const getUserConfig: () => IProject[];
+export declare const getUserConfig: () => Promise<IProject[]>;

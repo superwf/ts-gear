@@ -1,6 +1,14 @@
-import { IProject } from 'ts-gear/src/interface'
-import { requester as fetchRequester } from 'ts-gear/lib/requester/fetch'
-import { requester as axiosRequester } from 'ts-gear/lib/requester/axios'
+import { Options } from 'prettier'
+
+import { IProject, fetchRequester, axiosRequester } from 'ts-gear'
+
+const prettierConfig: Options = {
+  semi: false,
+  useTabs: false,
+  singleQuote: true,
+  trailingComma: 'all',
+  jsxBracketSameLine: false,
+}
 
 const projects: IProject[] = [
   {
@@ -8,6 +16,7 @@ const projects: IProject[] = [
     dest: './service',
     source: 'fixture/pet.json',
     requester: fetchRequester(),
+    prettierConfig,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
   {
@@ -16,6 +25,7 @@ const projects: IProject[] = [
     source: 'fixture/projectE.json',
     keepGeneric: true,
     requester: axiosRequester(),
+    prettierConfig,
   },
   // {
   //   name: 'ignore',

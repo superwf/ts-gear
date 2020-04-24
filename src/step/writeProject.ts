@@ -3,11 +3,11 @@ import { join } from 'path'
 
 import { getGlobal } from '../projectGlobalVariable'
 import { prettierWrite } from '../tool/prettierWrite'
-import { IProject } from '../interface'
+import type { IProject } from '../interface'
 import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
-import { propertyOf } from '../content/propertyOfHelper'
+import { propertyTypeHelper } from '../content/propertyTypeHelper'
 
 import { importAllDefinition } from './importAllDefinition'
 
@@ -20,7 +20,7 @@ export const writeProject = (project: IProject) => {
 
   const definitionTypeNameSet = new Set<string>()
   const definitionContent = Object.getOwnPropertyNames(definitionMap)
-    .map(name => {
+    .map((name) => {
       // prevent repeat definition
       const typeName = definitionMap[name].typeName!
       if (definitionTypeNameSet.has(typeName!)) {
@@ -30,10 +30,10 @@ export const writeProject = (project: IProject) => {
       return definitionMap[name].typescriptContent
     })
     .join(EOL)
-  prettierWrite([warningComment, definitionContent].join(EOL), join(dest, 'definition.ts'))
+  prettierWrite([warningComment, definitionContent].join(EOL), join(dest, 'definition.ts'), project.prettierConfig)
 
   const requestContent = Object.getOwnPropertyNames(requestMap)
-    .map(name => {
+    .map((name) => {
       return requestMap[name].typescriptContent
     })
     .join(EOL)
@@ -41,14 +41,15 @@ export const writeProject = (project: IProject) => {
   prettierWrite(
     [
       warningComment,
-      propertyOf,
+      propertyTypeHelper,
       requesterResult.import,
       importAllDefinition(project),
       requesterResult.code,
       requestContent,
     ].join(EOL),
     join(dest, 'request.ts'),
+    project.prettierConfig,
   )
 
-  prettierWrite([warningComment, projectIndex].join(EOL), join(dest, 'index.ts'))
+  prettierWrite([warningComment, projectIndex].join(EOL), join(dest, 'index.ts'), project.prettierConfig)
 }
