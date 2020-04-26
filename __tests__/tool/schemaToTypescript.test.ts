@@ -41,9 +41,9 @@ describe('transformSwaggerPropertyToTsType', () => {
     expect(
       transform({
         type: 'string',
-        enum: [1, 2, 3],
-      }),
-    ).toBe("'1' | '2' | '3'")
+        enum: 'Abc',
+      } as any),
+    ).toBe('Abc')
   })
 
   it('object with unregular property name', () => {

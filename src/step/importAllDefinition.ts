@@ -2,13 +2,13 @@ import { getGlobal } from '../projectGlobalVariable'
 import { IProject } from '../interface'
 
 export const importAllDefinition = (project: IProject) => {
-  const { requestRefSet } = getGlobal(project)
+  const { requestRefSet, requestEnumSet } = getGlobal(project)
   const refSet = new Set<string>()
-  Array.from(requestRefSet).forEach(name => {
+  ;[...Array.from(requestEnumSet), ...Array.from(requestRefSet)].forEach((name) => {
     name
       .split(/<|>|,/)
       .filter(Boolean)
-      .forEach(n => {
+      .forEach((n) => {
         refSet.add(n)
       })
   })

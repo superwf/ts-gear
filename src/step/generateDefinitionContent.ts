@@ -16,7 +16,7 @@ import { assembleDoc } from '../tool/assembleDoc'
 /** generate on definition ts content */
 export const generateDefinitionContent = (project: IProject) => {
   const { definitionMap } = getGlobal(project)
-  Object.values(definitionMap).forEach(definition => {
+  Object.values(definitionMap).forEach((definition) => {
     if (definition.typescriptContent || !definition.schema) {
       return
     }
@@ -30,7 +30,7 @@ export const generateDefinitionContent = (project: IProject) => {
           isExported: true,
           name: title,
           typeParameters: definition.typeParameters
-            ? definition.typeParameters.map(t => ({
+            ? definition.typeParameters.map((t) => ({
                 name: t,
                 default: 'any',
               }))
@@ -38,7 +38,7 @@ export const generateDefinitionContent = (project: IProject) => {
           docs: assembleDoc(schema),
         }
         const klass = preferInterface ? source.addInterface(declarationOptin) : source.addClass(declarationOptin)
-        Object.getOwnPropertyNames(schema.properties).forEach(name => {
+        Object.getOwnPropertyNames(schema.properties).forEach((name) => {
           const property = schema!.properties![name]
           const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
             name,

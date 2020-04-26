@@ -1,4 +1,4 @@
-import { Path, Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
+import { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
 import { Options } from 'prettier';
 /** interface A { n: number }
  * type B = PropertyType<A, 'n'> === type B = number
@@ -8,7 +8,8 @@ export declare type PropertyType<T extends any, K extends keyof T> = T[K];
  * youdao must assign the language type
  * */
 export declare type TranslationEngine = 'baidu' | 'google';
-export declare type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>;
+export declare const httpMethods: ["get", "put", "post", "delete", "options", "head", "patch"];
+export declare type HttpMethod = typeof httpMethods[number];
 export declare type RequestParameterPosition = PropertyType<BaseParameter, 'in'>;
 /** request parameter option */
 export declare type IRequestParameter = {
@@ -168,6 +169,9 @@ export interface IDefinitionMap {
 export interface IRequestMap {
     [requestFunctionName: string]: ISwaggerRequest;
 }
+export interface IEnumMap {
+    [enumTypeName: string]: string;
+}
 /** key: origin word, value: translated english word */
 export interface IWordsMap {
     [k: string]: string;
@@ -181,6 +185,8 @@ export interface IProjectGlobal {
      * */
     requestMap: IRequestMap;
     requestRefSet: Set<string>;
+    requestEnumSet: Set<string>;
+    enumMap: IEnumMap;
 }
 export interface IProjectGlobalMap {
     [projectName: string]: IProjectGlobal;

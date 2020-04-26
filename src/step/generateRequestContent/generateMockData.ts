@@ -4,7 +4,7 @@
 import { Schema } from 'swagger-schema-official'
 import { find, isObject, isFunction, castArray, memoize } from 'lodash'
 
-import { ISwaggerRequest, IDefinitionMap } from '../../interface'
+import { ISwaggerRequest, IDefinitionMap, IEnumMap } from '../../interface'
 
 // Deeply strips a specific key from an object.
 //
@@ -17,7 +17,7 @@ export function deeplyStripKey(input: any, keyToStrip: string, predicate: (...ar
 
   const obj = { ...input }
 
-  Object.keys(obj).forEach(k => {
+  Object.keys(obj).forEach((k) => {
     if (k === keyToStrip && predicate(obj[k], k)) {
       delete obj[k]
       return
@@ -69,7 +69,7 @@ const primitive = (schema: Schema): object => {
  * */
 const schemaSet = new Set()
 
-export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap): any => {
+export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap, enumMap: IEnumMap): any => {
   if (schemaSet.has(schema)) {
     return ''
   }
@@ -94,11 +94,11 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap):
     } else if ($ref) {
       const definitionSchema = definitionMap[$ref] && definitionMap[$ref].schema
       if (definitionSchema) {
-        return sampleFromSchema(definitionSchema, definitionMap)
+        return sampleFromSchema(definitionSchema, definitionMap, enumMap)
       }
       return ''
     } else if (schemaSchema) {
-      return sampleFromSchema(schemaSchema, definitionMap)
+      return sampleFromSchema(schemaSchema, definitionMap, enumMap)
     } else {
       return ''
     }
@@ -107,9 +107,9 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap):
   if (type === 'object') {
     const props = objectify(properties)
     const obj: any = {}
-    Object.getOwnPropertyNames(props).forEach(name => {
+    Object.getOwnPropertyNames(props).forEach((name) => {
       if (!(props[name] && props[name].deprecated)) {
-        obj[name] = sampleFromSchema(props[name], definitionMap)
+        obj[name] = sampleFromSchema(props[name], definitionMap, enumMap)
       }
     })
 
@@ -117,7 +117,7 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap):
       obj.additionalProp1 = {}
     } else if (additionalProperties) {
       const additionalProps = objectify(additionalProperties)
-      const additionalPropVal = sampleFromSchema(additionalProps, definitionMap)
+      const additionalPropVal = sampleFromSchema(additionalProps, definitionMap, enumMap)
 
       for (let i = 1; i < 4; i += 1) {
         obj[`additionalProp${i}`] = additionalPropVal
@@ -128,21 +128,23 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap):
 
   if (type === 'array') {
     if (Array.isArray(items.anyOf)) {
-      return items.anyOf.map((i: Schema) => sampleFromSchema(i, definitionMap))
+      return items.anyOf.map((i: Schema) => sampleFromSchema(i, definitionMap, enumMap))
     }
 
     if (Array.isArray(items.oneOf)) {
-      return items.oneOf.map((i: Schema) => sampleFromSchema(i, definitionMap))
+      return items.oneOf.map((i: Schema) => sampleFromSchema(i, definitionMap, enumMap))
     }
 
-    return [sampleFromSchema(items, definitionMap)]
+    return [sampleFromSchema(items, definitionMap, enumMap)]
   }
 
   if (schema.enum) {
     if (schema.default) {
       return schema.default
     }
-    return castArray(schema.enum)[0]
+    if (enumMap[String(schema.enum)]) {
+      return castArray(enumMap[String(schema.enum)].originalContent)[0]
+    }
   }
 
   if (type === 'file') {
@@ -152,13 +154,15 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap):
   return primitive(schema)
 }
 
-export const generateMockData = memoize((request: ISwaggerRequest, definitionMap: IDefinitionMap) => {
-  schemaSet.clear()
-  if (request.responses) {
-    const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))
-    if (schema) {
-      return sampleFromSchema(schema, definitionMap)
+export const generateMockData = memoize(
+  (request: ISwaggerRequest, definitionMap: IDefinitionMap, enumMap: IEnumMap) => {
+    schemaSet.clear()
+    if (request.responses) {
+      const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))
+      if (schema) {
+        return sampleFromSchema(schema, definitionMap, enumMap)
+      }
     }
-  }
-  return ''
-})
+    return ''
+  },
+)

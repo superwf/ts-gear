@@ -21,9 +21,9 @@ describe('sample', () => {
     const spec = cloneDeep(petSpec) as Spec
     step.cleanRefAndDefinitionName(spec, false)
     step.assembleSchemaToGlobal(spec, project)
-    const { definitionMap, requestMap } = getGlobal(project)
+    const { definitionMap, requestMap, enumMap } = getGlobal(project)
 
-    const result = generateMockData(requestMap.getPetFindByStatus, definitionMap)
+    const result = generateMockData(requestMap.getPetFindByStatus, definitionMap, enumMap)
     expect(result).toMatchSnapshot()
 
     restore(project)

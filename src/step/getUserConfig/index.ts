@@ -18,6 +18,7 @@ export const getUserConfig = async () => {
   const cliOption = getCliOption()
   if (cliOption.init) {
     const configFilePath = join(cwd, 'tsg.config.ts')
+    console.log(configFilePath)
     if (existsSync(configFilePath)) {
       const { overwrite } = await prompts({
         type: 'confirm',

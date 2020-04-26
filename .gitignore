@@ -4,3 +4,4 @@ node_modules
 example/fixture/ignore.json
 example/service/ignore
 coverage
+tmp

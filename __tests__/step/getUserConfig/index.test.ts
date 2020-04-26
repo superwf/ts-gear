@@ -1,28 +1,10 @@
 import { join } from 'path'
-import { writeFileSync, existsSync } from 'fs'
 
 import { noop } from 'lodash'
 // import { sync } from 'rimraf'
-import * as prompts from 'prompts'
 
 import { getUserConfig } from 'src/step/getUserConfig'
 import exampleProjects from 'example/tsg.config'
-
-let overwrite = false
-let exists = false
-
-jest.mock('prompts', () => {
-  return jest.fn(() => {
-    return Promise.resolve({ overwrite })
-  })
-})
-
-jest.mock('fs', () => {
-  return {
-    writeFileSync: jest.fn(),
-    existsSync: jest.fn(() => exists),
-  }
-})
 
 describe('getUserConfig', () => {
   const originLength = process.argv.length
@@ -54,40 +36,6 @@ describe('getUserConfig', () => {
       expect(await getUserConfig()).toEqual([])
       expect(spy).toHaveBeenCalled()
       spy.mockRestore()
-    })
-  })
-
-  describe('init', () => {
-    beforeEach(() => {
-      process.chdir(join(cwd, 'tmp'))
-    })
-
-    it('init', async () => {
-      process.argv.push('-i')
-      expect(await getUserConfig()).toEqual([])
-      process.argv.length = originLength
-      expect(prompts).not.toHaveBeenCalled()
-      expect(existsSync).toHaveBeenCalledTimes(1)
-      expect(writeFileSync).toHaveBeenCalledTimes(1)
-
-      process.argv.push('--init')
-      expect(await getUserConfig()).toEqual([])
-      expect(prompts).not.toHaveBeenCalled()
-      expect(existsSync).toHaveBeenCalledTimes(2)
-      expect(writeFileSync).toHaveBeenCalledTimes(2)
-
-      exists = true
-      expect(await getUserConfig()).toEqual([])
-      expect(prompts).toHaveBeenCalledTimes(1)
-      expect(existsSync).toHaveBeenCalledTimes(3)
-      expect(writeFileSync).toHaveBeenCalledTimes(2)
-
-      overwrite = true
-      expect(await getUserConfig()).toEqual([])
-      expect(prompts).toHaveBeenCalledTimes(2)
-      expect(existsSync).toHaveBeenCalledTimes(4)
-      expect(writeFileSync).toHaveBeenCalledTimes(3)
-      // sync(join(cwd, 'tmp/*'))
     })
   })
 })

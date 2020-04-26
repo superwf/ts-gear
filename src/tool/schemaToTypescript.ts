@@ -18,14 +18,17 @@ const generatePropertyDoc = (schema: SchemaOption) => {
   return docs ? `/**${EOL}${docs.join(EOL)} */${EOL}` : ''
 }
 
-/** 将schema转换为ts的类型 */
+/** transform schema to typescript type definition
+ * @param schema
+ * */
 const transform = (schema: SchemaOption): string => {
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }
   const { type, enum: enumValues, items, $ref, properties, additionalProperties, required, allOf } = schema as Schema
   if (enumValues) {
-    return `'${enumValues.join("' | '")}'`
+    return (enumValues as unknown) as string
+    // return `'${enumValues.join("' | '")}'`
   }
   if (allOf) {
     return `${allOf.map((prop) => transform(prop)).join(' & ')}`

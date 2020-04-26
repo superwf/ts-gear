@@ -14,7 +14,7 @@ import { importAllDefinition } from './importAllDefinition'
 /** gather global typescript content
  * write to project dir */
 export const writeProject = (project: IProject) => {
-  const { definitionMap, requestMap } = getGlobal(project)
+  const { definitionMap, requestMap, enumMap } = getGlobal(project)
   const cwd = process.cwd()
   const dest = join(cwd, project.dest, project.name)
 
@@ -30,7 +30,14 @@ export const writeProject = (project: IProject) => {
       return definitionMap[name].typescriptContent
     })
     .join(EOL)
-  prettierWrite([warningComment, definitionContent].join(EOL), join(dest, 'definition.ts'), project.prettierConfig)
+  const enumContent = Object.values(enumMap)
+    .map(({ typescriptContent }) => typescriptContent)
+    .join(EOL)
+  prettierWrite(
+    [warningComment, enumContent, definitionContent].join(EOL),
+    join(dest, 'definition.ts'),
+    project.prettierConfig,
+  )
 
   const requestContent = Object.getOwnPropertyNames(requestMap)
     .map((name) => {

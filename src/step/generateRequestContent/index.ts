@@ -8,6 +8,7 @@ import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { defaultShouldMockResponseStatement } from '../../constant'
 
 import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
@@ -18,10 +19,12 @@ import join = require('url-join')
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: IProject) => {
   const { pathMatcher, withBasePath, withHost } = project
-  const { requestMap, definitionMap } = getGlobal(project)
+  const { requestMap, definitionMap, enumMap } = getGlobal(project)
+
+  const shouldMockResponseStatement = project.shouldMockResponseStatement || defaultShouldMockResponseStatement
 
   const resultContent: string[] = []
-  Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
+  Object.getOwnPropertyNames(requestMap).forEach((requestFunctionName) => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
@@ -49,9 +52,8 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     const requesterStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
     }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<any>`
-    const mockStatment = `return Promise.resolve(${JSON.stringify(generateMockData(request, definitionMap))} as any)`
-    const functionStatment = `if (project.mockResponse) {
-      ${mockStatment}
+    const functionStatment = `if (${shouldMockResponseStatement}) {
+      return Promise.resolve(${requestFunctionName}.mockData as any)
     }
     ${requesterStatment}`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
@@ -69,6 +71,14 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
       })
     }
     source.addFunction(functionData)
+    const mockStatment = `${requestFunctionName}.mockData = (${JSON.stringify(
+      generateMockData(request, definitionMap, enumMap),
+    )} as any)`
+    source.addStatements(`
+if (${shouldMockResponseStatement}) {
+  ${mockStatment}
+}
+`)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */
     request.typescriptContent = requestTypeScriptContent.join(EOL)

@@ -1,6 +1,5 @@
 // import { JSONSchema4 } from 'json-schema'
 import {
-  Path,
   Schema,
   Operation,
   Response,
@@ -10,6 +9,8 @@ import {
   ParameterType,
 } from 'swagger-schema-official'
 import { Options } from 'prettier'
+
+import { tuple } from './tool/types'
 
 /** interface A { n: number }
  * type B = PropertyType<A, 'n'> === type B = number
@@ -21,7 +22,9 @@ export type PropertyType<T extends any, K extends keyof T> = T[K]
  * */
 export type TranslationEngine = 'baidu' | 'google'
 
-export type HttpMethod = Exclude<Exclude<keyof Path, '$ref'>, 'parameters'>
+export const httpMethods = tuple('get', 'put', 'post', 'delete', 'options', 'head', 'patch')
+
+export type HttpMethod = typeof httpMethods[number]
 
 export type RequestParameterPosition = PropertyType<BaseParameter, 'in'>
 
@@ -37,10 +40,10 @@ export type IRequestParameter = {
 /** requester function signature */
 export type Requester = (url: string, param?: IRequestParameter) => Promise<any>
 
-export interface IRequestFunction<T1, T2> {
-  (option: T1): Promise<T2>
-  setMockData(data: T2): void
-}
+// export interface IRequestFunction<T1, T2> {
+//   (option: T1): Promise<T2>
+//   mockData?: T2
+// }
 
 /** json schema traverse datatype */
 export interface ITraverseSchemaNode {
@@ -148,10 +151,14 @@ export interface IProject {
    * */
   translationEngine?: TranslationEngine
 
-  /** use swagger sample data mock response data
-   * usually usage: process.env.NODE_ENV === 'test'
+  /**
+   * a string statement to use swagger sample data mock response data
+   * useed in judge if every request function should use return mockData
+   * @default "process.env.NODE_ENV === 'test'"
+   * this statement must return boolean,
+   * and should be return false to be removed when optimize code in production mode.
    * */
-  mockResponse?: boolean
+  shouldMockResponseStatement?: string
 
   /** output content prettier config */
   prettierConfig?: Options
@@ -204,6 +211,13 @@ export interface IRequestMap {
   [requestFunctionName: string]: ISwaggerRequest
 }
 
+export interface IEnumMap {
+  [enumTypeName: string]: {
+    typescriptContent: string
+    originalContent: string
+  }
+}
+
 /** key: origin word, value: translated english word */
 export interface IWordsMap {
   [k: string]: string
@@ -218,6 +232,8 @@ export interface IProjectGlobal {
    * */
   requestMap: IRequestMap
   requestRefSet: Set<string>
+  requestEnumSet: Set<string>
+  enumMap: IEnumMap
 }
 export interface IProjectGlobalMap {
   [projectName: string]: IProjectGlobal
