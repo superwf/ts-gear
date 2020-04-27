@@ -10,7 +10,7 @@ import { run } from 'src/run'
 describe('run', () => {
   it('with fixture', async () => {
     const cwd = process.cwd()
-    // 以example为cwd读取tsg.config.ts
+    // change cwd to `example`
     process.chdir(join(process.cwd(), 'example'))
     try {
       await run()

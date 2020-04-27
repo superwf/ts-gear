@@ -6,6 +6,9 @@ import { run } from './run'
 
 register({
   typeCheck: true,
+  compilerOptions: {
+    module: 'commonjs',
+  },
 })
 
 run()

@@ -100,7 +100,7 @@ export interface IProject {
   pathMatcher?: TPathMatcherFunction
 
   /** request function
-   * ts-gear provide two available requesters out of box.
+   * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
    * or else use your own function as requester is definitily ok,
    * request function signiture as below
    *   (url: string, param: IRequestParameter) => Promise<any>
@@ -152,11 +152,11 @@ export interface IProject {
   translationEngine?: TranslationEngine
 
   /**
-   * a string statement to use swagger sample data mock response data
-   * useed in judge if every request function should use return mockData
+   * a string statement to tell use swagger sample data mock response data
+   * used in decide whether request function should return mockData
    * @default "process.env.NODE_ENV === 'test'"
    * this statement must return boolean,
-   * and should be return false to be removed when optimize code in production mode.
+   * and should return false to be removed when optimize code in production mode.
    * */
   shouldMockResponseStatement?: string
 

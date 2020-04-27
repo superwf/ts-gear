@@ -21,10 +21,6 @@ export declare type IRequestParameter = {
 };
 /** requester function signature */
 export declare type Requester = (url: string, param?: IRequestParameter) => Promise<any>;
-export interface IRequestFunction<T1, T2> {
-    (option: T1): Promise<T2>;
-    setMockData(data: T2): void;
-}
 /** json schema traverse datatype */
 export interface ITraverseSchemaNode {
     value: any;
@@ -74,7 +70,7 @@ export interface IProject {
      * */
     pathMatcher?: TPathMatcherFunction;
     /** request function
-     * ts-gear provide two available requesters out of box.
+     * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
      * or else use your own function as requester is definitily ok,
      * request function signiture as below
      *   (url: string, param: IRequestParameter) => Promise<any>
@@ -120,10 +116,14 @@ export interface IProject {
      * "baidu" or "google"
      * */
     translationEngine?: TranslationEngine;
-    /** use swagger sample data mock response data
-     * usually usage: process.env.NODE_ENV === 'test'
+    /**
+     * a string statement to tell use swagger sample data mock response data
+     * used in decide whether request function should return mockData
+     * @default "process.env.NODE_ENV === 'test'"
+     * this statement must return boolean,
+     * and should return false to be removed when optimize code in production mode.
      * */
-    mockResponse?: boolean;
+    shouldMockResponseStatement?: string;
     /** output content prettier config */
     prettierConfig?: Options;
 }
@@ -170,7 +170,10 @@ export interface IRequestMap {
     [requestFunctionName: string]: ISwaggerRequest;
 }
 export interface IEnumMap {
-    [enumTypeName: string]: string;
+    [enumTypeName: string]: {
+        typescriptContent: string;
+        originalContent: string;
+    };
 }
 /** key: origin word, value: translated english word */
 export interface IWordsMap {

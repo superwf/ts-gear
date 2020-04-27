@@ -26,6 +26,9 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if ('consumes' in schema) {
     docs.push(`consumes: ${schema.consumes}`)
   }
+  if ('example' in schema) {
+    docs.push(`example: ${schema.example}`)
+  }
   if (docs.length === 0) {
     return undefined
   }
@@ -33,7 +36,7 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
     docs
       .filter(Boolean)
       /** replace invalid comment charator */
-      .map(doc => doc.replace('/', '／'))
+      .map((doc) => doc.replace('/', '／'))
       .join(EOL),
   ]
 }

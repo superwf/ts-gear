@@ -4,7 +4,7 @@ import { noop } from 'lodash'
 // import { sync } from 'rimraf'
 
 import { getUserConfig } from 'src/step/getUserConfig'
-import exampleProjects from 'example/tsg.config'
+import exampleProjects from 'example/petProject/tsg.config'
 
 describe('getUserConfig', () => {
   const originLength = process.argv.length
@@ -18,11 +18,10 @@ describe('getUserConfig', () => {
 
   describe('filter project names', () => {
     beforeEach(() => {
-      process.chdir(join(cwd, 'example'))
+      process.chdir(join(cwd, 'example', 'petProject'))
     })
 
     it('with project names in cli', async () => {
-      process.chdir(join(cwd, 'example'))
       expect(await getUserConfig()).toEqual(exampleProjects)
       process.argv.push('-p', 'pet,projectE')
       expect(await getUserConfig()).toEqual([exampleProjects[0], exampleProjects[1]])
@@ -30,7 +29,6 @@ describe('getUserConfig', () => {
 
     it('with none exist project names in cli', async () => {
       const spy = jest.spyOn(console, 'log').mockImplementation(noop)
-      process.chdir(join(cwd, 'example'))
       expect(await getUserConfig()).toEqual(exampleProjects)
       process.argv.push('-p', 'noExistProjectName')
       expect(await getUserConfig()).toEqual([])

@@ -7,14 +7,14 @@ import { IProject } from 'src/interface'
 
 describe('fetchSwagger', () => {
   const cwd = process.cwd()
-  it('file not ends with json', done => {
+  it('file not ends with json', (done) => {
     const project: IProject = {
       name: 'abc',
       source: 'abc',
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
-    step.fetchSwagger(project).catch(e => {
+    step.fetchSwagger(project).catch((e) => {
       expect(e.message).toBe('user config file should ends with `.json`')
       done()
     })
@@ -23,13 +23,13 @@ describe('fetchSwagger', () => {
   it('get json', async () => {
     const project: IProject = {
       name: 'abc',
-      source: join('example', 'package.json'),
+      source: join('example', 'petProject', 'package.json'),
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
     const spec = await step.fetchSwagger(project)
     // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
-    expect(spec).toEqual(require(join(cwd, 'example', 'package.json')))
+    expect(spec).toEqual(require(join(cwd, 'example', 'petProject', 'package.json')))
   })
 
   it('fetch remote spec', async () => {

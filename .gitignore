@@ -3,5 +3,4 @@ node_modules
 *.log
 example/fixture/ignore.json
 example/service/ignore
-coverage
 tmp

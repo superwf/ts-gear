@@ -1,5 +1,7 @@
 /** copy from swagger-ui https://github.com/swagger-api/swagger-ui/blob/master/src/core/plugins/samples/fn.js
- * modify js to ts */
+ * swagger-ui "license": "Apache-2.0"
+ * modify js to ts and some ts-gear project part change
+ * */
 
 import { Schema } from 'swagger-schema-official'
 import { find, isObject, isFunction, castArray, memoize } from 'lodash'

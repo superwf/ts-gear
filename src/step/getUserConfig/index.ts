@@ -4,6 +4,7 @@ import { writeFileSync, existsSync } from 'fs'
 import * as prompts from 'prompts'
 
 import { IProject } from '../../interface'
+import { configFileName } from '../../constant'
 import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'
 
@@ -17,8 +18,7 @@ export const getUserConfig = async () => {
   const cwd = process.cwd()
   const cliOption = getCliOption()
   if (cliOption.init) {
-    const configFilePath = join(cwd, 'tsg.config.ts')
-    console.log(configFilePath)
+    const configFilePath = join(cwd, `${configFileName}.ts`)
     if (existsSync(configFilePath)) {
       const { overwrite } = await prompts({
         type: 'confirm',
@@ -34,7 +34,7 @@ export const getUserConfig = async () => {
     }
     return []
   }
-  const tsGearConfigPath = join(cwd, 'tsg.config')
+  const tsGearConfigPath = join(cwd, configFileName)
   /* eslint-disable */
   const config = require(tsGearConfigPath)
   /* eslint-enable */

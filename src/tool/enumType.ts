@@ -7,8 +7,9 @@ import { cleanName } from './cleanName'
 
 const filterPaths = ['definitions', 'properties', 'parameters', 'responses', 'paths']
 
-export const generateEnumName = (path: string[], spec: Spec) => {
-  path = [...path]
+/** use traverse spec path to generate an available enum type name */
+export const generateEnumName = (traversePath: string[], spec: Spec) => {
+  const path = [...traversePath]
   path.pop()
   if (path[0] === 'paths') {
     if (path.includes('parameters')) {
@@ -34,6 +35,11 @@ export const generateEnumName = (path: string[], spec: Spec) => {
   return path.map((p) => upperFirst(cleanName(p, false))).join('')
 }
 
+/** convert enum member to enum type
+ * e.g.
+ *   `[1,2,3]` => `1 | 2 | 3`
+ *   `['a', 'b', 'c']` => `'a' | 'b' | 'c'`
+ * */
 export const generateEnumTypescriptContent = (value: any[]) => {
   return value
     .map((v) => {
