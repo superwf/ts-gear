@@ -23,7 +23,7 @@ module.exports = {
   collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts', '!src/main.ts'],
   transform: {
     ...tsjPreset.transform,
-    '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/babel-jest',
+    '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/ts-jest',
   },
   coverageReporters: ['text-summary', 'text', 'json', 'lcov', 'clover', 'json-summary'],
   testRegex: '__tests__/.*\\.test\\.(ts|tsx)$',

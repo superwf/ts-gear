@@ -18,7 +18,7 @@ export const fetchSwagger = async (project: IProject) => {
     info(`start fetching ${verbose}`)
     const res = await fetch(url, project.fetchSwaggerDocOption)
     const swaggerSchema = await res.json()
-    info(`got swagger sped from ${verbose}}`)
+    info(`got swagger spec doc from ${verbose}}`)
     return swaggerSchema
   }
   const cwd = process.cwd()

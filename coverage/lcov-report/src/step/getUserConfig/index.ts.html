@@ -25,7 +25,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>29/29</span>
+                <span class='fraction'>30/30</span>
             </div>
         
             
@@ -46,7 +46,7 @@
             <div class='fl pad1y space-right2'>
                 <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>28/28</span>
+                <span class='fraction'>29/29</span>
             </div>
         
             
@@ -109,22 +109,24 @@
 <a name='L50'></a><a href='#L50'>50</a>
 <a name='L51'></a><a href='#L51'>51</a>
 <a name='L52'></a><a href='#L52'>52</a>
-<a name='L53'></a><a href='#L53'>53</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
+<a name='L53'></a><a href='#L53'>53</a>
+<a name='L54'></a><a href='#L54'>54</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-yes">11x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">11x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
 <span class="cline-any cline-yes">9x</span>
@@ -148,9 +150,9 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
-<span class="cline-any cline-yes">5x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">5x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -159,7 +161,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import { join } from 'path'
 import { writeFileSync, existsSync } from 'fs'
@@ -167,6 +169,7 @@ import { writeFileSync, existsSync } from 'fs'
 import * as prompts from 'prompts'
 &nbsp;
 import { IProject } from '../../interface'
+import { configFileName } from '../../constant'
 import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'
 &nbsp;
@@ -180,7 +183,7 @@ export const getUserConfig = async () =&gt; {
   const cwd = process.cwd()
   const cliOption = getCliOption()
   if (cliOption.init) {
-    const configFilePath = join(cwd, 'ts-gear.ts')
+    const configFilePath = join(cwd, `${configFileName}.ts`)
     if (existsSync(configFilePath)) {
       const { overwrite } = await prompts({
         type: 'confirm',
@@ -196,15 +199,15 @@ export const getUserConfig = async () =&gt; {
     }
     return []
   }
-  const tsGearConfigPath = join(cwd, 'ts-gear')
+  const tsGearConfigPath = join(cwd, configFileName)
   /* eslint-disable */
   const config = require(tsGearConfigPath)
   /* eslint-enable */
   let projects = (config.default ? config.default : <span class="branch-1 cbranch-no" title="branch not covered" >config)</span> as IProject[]
   const projectNamesFromCommandLine = cliOption.names
   if (projectNamesFromCommandLine.length &gt; 0) {
-    projects = projects.filter(project =&gt; {
-      return projectNamesFromCommandLine.some(name =&gt; name === project.name)
+    projects = projects.filter((project) =&gt; {
+      return projectNamesFromCommandLine.some((name) =&gt; name === project.name)
     })
     if (projects.length === 0) {
       warn(`your input names "${cliOption.names.join(', ')}" match 0 projects, checkout and retry.`)
@@ -220,7 +223,7 @@ export const getUserConfig = async () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Apr 23 2020 19:25:35 GMT+0800 (GMT+08:00)
+                at Mon Apr 27 2020 16:40:10 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../../../prettify.js"></script>

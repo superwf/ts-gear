@@ -7,7 +7,8 @@
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../prettify.css" />
     <link rel="stylesheet" href="../base.css" />
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" type="image/x-icon" href="../favicon.png" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <style type='text/css'>
         .coverage-summary .sorter {
             background-image: url(../sort-arrow-sprite.png);
@@ -22,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Branches</span>
                 <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Functions</span>
                 <span class='fraction'>0/0</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">100% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/0</span>
+                <span class='fraction'>2/2</span>
             </div>
         
             
@@ -54,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line low'></div>
+    <div class='status-line high'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -278,12 +279,50 @@
 <a name='L220'></a><a href='#L220'>220</a>
 <a name='L221'></a><a href='#L221'>221</a>
 <a name='L222'></a><a href='#L222'>222</a>
-<a name='L223'></a><a href='#L223'>223</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L223'></a><a href='#L223'>223</a>
+<a name='L224'></a><a href='#L224'>224</a>
+<a name='L225'></a><a href='#L225'>225</a>
+<a name='L226'></a><a href='#L226'>226</a>
+<a name='L227'></a><a href='#L227'>227</a>
+<a name='L228'></a><a href='#L228'>228</a>
+<a name='L229'></a><a href='#L229'>229</a>
+<a name='L230'></a><a href='#L230'>230</a>
+<a name='L231'></a><a href='#L231'>231</a>
+<a name='L232'></a><a href='#L232'>232</a>
+<a name='L233'></a><a href='#L233'>233</a>
+<a name='L234'></a><a href='#L234'>234</a>
+<a name='L235'></a><a href='#L235'>235</a>
+<a name='L236'></a><a href='#L236'>236</a>
+<a name='L237'></a><a href='#L237'>237</a>
+<a name='L238'></a><a href='#L238'>238</a>
+<a name='L239'></a><a href='#L239'>239</a>
+<a name='L240'></a><a href='#L240'>240</a>
+<a name='L241'></a><a href='#L241'>241</a>
+<a name='L242'></a><a href='#L242'>242</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -502,7 +541,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">// import { JSONSchema4 } from 'json-schema'
 import {
-  Path,
   Schema,
   Operation,
   Response,
@@ -511,20 +549,29 @@ import {
   BaseParameter,
   ParameterType,
 } from 'swagger-schema-official'
-import * as translation from 'translation.js'
+import { Options } from 'prettier'
+&nbsp;
+import { tuple } from './tool/types'
+&nbsp;
+/** interface A { n: number }
+ * type B = PropertyType&lt;A, 'n'&gt; === type B = number
+ * */
+export type PropertyType&lt;T extends any, K extends keyof T&gt; = T[K]
 &nbsp;
 /** baidu and google can handle different language automatically
  * youdao must assign the language type
  * */
-export type TranslationEngine = Exclude&lt;keyof typeof translation, 'youdao'&gt;
+export type TranslationEngine = 'baidu' | 'google'
 &nbsp;
-export type HttpMethod = Exclude&lt;Exclude&lt;keyof Path, '$ref'&gt;, 'parameters'&gt;
+export const httpMethods = tuple('get', 'put', 'post', 'delete', 'options', 'head', 'patch')
 &nbsp;
-export type RequestParameterPosition = PropertyOf&lt;BaseParameter, 'in'&gt;
+export type HttpMethod = typeof httpMethods[number]
+&nbsp;
+export type RequestParameterPosition = PropertyType&lt;BaseParameter, 'in'&gt;
 &nbsp;
 /** request parameter option */
 export type IRequestParameter = {
-  method: HttpMethod
+  method?: HttpMethod
   basePath?: string
   host?: string
 } &amp; {
@@ -532,7 +579,12 @@ export type IRequestParameter = {
 }
 &nbsp;
 /** requester function signature */
-export type Requester = (url: string, param: IRequestParameter) =&gt; Promise&lt;any&gt;
+export type Requester = (url: string, param?: IRequestParameter) =&gt; Promise&lt;any&gt;
+&nbsp;
+// export interface IRequestFunction&lt;T1, T2&gt; {
+//   (option: T1): Promise&lt;T2&gt;
+//   mockData?: T2
+// }
 &nbsp;
 /** json schema traverse datatype */
 export interface ITraverseSchemaNode {
@@ -589,12 +641,13 @@ export interface IProject {
   pathMatcher?: TPathMatcherFunction
 &nbsp;
   /** request function
-   * ts-gear provide two available requesters out of box.
+   * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
    * or else use your own function as requester is definitily ok,
    * request function signiture as below
    *   (url: string, param: IRequestParameter) =&gt; Promise&lt;any&gt;
    * */
   requester: Requester
+  // importRequestFunctionStatement: string
 &nbsp;
   /**
    * @default false
@@ -640,21 +693,17 @@ export interface IProject {
    * */
   translationEngine?: TranslationEngine
 &nbsp;
-  /** use swagger sample data mock response data
-   * usually usage: process.env.NODE_ENV === 'test'
+  /**
+   * a string statement to tell use swagger sample data mock response data
+   * used in decide whether request function should return mockData
+   * @default "process.env.NODE_ENV === 'test'"
+   * this statement must return boolean,
+   * and should return false to be removed when optimize code in production mode.
    * */
-  mockResponse?: boolean
-}
+  shouldMockResponseStatement?: string
 &nbsp;
-export interface IProjectMap {
-  /** project name，will be used to create dir in the dir defined in "dest" */
-  [name: string]: IProject
-}
-&nbsp;
-export interface IAssembleRequestParameter {
-  typeName?: string
-  schema?: Schema
-  typescriptContent?: string[]
+  /** output content prettier config */
+  prettierConfig?: Options
 }
 &nbsp;
 export interface IAssembleResponse {
@@ -704,6 +753,13 @@ export interface IRequestMap {
   [requestFunctionName: string]: ISwaggerRequest
 }
 &nbsp;
+export interface IEnumMap {
+  [enumTypeName: string]: {
+    typescriptContent: string
+    originalContent: string
+  }
+}
+&nbsp;
 /** key: origin word, value: translated english word */
 export interface IWordsMap {
   [k: string]: string
@@ -718,6 +774,8 @@ export interface IProjectGlobal {
    * */
   requestMap: IRequestMap
   requestRefSet: Set&lt;string&gt;
+  requestEnumSet: Set&lt;string&gt;
+  enumMap: IEnumMap
 }
 export interface IProjectGlobalMap {
   [projectName: string]: IProjectGlobal
@@ -729,7 +787,7 @@ export interface IProjectGlobalMap {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Tue Apr 21 2020 17:41:51 GMT+0800 (GMT+08:00)
+                at Mon Apr 27 2020 16:40:10 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../prettify.js"></script>

@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>18/18</span>
+                <span class='fraction'>19/20</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">95.65% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/21</span>
+                <span class='fraction'>22/23</span>
             </div>
         
             
@@ -96,42 +96,48 @@
 <a name='L37'></a><a href='#L37'>37</a>
 <a name='L38'></a><a href='#L38'>38</a>
 <a name='L39'></a><a href='#L39'>39</a>
-<a name='L40'></a><a href='#L40'>40</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
+<a name='L40'></a><a href='#L40'>40</a>
+<a name='L41'></a><a href='#L41'>41</a>
+<a name='L42'></a><a href='#L42'>42</a>
+<a name='L43'></a><a href='#L43'>43</a></td><td class="line-coverage quiet"><span class="cline-any cline-yes">10x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">204x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">40x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">13x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">39x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">19x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">19x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">106x</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">39x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
+<span class="cline-any cline-yes">106x</span>
 <span class="cline-any cline-yes">8x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">250x</span>
-<span class="cline-any cline-yes">35x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">215x</span>
+<span class="cline-any cline-yes">98x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">348x</span>
+<span class="cline-any cline-yes">162x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -154,14 +160,17 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) =&gt; {
   if ('tags' in schema &amp;&amp; schema.tags) {
     docs.push(`tags: ${schema.tags.join()}`)
   }
-  if ('default' in schema) {
-    docs.push(`default: ${schema.default}`)
+  <span class="missing-if-branch" title="if path not taken" >I</span>if ('default' in schema) {
+<span class="cstat-no" title="statement not covered" >    docs.push(`default: ${schema.default}`)</span>
   }
   if ('produces' in schema) {
     docs.push(`produces: ${schema.produces}`)
   }
   if ('consumes' in schema) {
     docs.push(`consumes: ${schema.consumes}`)
+  }
+  if ('example' in schema) {
+    docs.push(`example: ${schema.example}`)
   }
   if (docs.length === 0) {
     return undefined
@@ -170,7 +179,7 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) =&gt; {
     docs
       .filter(Boolean)
       /** replace invalid comment charator */
-      .map(doc =&gt; doc.replace('/', '／'))
+      .map((doc) =&gt; doc.replace('/', '／'))
       .join(EOL),
   ]
 }
@@ -181,7 +190,7 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Apr 23 2020 19:25:35 GMT+0800 (GMT+08:00)
+                at Mon Apr 27 2020 16:40:10 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../../prettify.js"></script>

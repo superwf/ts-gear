@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>19/20</span>
+                <span class='fraction'>5/20</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">66.67% </span>
+                <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>4/6</span>
+                <span class='fraction'>0/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">100% </span>
+                <span class="strong">50% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>2/2</span>
+                <span class='fraction'>1/2</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">95% </span>
+                <span class="strong">25% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>19/20</span>
+                <span class='fraction'>5/20</span>
             </div>
         
             
@@ -55,7 +55,7 @@
             Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
         </p>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line low'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -96,24 +96,24 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">2x</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -123,31 +123,31 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import * as step from './step'
 import { restore } from './projectGlobalVariable'
 import { IProject } from './interface'
 &nbsp;
-export const processProject = async (project: IProject) =&gt; {
-  step.prepareProjectDirectory(project)
-  const spec = await step.fetchSwagger(project)
+export const processProject = <span class="fstat-no" title="function not covered" >async </span>(project: IProject) =&gt; {
+<span class="cstat-no" title="statement not covered" >  step.prepareProjectDirectory(project)</span>
+  const spec = <span class="cstat-no" title="statement not covered" >await step.fetchSwagger(project)</span>
 &nbsp;
-  <span class="missing-if-branch" title="if path not taken" >I</span>if (project.translationEngine) {
+<span class="cstat-no" title="statement not covered" >  if (project.translationEngine) {</span>
 <span class="cstat-no" title="statement not covered" >    await step.translateSchema(spec, project.translationEngine)</span>
   }
-  const keepGeneric = project.keepGeneric === undefined || project.keepGeneric
-  step.cleanRefAndDefinitionName(spec, keepGeneric)
-  step.assembleSchemaToGlobal(spec, project)
-  <span class="missing-if-branch" title="else path not taken" >E</span>if (keepGeneric) {
-    step.parseGenericType(project)
+  const keepGeneric = <span class="cstat-no" title="statement not covered" >project.keepGeneric === undefined || project.keepGeneric</span>
+<span class="cstat-no" title="statement not covered" >  step.cleanRefAndDefinitionName(spec, keepGeneric)</span>
+<span class="cstat-no" title="statement not covered" >  step.assembleSchemaToGlobal(spec, project)</span>
+<span class="cstat-no" title="statement not covered" >  if (keepGeneric) {</span>
+<span class="cstat-no" title="statement not covered" >    step.parseGenericType(project)</span>
   }
-  step.collectRefsInRequestAndPatchDefinition(project)
-  step.generateDefinitionContent(project)
-  step.generateRequestContent(spec, project)
-  step.writeProject(project)
+<span class="cstat-no" title="statement not covered" >  step.collectRefsInRequestAndPatchDefinition(project)</span>
+<span class="cstat-no" title="statement not covered" >  step.generateDefinitionContent(project)</span>
+<span class="cstat-no" title="statement not covered" >  step.generateRequestContent(spec, project)</span>
+<span class="cstat-no" title="statement not covered" >  step.writeProject(project)</span>
 &nbsp;
-  restore(project)
+<span class="cstat-no" title="statement not covered" >  restore(project)</span>
 }
 &nbsp;
 /**
@@ -157,7 +157,7 @@ export const processProject = async (project: IProject) =&gt; {
  * */
 export const run = async () =&gt; {
   const projects = await step.getUserConfig()
-  projects.forEach(processProject)
+<span class="cstat-no" title="statement not covered" >  projects.forEach(processProject)</span>
 }
 &nbsp;</pre></td></tr></table></pre>
 
@@ -166,7 +166,7 @@ export const run = async () =&gt; {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank">istanbul</a>
-                at Thu Apr 23 2020 19:25:35 GMT+0800 (GMT+08:00)
+                at Mon Apr 27 2020 16:40:10 GMT+0800 (GMT+08:00)
             </div>
         </div>
         <script src="../prettify.js"></script>

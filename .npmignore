@@ -2,3 +2,6 @@ example
 __tests__
 jest.config.js
 *.vim
+*.log
+tmp
+script

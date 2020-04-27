@@ -22,9 +22,7 @@ yarn add ts-gear -D
 
 ### Usage
 
-#### Using in command line 
-
-##### initial tsg config
+#### initial tsg config
 
 generate an initial configuration file `tsg.config.ts`.
 
@@ -36,7 +34,7 @@ skip it if there is already a configuration file.
 tsg -i
 ```
 
-##### Run `tsg`
+#### Run `tsg`
 
 ```bash
 npx tsg
@@ -44,7 +42,7 @@ npx tsg
 npx tsg -p pet
 ```
 
-##### check `service` directory.
+#### check `service` directory.
 
 The generate directory structure should look like below.
 
@@ -58,7 +56,7 @@ The generate directory structure should look like below.
 
 [more directory information](#Directory information)
 
-##### Use it in your code
+#### Use in your code
 
 After the command line operation, use the generated file in `service` directory.
 
@@ -79,50 +77,31 @@ getPetPetId({
 
 ![type generated example](./doc/pet.gif)
 
-#### Using by invoke api example.
-
-in your typescript file.
-
-```typescript
-import { IProject, fetchRequester, processProject } from 'ts-gear'
-
-const project: IProject = {
-  name: 'pet',
-  dest: './service',
-  source: 'http://petstore.swagger.io/v2/swagger.json',
-  requester: fetchRequester(),
-}
-
-processProject(project)
-```
-
 ## Version 2 new features and changes.
 
-* command line usage or api calling in your typescript script, many process step function and types have been exported.
+* Try the best to parse and generate `generic type` names, as `ReplyVO<Data>`.
 
-* try most to parse `generic type` names, as `ReplyVO<Data>`.
+* Use `swagger-schema-official` for openapi type definition.
 
-* use `swagger-schema-official` for openapi type definition.
+* Generate `enum` types, like `export type PetStatus = "available" | "pending" | "sold";`.
 
-* generate `enum` types, like `export type PetStatus = "available" | "pending" | "sold";`.
+* More detailed information for every type and properties document.
 
-* more detailed information for every type and properties document.
+* Use `tsg.config.ts` file for configuration file, to include all code generating process in typescript system.
 
-* use `tsg.config.ts` file for configuration file, to include all code generating process in typescript system.
+* Most part use `ts-morph` typescript syntax parser to generate code.
 
-* most part use `ts-morph` typescript syntax parser to generate code.
+* Use `swagger-ui` mock methods to provide `mockData` for each request function for test env.
 
-* use `swagger-ui` mock methods to provide `mockData` for each request function for test env.
+* Every project configureable features.
 
-* every project configureable features.
+  * Configureable `translationEngine`, "baidu" or "google" are available.
 
-  * configureable `translationEngine`, "baidu" or "google" are available.
+  * Configureable `requester` option, default "fetch" and "axios" requester is provided out of box, also self custom requester is also accepted.
 
-  * configureable `requester` option, default "fetch" and "axios" requester is provided out of box, else self custom requester is also accepted.
+  * Configureable "dest" directory.
 
-  * configureable "dest" directory.
-
-  * identical `withHost` and `withBasePath` option.
+  * Identical `withHost` and `withBasePath` option.
 
   * `preferInterface` option to generate `interface` instead of `class`, default `false`.
 
