@@ -117,19 +117,19 @@ real coverage more than 50%.
 
 ### Statements
 
-![Statements](./coverage/badge-statements.svg)
+![Statements](./badges/badge-statements.svg)
 
 ### Branches
 
-![Branches](./coverage/badge-branches.svg)
+![Branches](./badges/badge-branches.svg)
 
 ### Functions
 
-![Functions](./coverage/badge-functions.svg)
+![Functions](./badges/badge-functions.svg)
 
 ### Lines
 
-![Lines](./coverage/badge-lines.svg)
+![Lines](./badges/badge-lines.svg)
 
 ### process swagger spec doc steps(or check `src/run.ts`).
 
