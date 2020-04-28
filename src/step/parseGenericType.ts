@@ -104,6 +104,14 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
       })
     })
   }
+  // after all definition typeName processed
+  // some definitionMap key and typeName are different
+  // this step sync each $ref with its definitionMap typeName
+  traverseSchema(definitionMap, ({ value, key, parent }) => {
+    if (key === '$ref' && hasGenericSymbol(value) && value in definitionMap) {
+      parent[key] = definitionMap[value].typeName
+    }
+  })
 }
 
 export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {

@@ -26,4 +26,9 @@ describe('cleanName', () => {
   it('special charator', () => {
     expect(cleanName(' asdf 😝sdf « def»', false)).toBe('AsdfSdfDef')
   })
+
+  it('key words', () => {
+    expect(cleanName('ReplyVO«List«Map«string,object»»»', true)).toBe('ReplyVO<List<TsgMap<StringObject>>>')
+    expect(cleanName('Error', false)).toBe('TsgError')
+  })
 })

@@ -1,8 +1,14 @@
 example
 __tests__
 jest.config.js
+commitlint.config.js
+node_modules
+pretty.config.js
+script
 *.vim
 *.log
 tmp
-script
 coverage
+tsconfig.build.json
+tsconfig.json
+src

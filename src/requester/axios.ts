@@ -10,7 +10,7 @@ import { IRequestParameter, Requester } from '../interface'
 export const parseUrl = (url: string, option?: IRequestParameter): string => {
   if (option) {
     if (option.path) {
-      Object.getOwnPropertyNames(option.path).forEach(k => {
+      Object.getOwnPropertyNames(option.path).forEach((k) => {
         option.path[k] = encodeURIComponent(String(option.path[k]))
       })
       url = pathToRegexp.compile(url)(option.path)
@@ -60,6 +60,6 @@ export const requester = (axiosInit?: AxiosRequestConfig): Requester => {
   const request = axios.create(axiosInit)
   return (apiUrl: string, param?: IRequestParameter) => {
     const [url, option] = interceptRequest(apiUrl, param)
-    return request(url, option).then(res => res.data)
+    return request(url, option).then((res) => res.data)
   }
 }

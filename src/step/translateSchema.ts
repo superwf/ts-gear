@@ -11,7 +11,7 @@ export const cnReg = /[\u4e00-\u9fa5]/
 export const gatherNonEnglishWords = (spec: Spec) => {
   const originWordSet: Set<string> = new Set()
 
-  Object.getOwnPropertyNames(spec.definitions!).forEach(k => {
+  Object.getOwnPropertyNames(spec.definitions!).forEach((k) => {
     k = String(k)
     if (cnReg.test(k)) {
       originWordSet.add(k)
@@ -46,10 +46,10 @@ export const generateTranslationMap = async (originWords: string[], engine: Tran
 
   if (originWords.length > 0) {
     await Promise.all(
-      originWords.map(async word => {
+      originWords.map(async (word) => {
         let newWord = String(await translate(word, engine))
         // if translated word repeat, add number as suffix
-        if (find(wordsMap, v => v === newWord)) {
+        if (find(wordsMap, (v) => v === newWord)) {
           newWord = `${newWord}${$wordCount}`
           $wordCount += 1
         }
@@ -63,7 +63,7 @@ export const generateTranslationMap = async (originWords: string[], engine: Tran
 /** update words those need to be translated in spec */
 export const updateSchema = (spec: Spec, wordsMap: IWordsMap) => {
   const { definitions } = spec
-  Object.getOwnPropertyNames(definitions!).forEach(k => {
+  Object.getOwnPropertyNames(definitions!).forEach((k) => {
     if (k in wordsMap) {
       definitions![wordsMap[k as string]] = definitions![k]
       delete definitions![k]

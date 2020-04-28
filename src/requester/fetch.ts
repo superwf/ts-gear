@@ -14,7 +14,7 @@ const jsonType = 'application/json'
  * */
 export const parseUrl = (url: string, option: IRequestParameter): string => {
   if (option.path) {
-    Object.getOwnPropertyNames(option.path).forEach(k => {
+    Object.getOwnPropertyNames(option.path).forEach((k) => {
       option.path[k] = encodeURIComponent(String(option.path[k]))
     })
     url = pathToRegexp.compile(url)(option.path)

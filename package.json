@@ -1,6 +1,6 @@
 {
   "name": "ts-gear",
-  "version": "2.0.0",
+  "version": "2.0.0-alpha.1",
   "description": "swagger to typescript",
   "main": "lib/index.js",
   "bin": {
@@ -12,7 +12,7 @@
     "coverage": "cross-env NODE_ENV=test jest --coverage | ts-node script/coverageReportToMarkdown.ts && jest-coverage-badges output ./badges && open-cli coverage/lcov-report/index.html -- google-chrome",
     "build": "cross-env rimraf lib && cross-env tsc -p tsconfig.build.json && chmod +x lib/main.js",
     "release": "standard-version",
-    "prepublishOnly": "yarn run-s test build release"
+    "prepublishOnly-": "yarn run-s test build release"
   },
   "types": "./lib/index.d.ts",
   "repository": {
@@ -33,7 +33,6 @@
     "path-to-regexp": "^3.0.0",
     "prettier": "^2.0.5",
     "prompts": "^2.3.2",
-    "reserved-words": "^0.1.2",
     "swagger-schema-official": "^2.0.0-bab6bed",
     "translation.js": "^0.7.13",
     "traverse": "^0.6.6",

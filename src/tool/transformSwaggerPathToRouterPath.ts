@@ -3,7 +3,7 @@ export const transformSwaggerPathToRouterPath = (v: string) => {
   if (v.includes('{')) {
     return v
       .split('/')
-      .map(s => {
+      .map((s) => {
         const reg = /[{}]/g
         if (reg.test(s)) {
           return `:${s.replace(reg, '')}`

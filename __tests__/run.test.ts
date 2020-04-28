@@ -11,7 +11,7 @@ describe('run', () => {
   it('with fixture', async () => {
     const cwd = process.cwd()
     // change cwd to `example`
-    process.chdir(join(process.cwd(), 'example'))
+    process.chdir(join(cwd, 'example', 'petProject'))
     try {
       await run()
     } catch (e) {

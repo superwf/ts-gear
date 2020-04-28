@@ -20,7 +20,7 @@ let virtualFileNameId = 0
 
 /** 使用ts-morph编译ts，隐藏细节，只暴露SourceFile */
 export const compile = async (func: (s: SourceFile) => void, source?: string) => {
-  const fileName = `file${virtualFileNameId++}.ts`
+  const fileName = `file${(virtualFileNameId += 1)}.ts`
   const sourceFile = project.createSourceFile(fileName, source)
   func(sourceFile)
   await sourceFile.save()
@@ -32,7 +32,7 @@ export const compile = async (func: (s: SourceFile) => void, source?: string) =>
 
 /** get SourceFile */
 export const sow = (content?: string) => {
-  const name = `file${virtualFileNameId++}.ts`
+  const name = `file${(virtualFileNameId += 1)}.ts`
   const sourceFile = project.createSourceFile(name, content)
   ;(sourceFile as any).$$fileName = name
   return sourceFile

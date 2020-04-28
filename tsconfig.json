@@ -5,6 +5,7 @@
     "experimentalDecorators": true,
     "skipLibCheck": true,
     "allowSyntheticDefaultImports": false,
+    "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
