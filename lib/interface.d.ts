@@ -1,5 +1,5 @@
-import { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
-import { Options } from 'prettier';
+import type { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
+import type { Options } from 'prettier';
 /** interface A { n: number }
  * type B = PropertyType<A, 'n'> === type B = number
  * */

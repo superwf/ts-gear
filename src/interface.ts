@@ -1,5 +1,5 @@
 // import { JSONSchema4 } from 'json-schema'
-import {
+import type {
   Schema,
   Operation,
   Response,
@@ -8,7 +8,7 @@ import {
   BaseParameter,
   ParameterType,
 } from 'swagger-schema-official'
-import { Options } from 'prettier'
+import type { Options } from 'prettier'
 
 import { tuple } from './tool/types'
 
