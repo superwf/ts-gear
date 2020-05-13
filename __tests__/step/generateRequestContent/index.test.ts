@@ -3,7 +3,7 @@ import { cloneDeep } from 'lodash'
 
 import { generateRequestContent } from 'src/step/generateRequestContent'
 import * as petSchema from 'example/fixture/pet.json'
-import projects from 'example/petProject/tsg.config'
+import projects from 'example/petProject/src/tsg.config'
 import * as step from 'src/step'
 import { restore } from 'src/projectGlobalVariable'
 import { IProject } from 'src/interface'

@@ -14,9 +14,9 @@ const projects: IProject[] = [
      * */
     name: 'pet',
     /** the api files will be generated to
-     * @example './service'
+     * @example 'service'
      * */
-    dest: './service',
+    dest: 'service',
     /** swagger doc path
      * could be remote or local json file
      * starts with "http" is remote

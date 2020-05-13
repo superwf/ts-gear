@@ -1,3 +1,5 @@
+/* eslint-disable */
+/* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 export type GetPetFindByStatusItems = 'available' | 'pending' | 'sold'

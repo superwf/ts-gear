@@ -1,6 +1,8 @@
 import { IProject } from '../../interface';
 /** get user config
  * filter if any cli option
- * return project mapped by name
  * */
-export declare const getUserConfig: () => Promise<IProject[]>;
+export declare const getUserConfig: () => Promise<{
+    tsGearConfigPath: string;
+    projects: IProject[];
+}>;

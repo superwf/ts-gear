@@ -1,5 +1,5 @@
 import { IProject } from './interface';
-export declare const processProject: (project: IProject) => Promise<void>;
+export declare const processProject: (project: IProject, tsGearConfigPath: string) => Promise<void>;
 /**
  * run step by step
  * sequence could not be changed

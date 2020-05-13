@@ -24,9 +24,11 @@ yarn add ts-gear -D
 
 #### initial tsg config
 
-generate an initial configuration file `tsg.config.ts`.
+generate an initial configuration file `src/tsg.config.ts`.
 
-skip it if there is already a configuration file.
+for the config file is also typescript source, so it should in `src` directory with other source files.
+
+skip this step if there is already a configuration file.
 
 [more configuration document](#Config)
 
@@ -47,11 +49,12 @@ npx tsg -p pet
 The generate directory structure should look like below.
 
 ```bash
-▾ service/
-  ▾ pet/
-      definitions.ts
-      request.ts
-      index.ts
+▾ src/
+  ▾ service/
+    ▾ pet/
+        definitions.ts
+        request.ts
+        index.ts
 ```
 
 [more directory information](#Directory information)
@@ -87,7 +90,7 @@ getPetPetId({
 
 * More detailed information for every type and properties document.
 
-* Use `tsg.config.ts` file for configuration file, to include all code generating process in typescript system.
+* Use `tsg.config.ts` file in `src` directory for configuration file, to include all code generating process in typescript system.
 
 * Most part use `ts-morph` typescript syntax parser to generate code.
 

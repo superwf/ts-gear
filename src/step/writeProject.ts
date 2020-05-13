@@ -13,10 +13,9 @@ import { importAllDefinition } from './importAllDefinition'
 
 /** gather global typescript content
  * write to project dir */
-export const writeProject = (project: IProject) => {
+export const writeProject = (project: IProject, tsGearConfigPath: string) => {
   const { definitionMap, requestMap, enumMap } = getGlobal(project)
-  const cwd = process.cwd()
-  const dest = join(cwd, project.dest, project.name)
+  const dest = join(tsGearConfigPath, project.dest, project.name)
 
   const definitionTypeNameSet = new Set<string>()
   const definitionContent = Object.getOwnPropertyNames(definitionMap)
@@ -44,7 +43,7 @@ export const writeProject = (project: IProject) => {
       return requestMap[name].typescriptContent
     })
     .join(EOL)
-  const requesterResult = requester(project)
+  const requesterResult = requester(project, tsGearConfigPath)
   prettierWrite(
     [
       warningComment,

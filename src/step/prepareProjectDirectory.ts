@@ -5,9 +5,8 @@ import { sync } from 'mkdirp'
 
 import { IProject } from '../interface'
 
-export const prepareProjectDirectory = (project: IProject) => {
-  const cwd = process.cwd()
-  const dest = join(cwd, project.dest, project.name)
+export const prepareProjectDirectory = (project: IProject, tsGearConfigPath: string) => {
+  const dest = join(tsGearConfigPath, project.dest, project.name)
   if (!existsSync(dest)) {
     sync(dest)
   }

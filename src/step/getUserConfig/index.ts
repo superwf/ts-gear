@@ -1,4 +1,4 @@
-import { join } from 'path'
+import { join, dirname } from 'path'
 import { writeFileSync, existsSync } from 'fs'
 
 import * as prompts from 'prompts'
@@ -12,13 +12,12 @@ import { getCliOption } from './cliOption'
 
 /** get user config
  * filter if any cli option
- * return project mapped by name
  * */
 export const getUserConfig = async () => {
   const cwd = process.cwd()
   const cliOption = getCliOption()
+  const configFilePath = join(cwd, 'src', `${configFileName}.ts`)
   if (cliOption.init) {
-    const configFilePath = join(cwd, `${configFileName}.ts`)
     if (existsSync(configFilePath)) {
       const { overwrite } = await prompts({
         type: 'confirm',
@@ -32,9 +31,12 @@ export const getUserConfig = async () => {
     } else {
       writeFileSync(configFilePath, initConfig)
     }
-    return []
+    return {
+      projects: [],
+      tsGearConfigPath: '',
+    }
   }
-  const tsGearConfigPath = join(cwd, configFileName)
+  const tsGearConfigPath = join(cwd, cliOption.config || join('src', configFileName))
   /* eslint-disable */
   const config = require(tsGearConfigPath)
   /* eslint-enable */
@@ -47,7 +49,9 @@ export const getUserConfig = async () => {
     if (projects.length === 0) {
       warn(`your input names "${cliOption.names.join(', ')}" match 0 projects, checkout and retry.`)
     }
-    return projects
   }
-  return projects
+  return {
+    tsGearConfigPath: dirname(tsGearConfigPath),
+    projects,
+  }
 }

@@ -2,8 +2,8 @@ import * as step from './step'
 import { restore } from './projectGlobalVariable'
 import { IProject } from './interface'
 
-export const processProject = async (project: IProject) => {
-  step.prepareProjectDirectory(project)
+export const processProject = async (project: IProject, tsGearConfigPath: string) => {
+  step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project)
 
   if (project.translationEngine) {
@@ -18,7 +18,7 @@ export const processProject = async (project: IProject) => {
   step.collectRefsInRequestAndPatchDefinition(project)
   step.generateDefinitionContent(project)
   step.generateRequestContent(spec, project)
-  step.writeProject(project)
+  step.writeProject(project, tsGearConfigPath)
 
   restore(project)
 }
@@ -29,6 +29,6 @@ export const processProject = async (project: IProject) => {
  * every step depends on the pre step
  * */
 export const run = async () => {
-  const projects = await step.getUserConfig()
-  projects.forEach(processProject)
+  const { projects, tsGearConfigPath } = await step.getUserConfig()
+  projects.forEach((project) => processProject(project, tsGearConfigPath))
 }

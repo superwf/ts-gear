@@ -40,26 +40,26 @@ describe('init', () => {
 
   it('init', async () => {
     process.argv.push('-i')
-    expect(await getUserConfig()).toEqual([])
+    expect(await getUserConfig()).toEqual({ projects: [], tsGearConfigPath: '' })
     process.argv.length = originLength
     expect(prompts).not.toHaveBeenCalled()
     expect(existsSync).toHaveBeenCalledTimes(1)
     expect(writeFileSync).toHaveBeenCalledTimes(1)
 
     process.argv.push('--init')
-    expect(await getUserConfig()).toEqual([])
+    expect(await getUserConfig()).toEqual({ projects: [], tsGearConfigPath: '' })
     expect(prompts).not.toHaveBeenCalled()
     expect(existsSync).toHaveBeenCalledTimes(2)
     expect(writeFileSync).toHaveBeenCalledTimes(2)
 
     exists = true
-    expect(await getUserConfig()).toEqual([])
+    expect(await getUserConfig()).toEqual({ projects: [], tsGearConfigPath: '' })
     expect(prompts).toHaveBeenCalledTimes(1)
     expect(existsSync).toHaveBeenCalledTimes(3)
     expect(writeFileSync).toHaveBeenCalledTimes(2)
 
     overwrite = true
-    expect(await getUserConfig()).toEqual([])
+    expect(await getUserConfig()).toEqual({ projects: [], tsGearConfigPath: '' })
     expect(prompts).toHaveBeenCalledTimes(2)
     expect(existsSync).toHaveBeenCalledTimes(4)
     expect(writeFileSync).toHaveBeenCalledTimes(3)

@@ -4,7 +4,7 @@ import { noop } from 'lodash'
 // import { sync } from 'rimraf'
 
 import { getUserConfig } from 'src/step/getUserConfig'
-import exampleProjects from 'example/petProject/tsg.config'
+import exampleProjects from 'example/petProject/src/tsg.config'
 
 describe('getUserConfig', () => {
   const originLength = process.argv.length
@@ -22,16 +22,25 @@ describe('getUserConfig', () => {
     })
 
     it('with project names in cli', async () => {
-      expect(await getUserConfig()).toEqual(exampleProjects)
+      expect(await getUserConfig()).toEqual({
+        projects: exampleProjects,
+        tsGearConfigPath: join(process.cwd(), 'src'),
+      })
       process.argv.push('-p', 'pet,projectE')
-      expect(await getUserConfig()).toEqual([exampleProjects[0], exampleProjects[1]])
+      expect(await getUserConfig()).toEqual({
+        projects: [exampleProjects[0], exampleProjects[1]],
+        tsGearConfigPath: join(process.cwd(), 'src'),
+      })
     })
 
     it('with none exist project names in cli', async () => {
       const spy = jest.spyOn(console, 'log').mockImplementation(noop)
-      expect(await getUserConfig()).toEqual(exampleProjects)
+      expect(await getUserConfig()).toEqual({
+        projects: exampleProjects,
+        tsGearConfigPath: join(process.cwd(), 'src'),
+      })
       process.argv.push('-p', 'noExistProjectName')
-      expect(await getUserConfig()).toEqual([])
+      expect(await getUserConfig()).toEqual({ projects: [], tsGearConfigPath: join(process.cwd(), 'src') })
       expect(spy).toHaveBeenCalled()
       spy.mockRestore()
     })

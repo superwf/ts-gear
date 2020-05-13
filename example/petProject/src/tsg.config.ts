@@ -13,7 +13,7 @@ const prettierConfig: Options = {
 const projects: IProject[] = [
   {
     name: 'pet',
-    dest: './service',
+    dest: 'service',
     source: '../fixture/pet.json',
     requester: fetchRequester(),
     prettierConfig,
@@ -21,7 +21,7 @@ const projects: IProject[] = [
   },
   {
     name: 'projectE',
-    dest: './service',
+    dest: 'service',
     source: '../fixture/projectE.json',
     keepGeneric: true,
     requester: axiosRequester(),

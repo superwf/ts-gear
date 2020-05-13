@@ -1,7 +1,7 @@
 import 'isomorphic-fetch'
 import * as URL from 'url'
 
-import { deletePetPetId, getUserLogin } from 'example/petProject/service/pet/request'
+import { deletePetPetId, getUserLogin } from 'example/petProject/src/service/pet/request'
 
 /** 在run的测试用例运行之后，已经生成了pet的service文件 */
 describe('pet methods', () => {

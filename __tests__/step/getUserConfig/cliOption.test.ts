@@ -16,4 +16,9 @@ describe('cli option', () => {
     expect(getCliOption().init).toBe(true)
     expect(getCliOption().names).toEqual([])
   })
+
+  it('test --config src/tsg.ts', () => {
+    process.argv.push('-c src/tsg.ts')
+    expect(getCliOption().config).toBe('src/tsg.ts')
+  })
 })
