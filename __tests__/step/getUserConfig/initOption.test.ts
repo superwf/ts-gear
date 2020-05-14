@@ -30,7 +30,8 @@ describe('init', () => {
   })
 
   beforeEach(() => {
-    process.chdir(join(cwd, 'tmp'))
+    const examplePath = join(cwd, 'example')
+    process.chdir(examplePath)
   })
 
   afterAll(() => {

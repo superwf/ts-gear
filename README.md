@@ -106,7 +106,11 @@ getPetPetId({
 
   * Identical `withHost` and `withBasePath` option.
 
-  * `preferInterface` option to generate `interface` instead of `class`, default `false`.
+  * `preferClass` option to generate `class` instead of `interface`, default `false`. For most properties do not has default value, so you need to set your `tsconfig.json` as below.
+
+    ```typescript
+      "strictPropertyInitialization": false,
+    ```
 
   * `keepGeneric` default true, but if there are some errors occuring when try to generate generic types, this option could be set "false" to generate more stable code.
 

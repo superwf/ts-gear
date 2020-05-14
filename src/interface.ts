@@ -1,5 +1,5 @@
 // import { JSONSchema4 } from 'json-schema'
-import type {
+import {
   Schema,
   Operation,
   Response,
@@ -8,7 +8,7 @@ import type {
   BaseParameter,
   ParameterType,
 } from 'swagger-schema-official'
-import type { Options } from 'prettier'
+import { Options } from 'prettier'
 
 import { tuple } from './tool/types'
 
@@ -109,11 +109,11 @@ export interface IProject {
 
   /**
    * @default false
-   * by default, definiton will generate ts "class"
+   * by default, definiton will generate ts "interface"
    * "class" can keep the property default value
-   * set this to true to generate "interface" instead of "class"
+   * set this to "true" to generate "class" instead of "interface"
    * */
-  preferInterface?: boolean
+  preferClass?: boolean
 
   /**
    * @default false

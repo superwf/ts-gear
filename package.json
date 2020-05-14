@@ -1,6 +1,6 @@
 {
   "name": "ts-gear",
-  "version": "2.0.0-alpha.5",
+  "version": "2.0.0-alpha.6",
   "description": "swagger to typescript",
   "main": "lib/index.js",
   "bin": {
@@ -36,9 +36,9 @@
     "swagger-schema-official": "^2.0.0-bab6bed",
     "translation.js": "^0.7.13",
     "traverse": "^0.6.6",
-    "ts-morph": "^7.0.1",
+    "ts-morph": "^7.0.3",
     "ts-node": "^8.8.2",
-    "typescript": "^3.8.3",
+    "typescript": "^3.9.2",
     "url-join": "^4.0.1"
   },
   "files": [

@@ -4,7 +4,7 @@ import { IProject } from './interface'
 
 export const processProject = async (project: IProject, tsGearConfigPath: string) => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
-  const spec = await step.fetchSwagger(project)
+  const spec = await step.fetchSwagger(project, tsGearConfigPath)
 
   if (project.translationEngine) {
     await step.translateSchema(spec, project.translationEngine)

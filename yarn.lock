@@ -7141,10 +7141,10 @@ ts-jest@^25.4.0:
     semver "6.x"
     yargs-parser "18.x"
 
-ts-morph@^7.0.1:
-  version "7.0.1"
-  resolved "http://registry.m.jd.com/ts-morph/download/ts-morph-7.0.1.tgz#50ea7b48bf278ac8a9755038fc95de9754d66030"
-  integrity sha1-UOp7SL8nisipdVA4/JXel1TWYDA=
+ts-morph@^7.0.3:
+  version "7.0.3"
+  resolved "http://registry.m.jd.com/ts-morph/download/ts-morph-7.0.3.tgz#039d7ec583f44767bc4b88765fb1a6c14de3b97d"
+  integrity sha1-A51+xYP0R2e8S4h2X7GmwU3juX0=
   dependencies:
     "@dsherret/to-absolute-glob" "^2.0.2"
     "@ts-morph/common" "~0.4.0"
@@ -7219,7 +7219,12 @@ typedarray@^0.0.6:
   resolved "http://registry.m.jd.com/typedarray/download/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
 
-typescript@^3.8.3, typescript@~3.8.2:
+typescript@^3.9.2:
+  version "3.9.2"
+  resolved "http://registry.m.jd.com/typescript/download/typescript-3.9.2.tgz#64e9c8e9be6ea583c54607677dd4680a1cf35db9"
+  integrity sha1-ZOnI6b5upYPFRgdnfdRoChzzXbk=
+
+typescript@~3.8.2:
   version "3.8.3"
   resolved "http://registry.m.jd.com/typescript/download/typescript-3.8.3.tgz#409eb8544ea0335711205869ec458ab109ee1061"
   integrity sha1-QJ64VE6gM1cRIFhp7EWKsQnuEGE=

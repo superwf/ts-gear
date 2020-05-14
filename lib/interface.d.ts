@@ -1,5 +1,5 @@
-import type { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
-import type { Options } from 'prettier';
+import { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
+import { Options } from 'prettier';
 /** interface A { n: number }
  * type B = PropertyType<A, 'n'> === type B = number
  * */
@@ -78,11 +78,11 @@ export interface IProject {
     requester: Requester;
     /**
      * @default false
-     * by default, definiton will generate ts "class"
+     * by default, definiton will generate ts "interface"
      * "class" can keep the property default value
-     * set this to true to generate "interface" instead of "class"
+     * set this to "true" to generate "class" instead of "interface"
      * */
-    preferInterface?: boolean;
+    preferClass?: boolean;
     /**
      * @default false
      * when assigned true, the requester function will receive the "host"

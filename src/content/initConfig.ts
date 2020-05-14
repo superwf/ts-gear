@@ -15,12 +15,14 @@ const projects: IProject[] = [
     name: 'pet',
     /** the api files will be generated to
      * @example 'service'
+     * note: this directory is relative to this ts-gear config file
      * */
     dest: 'service',
     /** swagger doc path
      * could be remote or local json file
      * starts with "http" is remote
      * others are dealed local json file
+     * note: if use local file, the directory is relative to this ts-gear config file
      * */
     source: 'http://petstore.swagger.io/v2/swagger.json',
     // source: './fixture/pet.json',

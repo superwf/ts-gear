@@ -14,7 +14,7 @@ describe('fetchSwagger', () => {
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
-    step.fetchSwagger(project).catch((e) => {
+    step.fetchSwagger(project, '').catch((e) => {
       expect(e.message).toBe('user config file should ends with `.json`')
       done()
     })
@@ -27,7 +27,7 @@ describe('fetchSwagger', () => {
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
-    const spec = await step.fetchSwagger(project)
+    const spec = await step.fetchSwagger(project, '')
     // eslint-disable-next-line @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require
     expect(spec).toEqual(require(join(cwd, 'example', 'petProject', 'package.json')))
   })
@@ -40,7 +40,7 @@ describe('fetchSwagger', () => {
       requester: () => Promise.resolve(),
     }
     getOnce('http://abc.com', { ok: true })
-    const res = await step.fetchSwagger(project)
+    const res = await step.fetchSwagger(project, '')
     expect(res).toEqual({ ok: true })
   })
 })

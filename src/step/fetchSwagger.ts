@@ -11,7 +11,7 @@ import { IProject } from '../interface'
  * when remote swagger doc has auth, the best way is download the spec to local, and assign the local file path.
  * the second param ref is https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * */
-export const fetchSwagger = async (project: IProject) => {
+export const fetchSwagger = async (project: IProject, tsGearConfigPath: string) => {
   const url = project.source
   if (url.startsWith('http')) {
     const verbose = `project: ${project.name} url: ${url}`
@@ -21,8 +21,7 @@ export const fetchSwagger = async (project: IProject) => {
     info(`got swagger spec doc from ${verbose}}`)
     return swaggerSchema
   }
-  const cwd = process.cwd()
-  const source = join(cwd, project.source)
+  const source = join(tsGearConfigPath, project.source)
   // use require for json file
   if (!source.endsWith('.json')) {
     const message = 'user config file should ends with `.json`'

@@ -25,8 +25,9 @@ export const generateDefinitionContent = (project: IProject) => {
     const schema = definition.schema!
     if (schema.type === 'object') {
       if (schema.properties) {
-        const preferInterface = Boolean(project.preferInterface)
-        const declarationOptin: OptionalKind<InterfaceDeclarationStructure & ClassDeclarationStructure> = {
+        const preferClass = Boolean(project.preferClass)
+        const declarationOptin: OptionalKind<InterfaceDeclarationStructure> &
+          OptionalKind<ClassDeclarationStructure> = {
           isExported: true,
           name: title,
           typeParameters: definition.typeParameters
@@ -37,19 +38,20 @@ export const generateDefinitionContent = (project: IProject) => {
             : undefined,
           docs: assembleDoc(schema),
         }
-        const klass = preferInterface ? source.addInterface(declarationOptin) : source.addClass(declarationOptin)
+        const klass = preferClass ? source.addClass(declarationOptin) : source.addInterface(declarationOptin)
         Object.getOwnPropertyNames(schema.properties).forEach((name) => {
           const property = schema!.properties![name]
-          const propertyStructure: OptionalKind<PropertyDeclarationStructure & PropertySignatureStructure> = {
+          const propertyStructure: OptionalKind<PropertyDeclarationStructure> &
+            OptionalKind<PropertySignatureStructure> = {
             name,
             type: schemaToTypescript(property),
-            scope: preferInterface ? undefined : Scope.Public,
+            scope: preferClass ? Scope.Public : undefined,
             hasQuestionToken: !schema.required || !schema.required.includes(name),
             docs: assembleDoc(property),
           }
           /** interface property can not has default value
             so use class as type */
-          if (!preferInterface && Reflect.has(property, 'default')) {
+          if (preferClass && Reflect.has(property, 'default')) {
             propertyStructure.initializer = String(property.default)
           }
           klass.addProperty(propertyStructure)
