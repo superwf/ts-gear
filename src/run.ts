@@ -9,7 +9,7 @@ export const processProject = async (project: IProject, tsGearConfigPath: string
   if (project.translationEngine) {
     await step.translateSchema(spec, project.translationEngine)
   }
-  const keepGeneric = project.keepGeneric === undefined || project.keepGeneric
+  const keepGeneric = project.keepGeneric !== false
   step.cleanRefAndDefinitionName(spec, keepGeneric)
   step.assembleSchemaToGlobal(spec, project)
   if (keepGeneric) {

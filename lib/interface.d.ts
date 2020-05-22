@@ -134,6 +134,7 @@ export interface IAssembleResponse {
     successTypeName: string;
 }
 export interface ISwaggerDefinition {
+    originalName?: string;
     typeName: string;
     schema?: Schema;
     typescriptContent?: string;

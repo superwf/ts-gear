@@ -9,7 +9,7 @@ import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
  * */
 export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
   const { requestRefSet, requestMap, definitionMap } = getGlobal(project)
-  const keepGeneric = Boolean(project.keepGeneric)
+  const keepGeneric = project.keepGeneric !== false
   // when not keepGeneric, definition alse need to patch
   Object.getOwnPropertyNames(definitionMap).forEach((name) => {
     const { schema } = definitionMap[name]
@@ -20,10 +20,10 @@ export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
             .split(/<|>|,/)
             .filter(Boolean)
             .forEach((typeName) => {
-              patchGlobalDefinitionMap(typeName, definitionMap)
+              patchGlobalDefinitionMap({ typeName, definitionMap })
             })
         } else {
-          patchGlobalDefinitionMap(value, definitionMap)
+          patchGlobalDefinitionMap({ typeName: value, definitionMap })
         }
       })
     }
@@ -38,11 +38,11 @@ export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
           .filter(Boolean)
           .forEach((typeName) => {
             requestRefSet.add(typeName)
-            patchGlobalDefinitionMap(typeName, definitionMap)
+            patchGlobalDefinitionMap({ typeName, definitionMap })
           })
       } else {
         requestRefSet.add(value)
-        patchGlobalDefinitionMap(value, definitionMap)
+        patchGlobalDefinitionMap({ typeName: value, definitionMap })
       }
     })
   })

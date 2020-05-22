@@ -16,7 +16,7 @@ With this tool all swagger doc definition and request method would be converted 
 
 ```bash
 npm install ts-gear -D
-// or
+// or with yarn
 yarn add ts-gear -D
 ```
 
@@ -26,20 +26,22 @@ yarn add ts-gear -D
 
 generate an initial configuration file `src/tsg.config.ts`.
 
-for the config file is also typescript source, so it should in `src` directory with other source files.
-
-skip this step if there is already a configuration file.
-
-[more configuration document](#Config)
+[more configuration option_document](#Config)
 
 ```bash
 tsg -i
 ```
 
+💡 Why in `src` directory ? This config file will be part of the source file, put it in `src` because it is default included by `tsconfig.json` `include` option. The default `tsg` output `service` locate in `src` directory is the same reason.
+
+skip this step if there is already a configuration file.
+
 #### Run `tsg`
 
 ```bash
-npx tsg
+npx tsg // default use `src/tsg.config.ts`
+// or assign another config file
+npx tsg -c other_dir/tsg.config.ts
 // or if only need update one project, use -p for the project name
 npx tsg -p pet
 ```
@@ -50,9 +52,10 @@ The generate directory structure should look like below.
 
 ```bash
 ▾ src/
+  tsg.config.ts
   ▾ service/
     ▾ pet/
-        definitions.ts
+        definition.ts
         request.ts
         index.ts
 ```
@@ -82,7 +85,7 @@ getPetPetId({
 
 ## Version 2 new features and changes.
 
-* Try the best to parse and generate `generic type` names, as `ReplyVO<Data>`.
+* Try the most to parse and generate `generic type` names, as `ReplyVO<Data>`.
 
 * Use `swagger-schema-official` for openapi type definition.
 
@@ -100,23 +103,23 @@ getPetPetId({
 
   * Configureable `translationEngine`, "baidu" or "google" are available.
 
-  * Configureable `requester` option, default "fetch" and "axios" requester is provided out of box, also self custom requester is also accepted.
+  * Configureable `requester` option, a "fetch" and an "axios" requester are provided out of box by `ts-gear`, self custom requester is also accepted.
 
   * Configureable "dest" directory.
 
-  * Identical `withHost` and `withBasePath` option.
+  * add configuration option `withHost` and `withBasePath`.
 
-  * `preferClass` option to generate `class` instead of `interface`, default `false`. For most properties do not has default value, so you need to set your `tsconfig.json` as below.
+  * `preferClass` option to generate `class` instead of `interface`, default `false`. When set to true, but most properties do not has default value, so you need to set your `tsconfig.json` as below.
 
     ```typescript
       "strictPropertyInitialization": false,
     ```
 
-  * `keepGeneric` default true, but if there are some errors occuring when try to generate generic types, this option could be set "false" to generate more stable code.
+  * `keepGeneric` default true, but if there are some errors occuring when running `tsg`, this option could be set to `false` to generate more stable code.
 
-  * `shouldMockResponseStatement` default `"process.env.NODE_ENV === 'test'"` to generate mock response for test env. use this statement could make the mock response code removed when production optimized.
+  * `shouldMockResponseStatement` default `"process.env.NODE_ENV === 'test'"` to generate mock response for test env. use this statement could make the mock response code removeable when production optimized.
 
-  * `prettierConfig` for output code prettier style, use `prettier` version 2 config option.
+  * `prettierConfig` for output code prettier style, only support `prettier` version 2 configuration.
 
 ## test coverage
 
@@ -164,15 +167,15 @@ real coverage more than 50%.
 
 ## Origin
 
-inspired by [pont](https://github.com/alibaba/pont)，pont means bridge in franch. I name this tool to `ts-gear`，means the gear between typescript and swagger，hope it can merge front and server better.
+Inspired by [pont](https://github.com/alibaba/pont).
 
-## Similar packages
+When I first had the idea for automatically generate typescript from json schema, I found `pont`. But it was in an early unstable stage, so after some trying I stopped using it, and write this one for more compatible to the swagger doc style of my own team.
 
-* [pont](https://github.com/alibaba/pont)
+## Other similar tools
 
 * [OpenAPI Generator](https://openapi-generator.tech/)
 
-    Here are many languages support. I try to run it and check the generated ts files and found it need more compatibility efferts for non-standard swagger doc support.
+    Here are many languages support. If the swagger doc is defined generally standard, this tool is enough.
 
 * [oazapfts](https://github.com/cellular/oazapfts)
 
@@ -206,8 +209,31 @@ your swagger doc should has this field.
 ```typescript
 import { IProject, fetchRequester, axiosRequester } from 'ts-gear'
 
-export default config
+const projects: IProject[] = [
+  { ... }
+]
+
+export default projects
 ```
+
+#### Config Options
+
+| Option name | type | required | default | description |
+|--------|------|---------|----------|-------------|
+| name | string | true | | your project name |
+| dest | string | true | | parent directory of project |
+| source | string | true | | swagger doc url <br /> remote url or local json file |
+| fetchSwaggerDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | swagger doc url<br />support remote or local json |
+| pathMatcher | RegExp \| ((url: string, httpMethod?: HttpMethod) => boolean) | false | | regexp or function to filter<br />the request path should generate |
+| requester | (url: string, param?: IRequestParameter) => Promise<any> | true | | request func invoked in each request method|
+| preferClass | boolean | false | false | generate class rather than class |
+| withHost | boolean | false | false | request with swagger doc `host` in when invoke the `requester` func |
+| withBasePath | boolean | false | false | request with swagger doc `basePath` in when invoke the `requester` func |
+| keepGeneric | boolean | false | true | try parse available generic type |
+| translationEngine | 'baidu' \| 'google' | false |  | translate special charators in swagger doc definitions |
+| shouldMockResponseStatement | string | false | "process.env.NODE_ENV === 'test'" | boolean statement switcher for using mock data |
+| prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | prettier v2 options |
+
 
 ### Directory information
 
@@ -236,10 +262,10 @@ export default config
     },
 ```
 
-Each request function parameter type and return type will map to the swagger definition.
+Each request function parameter type and return type are mapped to the swagger definition.
 
-If you prefer to use your faverite request tool, like `axios`, you can only use the `definition.ts` to check data interface.
+If you prefer to use your owne request way, you can only use the `definition.ts` for data type.
 
 ## Errata And Feedback
 
-This tool only has the `swagger ui` pet fixture and my projects swagger spec docs for dev fixtures. If you encounter some problems, issues are welcomed and remember to provide your swagger doc for fixtures, not whole part, just some problem part definitions are enough.
+This tool only has the `swagger ui` pet fixture and my projects swagger spec docs for dev fixtures. Issues are welcomed when you errors occurand remember to provide your swagger doc for fixtures, just some problem part definitions are enough.

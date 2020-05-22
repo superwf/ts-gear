@@ -173,6 +173,7 @@ export interface IAssembleResponse {
 
 export interface ISwaggerDefinition {
   // no generic simbol type name
+  originalName?: string
   typeName: string
   schema?: Schema
   typescriptContent?: string

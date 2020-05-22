@@ -54,7 +54,6 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
             schema: definition.schema,
             typeParameters: definition.typeParameters,
           }
-          delete definition.schema
           // add an alias for original generic type name
           definition.typescriptContent = `export type ${removeGenericSymbol(definitionName)} = ${
             parentNode.name
@@ -65,7 +64,7 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
             if (!(typeName in definitionMap)) {
               const nodes = parseGenericNames(typeName)
               nodes.forEach((node) => {
-                patchGlobalDefinitionMap(node.name, definitionMap)
+                patchGlobalDefinitionMap({ typeName: node.name, definitionMap })
               })
             }
           })
@@ -93,12 +92,12 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
                 .filter(Boolean)
                 .forEach((n) => {
                   if (!(n in definitionMap)) {
-                    patchGlobalDefinitionMap(n, definitionMap)
+                    patchGlobalDefinitionMap({ typeName: n, definitionMap })
                   }
                 })
             }
           } else {
-            patchGlobalDefinitionMap(value, definitionMap)
+            patchGlobalDefinitionMap({ typeName: value, definitionMap })
           }
         }
       })
@@ -134,12 +133,12 @@ export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
               .filter(Boolean)
               .forEach((n) => {
                 if (!(n in definitionMap)) {
-                  patchGlobalDefinitionMap(n, definitionMap)
+                  patchGlobalDefinitionMap({ typeName: n, definitionMap })
                 }
               })
           }
         } else {
-          patchGlobalDefinitionMap(value, definitionMap)
+          patchGlobalDefinitionMap({ typeName: value, definitionMap })
         }
       }
     })

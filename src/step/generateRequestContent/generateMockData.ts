@@ -156,15 +156,13 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap, 
   return primitive(schema)
 }
 
-export const generateMockData = memoize(
-  (request: ISwaggerRequest, definitionMap: IDefinitionMap, enumMap: IEnumMap) => {
-    schemaSet.clear()
-    if (request.responses) {
-      const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))
-      if (schema) {
-        return sampleFromSchema(schema, definitionMap, enumMap)
-      }
+export const generateMockData = (request: ISwaggerRequest, definitionMap: IDefinitionMap, enumMap: IEnumMap) => {
+  schemaSet.clear()
+  if (request.responses) {
+    const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))
+    if (schema) {
+      return sampleFromSchema(schema, definitionMap, enumMap)
     }
-    return ''
-  },
-)
+  }
+  return ''
+}
