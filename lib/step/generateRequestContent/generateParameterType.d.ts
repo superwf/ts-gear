@@ -6,4 +6,5 @@ import { Parameter, Reference } from 'swagger-schema-official';
 export declare const generateParameterType: (functionName: string, parameters: Array<Parameter | Reference>) => {
     parameterTypeName: string;
     parameterTypeContent: string;
+    parameterRequired: boolean;
 };

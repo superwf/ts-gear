@@ -20,8 +20,12 @@ export const generateParameterType = (functionName: string, parameters: Array<Pa
     docs: [`request parameter type for ${functionName}`],
   })
   const assembledParameters = assembleRequestParam(parameters)
-  ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach(position => {
+  let parameterRequired = false
+  ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach((position) => {
     const param = assembledParameters[position]!
+    if (!parameterRequired) {
+      parameterRequired = !isEmpty(param.required)
+    }
     inter.addProperty({
       name: position,
       type: schemaToTypescript(param),
@@ -32,5 +36,6 @@ export const generateParameterType = (functionName: string, parameters: Array<Pa
   return {
     parameterTypeName,
     parameterTypeContent: harvest(source),
+    parameterRequired,
   }
 }

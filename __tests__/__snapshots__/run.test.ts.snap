@@ -93,6 +93,8 @@ Object {
     "typeName": "DatatransoutputOutputParameterVO",
   },
   "GeneralRequestParameterQueryParameter": Object {
+    "originalName": undefined,
+    "schema": undefined,
     "typeName": "GeneralRequestParameterQueryParameter",
     "typescriptContent": "export type GeneralRequestParameterQueryParameter = any",
   },

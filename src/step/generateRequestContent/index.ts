@@ -39,9 +39,11 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     }
 
     let parameterTypeName = ''
+    let parameterRequired = false
     if (request.parameters && request.parameters.length > 0) {
       const parameterType = generateParameterType(requestFunctionName, request.parameters)
       parameterTypeName = parameterType.parameterTypeName
+      parameterRequired = parameterType.parameterRequired
       requestTypeScriptContent.push(parameterType.parameterTypeContent)
     }
     const responseType = generateResponseType(requestFunctionName, request.responses)
@@ -66,6 +68,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
     functionData.parameters = []
     if (parameterTypeName) {
       functionData.parameters.push({
+        hasQuestionToken: !parameterRequired,
         name: 'option',
         type: parameterTypeName,
       })
