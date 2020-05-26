@@ -49,7 +49,7 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
            * add an alias definition with the typeName as key
            * no schema, no typescriptcontent
            * */
-          definitionMap[parentNode.name] = {
+          definitionMap[removeGenericSymbol(definitionName)] = {
             typeName: parentNode.name,
             schema: definition.schema,
             typeParameters: definition.typeParameters,
