@@ -81,6 +81,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
 if (${shouldMockResponseStatement}) {
   ${mockStatment}
 }
+${requestFunctionName}.method = '${httpMethod}'
 `)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */

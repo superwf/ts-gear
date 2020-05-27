@@ -34,13 +34,6 @@ export const parseUrl = (url: string, option: IRequestParameter): string => {
   return url
 }
 
-class InterceptError extends Error {
-  constructor(message: string, hideStackFunc: any) {
-    super(message)
-    Error.captureStackTrace(this, hideStackFunc)
-  }
-}
-
 /** 请求拦截器
  * 每个请求的通用设置放到这里
  * 如果请求体是普通对象，用json格式化并添加json的http header
@@ -56,9 +49,7 @@ export function interceptRequest(
   try {
     url = parseUrl(url, option)
   } catch (e) {
-    // skip this function
-    // throw error to above stack, at fetch caller function position
-    throw new InterceptError(e.message, interceptRequest)
+    throw new Error(e.message)
   }
   const requestOption: RequestInit = {
     method: option.method,
@@ -101,10 +92,7 @@ export function interceptRequest(
  * */
 export function interceptResponse(res: Response) {
   if (!res.ok) {
-    throw new InterceptError(
-      `response not ok, status: ${res.status}, ${res.statusText}, url: ${res.url}`,
-      interceptResponse,
-    )
+    throw new Error(`response not ok, status: ${res.status}, ${res.statusText}, url: ${res.url}`)
   }
   const contentType = res.headers.get('Content-Type')
   if (contentType) {
@@ -121,7 +109,12 @@ export function interceptResponse(res: Response) {
 }
 
 /** native fetch wrappper */
-export const requester = (requestInit?: RequestInit): Requester => (apiUrl: string, param?: IRequestParameter) => {
+export const requester = (
+  requestInit?: RequestInit & {
+    baseURL?: string
+  },
+): Requester => (apiUrl: string, param?: IRequestParameter) => {
   const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
-  return fetch(url, option).then(interceptResponse)
+  const baseURL = requestInit?.baseURL || ''
+  return fetch(`${baseURL}${url}`, option).then(interceptResponse)
 }

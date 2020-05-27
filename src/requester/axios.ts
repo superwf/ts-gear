@@ -19,21 +19,12 @@ export const parseUrl = (url: string, option?: IRequestParameter): string => {
   return url
 }
 
-class InterceptError extends Error {
-  constructor(message: string, hideStackFunc: any) {
-    super(message)
-    Error.captureStackTrace(this, hideStackFunc)
-  }
-}
-
 /** assign request body to axios option */
 export function interceptRequest(url: string, option?: IRequestParameter): [string, AxiosRequestConfig] {
   try {
     url = parseUrl(url, option)
   } catch (e) {
-    // skip this function
-    // throw error to above stack, at fetch caller function position
-    throw new InterceptError(e.message, interceptRequest)
+    throw new Error(e.message)
   }
   option = option || {}
   const requestOption: AxiosRequestConfig = {

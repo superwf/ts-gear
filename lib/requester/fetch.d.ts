@@ -17,4 +17,6 @@ export declare function interceptRequest(url: string, option: IRequestParameter 
  * */
 export declare function interceptResponse(res: Response): Promise<any> | Response;
 /** native fetch wrappper */
-export declare const requester: (requestInit?: RequestInit | undefined) => Requester;
+export declare const requester: (requestInit?: (RequestInit & {
+    baseURL?: string | undefined;
+}) | undefined) => Requester;
