@@ -14,7 +14,7 @@ const projects: IProject[] = [
   {
     name: 'pet',
     dest: 'service',
-    source: '../fixture/pet.json',
+    source: '../../fixture/pet.json',
     requester: fetchRequester(),
     prettierConfig,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
@@ -22,7 +22,7 @@ const projects: IProject[] = [
   {
     name: 'projectE',
     dest: 'service',
-    source: '../fixture/projectE.json',
+    source: '../../fixture/projectE.json',
     keepGeneric: true,
     requester: axiosRequester(),
     prettierConfig,

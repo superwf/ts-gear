@@ -7,63 +7,63 @@ export type BodyBuilder = any
 
 export type PageVOListVO = PageVO<ListVO>
 export type ReplyVOPageVOFollowRecordVO = ReplyVO<PageVO<FollowRecordVO>>
-export class PageVO<ListVO = any> {
+export interface PageVO<ListVO = any> {
   /** 数据列表 */
-  public entities: Array<ListVO>
+  entities: Array<ListVO>
   /**
    * 总条数
    * format: int32
    * example: 100
    */
-  public entityCount: number
+  entityCount: number
   /**
    * 开始序号
    * format: int32
    * example: 0
    */
-  public firstEntityIndex: number
+  firstEntityIndex: number
   /**
    * 结束序号
    * format: int32
    * example: 10
    */
-  public lastEntityIndex: number
+  lastEntityIndex: number
   /**
    * 总页数
    * format: int32
    * example: 10
    */
-  public pageCount: number
+  pageCount: number
   /**
    * 页码
    * format: int32
    * example: 1
    */
-  public pageNo: number
+  pageNo: number
   /**
    * 每页条数
    * format: int32
    * example: 10
    */
-  public pageSize: number
+  pageSize: number
 }
 
 export type ListVO = any
-export class ReplyVO<PageVOFollowRecordVO = any> {
+export interface ReplyVO<PageVOFollowRecordVO = any> {
   /**
    * 响应代码【0正确,非0错误】
    * example: 000000
    */
-  public code: string
+  code: string
   /** 返回数据 */
-  public data?: PageVOFollowRecordVO
+  data?: PageVOFollowRecordVO
   /**
    * 结果描述
    * example: success
    */
-  public message: string
+  message: string
 }
 
 export type FollowRecordVO = any
-export type Int = any
+export type ReplyVOInt = any
 export type PageVOFollowRecordVO = any

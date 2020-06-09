@@ -45,6 +45,8 @@ export function putPet(option: IPutPetOption): Promise<IPutPetResponseSuccess> {
 if (process.env.NODE_ENV === 'test') {
   putPet.mockData = '' as any
 }
+putPet.method = 'put'
+putPet.url = '/v2/pet'
 
 /** request parameter type for postPet */
 export interface IPostPetOption {
@@ -76,6 +78,8 @@ export function postPet(
 if (process.env.NODE_ENV === 'test') {
   postPet.mockData = '' as any
 }
+postPet.method = 'post'
+postPet.url = '/v2/pet'
 
 /** request parameter type for getPetFindByStatus */
 export interface IGetPetFindByStatusOption {
@@ -128,6 +132,8 @@ if (process.env.NODE_ENV === 'test') {
     },
   ] as any
 }
+getPetFindByStatus.method = 'get'
+getPetFindByStatus.url = '/v2/pet/findByStatus'
 
 /** request parameter type for getPetPetId */
 export interface IGetPetPetIdOption {
@@ -183,6 +189,8 @@ if (process.env.NODE_ENV === 'test') {
     status: 'available',
   } as any
 }
+getPetPetId.method = 'get'
+getPetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetId */
 export interface IPostPetPetIdOption {
@@ -233,6 +241,8 @@ export function postPetPetId(
 if (process.env.NODE_ENV === 'test') {
   postPetPetId.mockData = '' as any
 }
+postPetPetId.method = 'post'
+postPetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for deletePetPetId */
 export interface IDeletePetPetIdOption {
@@ -279,6 +289,8 @@ export function deletePetPetId(
 if (process.env.NODE_ENV === 'test') {
   deletePetPetId.mockData = '' as any
 }
+deletePetPetId.method = 'delete'
+deletePetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetIdUploadImage */
 export interface IPostPetPetIdUploadImageOption {
@@ -337,6 +349,8 @@ if (process.env.NODE_ENV === 'test') {
     message: 'string',
   } as any
 }
+postPetPetIdUploadImage.method = 'post'
+postPetPetIdUploadImage.url = '/v2/pet/:petId/uploadImage'
 
 export interface IGetStoreInventoryResponse {
   /** successful operation */
@@ -371,6 +385,8 @@ if (process.env.NODE_ENV === 'test') {
     additionalProp3: 0,
   } as any
 }
+getStoreInventory.method = 'get'
+getStoreInventory.url = '/v2/store/inventory'
 
 /** request parameter type for postStoreOrder */
 export interface IPostStoreOrderOption {
@@ -415,6 +431,8 @@ if (process.env.NODE_ENV === 'test') {
     complete: false,
   } as any
 }
+postStoreOrder.method = 'post'
+postStoreOrder.url = '/v2/store/order'
 
 /** request parameter type for getStoreOrderOrderId */
 export interface IGetStoreOrderOrderIdOption {
@@ -471,6 +489,8 @@ if (process.env.NODE_ENV === 'test') {
     complete: false,
   } as any
 }
+getStoreOrderOrderId.method = 'get'
+getStoreOrderOrderId.url = '/v2/store/order/:orderId'
 
 /** request parameter type for deleteStoreOrderOrderId */
 export interface IDeleteStoreOrderOrderIdOption {
@@ -515,6 +535,8 @@ export function deleteStoreOrderOrderId(
 if (process.env.NODE_ENV === 'test') {
   deleteStoreOrderOrderId.mockData = '' as any
 }
+deleteStoreOrderOrderId.method = 'delete'
+deleteStoreOrderOrderId.url = '/v2/store/order/:orderId'
 
 /** request parameter type for postUser */
 export interface IPostUserOption {
@@ -549,6 +571,8 @@ export function postUser(
 if (process.env.NODE_ENV === 'test') {
   postUser.mockData = '' as any
 }
+postUser.method = 'post'
+postUser.url = '/v2/user'
 
 /** request parameter type for postUserCreateWithArray */
 export interface IPostUserCreateWithArrayOption {
@@ -585,6 +609,8 @@ export function postUserCreateWithArray(
 if (process.env.NODE_ENV === 'test') {
   postUserCreateWithArray.mockData = '' as any
 }
+postUserCreateWithArray.method = 'post'
+postUserCreateWithArray.url = '/v2/user/createWithArray'
 
 /** request parameter type for postUserCreateWithList */
 export interface IPostUserCreateWithListOption {
@@ -621,6 +647,8 @@ export function postUserCreateWithList(
 if (process.env.NODE_ENV === 'test') {
   postUserCreateWithList.mockData = '' as any
 }
+postUserCreateWithList.method = 'post'
+postUserCreateWithList.url = '/v2/user/createWithList'
 
 /** request parameter type for getUserLogin */
 export interface IGetUserLoginOption {
@@ -665,6 +693,8 @@ export function getUserLogin(
 if (process.env.NODE_ENV === 'test') {
   getUserLogin.mockData = 'string' as any
 }
+getUserLogin.method = 'get'
+getUserLogin.url = '/v2/user/login'
 
 export interface IGetUserLogoutResponse {
   /** successful operation */
@@ -690,6 +720,8 @@ export function getUserLogout(): Promise<IGetUserLogoutResponseSuccess> {
 if (process.env.NODE_ENV === 'test') {
   getUserLogout.mockData = '' as any
 }
+getUserLogout.method = 'get'
+getUserLogout.url = '/v2/user/logout'
 
 /** request parameter type for getUserUsername */
 export interface IGetUserUsernameOption {
@@ -743,6 +775,8 @@ if (process.env.NODE_ENV === 'test') {
     userStatus: 0,
   } as any
 }
+getUserUsername.method = 'get'
+getUserUsername.url = '/v2/user/:username'
 
 /** request parameter type for putUserUsername */
 export interface IPutUserUsernameOption {
@@ -785,6 +819,8 @@ export function putUserUsername(
 if (process.env.NODE_ENV === 'test') {
   putUserUsername.mockData = '' as any
 }
+putUserUsername.method = 'put'
+putUserUsername.url = '/v2/user/:username'
 
 /** request parameter type for deleteUserUsername */
 export interface IDeleteUserUsernameOption {
@@ -825,3 +861,5 @@ export function deleteUserUsername(
 if (process.env.NODE_ENV === 'test') {
   deleteUserUsername.mockData = '' as any
 }
+deleteUserUsername.method = 'delete'
+deleteUserUsername.url = '/v2/user/:username'

@@ -127,7 +127,7 @@ describe('parse definition with generic type', () => {
       typescriptContent: 'export type LRole = any',
     })
 
-    expect(definitionMap.ReplyVO).toEqual({
+    expect(definitionMap.ReplyVOListUser).toEqual({
       typeName: 'ReplyVO',
       schema: spec.definitions!['ReplyVO<List<User>>'],
       typeParameters: ['ListUser'],

@@ -115,6 +115,6 @@ export const requester = (
   },
 ): Requester => (apiUrl: string, param?: IRequestParameter) => {
   const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
-  const baseURL = requestInit?.baseURL || ''
+  const baseURL = (requestInit && requestInit.baseURL) || ''
   return fetch(`${baseURL}${url}`, option).then(interceptResponse)
 }

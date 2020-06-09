@@ -82,6 +82,7 @@ if (${shouldMockResponseStatement}) {
   ${mockStatment}
 }
 ${requestFunctionName}.method = '${httpMethod}'
+${requestFunctionName}.url = '${urlPath}'
 `)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */

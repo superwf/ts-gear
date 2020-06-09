@@ -4,7 +4,7 @@
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
 import projects from '../../tsg.config'
-import { ReplyVO, Int } from './definition'
+import { ReplyVOInt } from './definition'
 const project = projects.find((p) => p.name === 'projectE')!
 const { requester } = project
 /** request parameter type for deleteApiDataboardBoardEs */
@@ -15,7 +15,7 @@ export interface IDeleteApiDataboardBoardEsOption {
 
 export interface IDeleteApiDataboardBoardEsResponse {
   /** OK */
-  200: ReplyVO<Int>
+  200: ReplyVOInt
   /** No Content */
   204: any
   /** Unauthorized */
@@ -34,7 +34,7 @@ export type IDeleteApiDataboardBoardEsResponseSuccess = PropertyType<
  * produces: *／*
  */
 export function deleteApiDataboardBoardEs(
-  option: IDeleteApiDataboardBoardEsOption,
+  option?: IDeleteApiDataboardBoardEsOption,
 ): Promise<IDeleteApiDataboardBoardEsResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteApiDataboardBoardEs.mockData as any)
@@ -48,3 +48,5 @@ export function deleteApiDataboardBoardEs(
 if (process.env.NODE_ENV === 'test') {
   deleteApiDataboardBoardEs.mockData = '' as any
 }
+deleteApiDataboardBoardEs.method = 'delete'
+deleteApiDataboardBoardEs.url = '/api/databoard/board/es'
