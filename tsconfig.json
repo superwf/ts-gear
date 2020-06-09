@@ -1,28 +1,28 @@
 {
   "compilerOptions": {
-    "target": "es5",
+    "target": "esnext",
     "lib": ["dom", "esnext"],
     "experimentalDecorators": true,
     "skipLibCheck": true,
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "allowSyntheticDefaultImports": false,
+    "allowJs": true,
     "strict": true,
     "forceConsistentCasingInFileNames": true,
     "module": "commonjs",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "noEmit": true,
-    "sourceMap": true,
+    "removeComments": false,
+    "sourceMap": false,
     "declaration": true,
-    "declarationDir": "./bin",
-    "jsx": "react",
-    "outDir": "bin",
+    "declarationDir": "lib",
+    "outDir": "lib",
+    "rootDir": ".",
     "baseUrl": ".",
-    "noUnusedLocals": true,
-    "typeRoots": ["node_modules/@types", "typings"],
     "strictPropertyInitialization": false,
     "paths": {
-      "src/*": ["./src/*"]
+      "src/*": ["./src/*"],
+      "example/*": ["./example/*"]
     }
   },
   "include": ["src", "__tests__"]

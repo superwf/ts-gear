@@ -1,0 +1,15 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`source start and harvest 1`] = `
+"export class MyClass {
+    name: string;
+}
+"
+`;
+
+exports[`source start and harvest again 1`] = `
+"export class MyClass {
+    name: string;
+}
+"
+`;

@@ -1,2 +1,7 @@
 node_modules
 *.vim
+*.log
+example/fixture/ignore.json
+example/service/ignore
+tmp
+coverage
