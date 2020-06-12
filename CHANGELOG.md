@@ -2,6 +2,30 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.0](https://github.com/superwf/ts-gear/compare/v1.3.1...v2.1.0) (2020-06-12)
+
+
+### Features
+
+* add fetch request baseURL ([be82024](https://github.com/superwf/ts-gear/commit/be820249fbcfed2ad263249c0446b6b93ea9e64c))
+* add importRequesterStatement option ([f4f5636](https://github.com/superwf/ts-gear/commit/f4f56365cdfc907b182497a80a46e23569ac6f94))
+* add index.ts ([3033f5c](https://github.com/superwf/ts-gear/commit/3033f5cd9d155a31c1f918071637ac6baa453cb4))
+* add url property to request func ([83cfaab](https://github.com/superwf/ts-gear/commit/83cfaab5494d3bd10a44665c1cf915302296ed52))
+
+
+### Bug Fixes
+
+* add 'dont modify' comment ([9c6d4ae](https://github.com/superwf/ts-gear/commit/9c6d4ae909f51d2cba328d665ea7b73a61f5091d))
+* add eslint-disable ([38e84a5](https://github.com/superwf/ts-gear/commit/38e84a5d05395dded2ac1d5b4bd7e394695e70c2))
+* definition repeat conflict ([669b378](https://github.com/superwf/ts-gear/commit/669b378b9e327e948a34d08903f3318b351b825a))
+* export member ([47fe900](https://github.com/superwf/ts-gear/commit/47fe90022afad6f9d6dfab4c10c1ee24b5c33e8b))
+* export more interface ([69d1621](https://github.com/superwf/ts-gear/commit/69d1621a15c98e10e97bfae2d0f3db3875a2481d))
+* export project index definition ([0a0a66c](https://github.com/superwf/ts-gear/commit/0a0a66c4037d96c897c1d8f462afafe7918c98cb))
+* generic type has reserved name ([9ffa1e3](https://github.com/superwf/ts-gear/commit/9ffa1e39f8aea8efe379e792d9fb57860735ea43))
+* mockData generating ([4a5fae0](https://github.com/superwf/ts-gear/commit/4a5fae0950973af319252e41b1852667a17fc90b))
+* request param question mark ([9d26d04](https://github.com/superwf/ts-gear/commit/9d26d046f60bad2e8a0e23eb382470af8dbeb1de))
+* requester export ([c2b9cb5](https://github.com/superwf/ts-gear/commit/c2b9cb59e484760c846b74c511c1732f0bda748b))
+
 ### [1.3.1](https://github.com/superwf/ts-gear/compare/v1.3.0...v1.3.1) (2020-02-26)
 
 ## [1.3.0](https://github.com/superwf/ts-gear/compare/v1.2.0...v1.3.0) (2020-01-07)
