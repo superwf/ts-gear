@@ -1,4 +1,4 @@
-import { sow, harvest } from 'src/source'
+import { sow, harvest, readImportStatement } from 'src/source'
 
 describe('source', () => {
   it('start and harvest', () => {

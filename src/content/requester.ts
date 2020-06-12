@@ -3,6 +3,7 @@ import * as path from 'path'
 
 import { IProject } from '../interface'
 import { configFileName } from '../constant'
+import { renameImportStatementToRequester } from '../tool/renameImportStatementToRequester'
 
 /** get tsg.config.ts file relative path to import in request
  * */
@@ -11,8 +12,17 @@ export const requester = (project: IProject, tsGearConfigPath: string) => {
     path.join(tsGearConfigPath, project.dest, project.name),
     tsGearConfigPath,
   )
+  if (project.importRequesterStatement) {
+    return {
+      import: renameImportStatementToRequester(project.importRequesterStatement),
+      code: '',
+    }
+  }
   return {
     import: `import projects from '${configFileRelativePath}/${configFileName}'`,
-    code: `const project = projects.find(p => p.name === '${project.name}')!${EOL}const { requester } = project`,
+    code: [
+      `const project = projects.find(p => p.name === '${project.name}')!`,
+      `const requester = project.requester!`,
+    ].join(EOL),
   }
 }

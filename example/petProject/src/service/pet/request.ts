@@ -12,7 +12,7 @@ import {
   User,
 } from './definition'
 const project = projects.find((p) => p.name === 'pet')!
-const { requester } = project
+const requester = project.requester!
 /** request parameter type for putPet */
 export interface IPutPetOption {
   /** Pet object that needs to be added to the store */

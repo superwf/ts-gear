@@ -1,6 +1,6 @@
 import { Options } from 'prettier'
 
-import { IProject, fetchRequester, axiosRequester } from 'ts-gear'
+import { IProject, fetchRequester } from 'ts-gear'
 
 const prettierConfig: Options = {
   semi: false,
@@ -24,7 +24,7 @@ const projects: IProject[] = [
     dest: 'service',
     source: '../../fixture/projectE.json',
     keepGeneric: true,
-    requester: axiosRequester(),
+    importRequesterStatement: 'import { fetcher } from "fffxx"',
     prettierConfig,
   },
 ]

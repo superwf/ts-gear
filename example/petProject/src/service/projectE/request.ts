@@ -3,10 +3,9 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
-import projects from '../../tsg.config'
+import { fetcher as requester } from 'fffxx'
 import { ReplyVOInt } from './definition'
-const project = projects.find((p) => p.name === 'projectE')!
-const { requester } = project
+
 /** request parameter type for deleteApiDataboardBoardEs */
 export interface IDeleteApiDataboardBoardEsOption {
   /** 索引数组 */

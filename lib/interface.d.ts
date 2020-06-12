@@ -69,13 +69,20 @@ export interface IProject {
      * use this option could avoid those to be written in your api file
      * */
     pathMatcher?: TPathMatcherFunction;
+    /** request function statement
+     * some times requester will import too many code
+     * and cause some resolve errors
+     * use requesterImportStatement is a safer way
+     * and this will override `requester` option
+     * */
+    importRequesterStatement?: string;
     /** request function
      * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
      * or else use your own function as requester is definitily ok,
      * request function signiture as below
      *   (url: string, param: IRequestParameter) => Promise<any>
      * */
-    requester: Requester;
+    requester?: Requester;
     /**
      * @default false
      * by default, definiton will generate ts "interface"
