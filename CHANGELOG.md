@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.1.1](https://github.com/superwf/ts-gear/compare/v2.1.0...v2.1.1) (2020-06-17)
+
+
+### Bug Fixes
+
+* chaining operator ([8e5d754](https://github.com/superwf/ts-gear/commit/8e5d7548ddc4b9fc5f4cd20c24d882b81827351f))
+* compile to es2019 ([5d8d120](https://github.com/superwf/ts-gear/commit/5d8d120723c587ee7e30b515450b7ddb1ceda81e))
+
 ## [2.1.0](https://github.com/superwf/ts-gear/compare/v1.3.1...v2.1.0) (2020-06-12)
 
 
