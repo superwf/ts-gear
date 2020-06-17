@@ -12,7 +12,7 @@ const cwd = process.cwd()
 const cwdTsconfigPath = join(cwd, 'tsconfig.json')
 const tsConfig = existsSync(cwdTsconfigPath) ? JSON.parse(readFileSync(cwdTsconfigPath).toString()) : {}
 
-if (tsConfig.compilerOptions && tsConfig.compilerOptions.paths) {
+if (tsConfig.compilerOptions?.paths) {
   tsConfigPaths.register({
     baseUrl: cwd,
     paths: tsConfig.compilerOptions.paths,
