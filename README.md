@@ -270,3 +270,9 @@ If you prefer to use your owne request way, you can only use the `definition.ts`
 ## Errata And Feedback
 
 This tool only has the `swagger ui` pet fixture and my projects swagger spec docs for dev fixtures. Issues are welcomed when you errors occurand remember to provide your swagger doc for fixtures, just some problem part definitions are enough.
+
+## TODO
+
+* add cache, when origin not change, skip regenerate files.
+
+* add custom methods for generate request function name.
