@@ -28,7 +28,7 @@
     "isomorphic-fetch": "^2.2.1",
     "jest-html-reporter": "^3.1.0",
     "json-schema": "^0.2.3",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.13",
     "mkdirp": "^1.0.4",
     "path-to-regexp": "^3.0.0",
     "prettier": "^2.0.5",
