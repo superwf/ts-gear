@@ -1,12 +1,12 @@
-import { forEach, upperFirst, findKey } from 'lodash'
+import { forEach, findKey } from 'lodash'
 import { Spec } from 'swagger-schema-official'
 
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
 import { httpMethods, IProject } from '../interface'
 import { getGlobal } from '../projectGlobalVariable'
-import { camelCase } from '../tool/camelCase'
 import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumType'
+import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
 
 /**
  * collect definition to definitionMap
@@ -45,10 +45,17 @@ export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
     }
   })
   forEach(spec.paths, (pathSchema /** Path */, pathName) => {
+    const genFunctionName = project.generateRequestFunctionName || generateRequestFunctionName
     forEach(httpMethods, (httpMethod) => {
       const operation = pathSchema[httpMethod]
       if (operation && !operation.deprecated) {
-        requestMap[`${httpMethod}${upperFirst(camelCase(pathName))}`] = {
+        requestMap[
+          genFunctionName({
+            httpMethod,
+            pathName,
+            schema: operation!,
+          })
+        ] = {
           pathName,
           httpMethod,
           schema: operation!,

@@ -7,6 +7,7 @@ import {
   Parameter,
   BaseParameter,
   ParameterType,
+  Path,
 } from 'swagger-schema-official'
 import { Options } from 'prettier'
 
@@ -68,6 +69,12 @@ export type ParameterPositionMap = {
 }
 
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
+
+export interface IGenerateRequestFunctionNameParameter {
+  httpMethod: HttpMethod
+  pathName: string
+  schema: Path
+}
 
 export interface IProject {
   /** project name
@@ -170,6 +177,9 @@ export interface IProject {
 
   /** output content prettier config */
   prettierConfig?: Options
+
+  /** default generate request function method */
+  generateRequestFunctionName?: (arg: IGenerateRequestFunctionNameParameter) => string
 }
 
 export interface IAssembleResponse {
