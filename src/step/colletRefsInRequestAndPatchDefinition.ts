@@ -11,15 +11,15 @@ export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
   const { requestRefSet, requestMap, definitionMap } = getGlobal(project)
   const keepGeneric = project.keepGeneric !== false
   // when not keepGeneric, definition alse need to patch
-  Object.getOwnPropertyNames(definitionMap).forEach((name) => {
+  Object.getOwnPropertyNames(definitionMap).forEach(name => {
     const { schema } = definitionMap[name]
     if (schema) {
-      traverse$Ref(schema, (value) => {
+      traverse$Ref(schema, value => {
         if (keepGeneric) {
           value
             .split(/<|>|,/)
             .filter(Boolean)
-            .forEach((typeName) => {
+            .forEach(typeName => {
               patchGlobalDefinitionMap({ typeName, definitionMap })
             })
         } else {
@@ -29,14 +29,14 @@ export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
     }
   })
   // gather ref definition names from paths
-  Object.getOwnPropertyNames(requestMap).forEach((name) => {
+  Object.getOwnPropertyNames(requestMap).forEach(name => {
     const { schema } = requestMap[name]
-    traverse$Ref(schema, (value) => {
+    traverse$Ref(schema, value => {
       if (keepGeneric) {
         value
           .split(/<|>|,/)
           .filter(Boolean)
-          .forEach((typeName) => {
+          .forEach(typeName => {
             requestRefSet.add(typeName)
             patchGlobalDefinitionMap({ typeName, definitionMap })
           })

@@ -36,7 +36,7 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
     docs
       .filter(Boolean)
       /** replace invalid comment charator */
-      .map((doc) => doc.replace('/', '／'))
+      .map(doc => doc.replace('/', '／'))
       .join(EOL),
   ]
 }

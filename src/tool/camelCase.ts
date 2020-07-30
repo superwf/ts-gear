@@ -10,7 +10,7 @@ export const camelCase = (name: string) => {
   if (invalidVariableCharatorReg.test(name)) {
     return name
       .split(/[^a-z0-9]/i)
-      .map((n) => upperFirst(n))
+      .map(n => upperFirst(n))
       .join('')
   }
   return upperFirst(name)

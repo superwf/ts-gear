@@ -4,7 +4,7 @@
  * */
 
 import { Schema } from 'swagger-schema-official'
-import { find, isObject, isFunction, castArray, memoize } from 'lodash'
+import { find, isObject, isFunction, castArray } from 'lodash'
 
 import { ISwaggerRequest, IDefinitionMap, IEnumMap } from '../../interface'
 
@@ -19,7 +19,7 @@ export function deeplyStripKey(input: any, keyToStrip: string, predicate: (...ar
 
   const obj = { ...input }
 
-  Object.keys(obj).forEach((k) => {
+  Object.keys(obj).forEach(k => {
     if (k === keyToStrip && predicate(obj[k], k)) {
       delete obj[k]
       return
@@ -35,7 +35,6 @@ function objectify<T>(thing: T): T {
   return thing
 }
 
-/* eslint-disable @typescript-eslint/camelcase */
 const primitives = {
   string: () => 'string',
   string_email: () => 'user@example.com',
@@ -50,11 +49,10 @@ const primitives = {
   integer: () => 0,
   boolean: (schema: any) => (typeof schema.default === 'boolean' ? schema.default : true),
 }
-/* eslint-enable @typescript-eslint/camelcase */
 
 type PrimitivesKeys = keyof typeof primitives
 
-const primitive = (schema: Schema): object => {
+const primitive = (schema: Schema): any => {
   schema = objectify(schema)
   const { type, format } = schema
   const key = `${type}_${format}` as PrimitivesKeys
@@ -109,7 +107,7 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap, 
   if (type === 'object') {
     const props = objectify(properties)
     const obj: any = {}
-    Object.getOwnPropertyNames(props).forEach((name) => {
+    Object.getOwnPropertyNames(props).forEach(name => {
       if (!(props[name] && props[name].deprecated)) {
         obj[name] = sampleFromSchema(props[name], definitionMap, enumMap)
       }

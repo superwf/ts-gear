@@ -48,7 +48,7 @@ export const getGenericNameFromNode = (node: IGenericNameNode): string => {
   if (!children) {
     return name
   }
-  return `${name}<${children.map((c) => getGenericNameFromNode(c)).join(',')}>`
+  return `${name}<${children.map(c => getGenericNameFromNode(c)).join(',')}>`
 }
 
 /** try hard to keep every nest level generic name
@@ -63,5 +63,5 @@ export const guessGenericTypeName = (node: IGenericNameNode, definitionMap: IDef
   if (!node.children) {
     return node.name
   }
-  return `${node.name}<${node.children.map((c) => guessGenericTypeName(c, definitionMap)).join(',')}>`
+  return `${node.name}<${node.children.map(c => guessGenericTypeName(c, definitionMap)).join(',')}>`
 }

@@ -19,7 +19,7 @@ export const writeProject = (project: IProject, tsGearConfigPath: string) => {
 
   const definitionTypeNameSet = new Set<string>()
   const definitionContent = Object.getOwnPropertyNames(definitionMap)
-    .map((name) => {
+    .map(name => {
       // prevent repeat definition
       const typeName = definitionMap[name].typeName!
       if (definitionTypeNameSet.has(typeName!)) {
@@ -39,7 +39,7 @@ export const writeProject = (project: IProject, tsGearConfigPath: string) => {
   )
 
   const requestContent = Object.getOwnPropertyNames(requestMap)
-    .map((name) => {
+    .map(name => {
       return requestMap[name].typescriptContent
     })
     .join(EOL)

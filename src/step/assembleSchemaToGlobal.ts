@@ -38,7 +38,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
       }
     }
   })
-  Object.getOwnPropertyNames(definitions).forEach((name) => {
+  Object.getOwnPropertyNames(definitions).forEach(name => {
     definitionMap[name] = {
       typeName: name,
       schema: definitions[name],
@@ -46,7 +46,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
   })
   forEach(spec.paths, (pathSchema /** Path */, pathName) => {
     const genFunctionName = project.generateRequestFunctionName || generateRequestFunctionName
-    forEach(httpMethods, (httpMethod) => {
+    forEach(httpMethods, httpMethod => {
       const operation = pathSchema[httpMethod]
       if (operation && !operation.deprecated) {
         requestMap[

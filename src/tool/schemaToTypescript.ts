@@ -31,7 +31,7 @@ const transform = (schema: SchemaOption): string => {
     // return `'${enumValues.join("' | '")}'`
   }
   if (allOf) {
-    return `${allOf.map((prop) => transform(prop)).join(' & ')}`
+    return `${allOf.map(prop => transform(prop)).join(' & ')}`
   }
   if ($ref) {
     return $ref
@@ -48,7 +48,7 @@ const transform = (schema: SchemaOption): string => {
       return 'number'
     case 'array':
       if (Array.isArray(items)) {
-        return `Array<${items.map((item) => transform(item)).join(' | ')}>`
+        return `Array<${items.map(item => transform(item)).join(' | ')}>`
       }
       if (!items) {
         return `Array<any>`

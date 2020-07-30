@@ -1,4 +1,4 @@
-const keyWords = Object.getOwnPropertyNames(global).filter((p) => /[A-Z]/.test(p[0]))
+const keyWords = Object.getOwnPropertyNames(global).filter(p => /[A-Z]/.test(p[0]))
 
 const isReserved = (v: string) => keyWords.includes(v)
 
@@ -43,14 +43,14 @@ export const cleanName = (name: string, keepGeneric: boolean) => {
     return `Tsg${word}`
   }
   const words = word.split(/\b/)
-  const hasReserved = words.some((w) => {
+  const hasReserved = words.some(w => {
     return isReserved(w)
   })
   if (!hasReserved) {
     return word
   }
   return words
-    .map((w) => {
+    .map(w => {
       return isReserved(w) ? `Tsg${w}` : w
     })
     .join('')

@@ -2,6 +2,7 @@ import { EOL } from 'os'
 
 import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 import { Spec } from 'swagger-schema-official'
+import * as join from 'url-join'
 
 import { IProject } from '../../interface'
 import { sow, harvest } from '../../source'
@@ -14,8 +15,6 @@ import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
 import { generateParameterType } from './generateParameterType'
 
-import join = require('url-join')
-
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: IProject) => {
   const { pathMatcher, withBasePath, withHost } = project
@@ -24,7 +23,7 @@ export const generateRequestContent = (spec: Spec, project: IProject) => {
   const shouldMockResponseStatement = project.shouldMockResponseStatement || defaultShouldMockResponseStatement
 
   const resultContent: string[] = []
-  Object.getOwnPropertyNames(requestMap).forEach((requestFunctionName) => {
+  Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request

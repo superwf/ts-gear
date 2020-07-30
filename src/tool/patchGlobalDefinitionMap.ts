@@ -21,7 +21,7 @@ export const patchGlobalDefinitionMap = ({
       typescriptContent: `export type ${typeName} = ${alias}`,
     }
     const originalDefinitionName = Object.getOwnPropertyNames(definitionMap).find(
-      (name) => definitionMap[name].typeName === typeName,
+      name => definitionMap[name].typeName === typeName,
     )
     if (originalDefinitionName && definitionMap[originalDefinitionName]) {
       definitionMap[typeName].schema = definitionMap[originalDefinitionName].schema

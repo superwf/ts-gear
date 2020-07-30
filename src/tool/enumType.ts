@@ -15,7 +15,7 @@ export const generateEnumName = (traversePath: string[], spec: Spec) => {
     if (path.includes('parameters')) {
       const parameterNode = get(spec, path)
       if (parameterNode.name) {
-        const parameterIndex = path.findIndex((p) => p === 'parameters')
+        const parameterIndex = path.findIndex(p => p === 'parameters')
         path[parameterIndex] = parameterNode.name
       }
     }
@@ -29,10 +29,10 @@ export const generateEnumName = (traversePath: string[], spec: Spec) => {
       return false
     })
   }
-  remove(path, (p) => {
+  remove(path, p => {
     return filterPaths.includes(p)
   })
-  return path.map((p) => upperFirst(cleanName(p, false))).join('')
+  return path.map(p => upperFirst(cleanName(p, false))).join('')
 }
 
 /** convert enum member to enum type
@@ -42,7 +42,7 @@ export const generateEnumName = (traversePath: string[], spec: Spec) => {
  * */
 export const generateEnumTypescriptContent = (value: any[]) => {
   return value
-    .map((v) => {
+    .map(v => {
       return typeof v === 'string' ? `'${v}'` : v
     })
     .join('|')

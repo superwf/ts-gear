@@ -50,41 +50,46 @@ module.exports = {
         trailingComma: 'all',
         jsxBracketSameLine: false,
         endOfLine: 'lf',
+        arrowParens: 'avoid',
       },
     ],
     'import/order': ['error', { 'newlines-between': 'always' }],
 
-    '@typescript-eslint/camelcase': [
-      'error',
-      {
-        properties: 'always',
-      },
-    ],
+    // '@typescript-eslint/camelcase': [
+    //   'error',
+    //   {
+    //     properties: 'always',
+    //   },
+    // ],
 
+    '@typescript-eslint/explicit-module-boundary-types': 0,
     'import/prefer-default-export': 0,
     'import/no-unresolved': ['error', { ignore: ['swagger-schema-official'] }],
     'no-param-reassign': 0,
-    "import/extensions": [
-      "error",
-      "ignorePackages",
+    'import/extensions': [
+      'error',
+      'ignorePackages',
       {
-        "js": "never",
-        "jsx": "never",
-        "ts": "never",
-        "tsx": "never"
-      }
+        js: 'never',
+        jsx: 'never',
+        ts: 'never',
+        tsx: 'never',
+      },
     ],
 
     // let prettier handle indent
     '@typescript-eslint/indent': 0,
-    '@typescript-eslint/interface-name-prefix': [1, 'always'],
+    // '@typescript-eslint/interface-name-prefix': [1, 'always'],
     '@typescript-eslint/no-explicit-any': 0,
     '@typescript-eslint/no-non-null-assertion': 0,
     '@typescript-eslint/explicit-function-return-type': 0,
     '@typescript-eslint/member-delimiter-style': ['error', { multiline: { delimiter: 'none' } }],
 
     // skip check var starts with "_"
-    '@typescript-eslint/no-unused-vars': ['error', { ignoreRestSiblings: true, varsIgnorePattern: '^_', argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-unused-vars': [
+      'error',
+      { ignoreRestSiblings: true, varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
+    ],
     '@typescript-eslint/explicit-member-accessibility': ['error', { overrides: { constructors: 'no-public' } }],
   },
   settings: {
@@ -93,6 +98,9 @@ module.exports = {
         map: pathAlias,
         extensions: ['.ts', '.js', '.jsx', '.json', '.tsx'],
       },
+    },
+    'import/parsers': {
+      '@typescript-eslint/parser': ['.ts', '.tsx'],
     },
   },
 }

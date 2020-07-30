@@ -43,8 +43,8 @@ export const getUserConfig = async () => {
   let projects = (config.default ? config.default : config) as IProject[]
   const projectNamesFromCommandLine = cliOption.names
   if (projectNamesFromCommandLine.length > 0) {
-    projects = projects.filter((project) => {
-      return projectNamesFromCommandLine.some((name) => name === project.name)
+    projects = projects.filter(project => {
+      return projectNamesFromCommandLine.some(name => name === project.name)
     })
     if (projects.length === 0) {
       warn(`your input names "${cliOption.names.join(', ')}" match 0 projects, checkout and retry.`)

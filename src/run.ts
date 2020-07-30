@@ -2,7 +2,7 @@ import * as step from './step'
 import { restore } from './projectGlobalVariable'
 import { IProject } from './interface'
 
-export const processProject = async (project: IProject, tsGearConfigPath: string) => {
+export const processProject = async (project: IProject, tsGearConfigPath: string): Promise<void> => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project, tsGearConfigPath)
 
@@ -28,7 +28,7 @@ export const processProject = async (project: IProject, tsGearConfigPath: string
  * sequence could not be changed
  * every step depends on the pre step
  * */
-export const run = async () => {
+export const run = async (): Promise<void> => {
   const { projects, tsGearConfigPath } = await step.getUserConfig()
-  projects.forEach((project) => processProject(project, tsGearConfigPath))
+  projects.forEach(project => processProject(project, tsGearConfigPath))
 }

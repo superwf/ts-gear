@@ -9,7 +9,7 @@ import { getDefinition } from '../tool/getDefinition'
  * */
 export const cleanRefAndDefinitionName = (spec: Spec, keepGeneric: boolean) => {
   const definitions = getDefinition(spec)
-  Object.getOwnPropertyNames(definitions).forEach((name) => {
+  Object.getOwnPropertyNames(definitions).forEach(name => {
     const cleanedName = cleanName(name, keepGeneric)
     if (cleanedName !== name) {
       const origin = definitions[name]

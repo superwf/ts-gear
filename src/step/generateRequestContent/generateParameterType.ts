@@ -21,7 +21,7 @@ export const generateParameterType = (functionName: string, parameters: Array<Pa
   })
   const assembledParameters = assembleRequestParam(parameters)
   let parameterRequired = false
-  ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach((position) => {
+  ;(Object.getOwnPropertyNames(assembledParameters) as RequestParameterPosition[]).forEach(position => {
     const param = assembledParameters[position]!
     if (!parameterRequired) {
       parameterRequired = !isEmpty(param.required)
