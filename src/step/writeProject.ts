@@ -8,6 +8,7 @@ import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
 import { propertyTypeHelper } from '../content/propertyTypeHelper'
+import { targetFileNames } from '../constant'
 
 import { importAllDefinition } from './importAllDefinition'
 
@@ -34,7 +35,7 @@ export const writeProject = (project: IProject, tsGearConfigPath: string) => {
     .join(EOL)
   prettierWrite(
     [warningComment, enumContent, definitionContent].join(EOL),
-    join(dest, 'definition.ts'),
+    join(dest, targetFileNames.definition),
     project.prettierConfig,
   )
 
@@ -53,9 +54,9 @@ export const writeProject = (project: IProject, tsGearConfigPath: string) => {
       requesterResult.code,
       requestContent,
     ].join(EOL),
-    join(dest, 'request.ts'),
+    join(dest, targetFileNames.request),
     project.prettierConfig,
   )
 
-  prettierWrite([warningComment, projectIndex].join(EOL), join(dest, 'index.ts'), project.prettierConfig)
+  prettierWrite([warningComment, projectIndex].join(EOL), join(dest, targetFileNames.index), project.prettierConfig)
 }

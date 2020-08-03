@@ -180,6 +180,12 @@ export interface IProject {
 
   /** default generate request function method */
   generateRequestFunctionName?: (arg: IGenerateRequestFunctionNameParameter) => string
+
+  /**
+   * need js file? OK, change this to true
+   * default is false
+   * */
+  transformJS?: boolean
 }
 
 export interface IAssembleResponse {

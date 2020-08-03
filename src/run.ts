@@ -19,6 +19,9 @@ export const processProject = async (project: IProject, tsGearConfigPath: string
   step.generateDefinitionContent(project)
   step.generateRequestContent(spec, project)
   step.writeProject(project, tsGearConfigPath)
+  if (project.transformJS) {
+    step.toJS(project, tsGearConfigPath)
+  }
 
   restore(project)
 }

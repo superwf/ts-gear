@@ -276,3 +276,5 @@ This tool only has the `swagger ui` pet fixture and my projects swagger spec doc
 * add cache, when origin not change, skip regenerate files.
 
 * add custom methods for generate request function name.
+
+* add option to generate js target.

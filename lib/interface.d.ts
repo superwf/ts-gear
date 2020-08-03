@@ -1,4 +1,4 @@
-import { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType } from 'swagger-schema-official';
+import { Schema, Operation, Response, Reference, Parameter, BaseParameter, ParameterType, Path } from 'swagger-schema-official';
 import { Options } from 'prettier';
 /** interface A { n: number }
  * type B = PropertyType<A, 'n'> === type B = number
@@ -44,6 +44,11 @@ export declare type ParameterPositionMap = {
     };
 };
 export declare type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean);
+export interface IGenerateRequestFunctionNameParameter {
+    httpMethod: HttpMethod;
+    pathName: string;
+    schema: Path;
+}
 export interface IProject {
     /** project name
      * will used to mkdir in "dest"
@@ -133,6 +138,13 @@ export interface IProject {
     shouldMockResponseStatement?: string;
     /** output content prettier config */
     prettierConfig?: Options;
+    /** default generate request function method */
+    generateRequestFunctionName?: (arg: IGenerateRequestFunctionNameParameter) => string;
+    /**
+     * need js file? OK, change this to true
+     * default is false
+     * */
+    transformJS?: boolean;
 }
 export interface IAssembleResponse {
     responseTypeContent: string;

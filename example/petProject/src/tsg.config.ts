@@ -17,6 +17,7 @@ const projects: IProject[] = [
     source: '../../fixture/pet.json',
     requester: fetchRequester(),
     prettierConfig,
+    transformJS: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
   {

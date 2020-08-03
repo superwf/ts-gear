@@ -1,1 +1,1 @@
-export declare const clearObject: (o: object) => void;
+export declare const clearObject: (o: Record<string, any>) => void;

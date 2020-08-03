@@ -1,11 +1,11 @@
 /* eslint-disable no-console */
 import chalk from 'chalk'
 
-const { blue, red, yellow } = chalk.bold
+const { cyanBright, red, yellow } = chalk.bold
 
 /** log blue message in console */
 export function info(...messages: string[]) {
-  console.log(blue(messages.join('')))
+  console.log(cyanBright(messages.join('')))
 }
 
 /** log red message in console */
