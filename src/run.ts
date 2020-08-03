@@ -1,10 +1,15 @@
 import * as step from './step'
 import { restore } from './projectGlobalVariable'
 import { IProject } from './interface'
+import { info } from './tool/log'
 
 export const processProject = async (project: IProject, tsGearConfigPath: string): Promise<void> => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project, tsGearConfigPath)
+  if (step.checkCache(project, tsGearConfigPath, spec)) {
+    info(`cache hit, skip regenerate project(${project.name})`)
+    return
+  }
 
   if (project.translationEngine) {
     await step.translateSchema(spec, project.translationEngine)

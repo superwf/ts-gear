@@ -1,5 +1,6 @@
 export * from './getUserConfig';
 export * from './fetchSwagger';
+export * from './checkCache';
 export * from './prepareProjectDirectory';
 export * from './translateSchema';
 export * from './assembleSchemaToGlobal';
