@@ -142,7 +142,7 @@ export interface IProject {
     generateRequestFunctionName?: (arg: IGenerateRequestFunctionNameParameter) => string;
     /**
      * need js file? OK, change this to true
-     * default is false
+     * @default false
      * */
     transformJS?: boolean;
 }

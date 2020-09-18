@@ -8,7 +8,7 @@ import { getGlobal } from 'src/projectGlobalVariable'
 import { run } from 'src/run'
 
 describe('run', () => {
-  it.only('with fixture', async () => {
+  it('with fixture', async () => {
     const cwd = process.cwd()
     // change cwd to `example`
     process.chdir(join(cwd, 'example', 'petProject'))

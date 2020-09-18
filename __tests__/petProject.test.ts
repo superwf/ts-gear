@@ -1,4 +1,4 @@
-import 'isomorphic-fetch'
+import 'whatwg-fetch'
 import * as URL from 'url'
 
 import { deletePetPetId, getUserLogin } from 'example/petProject/src/service/pet/request'

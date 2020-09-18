@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import 'isomorphic-fetch'
+import 'whatwg-fetch'
 
 import { error, info } from '../tool/log'
 import { IProject } from '../interface'

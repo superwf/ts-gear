@@ -1,4 +1,4 @@
-import 'isomorphic-fetch';
+import 'whatwg-fetch';
 import { IProject } from '../interface';
 /**
  * fetch remote spec if url starts with "http"

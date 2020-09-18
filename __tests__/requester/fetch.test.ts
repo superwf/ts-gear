@@ -1,5 +1,6 @@
 import { getOnce, postOnce, putOnce, lastCall } from 'fetch-mock'
 
+import 'whatwg-fetch'
 import { requester } from 'src/requester/fetch'
 
 describe('requester fetch', () => {
@@ -181,7 +182,7 @@ describe('requester fetch', () => {
       method: 'put',
     })
     expect(result.headers.get('Content-Type')).toBe('text/xml')
-    expect(result.body).toBe('<xml />')
+    expect(result.body.toString()).toBe('<xml />')
   })
 
   it('no content type', async () => {
@@ -196,7 +197,6 @@ describe('requester fetch', () => {
     const result = await requester()('/abc', {
       method: 'put',
     })
-    expect(result.headers.get('Content-Type')).toBe(null)
-    expect(result.body).toBe('rawbody')
+    expect(result).toBe('rawbody')
   })
 })
