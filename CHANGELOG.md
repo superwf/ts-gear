@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.2.0](https://github.com/superwf/ts-gear/compare/v2.1.1...v2.2.0) (2020-09-18)
+
+
+### Features
+
+* add openapiv3 support ([198c389](https://github.com/superwf/ts-gear/commit/198c389ad5d11f62ff53d939fe20ab9347ca9df9))
+* add output js support ([7244b14](https://github.com/superwf/ts-gear/commit/7244b14d1e6da9c98af51ff72561b456c337823f))
+* add targetType config option ([b84c607](https://github.com/superwf/ts-gear/commit/b84c607f829bb5766bd81ce27b38fa796d8f2fe2))
+* cache ([db2763e](https://github.com/superwf/ts-gear/commit/db2763ed288bfa680b27713f0870c035a3fd4e31))
+* customRequestMethod ([7276cd8](https://github.com/superwf/ts-gear/commit/7276cd868cd0b27cb3d1283da27c4c040d6d041c))
+
+
+### Bug Fixes
+
+* package.json to reduce vulnerabilities ([04ef7c0](https://github.com/superwf/ts-gear/commit/04ef7c03cffcea9f55160f4db2f300b1f96dea47))
+
 ### [2.1.1](https://github.com/superwf/ts-gear/compare/v2.1.0...v2.1.1) (2020-06-17)
 
 
