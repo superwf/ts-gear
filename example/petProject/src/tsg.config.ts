@@ -28,6 +28,14 @@ const projects: IProject[] = [
     importRequesterStatement: 'import { fetcher } from "fffxx"',
     prettierConfig,
   },
+  {
+    name: 'v3',
+    dest: 'service',
+    source: '../../fixture/openapiv3.json',
+    keepGeneric: true,
+    importRequesterStatement: 'import { fetcher } from "fffxx"',
+    prettierConfig,
+  },
 ]
 
 export default projects

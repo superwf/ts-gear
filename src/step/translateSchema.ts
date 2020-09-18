@@ -21,7 +21,8 @@ export const gatherNonEnglishWords = (spec: Spec) => {
   traverseSchema(spec, ({ value, key }) => {
     if (key === '$ref' && typeof value === 'string') {
       if (cnReg.test(value)) {
-        // remove "#/definition/" prefix
+        // in openapi v2 remove "#/definition/" prefix
+        // in openapi v3 remove "#/components/schemas/" prefix
         originWordSet.add(value.replace(/^#\/.+\//, ''))
       }
     }

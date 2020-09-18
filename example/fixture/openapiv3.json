@@ -1,0 +1,274 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Api Documentation",
+    "description": "Api Documentation",
+    "termsOfService": "urn:tos",
+    "contact": {},
+    "license": {
+      "name": "Apache 2.0",
+      "url": "http://www.apache.org/licenses/LICENSE-2.0"
+    },
+    "version": "1.0"
+  },
+  "paths": {
+    "/api/datamap/fieldDef": {
+      "get": {
+        "tags": ["【表字段信息】API"],
+        "summary": "分页查询【表字段信息】",
+        "operationId": "listUsingGET",
+        "parameters": [
+          {
+            "name": "createdBy",
+            "in": "query",
+            "description": "创建人",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "createdTimeEnd",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "createdTimeStart",
+            "in": "query",
+            "description": "创建时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "deleted",
+            "in": "query",
+            "description": "是否删除：0-否，1-是",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "boolean" }
+          },
+          {
+            "name": "description",
+            "in": "query",
+            "description": "字段描述",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "endIndex",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "fieldId",
+            "in": "query",
+            "description": "字段Id：table_id+field_name",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "fieldName",
+            "in": "query",
+            "description": "字段名称",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "operatedBy",
+            "in": "query",
+            "description": "修改人",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "operatedTimeEnd",
+            "in": "query",
+            "description": "修改时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "operatedTimeStart",
+            "in": "query",
+            "description": "修改时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "pageNo",
+            "in": "query",
+            "description": "分页参数，第几页",
+            "required": false,
+            "style": "form",
+            "schema": {
+              "minimum": 1,
+              "exclusiveMinimum": false,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "pageSize",
+            "in": "query",
+            "description": "分页参数，每页的条数",
+            "required": false,
+            "style": "form",
+            "schema": {
+              "maximum": 1000,
+              "exclusiveMaximum": false,
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "startIndex",
+            "in": "query",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "integer", "format": "int32" }
+          },
+          {
+            "name": "tableId",
+            "in": "query",
+            "description": "关联table_defination表",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "type",
+            "in": "query",
+            "description": "字段类型：boolean,long,double,string,date",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplyVO«PageVO«FieldDefListVO»»"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "put": {
+        "tags": ["API"],
+        "summary": "修改",
+        "operationId": "updateUsingPUT",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplyVO«FieldDefShowVO»"
+                }
+              }
+            }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "post": {
+        "tags": ["表字段信息"],
+        "summary": "新增",
+        "operationId": "saveUsingPOST",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplyVO"
+                }
+              }
+            }
+          },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "delete": {
+        "tags": ["API"],
+        "summary": "批量删除",
+        "operationId": "deleteBatchUsingDELETE",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "*/*": {
+                "schema": { "$ref": "#/components/schemas/FieldDefAddDTO" }
+              }
+            }
+          },
+          "204": { "description": "No Content" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "FieldDefAddDTO": {
+        "title": "FieldDefAddDTO",
+        "required": ["fieldId", "fieldName", "tableId", "type"],
+        "type": "object",
+        "properties": {
+          "description": { "type": "string", "description": "字段描述" },
+          "fieldId": {
+            "type": "string",
+            "description": "字段Id"
+          },
+          "fieldName": {
+            "type": "string",
+            "description": "字段名称",
+            "example": "name1"
+          },
+          "tableId": {
+            "type": "string",
+            "description": "关联"
+          },
+          "type": {
+            "type": "string",
+            "description": "字段类型：boolean,long,double,string,date"
+          }
+        },
+        "description": "新增【表字段信息】的参数"
+      }
+    }
+  }
+}

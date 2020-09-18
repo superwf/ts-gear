@@ -29,6 +29,7 @@
     "json-schema": "^0.2.3",
     "lodash": "^4.17.19",
     "mkdirp": "^1.0.4",
+    "openapi3-ts": "^1.4.0",
     "path-to-regexp": "^3.0.0",
     "prettier": "^2.0.5",
     "prompts": "^2.3.2",

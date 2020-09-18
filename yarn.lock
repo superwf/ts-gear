@@ -5008,6 +5008,11 @@ open@^7.0.3:
     is-docker "^2.0.0"
     is-wsl "^2.1.1"
 
+openapi3-ts@^1.4.0:
+  version "1.4.0"
+  resolved "http://registry.m.jd.com/openapi3-ts/download/openapi3-ts-1.4.0.tgz#679d5a24be0efc36f5de4fc2c4b8513663e16f65"
+  integrity sha1-Z51aJL4O/Db13k/CxLhRNmPhb2U=
+
 opencollective-postinstall@^2.0.2:
   version "2.0.2"
   resolved "http://registry.m.jd.com/opencollective-postinstall/download/opencollective-postinstall-2.0.2.tgz#5657f1bede69b6e33a45939b061eb53d3c6c3a89"
