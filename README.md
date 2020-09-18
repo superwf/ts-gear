@@ -234,6 +234,7 @@ export default projects
 | translationEngine | 'baidu' \| 'google' | false |  | translate special charators in swagger doc definitions |
 | shouldMockResponseStatement | string | false | "process.env.NODE_ENV === 'test'" | boolean statement switcher for using mock data |
 | prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | prettier v2 options |
+| transformJS | boolean | false | false | should generate js file |
 
 
 ### Directory information

@@ -183,7 +183,7 @@ export interface IProject {
 
   /**
    * need js file? OK, change this to true
-   * default is false
+   * @default false
    * */
   transformJS?: boolean
 }
