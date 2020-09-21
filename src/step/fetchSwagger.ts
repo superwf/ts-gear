@@ -1,6 +1,6 @@
 import { join } from 'path'
 
-import 'whatwg-fetch'
+import 'cross-fetch/polyfill'
 
 import { error, info } from '../tool/log'
 import { IProject } from '../interface'

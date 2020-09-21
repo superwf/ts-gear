@@ -5,6 +5,7 @@ import { EOL } from 'os'
 
 import { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
 import { map } from 'lodash'
+import { SchemaObject } from 'openapi3-ts'
 
 import { assembleDoc } from './assembleDoc'
 
@@ -25,13 +26,31 @@ const transform = (schema: SchemaOption): string => {
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }
+  const v3Schema = schema as SchemaObject
+  const { anyOf, oneOf, discriminator } = v3Schema
+
   const { type, enum: enumValues, items, $ref, properties, additionalProperties, required, allOf } = schema as Schema
   if (enumValues) {
+    if (Array.isArray(enumValues)) {
+      if (type === 'string') {
+        return `'${enumValues.join("' | '")}'`
+      }
+      if (type === 'integer' || type === 'number') {
+        return enumValues.join(' | ')
+      }
+    }
     return (enumValues as unknown) as string
-    // return `'${enumValues.join("' | '")}'`
   }
-  if (allOf) {
-    return `${allOf.map(prop => transform(prop)).join(' & ')}`
+  if (!properties && !discriminator) {
+    if (anyOf) {
+      return `${anyOf.map(prop => transform(prop as Schema)).join(' | ')}`
+    }
+    if (oneOf) {
+      return `${oneOf.map(prop => transform(prop as Schema)).join(' | ')}`
+    }
+    if (allOf) {
+      return `${allOf.map(prop => transform(prop)).join(' & ')}`
+    }
   }
   if ($ref) {
     return $ref
@@ -56,13 +75,49 @@ const transform = (schema: SchemaOption): string => {
       return `Array<${transform(items)}>`
 
     case 'object': {
+      /**
+       * The discriminator object is legal only when using one of the composite keywords oneOf, anyOf, allOf.
+       * process discriminator with these cases
+       * 1. only discriminator without properties nor mapping
+       * 2. only discriminator has mapping, no other properties
+       * 3. discriminator and other properties
+       * 4. discriminator, no mapping, no allOf, oneOf, anyOf, treat as normal string
+       * */
+      let discriminatorTypeString = ''
+      let discriminatorPropertyName = ''
+      if (v3Schema.discriminator) {
+        const { propertyName, mapping } = v3Schema.discriminator
+        if (propertyName) {
+          discriminatorPropertyName = propertyName
+          if (mapping) {
+            discriminatorTypeString = `'${Object.keys(mapping).join("' | '")}'`
+          } else if (allOf) {
+            discriminatorTypeString = `'${allOf.map(prop => transform(prop)).join("' & '")}'`
+          } else if (oneOf || anyOf) {
+            discriminatorTypeString = `'${(oneOf || anyOf)!.map(prop => transform(prop as Schema)).join("' | '")}'`
+          } else {
+            discriminatorTypeString = 'string'
+          }
+        }
+      }
+      if (!properties) {
+        if (discriminatorPropertyName) {
+          const questionToken = required && required.includes(discriminatorPropertyName) ? '' : '?'
+          return `{${EOL}'${discriminatorPropertyName}'${questionToken}: ${discriminatorTypeString}${EOL}}`
+        }
+      }
       if (!properties && !additionalProperties) {
         return 'any'
       }
+
       let objectContent = ''
       if (properties) {
         objectContent = map(properties, (prop, name: string) => {
           const questionToken = required && required.includes(name) ? '' : '?'
+          /** check discriminator */
+          if (name === discriminatorPropertyName) {
+            return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${discriminatorTypeString}`
+          }
           return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${transform(prop)}`
         }).join(EOL)
       }
@@ -83,4 +138,15 @@ const transform = (schema: SchemaOption): string => {
   }
 }
 
-export const schemaToTypescript = transform
+/** compatible with openapi v3 */
+const withNullType = (typeString: string, nullable?: boolean) => {
+  if (!nullable || typeString === 'any') {
+    return typeString
+  }
+  return `${typeString} | null`
+}
+
+export const schemaToTypescript = (schema: Schema) => {
+  const v3Schema = schema as SchemaObject
+  return withNullType(transform(schema), v3Schema.nullable)
+}
