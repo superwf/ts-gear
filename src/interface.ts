@@ -186,6 +186,11 @@ export interface IProject {
    * @default false
    * */
   transformJS?: boolean
+  /**
+   * force skip cache
+   * @default false
+   * */
+  skipCache?: boolean
 }
 
 export interface IAssembleResponse {

@@ -35,6 +35,7 @@ const projects: IProject[] = [
     keepGeneric: true,
     importRequesterStatement: 'import { fetcher } from "fffxx"',
     prettierConfig,
+    skipCache: true,
   },
 ]
 

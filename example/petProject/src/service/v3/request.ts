@@ -64,7 +64,7 @@ export interface IGetApiDatamapFieldDefOption {
 
 export interface IGetApiDatamapFieldDefResponse {
   /** OK */
-  200: any
+  200: ReplyVOPageVOFieldDefListVO
   /** Unauthorized */
   401: any
   /** Forbidden */
@@ -99,9 +99,14 @@ if (process.env.NODE_ENV === 'test') {
 getApiDatamapFieldDef.method = 'get'
 getApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
+/** request parameter type for putApiDatamapFieldDef */
+export interface IPutApiDatamapFieldDefOption {
+  body: any
+}
+
 export interface IPutApiDatamapFieldDefResponse {
   /** OK */
-  200: any
+  200: ReplyVOFieldDefShowVO
   /** Created */
   201: any
   /** Unauthorized */
@@ -120,13 +125,16 @@ export type IPutApiDatamapFieldDefResponseSuccess = PropertyType<
  * 修改
  * tags: API
  */
-export function putApiDatamapFieldDef(): Promise<
-  IPutApiDatamapFieldDefResponseSuccess
-> {
+export function putApiDatamapFieldDef(
+  option: IPutApiDatamapFieldDefOption,
+): Promise<IPutApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(putApiDatamapFieldDef.mockData as any)
   }
-  return requester('api/datamap/fieldDef', { method: 'put' }) as Promise<any>
+  return requester('api/datamap/fieldDef', {
+    method: 'put',
+    ...option,
+  }) as Promise<any>
 }
 
 if (process.env.NODE_ENV === 'test') {
@@ -135,9 +143,14 @@ if (process.env.NODE_ENV === 'test') {
 putApiDatamapFieldDef.method = 'put'
 putApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
+/** request parameter type for postApiDatamapFieldDef */
+export interface IPostApiDatamapFieldDefOption {
+  body: any
+}
+
 export interface IPostApiDatamapFieldDefResponse {
   /** Created */
-  201: any
+  201: ReplyVO
   /** Unauthorized */
   401: any
   /** Forbidden */
@@ -154,13 +167,16 @@ export type IPostApiDatamapFieldDefResponseSuccess = PropertyType<
  * 新增
  * tags: 表字段信息
  */
-export function postApiDatamapFieldDef(): Promise<
-  IPostApiDatamapFieldDefResponseSuccess
-> {
+export function postApiDatamapFieldDef(
+  option: IPostApiDatamapFieldDefOption,
+): Promise<IPostApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postApiDatamapFieldDef.mockData as any)
   }
-  return requester('api/datamap/fieldDef', { method: 'post' }) as Promise<any>
+  return requester('api/datamap/fieldDef', {
+    method: 'post',
+    ...option,
+  }) as Promise<any>
 }
 
 if (process.env.NODE_ENV === 'test') {
@@ -169,9 +185,14 @@ if (process.env.NODE_ENV === 'test') {
 postApiDatamapFieldDef.method = 'post'
 postApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
+/** request parameter type for deleteApiDatamapFieldDef */
+export interface IDeleteApiDatamapFieldDefOption {
+  body: any
+}
+
 export interface IDeleteApiDatamapFieldDefResponse {
   /** OK */
-  200: any
+  200: FieldDefAddDTO
   /** No Content */
   204: any
   /** Unauthorized */
@@ -188,17 +209,26 @@ export type IDeleteApiDatamapFieldDefResponseSuccess = PropertyType<
  * 批量删除
  * tags: API
  */
-export function deleteApiDatamapFieldDef(): Promise<
-  IDeleteApiDatamapFieldDefResponseSuccess
-> {
+export function deleteApiDatamapFieldDef(
+  option: IDeleteApiDatamapFieldDefOption,
+): Promise<IDeleteApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteApiDatamapFieldDef.mockData as any)
   }
-  return requester('api/datamap/fieldDef', { method: 'delete' }) as Promise<any>
+  return requester('api/datamap/fieldDef', {
+    method: 'delete',
+    ...option,
+  }) as Promise<any>
 }
 
 if (process.env.NODE_ENV === 'test') {
-  deleteApiDatamapFieldDef.mockData = '' as any
+  deleteApiDatamapFieldDef.mockData = {
+    description: 'string',
+    fieldId: 'string',
+    fieldName: 'name1',
+    tableId: 'string',
+    type: 'string',
+  } as any
 }
 deleteApiDatamapFieldDef.method = 'delete'
 deleteApiDatamapFieldDef.url = 'api/datamap/fieldDef'

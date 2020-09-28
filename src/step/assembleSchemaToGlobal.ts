@@ -1,5 +1,6 @@
 import { forEach, findKey } from 'lodash'
 import { Spec } from 'swagger-schema-official'
+import { OperationObject } from 'openapi3-ts'
 
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
@@ -7,6 +8,7 @@ import { httpMethods, IProject } from '../interface'
 import { getGlobal } from '../projectGlobalVariable'
 import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumType'
 import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
+import { getRefDeep } from '../tool/getRefDeep'
 
 /**
  * collect definition to definitionMap
@@ -49,6 +51,18 @@ export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
     forEach(httpMethods, httpMethod => {
       const operation = pathSchema[httpMethod]
       if (operation && !operation.deprecated) {
+        let { parameters } = operation
+        /** 兼容openapiv3，将requestBody格式组装成与v2相同的数据结构 */
+        if ('requestBody' in operation) {
+          parameters = [
+            {
+              in: 'body',
+              name: 'body',
+              required: true,
+              schema: getRefDeep((operation as OperationObject).requestBody),
+            },
+          ]
+        }
         requestMap[
           genFunctionName({
             httpMethod,
@@ -60,7 +74,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
           httpMethod,
           schema: operation!,
           responses: operation.responses,
-          parameters: operation.parameters,
+          parameters,
         }
       }
     })

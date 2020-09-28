@@ -5,3 +5,4 @@ example/fixture/ignore.json
 example/service/ignore
 tmp
 coverage
+lib

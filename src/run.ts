@@ -6,7 +6,7 @@ import { info } from './tool/log'
 export const processProject = async (project: IProject, tsGearConfigPath: string): Promise<void> => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project, tsGearConfigPath)
-  if (step.checkCache(project, tsGearConfigPath, spec)) {
+  if (!project.skipCache && step.checkCache(project, tsGearConfigPath, spec)) {
     info(`cache hit, skip regenerate project(${project.name})`)
     return
   }

@@ -1,9 +1,11 @@
 import { upperFirst } from 'lodash'
 import { Response, Reference } from 'swagger-schema-official'
+import { ResponseObject } from 'openapi3-ts'
 
 import { sow, harvest } from '../../source'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { getRefDeep } from '../../tool/getRefDeep'
 import { IAssembleResponse } from '../../interface'
 
 /**
@@ -28,6 +30,11 @@ export const generateResponseType = (
       isExported: true,
     })
     responseStatuses.forEach(status => {
+      const statusRes = responses[status]
+      /** 兼容openapiv3 */
+      if ('content' in statusRes) {
+        (statusRes as Response).schema = getRefDeep((statusRes as ResponseObject).content)
+      }
       inter.addProperty({
         name: String(status),
         type: schemaToTypescript(responses[status]),
