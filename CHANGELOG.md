@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/superwf/ts-gear/compare/v2.2.3...v3.0.0) (2020-11-25)
+
+
+### ⚠ BREAKING CHANGES
+
+* output type name changed
+
+### build
+
+* rename interface name ([567ae20](https://github.com/superwf/ts-gear/commit/567ae20b6956def9cc5ed77d06daf55d701572e0))
+
 ### [2.2.3](https://github.com/superwf/ts-gear/compare/v2.2.2...v2.2.3) (2020-09-28)
 
 
