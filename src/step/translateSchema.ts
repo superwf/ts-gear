@@ -2,7 +2,7 @@ import { Spec } from 'swagger-schema-official'
 import { find } from 'lodash'
 
 import { traverseSchema } from '../tool/traverseSchema'
-import { TranslationEngine, IWordsMap } from '../interface'
+import { TranslationEngine, WordsMap } from '../type'
 import { translate } from '../tool/translate'
 
 export const cnReg = /[\u4e00-\u9fa5]/
@@ -43,7 +43,7 @@ let $wordCount = 1
  * }
  * */
 export const generateTranslationMap = async (originWords: string[], engine: TranslationEngine) => {
-  const wordsMap: IWordsMap = {}
+  const wordsMap: WordsMap = {}
 
   if (originWords.length > 0) {
     await Promise.all(
@@ -62,7 +62,7 @@ export const generateTranslationMap = async (originWords: string[], engine: Tran
 }
 
 /** update words those need to be translated in spec */
-export const updateSchema = (spec: Spec, wordsMap: IWordsMap) => {
+export const updateSchema = (spec: Spec, wordsMap: WordsMap) => {
   const { definitions } = spec
   Object.getOwnPropertyNames(definitions!).forEach(k => {
     if (k in wordsMap) {

@@ -3,7 +3,7 @@ import { join } from 'path'
 
 import { getGlobal } from '../projectGlobalVariable'
 import { prettierWrite } from '../tool/prettierWrite'
-import type { IProject } from '../interface'
+import type { Project } from '../type'
 import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
@@ -14,7 +14,7 @@ import { importAllDefinition } from './importAllDefinition'
 
 /** gather global typescript content
  * write to project dir */
-export const writeProject = (project: IProject, tsGearConfigPath: string) => {
+export const writeProject = (project: Project, tsGearConfigPath: string) => {
   const { definitionMap, requestMap, enumMap } = getGlobal(project)
   const dest = join(tsGearConfigPath, project.dest, project.name)
 

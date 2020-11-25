@@ -3,7 +3,7 @@ import { join } from 'path'
 import 'cross-fetch/polyfill'
 
 import { error, info } from '../tool/log'
-import { IProject } from '../interface'
+import { Project } from '../type'
 
 /**
  * fetch remote spec if url starts with "http"
@@ -11,7 +11,7 @@ import { IProject } from '../interface'
  * when remote swagger doc has auth, the best way is download the spec to local, and assign the local file path.
  * the second param ref is https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * */
-export const fetchSwagger = async (project: IProject, tsGearConfigPath: string) => {
+export const fetchSwagger = async (project: Project, tsGearConfigPath: string) => {
   const url = project.source
   if (url.startsWith('http')) {
     const verbose = `project: ${project.name} url: ${url}`

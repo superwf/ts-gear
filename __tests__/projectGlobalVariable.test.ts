@@ -1,8 +1,8 @@
 import { restore, getGlobal } from 'src/projectGlobalVariable'
-import { IProject } from 'src/interface'
+import { Project } from 'src/type'
 
 describe('src/global', () => {
-  const project: IProject = {
+  const project: Project = {
     name: 'pet',
     dest: './service',
     source: 'fixture/pet.json',

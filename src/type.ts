@@ -30,7 +30,7 @@ export type HttpMethod = typeof httpMethods[number]
 export type RequestParameterPosition = PropertyType<BaseParameter, 'in'>
 
 /** request parameter option */
-export type IRequestParameter = {
+export type RequestParameter = {
   method?: HttpMethod
   basePath?: string
   host?: string
@@ -39,7 +39,7 @@ export type IRequestParameter = {
 }
 
 /** requester function signature */
-export type Requester = (url: string, param?: IRequestParameter) => Promise<any>
+export type Requester = (url: string, param?: RequestParameter) => Promise<any>
 
 // export interface IRequestFunction<T1, T2> {
 //   (option: T1): Promise<T2>
@@ -47,7 +47,7 @@ export type Requester = (url: string, param?: IRequestParameter) => Promise<any>
 // }
 
 /** json schema traverse datatype */
-export interface ITraverseSchemaNode {
+export interface TraverseSchemaNode {
   value: any
   key: string
   parent: any
@@ -70,13 +70,13 @@ export type ParameterPositionMap = {
 
 export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
 
-export interface IGenerateRequestFunctionNameParameter {
+export interface GenerateRequestFunctionNameParameter {
   httpMethod: HttpMethod
   pathName: string
   schema: Path
 }
 
-export interface IProject {
+export interface Project {
   /** project name
    * will used to mkdir in "dest"
    * */
@@ -118,7 +118,7 @@ export interface IProject {
    * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
    * or else use your own function as requester is definitily ok,
    * request function signiture as below
-   *   (url: string, param: IRequestParameter) => Promise<any>
+   *   (url: string, param: RequestParameter) => Promise<any>
    * */
   requester?: Requester
 
@@ -179,7 +179,7 @@ export interface IProject {
   prettierConfig?: Options
 
   /** default generate request function method */
-  generateRequestFunctionName?: (arg: IGenerateRequestFunctionNameParameter) => string
+  generateRequestFunctionName?: (arg: GenerateRequestFunctionNameParameter) => string
 
   /**
    * need js file? OK, change this to true
@@ -193,14 +193,14 @@ export interface IProject {
   skipCache?: boolean
 }
 
-export interface IAssembleResponse {
+export interface AssembleResponse {
   responseTypeContent: string
   successTypeContent: string
   responseTypeName: string
   successTypeName: string
 }
 
-export interface ISwaggerDefinition {
+export interface SwaggerDefinition {
   // no generic simbol type name
   originalName?: string
   typeName: string
@@ -209,7 +209,7 @@ export interface ISwaggerDefinition {
   typeParameters?: string[]
 }
 
-export interface ISwaggerRequest {
+export interface SwaggerRequest {
   pathName: string
   httpMethod: HttpMethod
   schema: Operation
@@ -218,30 +218,30 @@ export interface ISwaggerRequest {
   responses: { [responseName: string]: Response | Reference }
 }
 
-export interface IGenericNameNode {
+export interface GenericNameNode {
   name: string
   level?: number
-  children?: IGenericNameNode[]
-  parent?: IGenericNameNode
+  children?: GenericNameNode[]
+  parent?: GenericNameNode
 }
 
 /** definition name may be changed when parsing generic type
  * then the ref name can not find the map in definition
  * use this map to link the changed definition and ref name.
  * */
-export interface IRefMap {
+export interface RefMap {
   /** key: maybe generic, as "A<B>", value: trimed generic symbol, as "AB" */
-  [origin: string]: ISwaggerDefinition
+  [origin: string]: SwaggerDefinition
 }
-export interface IDefinitionMap {
+export interface DefinitionMap {
   // key: cleaned name, may be generic as A<B>
-  [definitionName: string]: ISwaggerDefinition
+  [definitionName: string]: SwaggerDefinition
 }
-export interface IRequestMap {
-  [requestFunctionName: string]: ISwaggerRequest
+export interface RequestMap {
+  [requestFunctionName: string]: SwaggerRequest
 }
 
-export interface IEnumMap {
+export interface EnumMap {
   [enumTypeName: string]: {
     typescriptContent: string
     originalContent: string
@@ -249,22 +249,22 @@ export interface IEnumMap {
 }
 
 /** key: origin word, value: translated english word */
-export interface IWordsMap {
+export interface WordsMap {
   [k: string]: string
 }
 
 /** global variables per project */
-export interface IProjectGlobal {
-  definitionMap: IDefinitionMap
+export interface ProjectGlobal {
+  definitionMap: DefinitionMap
   /** all Reference $ref name use this map
    * key is original ref name
    * value is definition
    * */
-  requestMap: IRequestMap
+  requestMap: RequestMap
   requestRefSet: Set<string>
   requestEnumSet: Set<string>
-  enumMap: IEnumMap
+  enumMap: EnumMap
 }
-export interface IProjectGlobalMap {
-  [projectName: string]: IProjectGlobal
+export interface ProjectGlobalMap {
+  [projectName: string]: ProjectGlobal
 }

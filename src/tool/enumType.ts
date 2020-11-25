@@ -1,7 +1,7 @@
 import { Spec } from 'swagger-schema-official'
 import { get, remove, upperFirst } from 'lodash'
 
-import { httpMethods } from '../interface'
+import { httpMethods } from '../type'
 
 import { cleanName } from './cleanName'
 

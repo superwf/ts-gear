@@ -6,7 +6,7 @@
 import { Schema } from 'swagger-schema-official'
 import { find, isObject, isFunction, castArray } from 'lodash'
 
-import { ISwaggerRequest, IDefinitionMap, IEnumMap } from '../../interface'
+import { SwaggerRequest, DefinitionMap, EnumMap } from '../../type'
 
 // Deeply strips a specific key from an object.
 //
@@ -69,7 +69,7 @@ const primitive = (schema: Schema): any => {
  * */
 const schemaSet = new Set()
 
-export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap, enumMap: IEnumMap): any => {
+export const sampleFromSchema = (schema: Schema, definitionMap: DefinitionMap, enumMap: EnumMap): any => {
   if (schemaSet.has(schema)) {
     return ''
   }
@@ -154,7 +154,7 @@ export const sampleFromSchema = (schema: Schema, definitionMap: IDefinitionMap, 
   return primitive(schema)
 }
 
-export const generateMockData = (request: ISwaggerRequest, definitionMap: IDefinitionMap, enumMap: IEnumMap) => {
+export const generateMockData = (request: SwaggerRequest, definitionMap: DefinitionMap, enumMap: EnumMap) => {
   schemaSet.clear()
   if (request.responses) {
     const schema = find(request.responses, (v, k) => k === 'default' || k.startsWith('2'))

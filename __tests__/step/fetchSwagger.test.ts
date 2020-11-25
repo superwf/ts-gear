@@ -3,25 +3,25 @@ import { join } from 'path'
 import { getOnce } from 'fetch-mock'
 
 import * as step from 'src/step'
-import { IProject } from 'src/interface'
+import { Project } from 'src/type'
 
 describe('fetchSwagger', () => {
   const cwd = process.cwd()
-  it('file not ends with json', (done) => {
-    const project: IProject = {
+  it('file not ends with json', done => {
+    const project: Project = {
       name: 'abc',
       source: 'abc',
       dest: 'abc',
       requester: () => Promise.resolve(),
     }
-    step.fetchSwagger(project, '').catch((e) => {
+    step.fetchSwagger(project, '').catch(e => {
       expect(e.message).toBe('user config file should ends with `.json`')
       done()
     })
   })
 
   it('get json', async () => {
-    const project: IProject = {
+    const project: Project = {
       name: 'abc',
       source: join('example', 'petProject', 'package.json'),
       dest: 'abc',
@@ -33,7 +33,7 @@ describe('fetchSwagger', () => {
   })
 
   it('fetch remote spec', async () => {
-    const project: IProject = {
+    const project: Project = {
       name: 'abc',
       source: 'http://abc.com',
       dest: 'abc',

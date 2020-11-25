@@ -1,4 +1,4 @@
-import { IGenericNameNode, IDefinitionMap } from '../interface'
+import { GenericNameNode, DefinitionMap } from '../type'
 
 export const hasGenericSymbol = (name: string) => {
   return name.includes('<')
@@ -8,10 +8,10 @@ export const removeGenericSymbol = (name: string) => name.replace(/<|>|,/g, '')
 
 /** process generic type name */
 export const parseGenericNames = (name: string) => {
-  let currentNode: IGenericNameNode = { name: '', level: 0 }
-  let parentNode: IGenericNameNode | undefined = currentNode
+  let currentNode: GenericNameNode = { name: '', level: 0 }
+  let parentNode: GenericNameNode | undefined = currentNode
   let nestLevel = 0
-  const result: IGenericNameNode[] = [currentNode]
+  const result: GenericNameNode[] = [currentNode]
   for (let i = 0; i < name.length; i += 1) {
     const c = name[i]
     if (c === '<') {
@@ -43,7 +43,7 @@ export const parseGenericNames = (name: string) => {
 /** from generic name node to name string
  * reverse of parseGenericNames
  * */
-export const getGenericNameFromNode = (node: IGenericNameNode): string => {
+export const getGenericNameFromNode = (node: GenericNameNode): string => {
   const { name, children } = node
   if (!children) {
     return name
@@ -55,7 +55,7 @@ export const getGenericNameFromNode = (node: IGenericNameNode): string => {
  * if exist in definitionMap keep it
  * else remove generic symbol: <>
  * */
-export const guessGenericTypeName = (node: IGenericNameNode, definitionMap: IDefinitionMap): string => {
+export const guessGenericTypeName = (node: GenericNameNode, definitionMap: DefinitionMap): string => {
   const name = getGenericNameFromNode(node)
   if (!(node.name in definitionMap)) {
     return removeGenericSymbol(name)

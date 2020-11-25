@@ -3,9 +3,9 @@ import { join } from 'path'
 
 import { sync } from 'mkdirp'
 
-import { IProject } from '../interface'
+import { Project } from '../type'
 
-export const prepareProjectDirectory = (project: IProject, tsGearConfigPath: string) => {
+export const prepareProjectDirectory = (project: Project, tsGearConfigPath: string) => {
   const dest = join(tsGearConfigPath, project.dest, project.name)
   if (!existsSync(dest)) {
     sync(dest)

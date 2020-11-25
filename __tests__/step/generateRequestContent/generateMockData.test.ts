@@ -4,12 +4,12 @@ import { Spec } from 'swagger-schema-official'
 import * as petSpec from 'example/fixture/pet.json'
 import { generateMockData } from 'src/step/generateRequestContent/generateMockData'
 import * as step from 'src/step'
-import { IProject } from 'src/interface'
+import { Project } from 'src/type'
 import { getGlobal, restore } from 'src/projectGlobalVariable'
 
 describe('sample', () => {
   it('make sample data', () => {
-    const project: IProject = {
+    const project: Project = {
       name: 'projectPont',
       source: 'fixture/pontFixture.json',
       dest: './service',

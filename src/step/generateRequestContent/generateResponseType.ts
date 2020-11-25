@@ -6,7 +6,7 @@ import { sow, harvest } from '../../source'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { assembleDoc } from '../../tool/assembleDoc'
 import { getRefDeep } from '../../tool/getRefDeep'
-import { IAssembleResponse } from '../../interface'
+import { AssembleResponse } from '../../type'
 
 /**
  * when has responses spec, get an interface type and use the first 2xx member as successType
@@ -15,8 +15,8 @@ import { IAssembleResponse } from '../../interface'
 export const generateResponseType = (
   functionName: string,
   responses: { [responseName: string]: Response | Reference },
-): IAssembleResponse => {
-  const responseTypeName = `I${upperFirst(functionName)}Response`
+): AssembleResponse => {
+  const responseTypeName = `${upperFirst(functionName)}Response`
 
   // use first 2xx response type as success response type
   let successTypeContent = `export type ${responseTypeName}Success = any`
@@ -33,7 +33,7 @@ export const generateResponseType = (
       const statusRes = responses[status]
       /** 兼容openapiv3 */
       if ('content' in statusRes) {
-        (statusRes as Response).schema = getRefDeep((statusRes as ResponseObject).content)
+        ;(statusRes as Response).schema = getRefDeep((statusRes as ResponseObject).content)
       }
       inter.addProperty({
         name: String(status),

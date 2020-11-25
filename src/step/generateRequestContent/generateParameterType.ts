@@ -1,7 +1,7 @@
 import { Parameter, Reference } from 'swagger-schema-official'
 import { isEmpty, upperFirst } from 'lodash'
 
-import { RequestParameterPosition } from '../../interface'
+import { RequestParameterPosition } from '../../type'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { sow, harvest } from '../../source'
 
@@ -13,7 +13,7 @@ import { assembleRequestParam } from './assembleRequestParam'
  * */
 export const generateParameterType = (functionName: string, parameters: Array<Parameter | Reference>) => {
   const source = sow()
-  const parameterTypeName = `I${upperFirst(functionName)}Option`
+  const parameterTypeName = `${upperFirst(functionName)}Option`
   const inter = source.addInterface({
     isExported: true,
     name: parameterTypeName,

@@ -4,7 +4,7 @@
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
 import projects from '../../tsg.config'
-import {
+import type {
   GetPetFindByStatusItems,
   Pet,
   ApiResponse,
@@ -14,12 +14,12 @@ import {
 const project = projects.find((p) => p.name === 'pet')!
 const requester = project.requester!
 /** request parameter type for putPet */
-export interface IPutPetOption {
+export interface PutPetOption {
   /** Pet object that needs to be added to the store */
   body: Pet
 }
 
-export interface IPutPetResponse {
+export interface PutPetResponse {
   /** Invalid ID supplied */
   400: any
   /** Pet not found */
@@ -28,14 +28,14 @@ export interface IPutPetResponse {
   405: any
 }
 
-export type IPutPetResponseSuccess = any
+export type PutPetResponseSuccess = any
 /**
  * Update an existing pet
  * tags: pet
  * produces: application／xml,application/json
  * consumes: application／json,application/xml
  */
-export function putPet(option: IPutPetOption): Promise<IPutPetResponseSuccess> {
+export function putPet(option: PutPetOption): Promise<PutPetResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(putPet.mockData as any)
   }
@@ -49,17 +49,17 @@ putPet.method = 'put'
 putPet.url = '/v2/pet'
 
 /** request parameter type for postPet */
-export interface IPostPetOption {
+export interface PostPetOption {
   /** Pet object that needs to be added to the store */
   body: Pet
 }
 
-export interface IPostPetResponse {
+export interface PostPetResponse {
   /** Invalid input */
   405: any
 }
 
-export type IPostPetResponseSuccess = any
+export type PostPetResponseSuccess = any
 /**
  * Add a new pet to the store
  * tags: pet
@@ -67,8 +67,8 @@ export type IPostPetResponseSuccess = any
  * consumes: application／json,application/xml
  */
 export function postPet(
-  option: IPostPetOption,
-): Promise<IPostPetResponseSuccess> {
+  option: PostPetOption,
+): Promise<PostPetResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postPet.mockData as any)
   }
@@ -82,7 +82,7 @@ postPet.method = 'post'
 postPet.url = '/v2/pet'
 
 /** request parameter type for getPetFindByStatus */
-export interface IGetPetFindByStatusOption {
+export interface GetPetFindByStatusOption {
   /** Status values that need to be considered for filter */
   query: {
     /**
@@ -91,15 +91,15 @@ export interface IGetPetFindByStatusOption {
   }
 }
 
-export interface IGetPetFindByStatusResponse {
+export interface GetPetFindByStatusResponse {
   /** successful operation */
   200: Array<Pet>
   /** Invalid status value */
   400: any
 }
 
-export type IGetPetFindByStatusResponseSuccess = PropertyType<
-  IGetPetFindByStatusResponse,
+export type GetPetFindByStatusResponseSuccess = PropertyType<
+  GetPetFindByStatusResponse,
   200
 >
 /**
@@ -109,8 +109,8 @@ export type IGetPetFindByStatusResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function getPetFindByStatus(
-  option: IGetPetFindByStatusOption,
-): Promise<IGetPetFindByStatusResponseSuccess> {
+  option: GetPetFindByStatusOption,
+): Promise<GetPetFindByStatusResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getPetFindByStatus.mockData as any)
   }
@@ -136,7 +136,7 @@ getPetFindByStatus.method = 'get'
 getPetFindByStatus.url = '/v2/pet/findByStatus'
 
 /** request parameter type for getPetPetId */
-export interface IGetPetPetIdOption {
+export interface GetPetPetIdOption {
   /**
    * ID of pet to return
    * format: int64
@@ -149,7 +149,7 @@ export interface IGetPetPetIdOption {
   }
 }
 
-export interface IGetPetPetIdResponse {
+export interface GetPetPetIdResponse {
   /** successful operation */
   200: Pet
   /** Invalid ID supplied */
@@ -158,10 +158,7 @@ export interface IGetPetPetIdResponse {
   404: any
 }
 
-export type IGetPetPetIdResponseSuccess = PropertyType<
-  IGetPetPetIdResponse,
-  200
->
+export type GetPetPetIdResponseSuccess = PropertyType<GetPetPetIdResponse, 200>
 /**
  * Returns a single pet
  * Find pet by ID
@@ -169,8 +166,8 @@ export type IGetPetPetIdResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function getPetPetId(
-  option: IGetPetPetIdOption,
-): Promise<IGetPetPetIdResponseSuccess> {
+  option: GetPetPetIdOption,
+): Promise<GetPetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getPetPetId.mockData as any)
   }
@@ -193,7 +190,7 @@ getPetPetId.method = 'get'
 getPetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetId */
-export interface IPostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * ID of pet that needs to be updated
    * format: int64
@@ -215,12 +212,12 @@ export interface IPostPetPetIdOption {
   }
 }
 
-export interface IPostPetPetIdResponse {
+export interface PostPetPetIdResponse {
   /** Invalid input */
   405: any
 }
 
-export type IPostPetPetIdResponseSuccess = any
+export type PostPetPetIdResponseSuccess = any
 /**
  * Updates a pet in the store with form data
  * tags: pet
@@ -228,8 +225,8 @@ export type IPostPetPetIdResponseSuccess = any
  * consumes: application／x-www-form-urlencoded
  */
 export function postPetPetId(
-  option: IPostPetPetIdOption,
-): Promise<IPostPetPetIdResponseSuccess> {
+  option: PostPetPetIdOption,
+): Promise<PostPetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postPetPetId.mockData as any)
   }
@@ -245,7 +242,7 @@ postPetPetId.method = 'post'
 postPetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for deletePetPetId */
-export interface IDeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   header?: {
     api_key?: string
   }
@@ -261,22 +258,22 @@ export interface IDeletePetPetIdOption {
   }
 }
 
-export interface IDeletePetPetIdResponse {
+export interface DeletePetPetIdResponse {
   /** Invalid ID supplied */
   400: any
   /** Pet not found */
   404: any
 }
 
-export type IDeletePetPetIdResponseSuccess = any
+export type DeletePetPetIdResponseSuccess = any
 /**
  * Deletes a pet
  * tags: pet
  * produces: application／xml,application/json
  */
 export function deletePetPetId(
-  option: IDeletePetPetIdOption,
-): Promise<IDeletePetPetIdResponseSuccess> {
+  option: DeletePetPetIdOption,
+): Promise<DeletePetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deletePetPetId.mockData as any)
   }
@@ -293,7 +290,7 @@ deletePetPetId.method = 'delete'
 deletePetPetId.url = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetIdUploadImage */
-export interface IPostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * ID of pet to update
    * format: int64
@@ -315,13 +312,13 @@ export interface IPostPetPetIdUploadImageOption {
   }
 }
 
-export interface IPostPetPetIdUploadImageResponse {
+export interface PostPetPetIdUploadImageResponse {
   /** successful operation */
   200: ApiResponse
 }
 
-export type IPostPetPetIdUploadImageResponseSuccess = PropertyType<
-  IPostPetPetIdUploadImageResponse,
+export type PostPetPetIdUploadImageResponseSuccess = PropertyType<
+  PostPetPetIdUploadImageResponse,
   200
 >
 /**
@@ -331,8 +328,8 @@ export type IPostPetPetIdUploadImageResponseSuccess = PropertyType<
  * consumes: multipart／form-data
  */
 export function postPetPetIdUploadImage(
-  option: IPostPetPetIdUploadImageOption,
-): Promise<IPostPetPetIdUploadImageResponseSuccess> {
+  option: PostPetPetIdUploadImageOption,
+): Promise<PostPetPetIdUploadImageResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postPetPetIdUploadImage.mockData as any)
   }
@@ -352,15 +349,15 @@ if (process.env.NODE_ENV === 'test') {
 postPetPetIdUploadImage.method = 'post'
 postPetPetIdUploadImage.url = '/v2/pet/:petId/uploadImage'
 
-export interface IGetStoreInventoryResponse {
+export interface GetStoreInventoryResponse {
   /** successful operation */
   200: {
     [propertyName: string]: number
   }
 }
 
-export type IGetStoreInventoryResponseSuccess = PropertyType<
-  IGetStoreInventoryResponse,
+export type GetStoreInventoryResponseSuccess = PropertyType<
+  GetStoreInventoryResponse,
   200
 >
 /**
@@ -369,9 +366,7 @@ export type IGetStoreInventoryResponseSuccess = PropertyType<
  * tags: store
  * produces: application／json
  */
-export function getStoreInventory(): Promise<
-  IGetStoreInventoryResponseSuccess
-> {
+export function getStoreInventory(): Promise<GetStoreInventoryResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getStoreInventory.mockData as any)
   }
@@ -389,20 +384,20 @@ getStoreInventory.method = 'get'
 getStoreInventory.url = '/v2/store/inventory'
 
 /** request parameter type for postStoreOrder */
-export interface IPostStoreOrderOption {
+export interface PostStoreOrderOption {
   /** order placed for purchasing the pet */
   body: Order
 }
 
-export interface IPostStoreOrderResponse {
+export interface PostStoreOrderResponse {
   /** successful operation */
   200: Order
   /** Invalid Order */
   400: any
 }
 
-export type IPostStoreOrderResponseSuccess = PropertyType<
-  IPostStoreOrderResponse,
+export type PostStoreOrderResponseSuccess = PropertyType<
+  PostStoreOrderResponse,
   200
 >
 /**
@@ -411,8 +406,8 @@ export type IPostStoreOrderResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function postStoreOrder(
-  option: IPostStoreOrderOption,
-): Promise<IPostStoreOrderResponseSuccess> {
+  option: PostStoreOrderOption,
+): Promise<PostStoreOrderResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postStoreOrder.mockData as any)
   }
@@ -435,7 +430,7 @@ postStoreOrder.method = 'post'
 postStoreOrder.url = '/v2/store/order'
 
 /** request parameter type for getStoreOrderOrderId */
-export interface IGetStoreOrderOrderIdOption {
+export interface GetStoreOrderOrderIdOption {
   /**
    * ID of pet that needs to be fetched
    * format: int64
@@ -448,7 +443,7 @@ export interface IGetStoreOrderOrderIdOption {
   }
 }
 
-export interface IGetStoreOrderOrderIdResponse {
+export interface GetStoreOrderOrderIdResponse {
   /** successful operation */
   200: Order
   /** Invalid ID supplied */
@@ -457,8 +452,8 @@ export interface IGetStoreOrderOrderIdResponse {
   404: any
 }
 
-export type IGetStoreOrderOrderIdResponseSuccess = PropertyType<
-  IGetStoreOrderOrderIdResponse,
+export type GetStoreOrderOrderIdResponseSuccess = PropertyType<
+  GetStoreOrderOrderIdResponse,
   200
 >
 /**
@@ -468,8 +463,8 @@ export type IGetStoreOrderOrderIdResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function getStoreOrderOrderId(
-  option: IGetStoreOrderOrderIdOption,
-): Promise<IGetStoreOrderOrderIdResponseSuccess> {
+  option: GetStoreOrderOrderIdOption,
+): Promise<GetStoreOrderOrderIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getStoreOrderOrderId.mockData as any)
   }
@@ -493,7 +488,7 @@ getStoreOrderOrderId.method = 'get'
 getStoreOrderOrderId.url = '/v2/store/order/:orderId'
 
 /** request parameter type for deleteStoreOrderOrderId */
-export interface IDeleteStoreOrderOrderIdOption {
+export interface DeleteStoreOrderOrderIdOption {
   /**
    * ID of the order that needs to be deleted
    * format: int64
@@ -506,14 +501,14 @@ export interface IDeleteStoreOrderOrderIdOption {
   }
 }
 
-export interface IDeleteStoreOrderOrderIdResponse {
+export interface DeleteStoreOrderOrderIdResponse {
   /** Invalid ID supplied */
   400: any
   /** Order not found */
   404: any
 }
 
-export type IDeleteStoreOrderOrderIdResponseSuccess = any
+export type DeleteStoreOrderOrderIdResponseSuccess = any
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * Delete purchase order by ID
@@ -521,8 +516,8 @@ export type IDeleteStoreOrderOrderIdResponseSuccess = any
  * produces: application／xml,application/json
  */
 export function deleteStoreOrderOrderId(
-  option: IDeleteStoreOrderOrderIdOption,
-): Promise<IDeleteStoreOrderOrderIdResponseSuccess> {
+  option: DeleteStoreOrderOrderIdOption,
+): Promise<DeleteStoreOrderOrderIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteStoreOrderOrderId.mockData as any)
   }
@@ -539,20 +534,17 @@ deleteStoreOrderOrderId.method = 'delete'
 deleteStoreOrderOrderId.url = '/v2/store/order/:orderId'
 
 /** request parameter type for postUser */
-export interface IPostUserOption {
+export interface PostUserOption {
   /** Created user object */
   body: User
 }
 
-export interface IPostUserResponse {
+export interface PostUserResponse {
   /** successful operation */
   default: any
 }
 
-export type IPostUserResponseSuccess = PropertyType<
-  IPostUserResponse,
-  'default'
->
+export type PostUserResponseSuccess = PropertyType<PostUserResponse, 'default'>
 /**
  * This can only be done by the logged in user.
  * Create user
@@ -560,8 +552,8 @@ export type IPostUserResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function postUser(
-  option: IPostUserOption,
-): Promise<IPostUserResponseSuccess> {
+  option: PostUserOption,
+): Promise<PostUserResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postUser.mockData as any)
   }
@@ -575,18 +567,18 @@ postUser.method = 'post'
 postUser.url = '/v2/user'
 
 /** request parameter type for postUserCreateWithArray */
-export interface IPostUserCreateWithArrayOption {
+export interface PostUserCreateWithArrayOption {
   /** List of user object */
   body: Array<User>
 }
 
-export interface IPostUserCreateWithArrayResponse {
+export interface PostUserCreateWithArrayResponse {
   /** successful operation */
   default: any
 }
 
-export type IPostUserCreateWithArrayResponseSuccess = PropertyType<
-  IPostUserCreateWithArrayResponse,
+export type PostUserCreateWithArrayResponseSuccess = PropertyType<
+  PostUserCreateWithArrayResponse,
   'default'
 >
 /**
@@ -595,8 +587,8 @@ export type IPostUserCreateWithArrayResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function postUserCreateWithArray(
-  option: IPostUserCreateWithArrayOption,
-): Promise<IPostUserCreateWithArrayResponseSuccess> {
+  option: PostUserCreateWithArrayOption,
+): Promise<PostUserCreateWithArrayResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postUserCreateWithArray.mockData as any)
   }
@@ -613,18 +605,18 @@ postUserCreateWithArray.method = 'post'
 postUserCreateWithArray.url = '/v2/user/createWithArray'
 
 /** request parameter type for postUserCreateWithList */
-export interface IPostUserCreateWithListOption {
+export interface PostUserCreateWithListOption {
   /** List of user object */
   body: Array<User>
 }
 
-export interface IPostUserCreateWithListResponse {
+export interface PostUserCreateWithListResponse {
   /** successful operation */
   default: any
 }
 
-export type IPostUserCreateWithListResponseSuccess = PropertyType<
-  IPostUserCreateWithListResponse,
+export type PostUserCreateWithListResponseSuccess = PropertyType<
+  PostUserCreateWithListResponse,
   'default'
 >
 /**
@@ -633,8 +625,8 @@ export type IPostUserCreateWithListResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function postUserCreateWithList(
-  option: IPostUserCreateWithListOption,
-): Promise<IPostUserCreateWithListResponseSuccess> {
+  option: PostUserCreateWithListOption,
+): Promise<PostUserCreateWithListResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postUserCreateWithList.mockData as any)
   }
@@ -651,7 +643,7 @@ postUserCreateWithList.method = 'post'
 postUserCreateWithList.url = '/v2/user/createWithList'
 
 /** request parameter type for getUserLogin */
-export interface IGetUserLoginOption {
+export interface GetUserLoginOption {
   /** The user name for login */
   query: {
     /**
@@ -663,15 +655,15 @@ export interface IGetUserLoginOption {
   }
 }
 
-export interface IGetUserLoginResponse {
+export interface GetUserLoginResponse {
   /** successful operation */
   200: string
   /** Invalid username／password supplied */
   400: any
 }
 
-export type IGetUserLoginResponseSuccess = PropertyType<
-  IGetUserLoginResponse,
+export type GetUserLoginResponseSuccess = PropertyType<
+  GetUserLoginResponse,
   200
 >
 /**
@@ -680,8 +672,8 @@ export type IGetUserLoginResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function getUserLogin(
-  option: IGetUserLoginOption,
-): Promise<IGetUserLoginResponseSuccess> {
+  option: GetUserLoginOption,
+): Promise<GetUserLoginResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getUserLogin.mockData as any)
   }
@@ -696,13 +688,13 @@ if (process.env.NODE_ENV === 'test') {
 getUserLogin.method = 'get'
 getUserLogin.url = '/v2/user/login'
 
-export interface IGetUserLogoutResponse {
+export interface GetUserLogoutResponse {
   /** successful operation */
   default: any
 }
 
-export type IGetUserLogoutResponseSuccess = PropertyType<
-  IGetUserLogoutResponse,
+export type GetUserLogoutResponseSuccess = PropertyType<
+  GetUserLogoutResponse,
   'default'
 >
 /**
@@ -710,7 +702,7 @@ export type IGetUserLogoutResponseSuccess = PropertyType<
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserLogout(): Promise<IGetUserLogoutResponseSuccess> {
+export function getUserLogout(): Promise<GetUserLogoutResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getUserLogout.mockData as any)
   }
@@ -724,7 +716,7 @@ getUserLogout.method = 'get'
 getUserLogout.url = '/v2/user/logout'
 
 /** request parameter type for getUserUsername */
-export interface IGetUserUsernameOption {
+export interface GetUserUsernameOption {
   /** The name that needs to be fetched. Use user1 for testing. */
   path: {
     /**
@@ -733,7 +725,7 @@ export interface IGetUserUsernameOption {
   }
 }
 
-export interface IGetUserUsernameResponse {
+export interface GetUserUsernameResponse {
   /** successful operation */
   200: User
   /** Invalid username supplied */
@@ -742,8 +734,8 @@ export interface IGetUserUsernameResponse {
   404: any
 }
 
-export type IGetUserUsernameResponseSuccess = PropertyType<
-  IGetUserUsernameResponse,
+export type GetUserUsernameResponseSuccess = PropertyType<
+  GetUserUsernameResponse,
   200
 >
 /**
@@ -752,8 +744,8 @@ export type IGetUserUsernameResponseSuccess = PropertyType<
  * produces: application／xml,application/json
  */
 export function getUserUsername(
-  option: IGetUserUsernameOption,
-): Promise<IGetUserUsernameResponseSuccess> {
+  option: GetUserUsernameOption,
+): Promise<GetUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getUserUsername.mockData as any)
   }
@@ -779,7 +771,7 @@ getUserUsername.method = 'get'
 getUserUsername.url = '/v2/user/:username'
 
 /** request parameter type for putUserUsername */
-export interface IPutUserUsernameOption {
+export interface PutUserUsernameOption {
   /** name that need to be updated */
   path: {
     /**
@@ -790,14 +782,14 @@ export interface IPutUserUsernameOption {
   body: User
 }
 
-export interface IPutUserUsernameResponse {
+export interface PutUserUsernameResponse {
   /** Invalid user supplied */
   400: any
   /** User not found */
   404: any
 }
 
-export type IPutUserUsernameResponseSuccess = any
+export type PutUserUsernameResponseSuccess = any
 /**
  * This can only be done by the logged in user.
  * Updated user
@@ -805,8 +797,8 @@ export type IPutUserUsernameResponseSuccess = any
  * produces: application／xml,application/json
  */
 export function putUserUsername(
-  option: IPutUserUsernameOption,
-): Promise<IPutUserUsernameResponseSuccess> {
+  option: PutUserUsernameOption,
+): Promise<PutUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(putUserUsername.mockData as any)
   }
@@ -823,7 +815,7 @@ putUserUsername.method = 'put'
 putUserUsername.url = '/v2/user/:username'
 
 /** request parameter type for deleteUserUsername */
-export interface IDeleteUserUsernameOption {
+export interface DeleteUserUsernameOption {
   /** The name that needs to be deleted */
   path: {
     /**
@@ -832,14 +824,14 @@ export interface IDeleteUserUsernameOption {
   }
 }
 
-export interface IDeleteUserUsernameResponse {
+export interface DeleteUserUsernameResponse {
   /** Invalid username supplied */
   400: any
   /** User not found */
   404: any
 }
 
-export type IDeleteUserUsernameResponseSuccess = any
+export type DeleteUserUsernameResponseSuccess = any
 /**
  * This can only be done by the logged in user.
  * Delete user
@@ -847,8 +839,8 @@ export type IDeleteUserUsernameResponseSuccess = any
  * produces: application／xml,application/json
  */
 export function deleteUserUsername(
-  option: IDeleteUserUsernameOption,
-): Promise<IDeleteUserUsernameResponseSuccess> {
+  option: DeleteUserUsernameOption,
+): Promise<DeleteUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteUserUsername.mockData as any)
   }

@@ -4,7 +4,7 @@ import * as URL from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
-import { IRequestParameter, Requester } from '../interface'
+import { RequestParameter, Requester } from '../type'
 
 const jsonType = 'application/json'
 
@@ -12,7 +12,7 @@ const jsonType = 'application/json'
  * e.g.
  * parseUrl('/api/abc/:id', { path: { id: '123' }, query: { name: 'def' } }) => '/api/abc/123?name=def'
  * */
-export const parseUrl = (url: string, option: IRequestParameter): string => {
+export const parseUrl = (url: string, option: RequestParameter): string => {
   if (option.path) {
     Object.getOwnPropertyNames(option.path).forEach(k => {
       option.path[k] = encodeURIComponent(String(option.path[k]))
@@ -41,7 +41,7 @@ export const parseUrl = (url: string, option: IRequestParameter): string => {
  * */
 export function interceptRequest(
   url: string,
-  option: IRequestParameter & {
+  option: RequestParameter & {
     requestInit?: RequestInit
   },
 ): [string, RequestInit] {
@@ -113,7 +113,7 @@ export const requester = (
   requestInit?: RequestInit & {
     baseURL?: string
   },
-): Requester => (apiUrl: string, param?: IRequestParameter) => {
+): Requester => (apiUrl: string, param?: RequestParameter) => {
   const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
   const baseURL = (requestInit && requestInit.baseURL) || ''
   return fetch(`${baseURL}${url}`, option).then(interceptResponse)

@@ -6,10 +6,10 @@ import * as petSchema from 'example/fixture/pet.json'
 import projects from 'example/petProject/src/tsg.config'
 import * as step from 'src/step'
 import { restore } from 'src/projectGlobalVariable'
-import { IProject } from 'src/interface'
+import { Project } from 'src/type'
 
 describe('src/step/generateRequestContent', () => {
-  const project: IProject = {
+  const project: Project = {
     name: 'pet',
     dest: './service',
     source: 'fixture/pet.json',

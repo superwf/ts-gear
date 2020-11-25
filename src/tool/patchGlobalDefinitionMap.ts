@@ -1,4 +1,4 @@
-import { IDefinitionMap } from '../interface'
+import { DefinitionMap } from '../type'
 
 /**
  * add a new type definition to definitionMap
@@ -10,7 +10,7 @@ export const patchGlobalDefinitionMap = ({
   originalName,
 }: {
   typeName: string
-  definitionMap: IDefinitionMap
+  definitionMap: DefinitionMap
   alias?: string
   originalName?: string
 }) => {

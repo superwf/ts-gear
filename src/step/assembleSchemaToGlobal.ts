@@ -4,7 +4,7 @@ import { OperationObject } from 'openapi3-ts'
 
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
-import { httpMethods, IProject } from '../interface'
+import { httpMethods, Project } from '../type'
 import { getGlobal } from '../projectGlobalVariable'
 import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumType'
 import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
@@ -14,7 +14,7 @@ import { getRefDeep } from '../tool/getRefDeep'
  * collect definition to definitionMap
  * collect request to requestMap, skip deprecated
  * */
-export const assembleSchemaToGlobal = (spec: Spec, project: IProject) => {
+export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
   const { definitionMap, requestMap, enumMap, requestEnumSet } = getGlobal(project)
   const definitions = getDefinition(spec)
   traverseSchema(spec, ({ value, key, path, parent }) => {

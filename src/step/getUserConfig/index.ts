@@ -3,7 +3,7 @@ import { writeFileSync, existsSync } from 'fs'
 
 import * as prompts from 'prompts'
 
-import { IProject } from '../../interface'
+import { Project } from '../../type'
 import { configFileName } from '../../constant'
 import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'
@@ -40,7 +40,7 @@ export const getUserConfig = async () => {
   /* eslint-disable */
   const config = require(tsGearConfigPath)
   /* eslint-enable */
-  let projects = (config.default ? config.default : config) as IProject[]
+  let projects = (config.default ? config.default : config) as Project[]
   const projectNamesFromCommandLine = cliOption.names
   if (projectNamesFromCommandLine.length > 0) {
     projects = projects.filter(project => {

@@ -1,13 +1,13 @@
 import { EOL } from 'os'
 import * as path from 'path'
 
-import { IProject } from '../interface'
+import { Project } from '../type'
 import { configFileName } from '../constant'
 import { renameImportStatementToRequester } from '../tool/renameImportStatementToRequester'
 
 /** get tsg.config.ts file relative path to import in request
  * */
-export const requester = (project: IProject, tsGearConfigPath: string) => {
+export const requester = (project: Project, tsGearConfigPath: string) => {
   const configFileRelativePath = path.relative(
     path.join(tsGearConfigPath, project.dest, project.name),
     tsGearConfigPath,

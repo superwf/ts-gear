@@ -4,7 +4,7 @@ import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
 import { Spec } from 'swagger-schema-official'
 import * as join from 'url-join'
 
-import { IProject } from '../../interface'
+import { Project } from '../../type'
 import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
 import { getGlobal } from '../../projectGlobalVariable'
@@ -16,7 +16,7 @@ import { generateResponseType } from './generateResponseType'
 import { generateParameterType } from './generateParameterType'
 
 /** from swagger spec paths assemble request functions */
-export const generateRequestContent = (spec: Spec, project: IProject) => {
+export const generateRequestContent = (spec: Spec, project: Project) => {
   const { pathMatcher, withBasePath, withHost } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 

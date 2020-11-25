@@ -7,20 +7,20 @@ import {
   getGenericNameFromNode,
   guessGenericTypeName,
 } from '../tool/genericType'
-import { IProject, IProjectGlobal, ISwaggerDefinition } from '../interface'
+import { Project, ProjectGlobal, SwaggerDefinition } from '../type'
 import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /** check generic type
  * support nest level, as A<B> or A<B,C<D>>
  * if the type parameter does not exist in the definition schema, convert the name to normal type, remove all "<" and ">".
  * */
-export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) => {
+export const checkAndUpdateDefinitionTypeName = (projectGlobal: ProjectGlobal) => {
   const { definitionMap } = projectGlobal
   /** store parse failed definitions
    * e.g.
    * name is PageVO<List<User>>，but "List" or "User" does not exist in schema $ref, then it is a failed one.
    * */
-  const parseFailedDefinitions: ISwaggerDefinition[] = []
+  const parseFailedDefinitions: SwaggerDefinition[] = []
   Object.getOwnPropertyNames(projectGlobal.definitionMap).forEach(definitionName => {
     const definition = definitionMap[definitionName]
     if (hasGenericSymbol(definitionName)) {
@@ -113,7 +113,7 @@ export const checkAndUpdateDefinitionTypeName = (projectGlobal: IProjectGlobal) 
   })
 }
 
-export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
+export const checkAndUpdateRequestRef = (projectGlobal: ProjectGlobal) => {
   const { definitionMap, requestMap } = projectGlobal
   Object.values(requestMap).forEach(request => {
     traverseSchema(request.schema, ({ value, key, parent }) => {
@@ -145,7 +145,7 @@ export const checkAndUpdateRequestRef = (projectGlobal: IProjectGlobal) => {
   })
 }
 
-export const parseGenericType = (project: IProject) => {
+export const parseGenericType = (project: Project) => {
   const projectGlobal = getGlobal(project)
   // first process definition
   checkAndUpdateDefinitionTypeName(projectGlobal)

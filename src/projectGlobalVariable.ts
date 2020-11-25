@@ -1,9 +1,9 @@
-import { IProjectGlobalMap, IProject } from './interface'
+import { ProjectGlobalMap, Project } from './type'
 import { clearObject } from './tool/clearObject'
 
-const projectGlobal: IProjectGlobalMap = {}
+const projectGlobal: ProjectGlobalMap = {}
 
-export const getGlobal = (project: IProject) => {
+export const getGlobal = (project: Project) => {
   if (!projectGlobal[project.name]) {
     projectGlobal[project.name] = {
       definitionMap: {},
@@ -16,7 +16,7 @@ export const getGlobal = (project: IProject) => {
   return projectGlobal[project.name]
 }
 
-export const restore = (project: IProject) => {
+export const restore = (project: Project) => {
   const g = projectGlobal[project.name]
   clearObject(g.definitionMap)
   clearObject(g.requestMap)

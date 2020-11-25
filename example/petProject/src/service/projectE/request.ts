@@ -3,16 +3,16 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
-import { fetcher as requester } from 'fffxx'
-import { ReplyVOInt } from './definition'
+import { requester } from 'fffxx'
+import type { ReplyVOInt } from './definition'
 
 /** request parameter type for deleteApiDataboardBoardEs */
-export interface IDeleteApiDataboardBoardEsOption {
+export interface DeleteApiDataboardBoardEsOption {
   /** 索引数组 */
   body?: Array<string>
 }
 
-export interface IDeleteApiDataboardBoardEsResponse {
+export interface DeleteApiDataboardBoardEsResponse {
   /** OK */
   200: ReplyVOInt
   /** No Content */
@@ -23,8 +23,8 @@ export interface IDeleteApiDataboardBoardEsResponse {
   403: any
 }
 
-export type IDeleteApiDataboardBoardEsResponseSuccess = PropertyType<
-  IDeleteApiDataboardBoardEsResponse,
+export type DeleteApiDataboardBoardEsResponseSuccess = PropertyType<
+  DeleteApiDataboardBoardEsResponse,
   200
 >
 /**
@@ -33,8 +33,8 @@ export type IDeleteApiDataboardBoardEsResponseSuccess = PropertyType<
  * produces: *／*
  */
 export function deleteApiDataboardBoardEs(
-  option?: IDeleteApiDataboardBoardEsOption,
-): Promise<IDeleteApiDataboardBoardEsResponseSuccess> {
+  option?: DeleteApiDataboardBoardEsOption,
+): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteApiDataboardBoardEs.mockData as any)
   }

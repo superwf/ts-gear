@@ -9,12 +9,12 @@ import {
 
 import { schemaToTypescript } from '../tool/schemaToTypescript'
 import { sow, harvest } from '../source'
-import { IProject } from '../interface'
+import { Project } from '../type'
 import { getGlobal } from '../projectGlobalVariable'
 import { assembleDoc } from '../tool/assembleDoc'
 
 /** generate on definition ts content */
-export const generateDefinitionContent = (project: IProject) => {
+export const generateDefinitionContent = (project: Project) => {
   const { definitionMap } = getGlobal(project)
   Object.values(definitionMap).forEach(definition => {
     if (definition.typescriptContent || !definition.schema) {

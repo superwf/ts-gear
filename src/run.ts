@@ -1,9 +1,9 @@
 import * as step from './step'
 import { restore } from './projectGlobalVariable'
-import { IProject } from './interface'
+import { Project } from './type'
 import { info } from './tool/log'
 
-export const processProject = async (project: IProject, tsGearConfigPath: string): Promise<void> => {
+export const processProject = async (project: Project, tsGearConfigPath: string): Promise<void> => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project, tsGearConfigPath)
   if (!project.skipCache && step.checkCache(project, tsGearConfigPath, spec)) {

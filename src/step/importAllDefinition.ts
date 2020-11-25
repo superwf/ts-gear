@@ -1,7 +1,7 @@
 import { getGlobal } from '../projectGlobalVariable'
-import { IProject } from '../interface'
+import { Project } from '../type'
 
-export const importAllDefinition = (project: IProject) => {
+export const importAllDefinition = (project: Project) => {
   const { requestRefSet, requestEnumSet } = getGlobal(project)
   const refSet = new Set<string>()
   ;[...Array.from(requestEnumSet), ...Array.from(requestRefSet)].forEach(name => {
@@ -13,5 +13,5 @@ export const importAllDefinition = (project: IProject) => {
       })
   })
   const importNames = Array.from(refSet)
-  return `import { ${importNames.join(',')} } from './definition'`
+  return `import type { ${importNames.join(',')} } from './definition'`
 }

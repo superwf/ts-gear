@@ -2,7 +2,7 @@ import { cloneDeep } from 'lodash'
 import { Spec } from 'swagger-schema-official'
 
 import * as step from 'src/step'
-import { IProject } from 'src/interface'
+import { Project } from 'src/type'
 import { getGlobal, restore } from 'src/projectGlobalVariable'
 
 describe('collectRefsInRequestAndPatchDefinition', () => {
@@ -146,7 +146,7 @@ describe('collectRefsInRequestAndPatchDefinition', () => {
     },
   } as Spec
   it('without generic type', () => {
-    const project: IProject = {
+    const project: Project = {
       name: 'projectPont',
       source: 'fixture/pontFixture.json',
       dest: './service',
@@ -162,7 +162,7 @@ describe('collectRefsInRequestAndPatchDefinition', () => {
   })
 
   it('with generic type', () => {
-    const project: IProject = {
+    const project: Project = {
       name: 'projectPont',
       source: 'fixture/pontFixture.json',
       dest: './service',

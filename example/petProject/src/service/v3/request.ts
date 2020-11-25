@@ -3,8 +3,8 @@
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
 import { PropertyType } from 'ts-gear'
-import { fetcher as requester } from 'fffxx'
-import {
+import { requester } from 'fffxx'
+import type {
   ReplyVOPageVOFieldDefListVO,
   ReplyVOFieldDefShowVO,
   ReplyVO,
@@ -12,7 +12,7 @@ import {
 } from './definition'
 
 /** request parameter type for getApiDatamapFieldDef */
-export interface IGetApiDatamapFieldDefOption {
+export interface GetApiDatamapFieldDefOption {
   /** 创建人 */
   query?: {
     /**
@@ -62,7 +62,7 @@ export interface IGetApiDatamapFieldDefOption {
   }
 }
 
-export interface IGetApiDatamapFieldDefResponse {
+export interface GetApiDatamapFieldDefResponse {
   /** OK */
   200: ReplyVOPageVOFieldDefListVO
   /** Unauthorized */
@@ -73,8 +73,8 @@ export interface IGetApiDatamapFieldDefResponse {
   404: any
 }
 
-export type IGetApiDatamapFieldDefResponseSuccess = PropertyType<
-  IGetApiDatamapFieldDefResponse,
+export type GetApiDatamapFieldDefResponseSuccess = PropertyType<
+  GetApiDatamapFieldDefResponse,
   200
 >
 /**
@@ -82,8 +82,8 @@ export type IGetApiDatamapFieldDefResponseSuccess = PropertyType<
  * tags: 【表字段信息】API
  */
 export function getApiDatamapFieldDef(
-  option?: IGetApiDatamapFieldDefOption,
-): Promise<IGetApiDatamapFieldDefResponseSuccess> {
+  option?: GetApiDatamapFieldDefOption,
+): Promise<GetApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(getApiDatamapFieldDef.mockData as any)
   }
@@ -100,11 +100,11 @@ getApiDatamapFieldDef.method = 'get'
 getApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
 /** request parameter type for putApiDatamapFieldDef */
-export interface IPutApiDatamapFieldDefOption {
+export interface PutApiDatamapFieldDefOption {
   body: any
 }
 
-export interface IPutApiDatamapFieldDefResponse {
+export interface PutApiDatamapFieldDefResponse {
   /** OK */
   200: ReplyVOFieldDefShowVO
   /** Created */
@@ -117,8 +117,8 @@ export interface IPutApiDatamapFieldDefResponse {
   404: any
 }
 
-export type IPutApiDatamapFieldDefResponseSuccess = PropertyType<
-  IPutApiDatamapFieldDefResponse,
+export type PutApiDatamapFieldDefResponseSuccess = PropertyType<
+  PutApiDatamapFieldDefResponse,
   200
 >
 /**
@@ -126,8 +126,8 @@ export type IPutApiDatamapFieldDefResponseSuccess = PropertyType<
  * tags: API
  */
 export function putApiDatamapFieldDef(
-  option: IPutApiDatamapFieldDefOption,
-): Promise<IPutApiDatamapFieldDefResponseSuccess> {
+  option: PutApiDatamapFieldDefOption,
+): Promise<PutApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(putApiDatamapFieldDef.mockData as any)
   }
@@ -144,11 +144,11 @@ putApiDatamapFieldDef.method = 'put'
 putApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
 /** request parameter type for postApiDatamapFieldDef */
-export interface IPostApiDatamapFieldDefOption {
+export interface PostApiDatamapFieldDefOption {
   body: any
 }
 
-export interface IPostApiDatamapFieldDefResponse {
+export interface PostApiDatamapFieldDefResponse {
   /** Created */
   201: ReplyVO
   /** Unauthorized */
@@ -159,8 +159,8 @@ export interface IPostApiDatamapFieldDefResponse {
   404: any
 }
 
-export type IPostApiDatamapFieldDefResponseSuccess = PropertyType<
-  IPostApiDatamapFieldDefResponse,
+export type PostApiDatamapFieldDefResponseSuccess = PropertyType<
+  PostApiDatamapFieldDefResponse,
   201
 >
 /**
@@ -168,8 +168,8 @@ export type IPostApiDatamapFieldDefResponseSuccess = PropertyType<
  * tags: 表字段信息
  */
 export function postApiDatamapFieldDef(
-  option: IPostApiDatamapFieldDefOption,
-): Promise<IPostApiDatamapFieldDefResponseSuccess> {
+  option: PostApiDatamapFieldDefOption,
+): Promise<PostApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(postApiDatamapFieldDef.mockData as any)
   }
@@ -186,11 +186,11 @@ postApiDatamapFieldDef.method = 'post'
 postApiDatamapFieldDef.url = 'api/datamap/fieldDef'
 
 /** request parameter type for deleteApiDatamapFieldDef */
-export interface IDeleteApiDatamapFieldDefOption {
+export interface DeleteApiDatamapFieldDefOption {
   body: any
 }
 
-export interface IDeleteApiDatamapFieldDefResponse {
+export interface DeleteApiDatamapFieldDefResponse {
   /** OK */
   200: FieldDefAddDTO
   /** No Content */
@@ -201,8 +201,8 @@ export interface IDeleteApiDatamapFieldDefResponse {
   403: any
 }
 
-export type IDeleteApiDatamapFieldDefResponseSuccess = PropertyType<
-  IDeleteApiDatamapFieldDefResponse,
+export type DeleteApiDatamapFieldDefResponseSuccess = PropertyType<
+  DeleteApiDatamapFieldDefResponse,
   200
 >
 /**
@@ -210,8 +210,8 @@ export type IDeleteApiDatamapFieldDefResponseSuccess = PropertyType<
  * tags: API
  */
 export function deleteApiDatamapFieldDef(
-  option: IDeleteApiDatamapFieldDefOption,
-): Promise<IDeleteApiDatamapFieldDefResponseSuccess> {
+  option: DeleteApiDatamapFieldDefOption,
+): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(deleteApiDatamapFieldDef.mockData as any)
   }

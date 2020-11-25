@@ -1,10 +1,10 @@
 import { join } from 'path'
 import { readFileSync, existsSync, writeFileSync } from 'fs'
 
-import { IProject } from '../interface'
+import { Project } from '../type'
 import { contentHash } from '../tool/contentHash'
 
-export const checkCache = (project: IProject, tsGearConfigPath: string, spec: any): boolean => {
+export const checkCache = (project: Project, tsGearConfigPath: string, spec: any): boolean => {
   const dest = join(tsGearConfigPath, project.dest, project.name)
   const cacheFile = join(dest, '.cache')
   const hash = contentHash(JSON.stringify([project, spec]))

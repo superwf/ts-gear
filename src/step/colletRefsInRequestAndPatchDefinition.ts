@@ -1,13 +1,13 @@
 import { getGlobal } from '../projectGlobalVariable'
 import { traverse$Ref } from '../tool/traverseSchema'
-import { IProject } from '../interface'
+import { Project } from '../type'
 import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /**
  * collect refs in paths
  * run after parseGenericType
  * */
-export const collectRefsInRequestAndPatchDefinition = (project: IProject) => {
+export const collectRefsInRequestAndPatchDefinition = (project: Project) => {
   const { requestRefSet, requestMap, definitionMap } = getGlobal(project)
   const keepGeneric = project.keepGeneric !== false
   // when not keepGeneric, definition alse need to patch

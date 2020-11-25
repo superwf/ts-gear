@@ -1,6 +1,6 @@
 import { Options } from 'prettier'
 
-import { IProject, fetchRequester } from 'ts-gear'
+import { Project, fetchRequester } from 'ts-gear'
 
 const prettierConfig: Options = {
   semi: false,
@@ -10,13 +10,14 @@ const prettierConfig: Options = {
   jsxBracketSameLine: false,
 }
 
-const projects: IProject[] = [
+const projects: Project[] = [
   {
     name: 'pet',
     dest: 'service',
     source: '../../fixture/pet.json',
     requester: fetchRequester(),
     prettierConfig,
+    skipCache: true,
     transformJS: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
@@ -25,15 +26,16 @@ const projects: IProject[] = [
     dest: 'service',
     source: '../../fixture/projectE.json',
     keepGeneric: true,
-    importRequesterStatement: 'import { fetcher } from "fffxx"',
+    importRequesterStatement: 'import { requester } from "fffxx"',
     prettierConfig,
+    skipCache: true,
   },
   {
     name: 'v3',
     dest: 'service',
     source: '../../fixture/openapiv3.json',
     keepGeneric: true,
-    importRequesterStatement: 'import { fetcher } from "fffxx"',
+    importRequesterStatement: 'import { requester } from "fffxx"',
     prettierConfig,
     skipCache: true,
   },

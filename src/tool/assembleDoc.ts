@@ -36,7 +36,7 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if ('readOnly' in schema) {
     docs.push(`example: ${schema.readOnly}`)
   }
-  if ('deprecated' in schema) {
+  if ('deprecated' in schema && schema.deprecated) {
     docs.push('@deprecated')
   }
   const v3Schema = schema as SchemaObject

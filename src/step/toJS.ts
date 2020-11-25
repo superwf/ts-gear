@@ -3,10 +3,10 @@ import { join } from 'path'
 import * as ts from 'typescript'
 
 import { targetFileNames } from '../constant'
-import { IProject } from '../interface'
+import { Project } from '../type'
 import { info } from '../tool/log'
 
-export function toJS(project: IProject, tsGearConfigPath: string): void {
+export function toJS(project: Project, tsGearConfigPath: string): void {
   const compilerOptions: ts.CompilerOptions = {
     module: ts.ModuleKind.ESNext,
     target: ts.ScriptTarget.ESNext,
