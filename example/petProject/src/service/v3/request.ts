@@ -77,6 +77,8 @@ export type GetApiDatamapFieldDefResponseSuccess = PropertyType<
   GetApiDatamapFieldDefResponse,
   200
 >
+const getApiDatamapFieldDefMockData = '' as any
+
 /**
  * 分页查询【表字段信息】
  * tags: 【表字段信息】API
@@ -85,19 +87,18 @@ export function getApiDatamapFieldDef(
   option?: GetApiDatamapFieldDefOption,
 ): Promise<GetApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getApiDatamapFieldDef.mockData as any)
+    return Promise.resolve(
+      getApiDatamapFieldDefMockData as GetApiDatamapFieldDefResponseSuccess,
+    )
   }
   return requester('api/datamap/fieldDef', {
     method: 'get',
     ...option,
-  }) as Promise<any>
+  }) as Promise<GetApiDatamapFieldDefResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getApiDatamapFieldDef.mockData = '' as any
-}
-getApiDatamapFieldDef.method = 'get'
-getApiDatamapFieldDef.url = 'api/datamap/fieldDef'
+export const getApiDatamapFieldDefMethod = 'get'
+export const getApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
 
 /** request parameter type for putApiDatamapFieldDef */
 export interface PutApiDatamapFieldDefOption {
@@ -121,6 +122,8 @@ export type PutApiDatamapFieldDefResponseSuccess = PropertyType<
   PutApiDatamapFieldDefResponse,
   200
 >
+const putApiDatamapFieldDefMockData = '' as any
+
 /**
  * 修改
  * tags: API
@@ -129,19 +132,18 @@ export function putApiDatamapFieldDef(
   option: PutApiDatamapFieldDefOption,
 ): Promise<PutApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(putApiDatamapFieldDef.mockData as any)
+    return Promise.resolve(
+      putApiDatamapFieldDefMockData as PutApiDatamapFieldDefResponseSuccess,
+    )
   }
   return requester('api/datamap/fieldDef', {
     method: 'put',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PutApiDatamapFieldDefResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  putApiDatamapFieldDef.mockData = '' as any
-}
-putApiDatamapFieldDef.method = 'put'
-putApiDatamapFieldDef.url = 'api/datamap/fieldDef'
+export const putApiDatamapFieldDefMethod = 'put'
+export const putApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
 
 /** request parameter type for postApiDatamapFieldDef */
 export interface PostApiDatamapFieldDefOption {
@@ -163,6 +165,8 @@ export type PostApiDatamapFieldDefResponseSuccess = PropertyType<
   PostApiDatamapFieldDefResponse,
   201
 >
+const postApiDatamapFieldDefMockData = '' as any
+
 /**
  * 新增
  * tags: 表字段信息
@@ -171,19 +175,18 @@ export function postApiDatamapFieldDef(
   option: PostApiDatamapFieldDefOption,
 ): Promise<PostApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postApiDatamapFieldDef.mockData as any)
+    return Promise.resolve(
+      postApiDatamapFieldDefMockData as PostApiDatamapFieldDefResponseSuccess,
+    )
   }
   return requester('api/datamap/fieldDef', {
     method: 'post',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PostApiDatamapFieldDefResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postApiDatamapFieldDef.mockData = '' as any
-}
-postApiDatamapFieldDef.method = 'post'
-postApiDatamapFieldDef.url = 'api/datamap/fieldDef'
+export const postApiDatamapFieldDefMethod = 'post'
+export const postApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
 
 /** request parameter type for deleteApiDatamapFieldDef */
 export interface DeleteApiDatamapFieldDefOption {
@@ -205,6 +208,14 @@ export type DeleteApiDatamapFieldDefResponseSuccess = PropertyType<
   DeleteApiDatamapFieldDefResponse,
   200
 >
+const deleteApiDatamapFieldDefMockData = {
+  description: 'string',
+  fieldId: 'string',
+  fieldName: 'name1',
+  tableId: 'string',
+  type: 'string',
+} as any
+
 /**
  * 批量删除
  * tags: API
@@ -213,22 +224,15 @@ export function deleteApiDatamapFieldDef(
   option: DeleteApiDatamapFieldDefOption,
 ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(deleteApiDatamapFieldDef.mockData as any)
+    return Promise.resolve(
+      deleteApiDatamapFieldDefMockData as DeleteApiDatamapFieldDefResponseSuccess,
+    )
   }
   return requester('api/datamap/fieldDef', {
     method: 'delete',
     ...option,
-  }) as Promise<any>
+  }) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  deleteApiDatamapFieldDef.mockData = {
-    description: 'string',
-    fieldId: 'string',
-    fieldName: 'name1',
-    tableId: 'string',
-    type: 'string',
-  } as any
-}
-deleteApiDatamapFieldDef.method = 'delete'
-deleteApiDatamapFieldDef.url = 'api/datamap/fieldDef'
+export const deleteApiDatamapFieldDefMethod = 'delete'
+export const deleteApiDatamapFieldDefUrl = 'api/datamap/fieldDef'

@@ -27,6 +27,8 @@ export type DeleteApiDataboardBoardEsResponseSuccess = PropertyType<
   DeleteApiDataboardBoardEsResponse,
   200
 >
+const deleteApiDataboardBoardEsMockData = '' as any
+
 /**
  * 删除索引
  * tags: Es
@@ -36,16 +38,15 @@ export function deleteApiDataboardBoardEs(
   option?: DeleteApiDataboardBoardEsOption,
 ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(deleteApiDataboardBoardEs.mockData as any)
+    return Promise.resolve(
+      deleteApiDataboardBoardEsMockData as DeleteApiDataboardBoardEsResponseSuccess,
+    )
   }
   return requester('/api/databoard/board/es', {
     method: 'delete',
     ...option,
-  }) as Promise<any>
+  }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  deleteApiDataboardBoardEs.mockData = '' as any
-}
-deleteApiDataboardBoardEs.method = 'delete'
-deleteApiDataboardBoardEs.url = '/api/databoard/board/es'
+export const deleteApiDataboardBoardEsMethod = 'delete'
+export const deleteApiDataboardBoardEsUrl = '/api/databoard/board/es'

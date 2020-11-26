@@ -52,9 +52,9 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const source = sow()
     const requesterStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
-    }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<any>`
+    }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<${responseType.successTypeName}>`
     const functionStatment = `if (${shouldMockResponseStatement}) {
-      return Promise.resolve(${requestFunctionName}.mockData as any)
+      return Promise.resolve(${requestFunctionName}MockData as ${responseType.successTypeName})
     }
     ${requesterStatment}`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
@@ -72,16 +72,14 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
         type: parameterTypeName,
       })
     }
-    source.addFunction(functionData)
-    const mockStatment = `${requestFunctionName}.mockData = (${JSON.stringify(
+    const mockStatment = `const ${requestFunctionName}MockData = (${JSON.stringify(
       generateMockData(request, definitionMap, enumMap),
     )} as any)`
+    source.addStatements(mockStatment)
+    source.addFunction(functionData)
     source.addStatements(`
-if (${shouldMockResponseStatement}) {
-  ${mockStatment}
-}
-${requestFunctionName}.method = '${httpMethod}'
-${requestFunctionName}.url = '${urlPath}'
+export const ${requestFunctionName}Method = '${httpMethod}'
+export const ${requestFunctionName}Url = '${urlPath}'
 `)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */

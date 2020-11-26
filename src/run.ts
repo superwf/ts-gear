@@ -7,7 +7,9 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchSwagger(project, tsGearConfigPath)
   if (!project.skipCache && step.checkCache(project, tsGearConfigPath, spec)) {
-    info(`cache hit, skip regenerate project(${project.name})`)
+    info(
+      `cache hit, skip regenerate project(${project.name}), add "skipCache: true" to your project in "tsg.config.ts" to disable cache`,
+    )
     return
   }
 

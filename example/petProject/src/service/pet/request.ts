@@ -29,6 +29,8 @@ export interface PutPetResponse {
 }
 
 export type PutPetResponseSuccess = any
+const putPetMockData = '' as any
+
 /**
  * Update an existing pet
  * tags: pet
@@ -37,16 +39,15 @@ export type PutPetResponseSuccess = any
  */
 export function putPet(option: PutPetOption): Promise<PutPetResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(putPet.mockData as any)
+    return Promise.resolve(putPetMockData as PutPetResponseSuccess)
   }
-  return requester('/v2/pet', { method: 'put', ...option }) as Promise<any>
+  return requester('/v2/pet', { method: 'put', ...option }) as Promise<
+    PutPetResponseSuccess
+  >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  putPet.mockData = '' as any
-}
-putPet.method = 'put'
-putPet.url = '/v2/pet'
+export const putPetMethod = 'put'
+export const putPetUrl = '/v2/pet'
 
 /** request parameter type for postPet */
 export interface PostPetOption {
@@ -60,6 +61,8 @@ export interface PostPetResponse {
 }
 
 export type PostPetResponseSuccess = any
+const postPetMockData = '' as any
+
 /**
  * Add a new pet to the store
  * tags: pet
@@ -70,16 +73,15 @@ export function postPet(
   option: PostPetOption,
 ): Promise<PostPetResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postPet.mockData as any)
+    return Promise.resolve(postPetMockData as PostPetResponseSuccess)
   }
-  return requester('/v2/pet', { method: 'post', ...option }) as Promise<any>
+  return requester('/v2/pet', { method: 'post', ...option }) as Promise<
+    PostPetResponseSuccess
+  >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postPet.mockData = '' as any
-}
-postPet.method = 'post'
-postPet.url = '/v2/pet'
+export const postPetMethod = 'post'
+export const postPetUrl = '/v2/pet'
 
 /** request parameter type for getPetFindByStatus */
 export interface GetPetFindByStatusOption {
@@ -102,6 +104,17 @@ export type GetPetFindByStatusResponseSuccess = PropertyType<
   GetPetFindByStatusResponse,
   200
 >
+const getPetFindByStatusMockData = [
+  {
+    id: 0,
+    category: { id: 0, pet: '', name: 'string' },
+    name: 'doggie',
+    photoUrls: ['string'],
+    tags: [{ id: 0, name: 'string' }],
+    status: 'available',
+  },
+] as any
+
 /**
  * Multiple status values can be provided with comma separated strings
  * Finds Pets by status
@@ -112,28 +125,18 @@ export function getPetFindByStatus(
   option: GetPetFindByStatusOption,
 ): Promise<GetPetFindByStatusResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getPetFindByStatus.mockData as any)
+    return Promise.resolve(
+      getPetFindByStatusMockData as GetPetFindByStatusResponseSuccess,
+    )
   }
   return requester('/v2/pet/findByStatus', {
     method: 'get',
     ...option,
-  }) as Promise<any>
+  }) as Promise<GetPetFindByStatusResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getPetFindByStatus.mockData = [
-    {
-      id: 0,
-      category: { id: 0, pet: '', name: 'string' },
-      name: 'doggie',
-      photoUrls: ['string'],
-      tags: [{ id: 0, name: 'string' }],
-      status: 'available',
-    },
-  ] as any
-}
-getPetFindByStatus.method = 'get'
-getPetFindByStatus.url = '/v2/pet/findByStatus'
+export const getPetFindByStatusMethod = 'get'
+export const getPetFindByStatusUrl = '/v2/pet/findByStatus'
 
 /** request parameter type for getPetPetId */
 export interface GetPetPetIdOption {
@@ -159,6 +162,15 @@ export interface GetPetPetIdResponse {
 }
 
 export type GetPetPetIdResponseSuccess = PropertyType<GetPetPetIdResponse, 200>
+const getPetPetIdMockData = {
+  id: 0,
+  category: { id: 0, pet: '', name: 'string' },
+  name: 'doggie',
+  photoUrls: ['string'],
+  tags: [{ id: 0, name: 'string' }],
+  status: 'available',
+} as any
+
 /**
  * Returns a single pet
  * Find pet by ID
@@ -169,25 +181,15 @@ export function getPetPetId(
   option: GetPetPetIdOption,
 ): Promise<GetPetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getPetPetId.mockData as any)
+    return Promise.resolve(getPetPetIdMockData as GetPetPetIdResponseSuccess)
   }
   return requester('/v2/pet/:petId', { method: 'get', ...option }) as Promise<
-    any
+    GetPetPetIdResponseSuccess
   >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getPetPetId.mockData = {
-    id: 0,
-    category: { id: 0, pet: '', name: 'string' },
-    name: 'doggie',
-    photoUrls: ['string'],
-    tags: [{ id: 0, name: 'string' }],
-    status: 'available',
-  } as any
-}
-getPetPetId.method = 'get'
-getPetPetId.url = '/v2/pet/:petId'
+export const getPetPetIdMethod = 'get'
+export const getPetPetIdUrl = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetId */
 export interface PostPetPetIdOption {
@@ -218,6 +220,8 @@ export interface PostPetPetIdResponse {
 }
 
 export type PostPetPetIdResponseSuccess = any
+const postPetPetIdMockData = '' as any
+
 /**
  * Updates a pet in the store with form data
  * tags: pet
@@ -228,18 +232,15 @@ export function postPetPetId(
   option: PostPetPetIdOption,
 ): Promise<PostPetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postPetPetId.mockData as any)
+    return Promise.resolve(postPetPetIdMockData as PostPetPetIdResponseSuccess)
   }
   return requester('/v2/pet/:petId', { method: 'post', ...option }) as Promise<
-    any
+    PostPetPetIdResponseSuccess
   >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postPetPetId.mockData = '' as any
-}
-postPetPetId.method = 'post'
-postPetPetId.url = '/v2/pet/:petId'
+export const postPetPetIdMethod = 'post'
+export const postPetPetIdUrl = '/v2/pet/:petId'
 
 /** request parameter type for deletePetPetId */
 export interface DeletePetPetIdOption {
@@ -266,6 +267,8 @@ export interface DeletePetPetIdResponse {
 }
 
 export type DeletePetPetIdResponseSuccess = any
+const deletePetPetIdMockData = '' as any
+
 /**
  * Deletes a pet
  * tags: pet
@@ -275,19 +278,18 @@ export function deletePetPetId(
   option: DeletePetPetIdOption,
 ): Promise<DeletePetPetIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(deletePetPetId.mockData as any)
+    return Promise.resolve(
+      deletePetPetIdMockData as DeletePetPetIdResponseSuccess,
+    )
   }
   return requester('/v2/pet/:petId', {
     method: 'delete',
     ...option,
-  }) as Promise<any>
+  }) as Promise<DeletePetPetIdResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  deletePetPetId.mockData = '' as any
-}
-deletePetPetId.method = 'delete'
-deletePetPetId.url = '/v2/pet/:petId'
+export const deletePetPetIdMethod = 'delete'
+export const deletePetPetIdUrl = '/v2/pet/:petId'
 
 /** request parameter type for postPetPetIdUploadImage */
 export interface PostPetPetIdUploadImageOption {
@@ -321,6 +323,12 @@ export type PostPetPetIdUploadImageResponseSuccess = PropertyType<
   PostPetPetIdUploadImageResponse,
   200
 >
+const postPetPetIdUploadImageMockData = {
+  code: 0,
+  type: 'string',
+  message: 'string',
+} as any
+
 /**
  * uploads an image
  * tags: pet
@@ -331,23 +339,18 @@ export function postPetPetIdUploadImage(
   option: PostPetPetIdUploadImageOption,
 ): Promise<PostPetPetIdUploadImageResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postPetPetIdUploadImage.mockData as any)
+    return Promise.resolve(
+      postPetPetIdUploadImageMockData as PostPetPetIdUploadImageResponseSuccess,
+    )
   }
   return requester('/v2/pet/:petId/uploadImage', {
     method: 'post',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PostPetPetIdUploadImageResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postPetPetIdUploadImage.mockData = {
-    code: 0,
-    type: 'string',
-    message: 'string',
-  } as any
-}
-postPetPetIdUploadImage.method = 'post'
-postPetPetIdUploadImage.url = '/v2/pet/:petId/uploadImage'
+export const postPetPetIdUploadImageMethod = 'post'
+export const postPetPetIdUploadImageUrl = '/v2/pet/:petId/uploadImage'
 
 export interface GetStoreInventoryResponse {
   /** successful operation */
@@ -360,6 +363,12 @@ export type GetStoreInventoryResponseSuccess = PropertyType<
   GetStoreInventoryResponse,
   200
 >
+const getStoreInventoryMockData = {
+  additionalProp1: 0,
+  additionalProp2: 0,
+  additionalProp3: 0,
+} as any
+
 /**
  * Returns a map of status codes to quantities
  * Returns pet inventories by status
@@ -368,20 +377,17 @@ export type GetStoreInventoryResponseSuccess = PropertyType<
  */
 export function getStoreInventory(): Promise<GetStoreInventoryResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getStoreInventory.mockData as any)
+    return Promise.resolve(
+      getStoreInventoryMockData as GetStoreInventoryResponseSuccess,
+    )
   }
-  return requester('/v2/store/inventory', { method: 'get' }) as Promise<any>
+  return requester('/v2/store/inventory', { method: 'get' }) as Promise<
+    GetStoreInventoryResponseSuccess
+  >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getStoreInventory.mockData = {
-    additionalProp1: 0,
-    additionalProp2: 0,
-    additionalProp3: 0,
-  } as any
-}
-getStoreInventory.method = 'get'
-getStoreInventory.url = '/v2/store/inventory'
+export const getStoreInventoryMethod = 'get'
+export const getStoreInventoryUrl = '/v2/store/inventory'
 
 /** request parameter type for postStoreOrder */
 export interface PostStoreOrderOption {
@@ -400,6 +406,15 @@ export type PostStoreOrderResponseSuccess = PropertyType<
   PostStoreOrderResponse,
   200
 >
+const postStoreOrderMockData = {
+  id: 0,
+  petId: 0,
+  quantity: 0,
+  shipDate: '2019-09-03T00:00:00.000Z',
+  status: 'placed',
+  complete: false,
+} as any
+
 /**
  * Place an order for a pet
  * tags: store
@@ -409,25 +424,17 @@ export function postStoreOrder(
   option: PostStoreOrderOption,
 ): Promise<PostStoreOrderResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postStoreOrder.mockData as any)
+    return Promise.resolve(
+      postStoreOrderMockData as PostStoreOrderResponseSuccess,
+    )
   }
   return requester('/v2/store/order', { method: 'post', ...option }) as Promise<
-    any
+    PostStoreOrderResponseSuccess
   >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postStoreOrder.mockData = {
-    id: 0,
-    petId: 0,
-    quantity: 0,
-    shipDate: '2019-09-03T00:00:00.000Z',
-    status: 'placed',
-    complete: false,
-  } as any
-}
-postStoreOrder.method = 'post'
-postStoreOrder.url = '/v2/store/order'
+export const postStoreOrderMethod = 'post'
+export const postStoreOrderUrl = '/v2/store/order'
 
 /** request parameter type for getStoreOrderOrderId */
 export interface GetStoreOrderOrderIdOption {
@@ -456,6 +463,15 @@ export type GetStoreOrderOrderIdResponseSuccess = PropertyType<
   GetStoreOrderOrderIdResponse,
   200
 >
+const getStoreOrderOrderIdMockData = {
+  id: 0,
+  petId: 0,
+  quantity: 0,
+  shipDate: '2019-09-03T00:00:00.000Z',
+  status: 'placed',
+  complete: false,
+} as any
+
 /**
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  * Find purchase order by ID
@@ -466,26 +482,18 @@ export function getStoreOrderOrderId(
   option: GetStoreOrderOrderIdOption,
 ): Promise<GetStoreOrderOrderIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getStoreOrderOrderId.mockData as any)
+    return Promise.resolve(
+      getStoreOrderOrderIdMockData as GetStoreOrderOrderIdResponseSuccess,
+    )
   }
   return requester('/v2/store/order/:orderId', {
     method: 'get',
     ...option,
-  }) as Promise<any>
+  }) as Promise<GetStoreOrderOrderIdResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getStoreOrderOrderId.mockData = {
-    id: 0,
-    petId: 0,
-    quantity: 0,
-    shipDate: '2019-09-03T00:00:00.000Z',
-    status: 'placed',
-    complete: false,
-  } as any
-}
-getStoreOrderOrderId.method = 'get'
-getStoreOrderOrderId.url = '/v2/store/order/:orderId'
+export const getStoreOrderOrderIdMethod = 'get'
+export const getStoreOrderOrderIdUrl = '/v2/store/order/:orderId'
 
 /** request parameter type for deleteStoreOrderOrderId */
 export interface DeleteStoreOrderOrderIdOption {
@@ -509,6 +517,8 @@ export interface DeleteStoreOrderOrderIdResponse {
 }
 
 export type DeleteStoreOrderOrderIdResponseSuccess = any
+const deleteStoreOrderOrderIdMockData = '' as any
+
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * Delete purchase order by ID
@@ -519,19 +529,18 @@ export function deleteStoreOrderOrderId(
   option: DeleteStoreOrderOrderIdOption,
 ): Promise<DeleteStoreOrderOrderIdResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(deleteStoreOrderOrderId.mockData as any)
+    return Promise.resolve(
+      deleteStoreOrderOrderIdMockData as DeleteStoreOrderOrderIdResponseSuccess,
+    )
   }
   return requester('/v2/store/order/:orderId', {
     method: 'delete',
     ...option,
-  }) as Promise<any>
+  }) as Promise<DeleteStoreOrderOrderIdResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  deleteStoreOrderOrderId.mockData = '' as any
-}
-deleteStoreOrderOrderId.method = 'delete'
-deleteStoreOrderOrderId.url = '/v2/store/order/:orderId'
+export const deleteStoreOrderOrderIdMethod = 'delete'
+export const deleteStoreOrderOrderIdUrl = '/v2/store/order/:orderId'
 
 /** request parameter type for postUser */
 export interface PostUserOption {
@@ -545,6 +554,8 @@ export interface PostUserResponse {
 }
 
 export type PostUserResponseSuccess = PropertyType<PostUserResponse, 'default'>
+const postUserMockData = '' as any
+
 /**
  * This can only be done by the logged in user.
  * Create user
@@ -555,16 +566,15 @@ export function postUser(
   option: PostUserOption,
 ): Promise<PostUserResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postUser.mockData as any)
+    return Promise.resolve(postUserMockData as PostUserResponseSuccess)
   }
-  return requester('/v2/user', { method: 'post', ...option }) as Promise<any>
+  return requester('/v2/user', { method: 'post', ...option }) as Promise<
+    PostUserResponseSuccess
+  >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postUser.mockData = '' as any
-}
-postUser.method = 'post'
-postUser.url = '/v2/user'
+export const postUserMethod = 'post'
+export const postUserUrl = '/v2/user'
 
 /** request parameter type for postUserCreateWithArray */
 export interface PostUserCreateWithArrayOption {
@@ -581,6 +591,8 @@ export type PostUserCreateWithArrayResponseSuccess = PropertyType<
   PostUserCreateWithArrayResponse,
   'default'
 >
+const postUserCreateWithArrayMockData = '' as any
+
 /**
  * Creates list of users with given input array
  * tags: user
@@ -590,19 +602,18 @@ export function postUserCreateWithArray(
   option: PostUserCreateWithArrayOption,
 ): Promise<PostUserCreateWithArrayResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postUserCreateWithArray.mockData as any)
+    return Promise.resolve(
+      postUserCreateWithArrayMockData as PostUserCreateWithArrayResponseSuccess,
+    )
   }
   return requester('/v2/user/createWithArray', {
     method: 'post',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PostUserCreateWithArrayResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postUserCreateWithArray.mockData = '' as any
-}
-postUserCreateWithArray.method = 'post'
-postUserCreateWithArray.url = '/v2/user/createWithArray'
+export const postUserCreateWithArrayMethod = 'post'
+export const postUserCreateWithArrayUrl = '/v2/user/createWithArray'
 
 /** request parameter type for postUserCreateWithList */
 export interface PostUserCreateWithListOption {
@@ -619,6 +630,8 @@ export type PostUserCreateWithListResponseSuccess = PropertyType<
   PostUserCreateWithListResponse,
   'default'
 >
+const postUserCreateWithListMockData = '' as any
+
 /**
  * Creates list of users with given input array
  * tags: user
@@ -628,19 +641,18 @@ export function postUserCreateWithList(
   option: PostUserCreateWithListOption,
 ): Promise<PostUserCreateWithListResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(postUserCreateWithList.mockData as any)
+    return Promise.resolve(
+      postUserCreateWithListMockData as PostUserCreateWithListResponseSuccess,
+    )
   }
   return requester('/v2/user/createWithList', {
     method: 'post',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PostUserCreateWithListResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  postUserCreateWithList.mockData = '' as any
-}
-postUserCreateWithList.method = 'post'
-postUserCreateWithList.url = '/v2/user/createWithList'
+export const postUserCreateWithListMethod = 'post'
+export const postUserCreateWithListUrl = '/v2/user/createWithList'
 
 /** request parameter type for getUserLogin */
 export interface GetUserLoginOption {
@@ -666,6 +678,8 @@ export type GetUserLoginResponseSuccess = PropertyType<
   GetUserLoginResponse,
   200
 >
+const getUserLoginMockData = 'string' as any
+
 /**
  * Logs user into the system
  * tags: user
@@ -675,18 +689,15 @@ export function getUserLogin(
   option: GetUserLoginOption,
 ): Promise<GetUserLoginResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getUserLogin.mockData as any)
+    return Promise.resolve(getUserLoginMockData as GetUserLoginResponseSuccess)
   }
   return requester('/v2/user/login', { method: 'get', ...option }) as Promise<
-    any
+    GetUserLoginResponseSuccess
   >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getUserLogin.mockData = 'string' as any
-}
-getUserLogin.method = 'get'
-getUserLogin.url = '/v2/user/login'
+export const getUserLoginMethod = 'get'
+export const getUserLoginUrl = '/v2/user/login'
 
 export interface GetUserLogoutResponse {
   /** successful operation */
@@ -697,6 +708,8 @@ export type GetUserLogoutResponseSuccess = PropertyType<
   GetUserLogoutResponse,
   'default'
 >
+const getUserLogoutMockData = '' as any
+
 /**
  * Logs out current logged in user session
  * tags: user
@@ -704,16 +717,17 @@ export type GetUserLogoutResponseSuccess = PropertyType<
  */
 export function getUserLogout(): Promise<GetUserLogoutResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getUserLogout.mockData as any)
+    return Promise.resolve(
+      getUserLogoutMockData as GetUserLogoutResponseSuccess,
+    )
   }
-  return requester('/v2/user/logout', { method: 'get' }) as Promise<any>
+  return requester('/v2/user/logout', { method: 'get' }) as Promise<
+    GetUserLogoutResponseSuccess
+  >
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getUserLogout.mockData = '' as any
-}
-getUserLogout.method = 'get'
-getUserLogout.url = '/v2/user/logout'
+export const getUserLogoutMethod = 'get'
+export const getUserLogoutUrl = '/v2/user/logout'
 
 /** request parameter type for getUserUsername */
 export interface GetUserUsernameOption {
@@ -738,6 +752,17 @@ export type GetUserUsernameResponseSuccess = PropertyType<
   GetUserUsernameResponse,
   200
 >
+const getUserUsernameMockData = {
+  id: 0,
+  username: 'string',
+  firstName: 'string',
+  lastName: 'string',
+  email: 'string',
+  password: 'string',
+  phone: 'string',
+  userStatus: 0,
+} as any
+
 /**
  * Get user by user name
  * tags: user
@@ -747,28 +772,18 @@ export function getUserUsername(
   option: GetUserUsernameOption,
 ): Promise<GetUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(getUserUsername.mockData as any)
+    return Promise.resolve(
+      getUserUsernameMockData as GetUserUsernameResponseSuccess,
+    )
   }
   return requester('/v2/user/:username', {
     method: 'get',
     ...option,
-  }) as Promise<any>
+  }) as Promise<GetUserUsernameResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  getUserUsername.mockData = {
-    id: 0,
-    username: 'string',
-    firstName: 'string',
-    lastName: 'string',
-    email: 'string',
-    password: 'string',
-    phone: 'string',
-    userStatus: 0,
-  } as any
-}
-getUserUsername.method = 'get'
-getUserUsername.url = '/v2/user/:username'
+export const getUserUsernameMethod = 'get'
+export const getUserUsernameUrl = '/v2/user/:username'
 
 /** request parameter type for putUserUsername */
 export interface PutUserUsernameOption {
@@ -790,6 +805,8 @@ export interface PutUserUsernameResponse {
 }
 
 export type PutUserUsernameResponseSuccess = any
+const putUserUsernameMockData = '' as any
+
 /**
  * This can only be done by the logged in user.
  * Updated user
@@ -800,19 +817,18 @@ export function putUserUsername(
   option: PutUserUsernameOption,
 ): Promise<PutUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(putUserUsername.mockData as any)
+    return Promise.resolve(
+      putUserUsernameMockData as PutUserUsernameResponseSuccess,
+    )
   }
   return requester('/v2/user/:username', {
     method: 'put',
     ...option,
-  }) as Promise<any>
+  }) as Promise<PutUserUsernameResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  putUserUsername.mockData = '' as any
-}
-putUserUsername.method = 'put'
-putUserUsername.url = '/v2/user/:username'
+export const putUserUsernameMethod = 'put'
+export const putUserUsernameUrl = '/v2/user/:username'
 
 /** request parameter type for deleteUserUsername */
 export interface DeleteUserUsernameOption {
@@ -832,6 +848,8 @@ export interface DeleteUserUsernameResponse {
 }
 
 export type DeleteUserUsernameResponseSuccess = any
+const deleteUserUsernameMockData = '' as any
+
 /**
  * This can only be done by the logged in user.
  * Delete user
@@ -842,16 +860,15 @@ export function deleteUserUsername(
   option: DeleteUserUsernameOption,
 ): Promise<DeleteUserUsernameResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(deleteUserUsername.mockData as any)
+    return Promise.resolve(
+      deleteUserUsernameMockData as DeleteUserUsernameResponseSuccess,
+    )
   }
   return requester('/v2/user/:username', {
     method: 'delete',
     ...option,
-  }) as Promise<any>
+  }) as Promise<DeleteUserUsernameResponseSuccess>
 }
 
-if (process.env.NODE_ENV === 'test') {
-  deleteUserUsername.mockData = '' as any
-}
-deleteUserUsername.method = 'delete'
-deleteUserUsername.url = '/v2/user/:username'
+export const deleteUserUsernameMethod = 'delete'
+export const deleteUserUsernameUrl = '/v2/user/:username'
