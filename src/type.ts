@@ -190,7 +190,7 @@ export interface Project {
    * use cache
    * @default false
    * */
-  useCache: boolean
+  useCache?: boolean
 }
 
 export interface AssembleResponse {
