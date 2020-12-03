@@ -1,6 +1,6 @@
-import { IProject, fetchRequester, processProject } from 'ts-gear'
+import { Project, fetchRequester, processProject } from 'ts-gear'
 
-const project: IProject = {
+const project: Project = {
   name: 'pet',
   dest: './service',
   source: '../fixture/pet.json',

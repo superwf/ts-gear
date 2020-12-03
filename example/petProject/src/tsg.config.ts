@@ -17,7 +17,6 @@ const projects: Project[] = [
     source: '../../fixture/pet.json',
     requester: fetchRequester(),
     prettierConfig,
-    skipCache: true,
     transformJS: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
@@ -28,7 +27,6 @@ const projects: Project[] = [
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
     prettierConfig,
-    skipCache: true,
   },
   {
     name: 'v3',
@@ -37,7 +35,6 @@ const projects: Project[] = [
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
     prettierConfig,
-    skipCache: true,
   },
 ]
 

@@ -3,9 +3,9 @@ export const initConfig = `
   * each project will use the "requester" function when request remote api
   * so this file would be included into your source file when compile
   * */
-import { IProject, fetchRequester, axiosRequester } from 'ts-gear'
+import { Project, fetchRequester, axiosRequester } from 'ts-gear'
 
-const projects: IProject[] = [
+const projects: Project[] = [
   {
     /** project name
      * will used to mkdir in "dest"
@@ -80,6 +80,8 @@ const projects: IProject[] = [
     // prettierConfig: { 
     //   semi: false,
     // }
+
+    // useCache: false,
   },
 ]
 

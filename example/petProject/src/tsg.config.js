@@ -13,7 +13,6 @@ const projects = [
         source: '../../fixture/pet.json',
         requester: fetchRequester(),
         prettierConfig,
-        skipCache: true,
         transformJS: true,
     },
     {
@@ -23,7 +22,6 @@ const projects = [
         keepGeneric: true,
         importRequesterStatement: 'import { requester } from "fffxx"',
         prettierConfig,
-        skipCache: true,
     },
     {
         name: 'v3',
@@ -32,7 +30,6 @@ const projects = [
         keepGeneric: true,
         importRequesterStatement: 'import { requester } from "fffxx"',
         prettierConfig,
-        skipCache: true,
     },
 ];
 export default projects;

@@ -187,10 +187,10 @@ export interface Project {
    * */
   transformJS?: boolean
   /**
-   * force skip cache
+   * use cache
    * @default false
    * */
-  skipCache?: boolean
+  useCache: boolean
 }
 
 export interface AssembleResponse {

@@ -121,7 +121,7 @@ getPetPetId({
 
   * `prettierConfig` for output code prettier style, only support `prettier` version 2 configuration.
 
-  * `skipCache` default false, set true to disable caching.
+  * `useCache` default false, set true to enable cache.
 
 ## test coverage
 

@@ -107,7 +107,7 @@ getPetPetId({
 
   * `prettierConfig` 支持 `prettier` version 2 配置.
 
-  * `skipCache` 默认 false, 可设置为true，跳过缓存。
+  * `useCache` 默认 false, 可设置为true，使用缓存。
 
 ## 测试覆盖约50%
 
