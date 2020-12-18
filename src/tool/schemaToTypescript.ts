@@ -29,7 +29,17 @@ const transform = (schema: SchemaOption): string => {
   const v3Schema = schema as SchemaObject
   const { anyOf, oneOf, discriminator } = v3Schema
 
-  const { type, enum: enumValues, items, $ref, properties, additionalProperties, required, allOf } = schema as Schema
+  const {
+    type,
+    enum: enumValues,
+    items,
+    $ref,
+    properties,
+    additionalProperties,
+    required,
+    allOf,
+    format,
+  } = schema as Schema
   if (enumValues) {
     if (Array.isArray(enumValues)) {
       if (type === 'string') {
@@ -57,7 +67,7 @@ const transform = (schema: SchemaOption): string => {
   }
   switch (type) {
     case 'string':
-      return 'string'
+      return format === 'binary' ? 'File' : 'string'
     case 'boolean':
       return 'boolean'
     case 'file':

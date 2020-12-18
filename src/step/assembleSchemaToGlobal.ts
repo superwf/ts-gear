@@ -1,6 +1,6 @@
 import { forEach, findKey } from 'lodash'
 import type { Spec } from 'swagger-schema-official'
-import type { OperationObject } from 'openapi3-ts'
+// import type { OperationObject } from 'openapi3-ts'
 
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
@@ -9,7 +9,8 @@ import { httpMethods } from '../type'
 import { getGlobal } from '../projectGlobalVariable'
 import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumType'
 import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
-import { getRefDeep } from '../tool/getRefDeep'
+import { getSchemaDeep } from '../tool/getSchemaDeep'
+import { getRequiredDeep } from '../tool/getRequiredDeep'
 
 /**
  * collect definition to definitionMap
@@ -59,39 +60,15 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
          * */
         if ('requestBody' in operation) {
           const v3Parameters = [] as any[]
-          const obj = (operation as any).requestBody.content
-          /** 处理上传文件类型 */
-          if (obj['multipart/form-data']?.schema?.properties) {
-            const required = obj['multipart/form-data']?.schema?.required || []
-            forEach(obj['multipart/form-data']?.schema.properties, (v, k) => {
-              v3Parameters.push({
-                name: k,
-                in: 'formData',
-                description: v.description,
-                required: required.includes(k),
-                type: v.format === 'binary' ? 'file' : 'string',
-              })
-            })
-            /** 处理$ref引用类型 */
-          } else if (obj?.['application/json']?.schema?.$ref) {
-            const required = obj['application/json']?.schema?.required || false
-            v3Parameters.push({
-              in: 'body',
-              name: 'body',
-              required,
-              schema: getRefDeep((operation as OperationObject).requestBody),
-            })
-            /** 处理内联类型 */
-          } else if (obj?.['application/json']?.schema?.type) {
-            const required = obj['application/json']?.schema?.required || []
-            v3Parameters.push({
-              in: 'body',
-              name: 'body',
-              required: required?.length > 0,
-              schema: obj?.['application/json']?.schema,
-            })
-          }
-          // console.log(v3Parameters[0])
+          const { content } = (operation as any).requestBody
+          const required = getRequiredDeep((operation as any).requestBody.content)
+          const schema = getSchemaDeep(content)
+          v3Parameters.push({
+            in: content['multipart/form-data'] ? 'formData' : 'body',
+            name: 'body',
+            required,
+            schema,
+          })
           parameters = v3Parameters
         }
         requestMap[

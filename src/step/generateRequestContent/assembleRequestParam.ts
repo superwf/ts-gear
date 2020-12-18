@@ -1,4 +1,4 @@
-import type { Parameter, Reference } from 'swagger-schema-official'
+import type { Parameter, BodyParameter, Reference } from 'swagger-schema-official'
 
 import type { ParameterPositionMap } from '../../type'
 import { isReference } from '../../tool/isReference'
@@ -24,13 +24,17 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
         positionParameter.required.push(parameter.name)
       }
       positionParameter.properties![parameter.name] = parameter
-    } else if (parameter.in === 'body' && parameter.schema) {
+      /**
+       * 为兼容openapiv3，在src/step/assembleSchemaToGlobal
+       * 将formData的schema也放进来，与body的格式一致
+       * */
+    } else if ((parameter.in === 'formData' || parameter.in === 'body') && (parameter as BodyParameter).schema) {
       /** remove body nest structure */
       map.body = {
         type: 'object',
         name: 'body',
         required: parameter.required ? [parameter.name] : [],
-        schema: parameter.schema,
+        schema: (parameter as BodyParameter).schema,
         docs: assembleDoc(parameter),
       }
     } else {

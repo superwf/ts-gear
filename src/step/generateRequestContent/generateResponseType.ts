@@ -5,7 +5,7 @@ import type { ResponseObject } from 'openapi3-ts'
 import { sow, harvest } from '../../source'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { assembleDoc } from '../../tool/assembleDoc'
-import { getRefDeep } from '../../tool/getRefDeep'
+import { getSchemaDeep } from '../../tool/getSchemaDeep'
 import type { AssembleResponse } from '../../type'
 
 /**
@@ -33,7 +33,8 @@ export const generateResponseType = (
       const statusRes = responses[status]
       /** 兼容openapiv3 */
       if ('content' in statusRes) {
-        ;(statusRes as Response).schema = getRefDeep((statusRes as ResponseObject).content)
+        const res = statusRes as ResponseObject
+        res.schema = getSchemaDeep((statusRes as ResponseObject).content)
       }
       inter.addProperty({
         name: String(status),

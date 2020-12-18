@@ -19,7 +19,11 @@ if (compilerOptions.paths) {
 
 register({
   typeCheck: true,
-  compilerOptions,
+  compilerOptions: {
+    ...compilerOptions,
+    /** 必须使用commonjs，否则在nodejs环境跑不起来 */
+    module: 'commonjs',
+  },
 })
 
 run()

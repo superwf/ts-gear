@@ -98,10 +98,10 @@ export const getApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
 
 /** request parameter type for putApiDatamapFieldDef */
 export interface PutApiDatamapFieldDefOption {
-  /** file */
-  formData: {
+  body?: {
     /**
-        file */
+        file
+        format: binary */
     file: File
   }
 }
@@ -127,7 +127,7 @@ const putApiDatamapFieldDefMockData = '' as any
  * tags: API
  */
 export function putApiDatamapFieldDef(
-  option: PutApiDatamapFieldDefOption,
+  option?: PutApiDatamapFieldDefOption,
 ): Promise<PutApiDatamapFieldDefResponseSuccess> {
   if (process.env.NODE_ENV === 'test') {
     return Promise.resolve(
