@@ -1,6 +1,6 @@
 import * as traverse from 'traverse'
 
-import { TraverseSchemaNode } from '../type'
+import type { TraverseSchemaNode } from '../type'
 
 /**
  * recursively invoked on every schema node

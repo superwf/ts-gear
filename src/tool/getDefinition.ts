@@ -1,5 +1,5 @@
-import { Spec, Schema } from 'swagger-schema-official'
-import { OpenAPIObject } from 'openapi3-ts'
+import type { Spec, Schema } from 'swagger-schema-official'
+import type { OpenAPIObject } from 'openapi3-ts'
 
 type ReturnSchema = { [definitionsName: string]: Schema }
 

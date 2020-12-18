@@ -2,7 +2,6 @@
 /* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import { PropertyType } from 'ts-gear'
 import { requester } from 'fffxx'
 import type { ReplyVOInt } from './definition'
 
@@ -23,10 +22,7 @@ export interface DeleteApiDataboardBoardEsResponse {
   403: any
 }
 
-export type DeleteApiDataboardBoardEsResponseSuccess = PropertyType<
-  DeleteApiDataboardBoardEsResponse,
-  200
->
+export type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200]
 const deleteApiDataboardBoardEsMockData = '' as any
 
 /**

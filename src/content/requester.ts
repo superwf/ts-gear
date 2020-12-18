@@ -1,7 +1,7 @@
 import { EOL } from 'os'
 import * as path from 'path'
 
-import { Project } from '../type'
+import type { Project } from '../type'
 import { configFileName } from '../constant'
 import { renameImportStatementToRequester } from '../tool/renameImportStatementToRequester'
 

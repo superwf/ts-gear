@@ -1,7 +1,7 @@
-import { Parameter, Reference } from 'swagger-schema-official'
+import type { Parameter, Reference } from 'swagger-schema-official'
 import { isEmpty, upperFirst } from 'lodash'
 
-import { RequestParameterPosition } from '../../type'
+import type { RequestParameterPosition } from '../../type'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { sow, harvest } from '../../source'
 

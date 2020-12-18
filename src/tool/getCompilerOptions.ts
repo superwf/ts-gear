@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { existsSync, readFileSync } from 'fs'
 
-import * as ts from 'typescript'
+import type * as ts from 'typescript'
 
 /**
  * get tsconfig compilerOptions from cwd project

@@ -3,10 +3,10 @@
  * modify js to ts and some ts-gear project part change
  * */
 
-import { Schema } from 'swagger-schema-official'
+import type { Schema } from 'swagger-schema-official'
 import { find, isObject, isFunction, castArray } from 'lodash'
 
-import { SwaggerRequest, DefinitionMap, EnumMap } from '../../type'
+import type { SwaggerRequest, DefinitionMap, EnumMap } from '../../type'
 
 // Deeply strips a specific key from an object.
 //

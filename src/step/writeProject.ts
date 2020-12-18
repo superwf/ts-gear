@@ -7,7 +7,6 @@ import type { Project } from '../type'
 import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
-import { propertyTypeHelper } from '../content/propertyTypeHelper'
 import { targetFileNames } from '../constant'
 
 import { importAllDefinition } from './importAllDefinition'
@@ -46,14 +45,9 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     .join(EOL)
   const requesterResult = requester(project, tsGearConfigPath)
   prettierWrite(
-    [
-      warningComment,
-      propertyTypeHelper,
-      requesterResult.import,
-      importAllDefinition(project),
-      requesterResult.code,
-      requestContent,
-    ].join(EOL),
+    [warningComment, requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
+      EOL,
+    ),
     join(dest, targetFileNames.request),
     project.prettierConfig,
   )

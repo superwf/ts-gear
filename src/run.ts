@@ -1,6 +1,6 @@
 import * as step from './step'
 import { restore } from './projectGlobalVariable'
-import { Project } from './type'
+import type { Project } from './type'
 import { info } from './tool/log'
 
 export const processProject = async (project: Project, tsGearConfigPath: string): Promise<void> => {

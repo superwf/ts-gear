@@ -1,6 +1,6 @@
 import { getGlobal } from '../projectGlobalVariable'
 import { traverse$Ref } from '../tool/traverseSchema'
-import { Project } from '../type'
+import type { Project } from '../type'
 import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /**

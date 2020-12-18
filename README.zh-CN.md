@@ -177,6 +177,8 @@ const projects: Project[] = [
 export default projects
 ```
 
+使用axios请看[axios](#axios)
+
 #### Config Options
 
 | Option name | type | required | default | description |
@@ -197,6 +199,11 @@ export default projects
 | prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | prettier v2 options |
 | transformJS | boolean | false | false | should generate js file |
 
+### axios
+
+`ts-gear`内置的`axiosRequester`接受一个`axios`的实例作为参数，如果没有则使用默认的`axios`。
+
+对于`axios`的各种配置可自己首先创建一个`axios`实例，然后传入`axiosRequester`使用。
 
 ### 目录结构
 

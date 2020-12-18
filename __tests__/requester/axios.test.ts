@@ -1,3 +1,4 @@
+import axios from 'axios'
 import * as moxios from 'moxios'
 
 import { requester } from 'src/requester/axios'
@@ -14,7 +15,7 @@ describe('requester fetch', () => {
   it('simple get', async () => {
     moxios.stubRequest('/abc', { status: 200, responseText: '{"ok":true}' })
     const result = await requester()('/abc')
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc')
   })
@@ -27,7 +28,7 @@ describe('requester fetch', () => {
         custom: 'headerValue',
       },
     })
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc')
     expect(req.headers.custom).toBe('headerValue')
@@ -41,35 +42,34 @@ describe('requester fetch', () => {
         id: '111',
       },
     })
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc/111')
   })
 
   it('with wrong path', async () => {
-    try {
+    await expect(async () => {
       await requester()('/abc/:id/:slot', {
         method: 'get',
         path: {
           id: '111',
         },
       })
-    } catch (e) {
-      expect(e.message).toContain('Expected "slot" to be a string')
-    }
+    }).rejects.toThrow('Expected "slot" to be a string')
   })
 
   it('with init option', async () => {
     moxios.stubRequest('/abc', { status: 200, responseText: '{"ok":true}' })
-    const result = await requester({
-      headers: {
-        custom: 'headerValue',
-      },
-    })('/abc', {
+    const result = await requester(
+      axios.create({
+        headers: {
+          custom: 'headerValue',
+        },
+      }),
+    )('/abc', {
       method: 'get',
     })
-    expect(result).toEqual({ ok: true })
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc')
     expect(req.headers.custom).toBe('headerValue')
@@ -84,7 +84,7 @@ describe('requester fetch', () => {
         name: 'abc',
       },
     })
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc/111/edit/abc')
   })
@@ -104,7 +104,7 @@ describe('requester fetch', () => {
         name: 'def',
       },
     })
-    expect(result).toEqual({ ok: true })
+    expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc/111/edit/abc')
     expect(req.config.data).toEqual(
@@ -131,7 +131,7 @@ describe('requester fetch', () => {
       },
     })
     const req = moxios.requests.mostRecent()
-    expect(res).toBe('ok')
+    expect(res.data).toBe('ok')
     const mockFormData = new FormData()
     mockFormData.append('formDataKey', 'formDataValue')
     expect(req.config.data).toEqual(mockFormData)

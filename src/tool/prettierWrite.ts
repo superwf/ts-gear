@@ -1,6 +1,7 @@
 import { writeFileSync } from 'fs'
 
-import { format, Options } from 'prettier'
+import type { Options } from 'prettier'
+import { format } from 'prettier'
 
 /**
  * read from tsg config project prettier config

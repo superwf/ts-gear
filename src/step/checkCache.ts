@@ -1,7 +1,7 @@
 import { join } from 'path'
 import { readFileSync, existsSync, writeFileSync } from 'fs'
 
-import { Project } from '../type'
+import type { Project } from '../type'
 import { contentHash } from '../tool/contentHash'
 
 export const checkCache = (project: Project, tsGearConfigPath: string, spec: any): boolean => {

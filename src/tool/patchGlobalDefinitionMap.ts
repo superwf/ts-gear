@@ -1,4 +1,4 @@
-import { DefinitionMap } from '../type'
+import type { DefinitionMap } from '../type'
 
 /**
  * add a new type definition to definitionMap

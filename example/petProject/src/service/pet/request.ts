@@ -2,7 +2,6 @@
 /* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import { PropertyType } from 'ts-gear'
 import projects from '../../tsg.config'
 import type {
   GetPetFindByStatusItems,
@@ -100,10 +99,7 @@ export interface GetPetFindByStatusResponse {
   400: any
 }
 
-export type GetPetFindByStatusResponseSuccess = PropertyType<
-  GetPetFindByStatusResponse,
-  200
->
+export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200]
 const getPetFindByStatusMockData = [
   {
     id: 0,
@@ -161,7 +157,7 @@ export interface GetPetPetIdResponse {
   404: any
 }
 
-export type GetPetPetIdResponseSuccess = PropertyType<GetPetPetIdResponse, 200>
+export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200]
 const getPetPetIdMockData = {
   id: 0,
   category: { id: 0, pet: '', name: 'string' },
@@ -319,10 +315,7 @@ export interface PostPetPetIdUploadImageResponse {
   200: ApiResponse
 }
 
-export type PostPetPetIdUploadImageResponseSuccess = PropertyType<
-  PostPetPetIdUploadImageResponse,
-  200
->
+export type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200]
 const postPetPetIdUploadImageMockData = {
   code: 0,
   type: 'string',
@@ -359,10 +352,7 @@ export interface GetStoreInventoryResponse {
   }
 }
 
-export type GetStoreInventoryResponseSuccess = PropertyType<
-  GetStoreInventoryResponse,
-  200
->
+export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200]
 const getStoreInventoryMockData = {
   additionalProp1: 0,
   additionalProp2: 0,
@@ -402,10 +392,7 @@ export interface PostStoreOrderResponse {
   400: any
 }
 
-export type PostStoreOrderResponseSuccess = PropertyType<
-  PostStoreOrderResponse,
-  200
->
+export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200]
 const postStoreOrderMockData = {
   id: 0,
   petId: 0,
@@ -459,10 +446,7 @@ export interface GetStoreOrderOrderIdResponse {
   404: any
 }
 
-export type GetStoreOrderOrderIdResponseSuccess = PropertyType<
-  GetStoreOrderOrderIdResponse,
-  200
->
+export type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200]
 const getStoreOrderOrderIdMockData = {
   id: 0,
   petId: 0,
@@ -553,7 +537,7 @@ export interface PostUserResponse {
   default: any
 }
 
-export type PostUserResponseSuccess = PropertyType<PostUserResponse, 'default'>
+export type PostUserResponseSuccess = PostUserResponse['default']
 const postUserMockData = '' as any
 
 /**
@@ -587,10 +571,7 @@ export interface PostUserCreateWithArrayResponse {
   default: any
 }
 
-export type PostUserCreateWithArrayResponseSuccess = PropertyType<
-  PostUserCreateWithArrayResponse,
-  'default'
->
+export type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse['default']
 const postUserCreateWithArrayMockData = '' as any
 
 /**
@@ -626,10 +607,7 @@ export interface PostUserCreateWithListResponse {
   default: any
 }
 
-export type PostUserCreateWithListResponseSuccess = PropertyType<
-  PostUserCreateWithListResponse,
-  'default'
->
+export type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse['default']
 const postUserCreateWithListMockData = '' as any
 
 /**
@@ -674,10 +652,7 @@ export interface GetUserLoginResponse {
   400: any
 }
 
-export type GetUserLoginResponseSuccess = PropertyType<
-  GetUserLoginResponse,
-  200
->
+export type GetUserLoginResponseSuccess = GetUserLoginResponse[200]
 const getUserLoginMockData = 'string' as any
 
 /**
@@ -704,10 +679,7 @@ export interface GetUserLogoutResponse {
   default: any
 }
 
-export type GetUserLogoutResponseSuccess = PropertyType<
-  GetUserLogoutResponse,
-  'default'
->
+export type GetUserLogoutResponseSuccess = GetUserLogoutResponse['default']
 const getUserLogoutMockData = '' as any
 
 /**
@@ -748,10 +720,7 @@ export interface GetUserUsernameResponse {
   404: any
 }
 
-export type GetUserUsernameResponseSuccess = PropertyType<
-  GetUserUsernameResponse,
-  200
->
+export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200]
 const getUserUsernameMockData = {
   id: 0,
   username: 'string',

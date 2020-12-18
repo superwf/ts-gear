@@ -1,10 +1,10 @@
 import { EOL } from 'os'
 
-import { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
-import { Spec } from 'swagger-schema-official'
+import type { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
+import type { Spec } from 'swagger-schema-official'
 import * as join from 'url-join'
 
-import { Project } from '../../type'
+import type { Project } from '../../type'
 import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
 import { getGlobal } from '../../projectGlobalVariable'

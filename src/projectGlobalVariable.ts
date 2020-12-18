@@ -1,4 +1,4 @@
-import { ProjectGlobalMap, Project } from './type'
+import type { ProjectGlobalMap, Project } from './type'
 import { clearObject } from './tool/clearObject'
 
 const projectGlobal: ProjectGlobalMap = {}

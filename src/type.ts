@@ -1,5 +1,5 @@
 // import { JSONSchema4 } from 'json-schema'
-import {
+import type {
   Schema,
   Operation,
   Response,
@@ -9,14 +9,9 @@ import {
   ParameterType,
   Path,
 } from 'swagger-schema-official'
-import { Options } from 'prettier'
+import type { Options } from 'prettier'
 
 import { tuple } from './tool/types'
-
-/** interface A { n: number }
- * type B = PropertyType<A, 'n'> === type B = number
- * */
-export type PropertyType<T extends any, K extends keyof T> = T[K]
 
 /** baidu and google can handle different language automatically
  * youdao must assign the language type
@@ -27,7 +22,7 @@ export const httpMethods = tuple('get', 'put', 'post', 'delete', 'options', 'hea
 
 export type HttpMethod = typeof httpMethods[number]
 
-export type RequestParameterPosition = PropertyType<BaseParameter, 'in'>
+export type RequestParameterPosition = BaseParameter['in']
 
 /** request parameter option */
 export type RequestParameter = {

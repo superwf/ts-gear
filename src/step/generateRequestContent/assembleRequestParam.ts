@@ -1,6 +1,6 @@
-import { Parameter, Reference } from 'swagger-schema-official'
+import type { Parameter, Reference } from 'swagger-schema-official'
 
-import { ParameterPositionMap } from '../../type'
+import type { ParameterPositionMap } from '../../type'
 import { isReference } from '../../tool/isReference'
 import { assembleDoc } from '../../tool/assembleDoc'
 

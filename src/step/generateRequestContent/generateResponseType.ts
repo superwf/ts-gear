@@ -1,12 +1,12 @@
 import { upperFirst } from 'lodash'
-import { Response, Reference } from 'swagger-schema-official'
-import { ResponseObject } from 'openapi3-ts'
+import type { Response, Reference } from 'swagger-schema-official'
+import type { ResponseObject } from 'openapi3-ts'
 
 import { sow, harvest } from '../../source'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { assembleDoc } from '../../tool/assembleDoc'
 import { getRefDeep } from '../../tool/getRefDeep'
-import { AssembleResponse } from '../../type'
+import type { AssembleResponse } from '../../type'
 
 /**
  * when has responses spec, get an interface type and use the first 2xx member as successType
@@ -45,9 +45,9 @@ export const generateResponseType = (
     const firstResponseStatus = responseStatuses[0]
     if (firstResponseStatus.startsWith('2') || firstResponseStatus === 'default') {
       if (Number.isNaN(Number(firstResponseStatus))) {
-        successTypeContent = `export type ${responseTypeName}Success = PropertyType<${responseTypeName}, '${firstResponseStatus}'>`
+        successTypeContent = `export type ${responseTypeName}Success = ${responseTypeName}['${firstResponseStatus}']`
       } else {
-        successTypeContent = `export type ${responseTypeName}Success = PropertyType<${responseTypeName}, ${firstResponseStatus}>`
+        successTypeContent = `export type ${responseTypeName}Success = ${responseTypeName}[${firstResponseStatus}]`
       }
     }
   }

@@ -1,6 +1,6 @@
 import { camelCase, upperFirst } from 'lodash'
 
-import { GenerateRequestFunctionNameParameter } from '../type'
+import type { GenerateRequestFunctionNameParameter } from '../type'
 
 /** default generate request function method */
 export const generateRequestFunctionName = ({ httpMethod, pathName }: GenerateRequestFunctionNameParameter) => {

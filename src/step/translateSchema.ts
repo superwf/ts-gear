@@ -1,8 +1,8 @@
-import { Spec } from 'swagger-schema-official'
+import type { Spec } from 'swagger-schema-official'
 import { find } from 'lodash'
 
 import { traverseSchema } from '../tool/traverseSchema'
-import { TranslationEngine, WordsMap } from '../type'
+import type { TranslationEngine, WordsMap } from '../type'
 import { translate } from '../tool/translate'
 
 export const cnReg = /[\u4e00-\u9fa5]/

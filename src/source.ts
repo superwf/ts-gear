@@ -1,9 +1,9 @@
+import type { SourceFile } from 'ts-morph'
 import {
   // OptionalKind,
   Project,
   // PropertySignatureStructure,
   ScriptTarget,
-  SourceFile,
 } from 'ts-morph'
 
 const project = new Project({

@@ -176,7 +176,21 @@
         "summary": "修改",
         "operationId": "updateUsingPUT",
         "requestBody": {
-          "content": { "application/json": { "schema": { "type": "string" } } }
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "required": ["file"],
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "description": "file",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
         },
         "responses": {
           "200": {

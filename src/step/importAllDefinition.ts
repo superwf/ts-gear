@@ -1,5 +1,5 @@
 import { getGlobal } from '../projectGlobalVariable'
-import { Project } from '../type'
+import type { Project } from '../type'
 
 export const importAllDefinition = (project: Project) => {
   const { requestRefSet, requestEnumSet } = getGlobal(project)

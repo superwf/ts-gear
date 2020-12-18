@@ -1,4 +1,4 @@
-import { GenericNameNode, DefinitionMap } from '../type'
+import type { GenericNameNode, DefinitionMap } from '../type'
 
 export const hasGenericSymbol = (name: string) => {
   return name.includes('<')

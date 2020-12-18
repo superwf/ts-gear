@@ -1,7 +1,7 @@
 import { EOL } from 'os'
 
-import { Schema, Operation, Parameter } from 'swagger-schema-official'
-import { SchemaObject } from 'openapi3-ts'
+import type { Schema, Operation, Parameter } from 'swagger-schema-official'
+import type { SchemaObject } from 'openapi3-ts'
 
 /** add many possible properties to doc */
 export const assembleDoc = (schema: Schema | Operation | Parameter) => {

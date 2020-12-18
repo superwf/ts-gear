@@ -3,7 +3,7 @@ import { join } from 'path'
 import * as ts from 'typescript'
 
 import { targetFileNames } from '../constant'
-import { Project } from '../type'
+import type { Project } from '../type'
 import { info } from '../tool/log'
 
 export function toJS(project: Project, tsGearConfigPath: string): void {

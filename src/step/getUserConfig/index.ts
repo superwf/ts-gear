@@ -3,7 +3,7 @@ import { writeFileSync, existsSync } from 'fs'
 
 import * as prompts from 'prompts'
 
-import { Project } from '../../type'
+import type { Project } from '../../type'
 import { configFileName } from '../../constant'
 import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'

@@ -1,6 +1,6 @@
 import { baidu, google } from 'translation.js'
 
-import { TranslationEngine } from '../type'
+import type { TranslationEngine } from '../type'
 
 export const translateEngines = {
   baidu,

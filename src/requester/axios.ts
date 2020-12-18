@@ -1,9 +1,10 @@
 /** use axios fetch to request */
-import axios, { AxiosRequestConfig } from 'axios'
+import axios from 'axios'
+import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { forEach } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 
-import { RequestParameter, Requester } from '../type'
+import type { RequestParameter, Requester } from '../type'
 
 /** transform parseUrl('/api/abc/:id', { path: { id: '123' } }) to '/api/abc/123'
  * */
@@ -47,10 +48,10 @@ export function interceptRequest(url: string, option?: RequestParameter): [strin
   return [url, requestOption]
 }
 
-export const requester = (axiosInit?: AxiosRequestConfig): Requester => {
-  const request = axios.create(axiosInit)
+export const requester = (ax?: AxiosInstance): Requester => {
+  ax = ax || axios.create()
   return (apiUrl: string, param?: RequestParameter) => {
     const [url, option] = interceptRequest(apiUrl, param)
-    return request(url, option).then(res => res.data)
+    return ax!(url, option)
   }
 }

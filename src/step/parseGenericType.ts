@@ -7,7 +7,7 @@ import {
   getGenericNameFromNode,
   guessGenericTypeName,
 } from '../tool/genericType'
-import { Project, ProjectGlobal, SwaggerDefinition } from '../type'
+import type { Project, ProjectGlobal, SwaggerDefinition } from '../type'
 import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
 
 /** check generic type

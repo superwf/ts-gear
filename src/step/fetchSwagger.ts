@@ -3,7 +3,7 @@ import { join } from 'path'
 import 'cross-fetch/polyfill'
 
 import { error, info } from '../tool/log'
-import { Project } from '../type'
+import type { Project } from '../type'
 
 /**
  * fetch remote spec if url starts with "http"

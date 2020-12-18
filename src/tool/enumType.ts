@@ -1,4 +1,4 @@
-import { Spec } from 'swagger-schema-official'
+import type { Spec } from 'swagger-schema-official'
 import { get, remove, upperFirst } from 'lodash'
 
 import { httpMethods } from '../type'

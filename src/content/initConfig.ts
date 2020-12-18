@@ -3,7 +3,8 @@ export const initConfig = `
   * each project will use the "requester" function when request remote api
   * so this file would be included into your source file when compile
   * */
-import { Project, fetchRequester, axiosRequester } from 'ts-gear'
+import type { Project } from 'ts-gear'
+import { fetchRequester, axiosRequester } from 'ts-gear'
 
 const projects: Project[] = [
   {
@@ -33,13 +34,13 @@ const projects: Project[] = [
       //   headers: { Accept: 'application/json,*/*' },
       // },
 
-    requester: fetchRequester(), // or axiosRequester if you prefer axios
+    requester: fetchRequester(), // or axiosRequester() if you prefer axios
 
     /** filter api path
      * some project mix too mach useless api
      * use this option could avoid those to be written in your api file
      * */
-    // pathMatcher: /^/api/,
+    // pathMatcher: /^\\/api/,
 
     /** filter api path
      * some project mix too mach useless api

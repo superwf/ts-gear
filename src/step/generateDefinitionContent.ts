@@ -1,15 +1,15 @@
-import {
+import type {
   OptionalKind,
   PropertyDeclarationStructure,
-  Scope,
   PropertySignatureStructure,
   InterfaceDeclarationStructure,
   ClassDeclarationStructure,
 } from 'ts-morph'
+import { Scope } from 'ts-morph'
 
 import { schemaToTypescript } from '../tool/schemaToTypescript'
 import { sow, harvest } from '../source'
-import { Project } from '../type'
+import type { Project } from '../type'
 import { getGlobal } from '../projectGlobalVariable'
 import { assembleDoc } from '../tool/assembleDoc'
 

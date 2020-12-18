@@ -52,6 +52,9 @@ module.exports = {
         endOfLine: 'lf',
         arrowParens: 'avoid',
       },
+      {
+        usePrettierrc: false,
+      },
     ],
     'import/order': ['error', { 'newlines-between': 'always' }],
 
@@ -62,6 +65,7 @@ module.exports = {
     //   },
     // ],
 
+    '@typescript-eslint/no-extra-semi': 0,
     '@typescript-eslint/explicit-module-boundary-types': 0,
     'import/prefer-default-export': 0,
     'import/no-unresolved': ['error', { ignore: ['swagger-schema-official'] }],
@@ -90,6 +94,7 @@ module.exports = {
       'error',
       { ignoreRestSiblings: true, varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
+    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/explicit-member-accessibility': ['error', { overrides: { constructors: 'no-public' } }],
   },
   settings: {

@@ -3,9 +3,9 @@
  * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md */
 import { EOL } from 'os'
 
-import { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
+import type { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
 import { map } from 'lodash'
-import { SchemaObject } from 'openapi3-ts'
+import type { SchemaObject } from 'openapi3-ts'
 
 import { assembleDoc } from './assembleDoc'
 
