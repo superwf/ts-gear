@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.6](https://github.com/superwf/ts-gear/compare/v3.0.5...v3.0.6) (2021-01-05)
+
+
+### Bug Fixes
+
+* optimize output add __PURE__ ([16d4042](https://github.com/superwf/ts-gear/commit/16d4042218eea33d80d4c8bdad685ea1411036bb))
+
 ### [3.0.5](https://github.com/superwf/ts-gear/compare/v3.0.4...v3.0.5) (2020-12-18)
 
 
