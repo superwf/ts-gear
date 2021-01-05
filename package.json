@@ -20,7 +20,6 @@
     "url": "https://github.com/superwf/ts-gear.git"
   },
   "dependencies": {
-    "axios": "^0.21.0",
     "chalk": "^2.4.2",
     "commander": "^4.1.0",
     "cosmiconfig": "^5.2.1",
@@ -47,6 +46,9 @@
     "*.md",
     "lib"
   ],
+  "peerDependencies": {
+    "axios": "^0.21.1"
+  },
   "devDependencies": {
     "@commitlint/config-conventional": "^11.0.0",
     "@commitlint/prompt-cli": "^11.0.0",

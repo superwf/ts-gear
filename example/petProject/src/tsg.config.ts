@@ -1,6 +1,7 @@
-import { Options } from 'prettier'
+import type { Options } from 'prettier'
 
-import { Project, fetchRequester } from 'ts-gear'
+import type { Project } from 'ts-gear'
+import { fetchRequester } from 'ts-gear'
 
 const prettierConfig: Options = {
   semi: false,

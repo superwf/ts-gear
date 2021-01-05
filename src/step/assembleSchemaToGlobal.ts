@@ -1,6 +1,5 @@
 import { forEach, findKey } from 'lodash'
 import type { Spec } from 'swagger-schema-official'
-// import type { OperationObject } from 'openapi3-ts'
 
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
@@ -11,6 +10,7 @@ import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumTyp
 import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
 import { getSchemaDeep } from '../tool/getSchemaDeep'
 import { getRequiredDeep } from '../tool/getRequiredDeep'
+// import type { OperationObject } from 'openapi3-ts'
 
 /**
  * collect definition to definitionMap
@@ -48,7 +48,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
       schema: definitions[name],
     }
   })
-  forEach(spec.paths, (pathSchema /** Path */, pathName) => {
+  forEach(spec.paths, (pathSchema /** Path */, pathname) => {
     const genFunctionName = project.generateRequestFunctionName || generateRequestFunctionName
     forEach(httpMethods, httpMethod => {
       const operation = pathSchema[httpMethod]
@@ -74,11 +74,11 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
         requestMap[
           genFunctionName({
             httpMethod,
-            pathName,
+            pathname,
             schema: operation!,
           })
         ] = {
-          pathName,
+          pathname,
           httpMethod,
           schema: operation!,
           responses: operation.responses,

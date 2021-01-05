@@ -40,7 +40,7 @@ const projects: Project[] = [
      * some project mix too mach useless api
      * use this option could avoid those to be written in your api file
      * */
-    // pathMatcher: /^\\/api/,
+    // apiFilter: /^\\/api/,
 
     /** filter api path
      * some project mix too mach useless api

@@ -63,12 +63,88 @@ export type ParameterPositionMap = {
   }
 }
 
-export type TPathMatcherFunction = RegExp | ((url: string, httpMethod?: HttpMethod) => boolean)
-
 export interface GenerateRequestFunctionNameParameter {
   httpMethod: HttpMethod
-  pathName: string
+  pathname: string
   schema: Path
+}
+
+export interface AssembleResponse {
+  responseTypeContent: string
+  successTypeContent: string
+  responseTypeName: string
+  successTypeName: string
+}
+
+export interface SwaggerDefinition {
+  // no generic simbol type name
+  originalName?: string
+  typeName: string
+  schema?: Schema
+  typescriptContent?: string
+  typeParameters?: string[]
+}
+
+export interface SwaggerRequest {
+  pathname: string
+  httpMethod: HttpMethod
+  schema: Operation
+  typescriptContent?: string
+  parameters?: Array<Parameter | Reference>
+  responses: { [responseName: string]: Response | Reference }
+}
+
+export type ApiFilterFunction = RegExp | ((req: SwaggerRequest) => boolean)
+
+export interface GenericNameNode {
+  name: string
+  level?: number
+  children?: GenericNameNode[]
+  parent?: GenericNameNode
+}
+
+/** definition name may be changed when parsing generic type
+ * then the ref name can not find the map in definition
+ * use this map to link the changed definition and ref name.
+ * */
+export interface RefMap {
+  /** key: maybe generic, as "A<B>", value: trimed generic symbol, as "AB" */
+  [origin: string]: SwaggerDefinition
+}
+export interface DefinitionMap {
+  // key: cleaned name, may be generic as A<B>
+  [definitionName: string]: SwaggerDefinition
+}
+export interface RequestMap {
+  [requestFunctionName: string]: SwaggerRequest
+}
+
+export interface EnumMap {
+  [enumTypeName: string]: {
+    typescriptContent: string
+    originalContent: string
+  }
+}
+
+/** key: origin word, value: translated english word */
+export interface WordsMap {
+  [k: string]: string
+}
+
+/** global variables per project */
+export interface ProjectGlobal {
+  definitionMap: DefinitionMap
+  /** all Reference $ref name use this map
+   * key is original ref name
+   * value is definition
+   * */
+  requestMap: RequestMap
+  requestRefSet: Set<string>
+  requestEnumSet: Set<string>
+  enumMap: EnumMap
+}
+export interface ProjectGlobalMap {
+  [projectName: string]: ProjectGlobal
 }
 
 export interface Project {
@@ -99,7 +175,7 @@ export interface Project {
    * some project mix too mach useless api
    * use this option could avoid those to be written in your api file
    * */
-  pathMatcher?: TPathMatcherFunction
+  apiFilter?: ApiFilterFunction
 
   /** request function statement
    * some times requester will import too many code
@@ -186,80 +262,4 @@ export interface Project {
    * @default false
    * */
   useCache?: boolean
-}
-
-export interface AssembleResponse {
-  responseTypeContent: string
-  successTypeContent: string
-  responseTypeName: string
-  successTypeName: string
-}
-
-export interface SwaggerDefinition {
-  // no generic simbol type name
-  originalName?: string
-  typeName: string
-  schema?: Schema
-  typescriptContent?: string
-  typeParameters?: string[]
-}
-
-export interface SwaggerRequest {
-  pathName: string
-  httpMethod: HttpMethod
-  schema: Operation
-  typescriptContent?: string
-  parameters?: Array<Parameter | Reference>
-  responses: { [responseName: string]: Response | Reference }
-}
-
-export interface GenericNameNode {
-  name: string
-  level?: number
-  children?: GenericNameNode[]
-  parent?: GenericNameNode
-}
-
-/** definition name may be changed when parsing generic type
- * then the ref name can not find the map in definition
- * use this map to link the changed definition and ref name.
- * */
-export interface RefMap {
-  /** key: maybe generic, as "A<B>", value: trimed generic symbol, as "AB" */
-  [origin: string]: SwaggerDefinition
-}
-export interface DefinitionMap {
-  // key: cleaned name, may be generic as A<B>
-  [definitionName: string]: SwaggerDefinition
-}
-export interface RequestMap {
-  [requestFunctionName: string]: SwaggerRequest
-}
-
-export interface EnumMap {
-  [enumTypeName: string]: {
-    typescriptContent: string
-    originalContent: string
-  }
-}
-
-/** key: origin word, value: translated english word */
-export interface WordsMap {
-  [k: string]: string
-}
-
-/** global variables per project */
-export interface ProjectGlobal {
-  definitionMap: DefinitionMap
-  /** all Reference $ref name use this map
-   * key is original ref name
-   * value is definition
-   * */
-  requestMap: RequestMap
-  requestRefSet: Set<string>
-  requestEnumSet: Set<string>
-  enumMap: EnumMap
-}
-export interface ProjectGlobalMap {
-  [projectName: string]: ProjectGlobal
 }

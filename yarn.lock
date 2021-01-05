@@ -1440,10 +1440,10 @@ axios@^0.19.0:
   dependencies:
     follow-redirects "1.5.10"
 
-axios@^0.21.0:
-  version "0.21.0"
-  resolved "http://registry.m.jd.com/axios/download/axios-0.21.0.tgz#26df088803a2350dff2c27f96fef99fe49442aca"
-  integrity sha1-Jt8IiAOiNQ3/LCf5b++Z/klEKso=
+axios@^0.21.1:
+  version "0.21.1"
+  resolved "http://registry.m.jd.com/axios/download/axios-0.21.1.tgz#22563481962f4d6bde9a76d516ef0e5d3c09b2b8"
+  integrity sha1-IlY0gZYvTWvemnbVFu8OXTwJsrg=
   dependencies:
     follow-redirects "^1.10.0"
 

@@ -23,26 +23,27 @@ export interface DeleteApiDataboardBoardEsResponse {
 }
 
 export type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200]
-const deleteApiDataboardBoardEsMockData = '' as any
-
+const deleteApiDataboardBoardEsMockData = ('' as unknown) as DeleteApiDataboardBoardEsResponseSuccess
 /**
  * 删除索引
  * tags: Es
  * produces: *／*
  */
-export function deleteApiDataboardBoardEs(
-  option?: DeleteApiDataboardBoardEsOption,
-): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(
-      deleteApiDataboardBoardEsMockData as DeleteApiDataboardBoardEsResponseSuccess,
-    )
+export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
+  const method = 'delete'
+  const url = '/api/databoard/board/es'
+  function deleteApiDataboardBoardEs(
+    option?: DeleteApiDataboardBoardEsOption,
+  ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
+    if (process.env.NODE_ENV === 'test') {
+      return Promise.resolve(deleteApiDataboardBoardEsMockData)
+    }
+    return requester(url, { method, ...option }) as Promise<
+      DeleteApiDataboardBoardEsResponseSuccess
+    >
   }
-  return requester('/api/databoard/board/es', {
-    method: 'delete',
-    ...option,
-  }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>
-}
 
-export const deleteApiDataboardBoardEsMethod = 'delete'
-export const deleteApiDataboardBoardEsUrl = '/api/databoard/board/es'
+  deleteApiDataboardBoardEs.method = method
+  deleteApiDataboardBoardEs.url = url
+  return deleteApiDataboardBoardEs
+})()

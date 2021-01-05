@@ -187,7 +187,7 @@ export default projects
 | dest | string | true | | parent directory of project |
 | source | string | true | | swagger doc url <br /> remote url or local json file |
 | fetchSwaggerDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | swagger doc url<br />support remote or local json |
-| pathMatcher | RegExp \| ((url: string, httpMethod?: HttpMethod) => boolean) | false | | regexp or function to filter<br />the request path should generate |
+| apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false | | regexp or function to filter<br />the request path should generate |
 | requester | (url: string, param?: RequestParameter) => Promise<any> | false | | request func invoked in each request method, make sure provide `requester` or `importRequesterStatement` |
 | importRequesterStatement | string | false | | like `import axios from "axios"`, make sure provide `requester` or `importRequesterStatement` |
 | preferClass | boolean | false | false | generate class rather than class |

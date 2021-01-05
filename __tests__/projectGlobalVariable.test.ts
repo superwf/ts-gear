@@ -1,5 +1,5 @@
 import { restore, getGlobal } from 'src/projectGlobalVariable'
-import { Project } from 'src/type'
+import type { Project } from 'src/type'
 
 describe('src/global', () => {
   const project: Project = {
@@ -18,7 +18,7 @@ describe('src/global', () => {
       typeName: 'AAA',
     }
     requestMap.aaa = {
-      pathName: 'aaa',
+      pathname: 'aaa',
       httpMethod: 'get',
       responses: [] as any,
       schema: {} as any,

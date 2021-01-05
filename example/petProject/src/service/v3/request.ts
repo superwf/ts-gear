@@ -73,28 +73,29 @@ export interface GetApiDatamapFieldDefResponse {
 }
 
 export type GetApiDatamapFieldDefResponseSuccess = GetApiDatamapFieldDefResponse[200]
-const getApiDatamapFieldDefMockData = '' as any
-
+const getApiDatamapFieldDefMockData = ('' as unknown) as GetApiDatamapFieldDefResponseSuccess
 /**
  * 分页查询【表字段信息】
  * tags: 【表字段信息】API
  */
-export function getApiDatamapFieldDef(
-  option?: GetApiDatamapFieldDefOption,
-): Promise<GetApiDatamapFieldDefResponseSuccess> {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(
-      getApiDatamapFieldDefMockData as GetApiDatamapFieldDefResponseSuccess,
-    )
+export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
+  const method = 'get'
+  const url = 'api/datamap/fieldDef'
+  function getApiDatamapFieldDef(
+    option?: GetApiDatamapFieldDefOption,
+  ): Promise<GetApiDatamapFieldDefResponseSuccess> {
+    if (process.env.NODE_ENV === 'test') {
+      return Promise.resolve(getApiDatamapFieldDefMockData)
+    }
+    return requester(url, { method, ...option }) as Promise<
+      GetApiDatamapFieldDefResponseSuccess
+    >
   }
-  return requester('api/datamap/fieldDef', {
-    method: 'get',
-    ...option,
-  }) as Promise<GetApiDatamapFieldDefResponseSuccess>
-}
 
-export const getApiDatamapFieldDefMethod = 'get'
-export const getApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
+  getApiDatamapFieldDef.method = method
+  getApiDatamapFieldDef.url = url
+  return getApiDatamapFieldDef
+})()
 
 /** request parameter type for putApiDatamapFieldDef */
 export interface PutApiDatamapFieldDefOption {
@@ -120,28 +121,29 @@ export interface PutApiDatamapFieldDefResponse {
 }
 
 export type PutApiDatamapFieldDefResponseSuccess = PutApiDatamapFieldDefResponse[200]
-const putApiDatamapFieldDefMockData = '' as any
-
+const putApiDatamapFieldDefMockData = ('' as unknown) as PutApiDatamapFieldDefResponseSuccess
 /**
  * 修改
  * tags: API
  */
-export function putApiDatamapFieldDef(
-  option?: PutApiDatamapFieldDefOption,
-): Promise<PutApiDatamapFieldDefResponseSuccess> {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(
-      putApiDatamapFieldDefMockData as PutApiDatamapFieldDefResponseSuccess,
-    )
+export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
+  const method = 'put'
+  const url = 'api/datamap/fieldDef'
+  function putApiDatamapFieldDef(
+    option?: PutApiDatamapFieldDefOption,
+  ): Promise<PutApiDatamapFieldDefResponseSuccess> {
+    if (process.env.NODE_ENV === 'test') {
+      return Promise.resolve(putApiDatamapFieldDefMockData)
+    }
+    return requester(url, { method, ...option }) as Promise<
+      PutApiDatamapFieldDefResponseSuccess
+    >
   }
-  return requester('api/datamap/fieldDef', {
-    method: 'put',
-    ...option,
-  }) as Promise<PutApiDatamapFieldDefResponseSuccess>
-}
 
-export const putApiDatamapFieldDefMethod = 'put'
-export const putApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
+  putApiDatamapFieldDef.method = method
+  putApiDatamapFieldDef.url = url
+  return putApiDatamapFieldDef
+})()
 
 /** request parameter type for postApiDatamapFieldDef */
 export interface PostApiDatamapFieldDefOption {
@@ -160,28 +162,29 @@ export interface PostApiDatamapFieldDefResponse {
 }
 
 export type PostApiDatamapFieldDefResponseSuccess = PostApiDatamapFieldDefResponse[201]
-const postApiDatamapFieldDefMockData = '' as any
-
+const postApiDatamapFieldDefMockData = ('' as unknown) as PostApiDatamapFieldDefResponseSuccess
 /**
  * 新增
  * tags: 表字段信息
  */
-export function postApiDatamapFieldDef(
-  option?: PostApiDatamapFieldDefOption,
-): Promise<PostApiDatamapFieldDefResponseSuccess> {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(
-      postApiDatamapFieldDefMockData as PostApiDatamapFieldDefResponseSuccess,
-    )
+export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
+  const method = 'post'
+  const url = 'api/datamap/fieldDef'
+  function postApiDatamapFieldDef(
+    option?: PostApiDatamapFieldDefOption,
+  ): Promise<PostApiDatamapFieldDefResponseSuccess> {
+    if (process.env.NODE_ENV === 'test') {
+      return Promise.resolve(postApiDatamapFieldDefMockData)
+    }
+    return requester(url, { method, ...option }) as Promise<
+      PostApiDatamapFieldDefResponseSuccess
+    >
   }
-  return requester('api/datamap/fieldDef', {
-    method: 'post',
-    ...option,
-  }) as Promise<PostApiDatamapFieldDefResponseSuccess>
-}
 
-export const postApiDatamapFieldDefMethod = 'post'
-export const postApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
+  postApiDatamapFieldDef.method = method
+  postApiDatamapFieldDef.url = url
+  return postApiDatamapFieldDef
+})()
 
 /** request parameter type for deleteApiDatamapFieldDef */
 export interface DeleteApiDatamapFieldDefOption {
@@ -200,31 +203,32 @@ export interface DeleteApiDatamapFieldDefResponse {
 }
 
 export type DeleteApiDatamapFieldDefResponseSuccess = DeleteApiDatamapFieldDefResponse[200]
-const deleteApiDatamapFieldDefMockData = {
+const deleteApiDatamapFieldDefMockData = ({
   description: 'string',
   fieldId: 'string',
   fieldName: 'name1',
   tableId: 'string',
   type: 'string',
-} as any
-
+} as unknown) as DeleteApiDatamapFieldDefResponseSuccess
 /**
  * 批量删除
  * tags: API
  */
-export function deleteApiDatamapFieldDef(
-  option?: DeleteApiDatamapFieldDefOption,
-): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
-  if (process.env.NODE_ENV === 'test') {
-    return Promise.resolve(
-      deleteApiDatamapFieldDefMockData as DeleteApiDatamapFieldDefResponseSuccess,
-    )
+export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
+  const method = 'delete'
+  const url = 'api/datamap/fieldDef'
+  function deleteApiDatamapFieldDef(
+    option?: DeleteApiDatamapFieldDefOption,
+  ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
+    if (process.env.NODE_ENV === 'test') {
+      return Promise.resolve(deleteApiDatamapFieldDefMockData)
+    }
+    return requester(url, { method, ...option }) as Promise<
+      DeleteApiDatamapFieldDefResponseSuccess
+    >
   }
-  return requester('api/datamap/fieldDef', {
-    method: 'delete',
-    ...option,
-  }) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
-}
 
-export const deleteApiDatamapFieldDefMethod = 'delete'
-export const deleteApiDatamapFieldDefUrl = 'api/datamap/fieldDef'
+  deleteApiDatamapFieldDef.method = method
+  deleteApiDatamapFieldDef.url = url
+  return deleteApiDatamapFieldDef
+})()

@@ -1,6 +1,6 @@
 import { EOL } from 'os'
 
-import type { FunctionDeclarationStructure, OptionalKind } from 'ts-morph'
+import type { FunctionDeclarationStructure, OptionalKind, VariableDeclarationKind } from 'ts-morph'
 import type { Spec } from 'swagger-schema-official'
 import * as join from 'url-join'
 
@@ -17,7 +17,7 @@ import { generateParameterType } from './generateParameterType'
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: Project) => {
-  const { pathMatcher, withBasePath, withHost } = project
+  const { apiFilter, withBasePath, withHost } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
   const shouldMockResponseStatement = project.shouldMockResponseStatement || defaultShouldMockResponseStatement
@@ -27,12 +27,12 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
-    if (pathMatcher) {
-      if (typeof pathMatcher === 'function') {
-        if (!pathMatcher(request.pathName, httpMethod)) {
+    if (apiFilter) {
+      if (typeof apiFilter === 'function') {
+        if (!apiFilter(request)) {
           return
         }
-      } else if (!pathMatcher.test(request.pathName)) {
+      } else if (!apiFilter.test(request.pathname)) {
         return
       }
     }
@@ -48,21 +48,23 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const responseType = generateResponseType(requestFunctionName, request.responses)
     requestTypeScriptContent.push(responseType.responseTypeContent)
     requestTypeScriptContent.push(responseType.successTypeContent)
-    const urlPath = join(spec.basePath || '', transformSwaggerPathToRouterPath(String(request.pathName)))
+    const urlPath = join(spec.basePath || '', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
-    const requesterStatment = `return requester('${urlPath}', {${withHost ? `, host: '${spec.host}'` : ''}${
+    const requestFunctionSource = sow()
+    const requesterStatment = `return requester(url, {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
-    }method: '${httpMethod}'${parameterTypeName ? ', ...option' : ''}}) as Promise<${responseType.successTypeName}>`
+    }method${parameterTypeName ? ', ...option' : ''}}) as Promise<${responseType.successTypeName}>`
     const functionStatment = `if (${shouldMockResponseStatement}) {
-      return Promise.resolve(${requestFunctionName}MockData as ${responseType.successTypeName})
+      return Promise.resolve(${requestFunctionName}MockData)
+
     }
     ${requesterStatment}`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
       name: requestFunctionName,
-      isExported: true,
+      isExported: false,
       returnType: `Promise<${responseType.successTypeName}>`,
       statements: functionStatment,
-      docs: assembleDoc(request.schema),
+      // docs: assembleDoc(request.schema),
     }
     functionData.parameters = []
     if (parameterTypeName) {
@@ -74,13 +76,32 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     }
     const mockStatment = `const ${requestFunctionName}MockData = (${JSON.stringify(
       generateMockData(request, definitionMap, enumMap),
-    )} as any)`
+    )} as unknown as ${responseType.successTypeName})`
     source.addStatements(mockStatment)
-    source.addFunction(functionData)
-    source.addStatements(`
-export const ${requestFunctionName}Method = '${httpMethod}'
-export const ${requestFunctionName}Url = '${urlPath}'
-`)
+    requestFunctionSource.addFunction(functionData)
+    source.addVariableStatement({
+      declarationKind: 'const' as VariableDeclarationKind.Const,
+      docs: assembleDoc(request.schema),
+      isExported: true,
+      declarations: [
+        {
+          name: requestFunctionName,
+          initializer: `/* #__PURE__ */ (() => {
+            const method = '${httpMethod}'
+            const url = '${urlPath}'
+${harvest(requestFunctionSource)}
+${requestFunctionName}.method = method
+${requestFunctionName}.url = url
+return ${requestFunctionName}
+                         })()
+`,
+        },
+      ],
+    })
+    // source.addStatements(`
+    // export const ${requestFunctionName}Method = '${httpMethod}'
+    // export const ${requestFunctionName}Url = '${urlPath}'
+    // `)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */
     request.typescriptContent = requestTypeScriptContent.join(EOL)

@@ -12,14 +12,19 @@ const putPetMockData = '';
  * produces: application／xml,application/json
  * consumes: application／json,application/xml
  */
-export function putPet(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(putPetMockData);
+export const putPet = /* #__PURE__ */ (() => {
+    const method = 'put';
+    const url = '/v2/pet';
+    function putPet(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(putPetMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet', { method: 'put', ...option });
-}
-export const putPetMethod = 'put';
-export const putPetUrl = '/v2/pet';
+    putPet.method = method;
+    putPet.url = url;
+    return putPet;
+})();
 const postPetMockData = '';
 /**
  * Add a new pet to the store
@@ -27,14 +32,19 @@ const postPetMockData = '';
  * produces: application／xml,application/json
  * consumes: application／json,application/xml
  */
-export function postPet(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postPetMockData);
+export const postPet = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/pet';
+    function postPet(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postPetMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet', { method: 'post', ...option });
-}
-export const postPetMethod = 'post';
-export const postPetUrl = '/v2/pet';
+    postPet.method = method;
+    postPet.url = url;
+    return postPet;
+})();
 const getPetFindByStatusMockData = [
     {
         id: 0,
@@ -51,17 +61,19 @@ const getPetFindByStatusMockData = [
  * tags: pet
  * produces: application／xml,application/json
  */
-export function getPetFindByStatus(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getPetFindByStatusMockData);
+export const getPetFindByStatus = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/pet/findByStatus';
+    function getPetFindByStatus(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getPetFindByStatusMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet/findByStatus', {
-        method: 'get',
-        ...option,
-    });
-}
-export const getPetFindByStatusMethod = 'get';
-export const getPetFindByStatusUrl = '/v2/pet/findByStatus';
+    getPetFindByStatus.method = method;
+    getPetFindByStatus.url = url;
+    return getPetFindByStatus;
+})();
 const getPetPetIdMockData = {
     id: 0,
     category: { id: 0, pet: '', name: 'string' },
@@ -76,14 +88,19 @@ const getPetPetIdMockData = {
  * tags: pet
  * produces: application／xml,application/json
  */
-export function getPetPetId(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getPetPetIdMockData);
+export const getPetPetId = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/pet/:petId';
+    function getPetPetId(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getPetPetIdMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet/:petId', { method: 'get', ...option });
-}
-export const getPetPetIdMethod = 'get';
-export const getPetPetIdUrl = '/v2/pet/:petId';
+    getPetPetId.method = method;
+    getPetPetId.url = url;
+    return getPetPetId;
+})();
 const postPetPetIdMockData = '';
 /**
  * Updates a pet in the store with form data
@@ -91,31 +108,38 @@ const postPetPetIdMockData = '';
  * produces: application／xml,application/json
  * consumes: application／x-www-form-urlencoded
  */
-export function postPetPetId(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postPetPetIdMockData);
+export const postPetPetId = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/pet/:petId';
+    function postPetPetId(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postPetPetIdMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet/:petId', { method: 'post', ...option });
-}
-export const postPetPetIdMethod = 'post';
-export const postPetPetIdUrl = '/v2/pet/:petId';
+    postPetPetId.method = method;
+    postPetPetId.url = url;
+    return postPetPetId;
+})();
 const deletePetPetIdMockData = '';
 /**
  * Deletes a pet
  * tags: pet
  * produces: application／xml,application/json
  */
-export function deletePetPetId(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(deletePetPetIdMockData);
+export const deletePetPetId = /* #__PURE__ */ (() => {
+    const method = 'delete';
+    const url = '/v2/pet/:petId';
+    function deletePetPetId(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(deletePetPetIdMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet/:petId', {
-        method: 'delete',
-        ...option,
-    });
-}
-export const deletePetPetIdMethod = 'delete';
-export const deletePetPetIdUrl = '/v2/pet/:petId';
+    deletePetPetId.method = method;
+    deletePetPetId.url = url;
+    return deletePetPetId;
+})();
 const postPetPetIdUploadImageMockData = {
     code: 0,
     type: 'string',
@@ -127,17 +151,19 @@ const postPetPetIdUploadImageMockData = {
  * produces: application／json
  * consumes: multipart／form-data
  */
-export function postPetPetIdUploadImage(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postPetPetIdUploadImageMockData);
+export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/pet/:petId/uploadImage';
+    function postPetPetIdUploadImage(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postPetPetIdUploadImageMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/pet/:petId/uploadImage', {
-        method: 'post',
-        ...option,
-    });
-}
-export const postPetPetIdUploadImageMethod = 'post';
-export const postPetPetIdUploadImageUrl = '/v2/pet/:petId/uploadImage';
+    postPetPetIdUploadImage.method = method;
+    postPetPetIdUploadImage.url = url;
+    return postPetPetIdUploadImage;
+})();
 const getStoreInventoryMockData = {
     additionalProp1: 0,
     additionalProp2: 0,
@@ -149,14 +175,19 @@ const getStoreInventoryMockData = {
  * tags: store
  * produces: application／json
  */
-export function getStoreInventory() {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getStoreInventoryMockData);
+export const getStoreInventory = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/store/inventory';
+    function getStoreInventory() {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getStoreInventoryMockData);
+        }
+        return requester(url, { method });
     }
-    return requester('/v2/store/inventory', { method: 'get' });
-}
-export const getStoreInventoryMethod = 'get';
-export const getStoreInventoryUrl = '/v2/store/inventory';
+    getStoreInventory.method = method;
+    getStoreInventory.url = url;
+    return getStoreInventory;
+})();
 const postStoreOrderMockData = {
     id: 0,
     petId: 0,
@@ -170,14 +201,19 @@ const postStoreOrderMockData = {
  * tags: store
  * produces: application／xml,application/json
  */
-export function postStoreOrder(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postStoreOrderMockData);
+export const postStoreOrder = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/store/order';
+    function postStoreOrder(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postStoreOrderMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/store/order', { method: 'post', ...option });
-}
-export const postStoreOrderMethod = 'post';
-export const postStoreOrderUrl = '/v2/store/order';
+    postStoreOrder.method = method;
+    postStoreOrder.url = url;
+    return postStoreOrder;
+})();
 const getStoreOrderOrderIdMockData = {
     id: 0,
     petId: 0,
@@ -192,17 +228,19 @@ const getStoreOrderOrderIdMockData = {
  * tags: store
  * produces: application／xml,application/json
  */
-export function getStoreOrderOrderId(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getStoreOrderOrderIdMockData);
+export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/store/order/:orderId';
+    function getStoreOrderOrderId(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getStoreOrderOrderIdMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/store/order/:orderId', {
-        method: 'get',
-        ...option,
-    });
-}
-export const getStoreOrderOrderIdMethod = 'get';
-export const getStoreOrderOrderIdUrl = '/v2/store/order/:orderId';
+    getStoreOrderOrderId.method = method;
+    getStoreOrderOrderId.url = url;
+    return getStoreOrderOrderId;
+})();
 const deleteStoreOrderOrderIdMockData = '';
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
@@ -210,17 +248,19 @@ const deleteStoreOrderOrderIdMockData = '';
  * tags: store
  * produces: application／xml,application/json
  */
-export function deleteStoreOrderOrderId(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(deleteStoreOrderOrderIdMockData);
+export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
+    const method = 'delete';
+    const url = '/v2/store/order/:orderId';
+    function deleteStoreOrderOrderId(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(deleteStoreOrderOrderIdMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/store/order/:orderId', {
-        method: 'delete',
-        ...option,
-    });
-}
-export const deleteStoreOrderOrderIdMethod = 'delete';
-export const deleteStoreOrderOrderIdUrl = '/v2/store/order/:orderId';
+    deleteStoreOrderOrderId.method = method;
+    deleteStoreOrderOrderId.url = url;
+    return deleteStoreOrderOrderId;
+})();
 const postUserMockData = '';
 /**
  * This can only be done by the logged in user.
@@ -228,76 +268,95 @@ const postUserMockData = '';
  * tags: user
  * produces: application／xml,application/json
  */
-export function postUser(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postUserMockData);
+export const postUser = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/user';
+    function postUser(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postUserMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user', { method: 'post', ...option });
-}
-export const postUserMethod = 'post';
-export const postUserUrl = '/v2/user';
+    postUser.method = method;
+    postUser.url = url;
+    return postUser;
+})();
 const postUserCreateWithArrayMockData = '';
 /**
  * Creates list of users with given input array
  * tags: user
  * produces: application／xml,application/json
  */
-export function postUserCreateWithArray(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postUserCreateWithArrayMockData);
+export const postUserCreateWithArray = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/user/createWithArray';
+    function postUserCreateWithArray(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postUserCreateWithArrayMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/createWithArray', {
-        method: 'post',
-        ...option,
-    });
-}
-export const postUserCreateWithArrayMethod = 'post';
-export const postUserCreateWithArrayUrl = '/v2/user/createWithArray';
+    postUserCreateWithArray.method = method;
+    postUserCreateWithArray.url = url;
+    return postUserCreateWithArray;
+})();
 const postUserCreateWithListMockData = '';
 /**
  * Creates list of users with given input array
  * tags: user
  * produces: application／xml,application/json
  */
-export function postUserCreateWithList(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(postUserCreateWithListMockData);
+export const postUserCreateWithList = /* #__PURE__ */ (() => {
+    const method = 'post';
+    const url = '/v2/user/createWithList';
+    function postUserCreateWithList(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(postUserCreateWithListMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/createWithList', {
-        method: 'post',
-        ...option,
-    });
-}
-export const postUserCreateWithListMethod = 'post';
-export const postUserCreateWithListUrl = '/v2/user/createWithList';
+    postUserCreateWithList.method = method;
+    postUserCreateWithList.url = url;
+    return postUserCreateWithList;
+})();
 const getUserLoginMockData = 'string';
 /**
  * Logs user into the system
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserLogin(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getUserLoginMockData);
+export const getUserLogin = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/user/login';
+    function getUserLogin(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getUserLoginMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/login', { method: 'get', ...option });
-}
-export const getUserLoginMethod = 'get';
-export const getUserLoginUrl = '/v2/user/login';
+    getUserLogin.method = method;
+    getUserLogin.url = url;
+    return getUserLogin;
+})();
 const getUserLogoutMockData = '';
 /**
  * Logs out current logged in user session
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserLogout() {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getUserLogoutMockData);
+export const getUserLogout = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/user/logout';
+    function getUserLogout() {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getUserLogoutMockData);
+        }
+        return requester(url, { method });
     }
-    return requester('/v2/user/logout', { method: 'get' });
-}
-export const getUserLogoutMethod = 'get';
-export const getUserLogoutUrl = '/v2/user/logout';
+    getUserLogout.method = method;
+    getUserLogout.url = url;
+    return getUserLogout;
+})();
 const getUserUsernameMockData = {
     id: 0,
     username: 'string',
@@ -313,17 +372,19 @@ const getUserUsernameMockData = {
  * tags: user
  * produces: application／xml,application/json
  */
-export function getUserUsername(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(getUserUsernameMockData);
+export const getUserUsername = /* #__PURE__ */ (() => {
+    const method = 'get';
+    const url = '/v2/user/:username';
+    function getUserUsername(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(getUserUsernameMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/:username', {
-        method: 'get',
-        ...option,
-    });
-}
-export const getUserUsernameMethod = 'get';
-export const getUserUsernameUrl = '/v2/user/:username';
+    getUserUsername.method = method;
+    getUserUsername.url = url;
+    return getUserUsername;
+})();
 const putUserUsernameMockData = '';
 /**
  * This can only be done by the logged in user.
@@ -331,17 +392,19 @@ const putUserUsernameMockData = '';
  * tags: user
  * produces: application／xml,application/json
  */
-export function putUserUsername(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(putUserUsernameMockData);
+export const putUserUsername = /* #__PURE__ */ (() => {
+    const method = 'put';
+    const url = '/v2/user/:username';
+    function putUserUsername(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(putUserUsernameMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/:username', {
-        method: 'put',
-        ...option,
-    });
-}
-export const putUserUsernameMethod = 'put';
-export const putUserUsernameUrl = '/v2/user/:username';
+    putUserUsername.method = method;
+    putUserUsername.url = url;
+    return putUserUsername;
+})();
 const deleteUserUsernameMockData = '';
 /**
  * This can only be done by the logged in user.
@@ -349,14 +412,16 @@ const deleteUserUsernameMockData = '';
  * tags: user
  * produces: application／xml,application/json
  */
-export function deleteUserUsername(option) {
-    if (process.env.NODE_ENV === 'test') {
-        return Promise.resolve(deleteUserUsernameMockData);
+export const deleteUserUsername = /* #__PURE__ */ (() => {
+    const method = 'delete';
+    const url = '/v2/user/:username';
+    function deleteUserUsername(option) {
+        if (process.env.NODE_ENV === 'test') {
+            return Promise.resolve(deleteUserUsernameMockData);
+        }
+        return requester(url, { method, ...option });
     }
-    return requester('/v2/user/:username', {
-        method: 'delete',
-        ...option,
-    });
-}
-export const deleteUserUsernameMethod = 'delete';
-export const deleteUserUsernameUrl = '/v2/user/:username';
+    deleteUserUsername.method = method;
+    deleteUserUsername.url = url;
+    return deleteUserUsername;
+})();
