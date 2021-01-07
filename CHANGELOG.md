@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.7](https://github.com/superwf/ts-gear/compare/v3.0.6...v3.0.7) (2021-01-07)
+
+
+### Bug Fixes
+
+* export mock data ([6135352](https://github.com/superwf/ts-gear/commit/6135352d41447350be4913edc053ff392d7f9c1e))
+
 ### [3.0.6](https://github.com/superwf/ts-gear/compare/v3.0.5...v3.0.6) (2021-01-05)
 
 
