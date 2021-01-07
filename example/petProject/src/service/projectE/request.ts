@@ -23,7 +23,7 @@ export interface DeleteApiDataboardBoardEsResponse {
 }
 
 export type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200]
-const deleteApiDataboardBoardEsMockData = ('' as unknown) as DeleteApiDataboardBoardEsResponseSuccess
+export const deleteApiDataboardBoardEsMockData = ('' as unknown) as DeleteApiDataboardBoardEsResponseSuccess
 /**
  * 删除索引
  * tags: Es

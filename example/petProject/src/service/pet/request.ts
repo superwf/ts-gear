@@ -28,7 +28,7 @@ export interface PutPetResponse {
 }
 
 export type PutPetResponseSuccess = any
-const putPetMockData = ('' as unknown) as PutPetResponseSuccess
+export const putPetMockData = ('' as unknown) as PutPetResponseSuccess
 /**
  * Update an existing pet
  * tags: pet
@@ -64,7 +64,7 @@ export interface PostPetResponse {
 }
 
 export type PostPetResponseSuccess = any
-const postPetMockData = ('' as unknown) as PostPetResponseSuccess
+export const postPetMockData = ('' as unknown) as PostPetResponseSuccess
 /**
  * Add a new pet to the store
  * tags: pet
@@ -106,7 +106,7 @@ export interface GetPetFindByStatusResponse {
 }
 
 export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200]
-const getPetFindByStatusMockData = ([
+export const getPetFindByStatusMockData = ([
   {
     id: 0,
     category: { id: 0, pet: '', name: 'string' },
@@ -165,7 +165,7 @@ export interface GetPetPetIdResponse {
 }
 
 export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200]
-const getPetPetIdMockData = ({
+export const getPetPetIdMockData = ({
   id: 0,
   category: { id: 0, pet: '', name: 'string' },
   name: 'doggie',
@@ -227,7 +227,7 @@ export interface PostPetPetIdResponse {
 }
 
 export type PostPetPetIdResponseSuccess = any
-const postPetPetIdMockData = ('' as unknown) as PostPetPetIdResponseSuccess
+export const postPetPetIdMockData = ('' as unknown) as PostPetPetIdResponseSuccess
 /**
  * Updates a pet in the store with form data
  * tags: pet
@@ -278,7 +278,7 @@ export interface DeletePetPetIdResponse {
 }
 
 export type DeletePetPetIdResponseSuccess = any
-const deletePetPetIdMockData = ('' as unknown) as DeletePetPetIdResponseSuccess
+export const deletePetPetIdMockData = ('' as unknown) as DeletePetPetIdResponseSuccess
 /**
  * Deletes a pet
  * tags: pet
@@ -332,7 +332,7 @@ export interface PostPetPetIdUploadImageResponse {
 }
 
 export type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200]
-const postPetPetIdUploadImageMockData = ({
+export const postPetPetIdUploadImageMockData = ({
   code: 0,
   type: 'string',
   message: 'string',
@@ -370,7 +370,7 @@ export interface GetStoreInventoryResponse {
 }
 
 export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200]
-const getStoreInventoryMockData = ({
+export const getStoreInventoryMockData = ({
   additionalProp1: 0,
   additionalProp2: 0,
   additionalProp3: 0,
@@ -412,7 +412,7 @@ export interface PostStoreOrderResponse {
 }
 
 export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200]
-const postStoreOrderMockData = ({
+export const postStoreOrderMockData = ({
   id: 0,
   petId: 0,
   quantity: 0,
@@ -468,7 +468,7 @@ export interface GetStoreOrderOrderIdResponse {
 }
 
 export type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200]
-const getStoreOrderOrderIdMockData = ({
+export const getStoreOrderOrderIdMockData = ({
   id: 0,
   petId: 0,
   quantity: 0,
@@ -523,7 +523,7 @@ export interface DeleteStoreOrderOrderIdResponse {
 }
 
 export type DeleteStoreOrderOrderIdResponseSuccess = any
-const deleteStoreOrderOrderIdMockData = ('' as unknown) as DeleteStoreOrderOrderIdResponseSuccess
+export const deleteStoreOrderOrderIdMockData = ('' as unknown) as DeleteStoreOrderOrderIdResponseSuccess
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * Delete purchase order by ID
@@ -561,7 +561,7 @@ export interface PostUserResponse {
 }
 
 export type PostUserResponseSuccess = PostUserResponse['default']
-const postUserMockData = ('' as unknown) as PostUserResponseSuccess
+export const postUserMockData = ('' as unknown) as PostUserResponseSuccess
 /**
  * This can only be done by the logged in user.
  * Create user
@@ -597,7 +597,7 @@ export interface PostUserCreateWithArrayResponse {
 }
 
 export type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse['default']
-const postUserCreateWithArrayMockData = ('' as unknown) as PostUserCreateWithArrayResponseSuccess
+export const postUserCreateWithArrayMockData = ('' as unknown) as PostUserCreateWithArrayResponseSuccess
 /**
  * Creates list of users with given input array
  * tags: user
@@ -634,7 +634,7 @@ export interface PostUserCreateWithListResponse {
 }
 
 export type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse['default']
-const postUserCreateWithListMockData = ('' as unknown) as PostUserCreateWithListResponseSuccess
+export const postUserCreateWithListMockData = ('' as unknown) as PostUserCreateWithListResponseSuccess
 /**
  * Creates list of users with given input array
  * tags: user
@@ -680,7 +680,7 @@ export interface GetUserLoginResponse {
 }
 
 export type GetUserLoginResponseSuccess = GetUserLoginResponse[200]
-const getUserLoginMockData = ('string' as unknown) as GetUserLoginResponseSuccess
+export const getUserLoginMockData = ('string' as unknown) as GetUserLoginResponseSuccess
 /**
  * Logs user into the system
  * tags: user
@@ -711,7 +711,7 @@ export interface GetUserLogoutResponse {
 }
 
 export type GetUserLogoutResponseSuccess = GetUserLogoutResponse['default']
-const getUserLogoutMockData = ('' as unknown) as GetUserLogoutResponseSuccess
+export const getUserLogoutMockData = ('' as unknown) as GetUserLogoutResponseSuccess
 /**
  * Logs out current logged in user session
  * tags: user
@@ -752,7 +752,7 @@ export interface GetUserUsernameResponse {
 }
 
 export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200]
-const getUserUsernameMockData = ({
+export const getUserUsernameMockData = ({
   id: 0,
   username: 'string',
   firstName: 'string',
@@ -806,7 +806,7 @@ export interface PutUserUsernameResponse {
 }
 
 export type PutUserUsernameResponseSuccess = any
-const putUserUsernameMockData = ('' as unknown) as PutUserUsernameResponseSuccess
+export const putUserUsernameMockData = ('' as unknown) as PutUserUsernameResponseSuccess
 /**
  * This can only be done by the logged in user.
  * Updated user
@@ -850,7 +850,7 @@ export interface DeleteUserUsernameResponse {
 }
 
 export type DeleteUserUsernameResponseSuccess = any
-const deleteUserUsernameMockData = ('' as unknown) as DeleteUserUsernameResponseSuccess
+export const deleteUserUsernameMockData = ('' as unknown) as DeleteUserUsernameResponseSuccess
 /**
  * This can only be done by the logged in user.
  * Delete user

@@ -73,7 +73,7 @@ export interface GetApiDatamapFieldDefResponse {
 }
 
 export type GetApiDatamapFieldDefResponseSuccess = GetApiDatamapFieldDefResponse[200]
-const getApiDatamapFieldDefMockData = ('' as unknown) as GetApiDatamapFieldDefResponseSuccess
+export const getApiDatamapFieldDefMockData = ('' as unknown) as GetApiDatamapFieldDefResponseSuccess
 /**
  * 分页查询【表字段信息】
  * tags: 【表字段信息】API
@@ -121,7 +121,7 @@ export interface PutApiDatamapFieldDefResponse {
 }
 
 export type PutApiDatamapFieldDefResponseSuccess = PutApiDatamapFieldDefResponse[200]
-const putApiDatamapFieldDefMockData = ('' as unknown) as PutApiDatamapFieldDefResponseSuccess
+export const putApiDatamapFieldDefMockData = ('' as unknown) as PutApiDatamapFieldDefResponseSuccess
 /**
  * 修改
  * tags: API
@@ -162,7 +162,7 @@ export interface PostApiDatamapFieldDefResponse {
 }
 
 export type PostApiDatamapFieldDefResponseSuccess = PostApiDatamapFieldDefResponse[201]
-const postApiDatamapFieldDefMockData = ('' as unknown) as PostApiDatamapFieldDefResponseSuccess
+export const postApiDatamapFieldDefMockData = ('' as unknown) as PostApiDatamapFieldDefResponseSuccess
 /**
  * 新增
  * tags: 表字段信息
@@ -203,7 +203,7 @@ export interface DeleteApiDatamapFieldDefResponse {
 }
 
 export type DeleteApiDatamapFieldDefResponseSuccess = DeleteApiDatamapFieldDefResponse[200]
-const deleteApiDatamapFieldDefMockData = ({
+export const deleteApiDatamapFieldDefMockData = ({
   description: 'string',
   fieldId: 'string',
   fieldName: 'name1',

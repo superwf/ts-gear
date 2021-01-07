@@ -5,7 +5,7 @@ its content will be overwriten next time execute the `tsg` command. */
 import projects from '../../tsg.config';
 const project = projects.find((p) => p.name === 'pet');
 const requester = project.requester;
-const putPetMockData = '';
+export const putPetMockData = '';
 /**
  * Update an existing pet
  * tags: pet
@@ -25,7 +25,7 @@ export const putPet = /* #__PURE__ */ (() => {
     putPet.url = url;
     return putPet;
 })();
-const postPetMockData = '';
+export const postPetMockData = '';
 /**
  * Add a new pet to the store
  * tags: pet
@@ -45,7 +45,7 @@ export const postPet = /* #__PURE__ */ (() => {
     postPet.url = url;
     return postPet;
 })();
-const getPetFindByStatusMockData = [
+export const getPetFindByStatusMockData = [
     {
         id: 0,
         category: { id: 0, pet: '', name: 'string' },
@@ -74,7 +74,7 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
     getPetFindByStatus.url = url;
     return getPetFindByStatus;
 })();
-const getPetPetIdMockData = {
+export const getPetPetIdMockData = {
     id: 0,
     category: { id: 0, pet: '', name: 'string' },
     name: 'doggie',
@@ -101,7 +101,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
     getPetPetId.url = url;
     return getPetPetId;
 })();
-const postPetPetIdMockData = '';
+export const postPetPetIdMockData = '';
 /**
  * Updates a pet in the store with form data
  * tags: pet
@@ -121,7 +121,7 @@ export const postPetPetId = /* #__PURE__ */ (() => {
     postPetPetId.url = url;
     return postPetPetId;
 })();
-const deletePetPetIdMockData = '';
+export const deletePetPetIdMockData = '';
 /**
  * Deletes a pet
  * tags: pet
@@ -140,7 +140,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
     deletePetPetId.url = url;
     return deletePetPetId;
 })();
-const postPetPetIdUploadImageMockData = {
+export const postPetPetIdUploadImageMockData = {
     code: 0,
     type: 'string',
     message: 'string',
@@ -164,7 +164,7 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
     postPetPetIdUploadImage.url = url;
     return postPetPetIdUploadImage;
 })();
-const getStoreInventoryMockData = {
+export const getStoreInventoryMockData = {
     additionalProp1: 0,
     additionalProp2: 0,
     additionalProp3: 0,
@@ -188,7 +188,7 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
     getStoreInventory.url = url;
     return getStoreInventory;
 })();
-const postStoreOrderMockData = {
+export const postStoreOrderMockData = {
     id: 0,
     petId: 0,
     quantity: 0,
@@ -214,7 +214,7 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
     postStoreOrder.url = url;
     return postStoreOrder;
 })();
-const getStoreOrderOrderIdMockData = {
+export const getStoreOrderOrderIdMockData = {
     id: 0,
     petId: 0,
     quantity: 0,
@@ -241,7 +241,7 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
     getStoreOrderOrderId.url = url;
     return getStoreOrderOrderId;
 })();
-const deleteStoreOrderOrderIdMockData = '';
+export const deleteStoreOrderOrderIdMockData = '';
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * Delete purchase order by ID
@@ -261,7 +261,7 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
     deleteStoreOrderOrderId.url = url;
     return deleteStoreOrderOrderId;
 })();
-const postUserMockData = '';
+export const postUserMockData = '';
 /**
  * This can only be done by the logged in user.
  * Create user
@@ -281,7 +281,7 @@ export const postUser = /* #__PURE__ */ (() => {
     postUser.url = url;
     return postUser;
 })();
-const postUserCreateWithArrayMockData = '';
+export const postUserCreateWithArrayMockData = '';
 /**
  * Creates list of users with given input array
  * tags: user
@@ -300,7 +300,7 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
     postUserCreateWithArray.url = url;
     return postUserCreateWithArray;
 })();
-const postUserCreateWithListMockData = '';
+export const postUserCreateWithListMockData = '';
 /**
  * Creates list of users with given input array
  * tags: user
@@ -319,7 +319,7 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
     postUserCreateWithList.url = url;
     return postUserCreateWithList;
 })();
-const getUserLoginMockData = 'string';
+export const getUserLoginMockData = 'string';
 /**
  * Logs user into the system
  * tags: user
@@ -338,7 +338,7 @@ export const getUserLogin = /* #__PURE__ */ (() => {
     getUserLogin.url = url;
     return getUserLogin;
 })();
-const getUserLogoutMockData = '';
+export const getUserLogoutMockData = '';
 /**
  * Logs out current logged in user session
  * tags: user
@@ -357,7 +357,7 @@ export const getUserLogout = /* #__PURE__ */ (() => {
     getUserLogout.url = url;
     return getUserLogout;
 })();
-const getUserUsernameMockData = {
+export const getUserUsernameMockData = {
     id: 0,
     username: 'string',
     firstName: 'string',
@@ -385,7 +385,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
     getUserUsername.url = url;
     return getUserUsername;
 })();
-const putUserUsernameMockData = '';
+export const putUserUsernameMockData = '';
 /**
  * This can only be done by the logged in user.
  * Updated user
@@ -405,7 +405,7 @@ export const putUserUsername = /* #__PURE__ */ (() => {
     putUserUsername.url = url;
     return putUserUsername;
 })();
-const deleteUserUsernameMockData = '';
+export const deleteUserUsernameMockData = '';
 /**
  * This can only be done by the logged in user.
  * Delete user

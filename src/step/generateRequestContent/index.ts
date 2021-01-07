@@ -74,7 +74,7 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
         type: parameterTypeName,
       })
     }
-    const mockStatment = `const ${requestFunctionName}MockData = (${JSON.stringify(
+    const mockStatment = `export const ${requestFunctionName}MockData = (${JSON.stringify(
       generateMockData(request, definitionMap, enumMap),
     )} as unknown as ${responseType.successTypeName})`
     source.addStatements(mockStatment)
