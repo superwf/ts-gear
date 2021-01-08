@@ -2,7 +2,7 @@
 /* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import { requester } from 'fffxx'
+import { requester as requester } from 'fffxx'
 import type {
   ReplyVOPageVOFieldDefListVO,
   ReplyVOFieldDefShowVO,
@@ -80,16 +80,17 @@ export const getApiDatamapFieldDefMockData = ('' as unknown) as GetApiDatamapFie
  */
 export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'get'
-  const url = 'api/datamap/fieldDef'
+  const url = '/api/datamap/fieldDef'
   function getApiDatamapFieldDef(
     option?: GetApiDatamapFieldDefOption,
   ): Promise<GetApiDatamapFieldDefResponseSuccess> {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getApiDatamapFieldDefMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetApiDatamapFieldDefResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetApiDatamapFieldDefResponseSuccess>
   }
 
   getApiDatamapFieldDef.method = method
@@ -128,16 +129,17 @@ export const putApiDatamapFieldDefMockData = ('' as unknown) as PutApiDatamapFie
  */
 export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'put'
-  const url = 'api/datamap/fieldDef'
+  const url = '/api/datamap/fieldDef'
   function putApiDatamapFieldDef(
     option?: PutApiDatamapFieldDefOption,
   ): Promise<PutApiDatamapFieldDefResponseSuccess> {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(putApiDatamapFieldDefMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PutApiDatamapFieldDefResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PutApiDatamapFieldDefResponseSuccess>
   }
 
   putApiDatamapFieldDef.method = method
@@ -169,16 +171,17 @@ export const postApiDatamapFieldDefMockData = ('' as unknown) as PostApiDatamapF
  */
 export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'post'
-  const url = 'api/datamap/fieldDef'
+  const url = '/api/datamap/fieldDef'
   function postApiDatamapFieldDef(
     option?: PostApiDatamapFieldDefOption,
   ): Promise<PostApiDatamapFieldDefResponseSuccess> {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postApiDatamapFieldDefMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostApiDatamapFieldDefResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostApiDatamapFieldDefResponseSuccess>
   }
 
   postApiDatamapFieldDef.method = method
@@ -216,16 +219,17 @@ export const deleteApiDatamapFieldDefMockData = ({
  */
 export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'delete'
-  const url = 'api/datamap/fieldDef'
+  const url = '/api/datamap/fieldDef'
   function deleteApiDatamapFieldDef(
     option?: DeleteApiDatamapFieldDefOption,
   ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(deleteApiDatamapFieldDefMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      DeleteApiDatamapFieldDefResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
   }
 
   deleteApiDatamapFieldDef.method = method

@@ -42,9 +42,10 @@ export const putPet = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(putPetMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PutPetResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PutPetResponseSuccess>
   }
 
   putPet.method = method
@@ -78,9 +79,10 @@ export const postPet = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postPetMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostPetResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostPetResponseSuccess>
   }
 
   postPet.method = method
@@ -131,9 +133,10 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getPetFindByStatusMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetPetFindByStatusResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetPetFindByStatusResponseSuccess>
   }
 
   getPetFindByStatus.method = method
@@ -188,9 +191,10 @@ export const getPetPetId = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getPetPetIdMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetPetPetIdResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetPetPetIdResponseSuccess>
   }
 
   getPetPetId.method = method
@@ -243,9 +247,10 @@ export const postPetPetId = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postPetPetIdMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostPetPetIdResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostPetPetIdResponseSuccess>
   }
 
   postPetPetId.method = method
@@ -293,9 +298,10 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(deletePetPetIdMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      DeletePetPetIdResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<DeletePetPetIdResponseSuccess>
   }
 
   deletePetPetId.method = method
@@ -352,9 +358,10 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postPetPetIdUploadImageMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostPetPetIdUploadImageResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostPetPetIdUploadImageResponseSuccess>
   }
 
   postPetPetIdUploadImage.method = method
@@ -388,9 +395,9 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getStoreInventoryMockData)
     }
-    return requester(url, { method }) as Promise<
-      GetStoreInventoryResponseSuccess
-    >
+    return requester(url, {
+      method,
+    }) as Promise<GetStoreInventoryResponseSuccess>
   }
 
   getStoreInventory.method = method
@@ -434,9 +441,10 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postStoreOrderMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostStoreOrderResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostStoreOrderResponseSuccess>
   }
 
   postStoreOrder.method = method
@@ -491,9 +499,10 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getStoreOrderOrderIdMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetStoreOrderOrderIdResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetStoreOrderOrderIdResponseSuccess>
   }
 
   getStoreOrderOrderId.method = method
@@ -539,9 +548,10 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(deleteStoreOrderOrderIdMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      DeleteStoreOrderOrderIdResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<DeleteStoreOrderOrderIdResponseSuccess>
   }
 
   deleteStoreOrderOrderId.method = method
@@ -575,9 +585,10 @@ export const postUser = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postUserMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostUserResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostUserResponseSuccess>
   }
 
   postUser.method = method
@@ -612,9 +623,10 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postUserCreateWithArrayMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostUserCreateWithArrayResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostUserCreateWithArrayResponseSuccess>
   }
 
   postUserCreateWithArray.method = method
@@ -649,9 +661,10 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(postUserCreateWithListMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PostUserCreateWithListResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PostUserCreateWithListResponseSuccess>
   }
 
   postUserCreateWithList.method = method
@@ -695,9 +708,10 @@ export const getUserLogin = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getUserLoginMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetUserLoginResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetUserLoginResponseSuccess>
   }
 
   getUserLogin.method = method
@@ -776,9 +790,10 @@ export const getUserUsername = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(getUserUsernameMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      GetUserUsernameResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<GetUserUsernameResponseSuccess>
   }
 
   getUserUsername.method = method
@@ -822,9 +837,10 @@ export const putUserUsername = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(putUserUsernameMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      PutUserUsernameResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<PutUserUsernameResponseSuccess>
   }
 
   putUserUsername.method = method
@@ -866,9 +882,10 @@ export const deleteUserUsername = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(deleteUserUsernameMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      DeleteUserUsernameResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<DeleteUserUsernameResponseSuccess>
   }
 
   deleteUserUsername.method = method

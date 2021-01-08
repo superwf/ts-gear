@@ -2,7 +2,7 @@
 /* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import { requester } from 'fffxx'
+import { requester as requester } from 'fffxx'
 import type { ReplyVOInt } from './definition'
 
 /** request parameter type for deleteApiDataboardBoardEs */
@@ -38,9 +38,10 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     if (process.env.NODE_ENV === 'test') {
       return Promise.resolve(deleteApiDataboardBoardEsMockData)
     }
-    return requester(url, { method, ...option }) as Promise<
-      DeleteApiDataboardBoardEsResponseSuccess
-    >
+    return requester(url, {
+      method,
+      ...option,
+    }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>
   }
 
   deleteApiDataboardBoardEs.method = method

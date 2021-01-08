@@ -48,7 +48,7 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const responseType = generateResponseType(requestFunctionName, request.responses)
     requestTypeScriptContent.push(responseType.responseTypeContent)
     requestTypeScriptContent.push(responseType.successTypeContent)
-    const urlPath = join(spec.basePath || '', transformSwaggerPathToRouterPath(String(request.pathname)))
+    const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
     const requestFunctionSource = sow()
     const requesterStatment = `return requester(url, {${withHost ? `, host: '${spec.host}'` : ''}${
@@ -98,10 +98,6 @@ return ${requestFunctionName}
         },
       ],
     })
-    // source.addStatements(`
-    // export const ${requestFunctionName}Method = '${httpMethod}'
-    // export const ${requestFunctionName}Url = '${urlPath}'
-    // `)
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */
     request.typescriptContent = requestTypeScriptContent.join(EOL)

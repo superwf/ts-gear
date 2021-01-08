@@ -57,6 +57,7 @@ module.exports = {
       },
     ],
     'import/order': ['error', { 'newlines-between': 'always' }],
+    '@typescript-eslint/consistent-type-imports': 'error',
 
     // '@typescript-eslint/camelcase': [
     //   'error',
@@ -94,7 +95,6 @@ module.exports = {
       'error',
       { ignoreRestSiblings: true, varsIgnorePattern: '^_', argsIgnorePattern: '^_' },
     ],
-    '@typescript-eslint/consistent-type-imports': 'error',
     '@typescript-eslint/explicit-member-accessibility': ['error', { overrides: { constructors: 'no-public' } }],
   },
   settings: {

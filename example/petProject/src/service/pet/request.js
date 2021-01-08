@@ -19,7 +19,10 @@ export const putPet = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(putPetMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     putPet.method = method;
     putPet.url = url;
@@ -39,7 +42,10 @@ export const postPet = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postPetMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postPet.method = method;
     postPet.url = url;
@@ -68,7 +74,10 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getPetFindByStatusMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     getPetFindByStatus.method = method;
     getPetFindByStatus.url = url;
@@ -95,7 +104,10 @@ export const getPetPetId = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getPetPetIdMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     getPetPetId.method = method;
     getPetPetId.url = url;
@@ -115,7 +127,10 @@ export const postPetPetId = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postPetPetIdMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postPetPetId.method = method;
     postPetPetId.url = url;
@@ -134,7 +149,10 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(deletePetPetIdMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     deletePetPetId.method = method;
     deletePetPetId.url = url;
@@ -158,7 +176,10 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postPetPetIdUploadImageMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postPetPetIdUploadImage.method = method;
     postPetPetIdUploadImage.url = url;
@@ -182,7 +203,9 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getStoreInventoryMockData);
         }
-        return requester(url, { method });
+        return requester(url, {
+            method,
+        });
     }
     getStoreInventory.method = method;
     getStoreInventory.url = url;
@@ -208,7 +231,10 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postStoreOrderMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postStoreOrder.method = method;
     postStoreOrder.url = url;
@@ -235,7 +261,10 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getStoreOrderOrderIdMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     getStoreOrderOrderId.method = method;
     getStoreOrderOrderId.url = url;
@@ -255,7 +284,10 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(deleteStoreOrderOrderIdMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     deleteStoreOrderOrderId.method = method;
     deleteStoreOrderOrderId.url = url;
@@ -275,7 +307,10 @@ export const postUser = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postUserMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postUser.method = method;
     postUser.url = url;
@@ -294,7 +329,10 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postUserCreateWithArrayMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postUserCreateWithArray.method = method;
     postUserCreateWithArray.url = url;
@@ -313,7 +351,10 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(postUserCreateWithListMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     postUserCreateWithList.method = method;
     postUserCreateWithList.url = url;
@@ -332,7 +373,10 @@ export const getUserLogin = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getUserLoginMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     getUserLogin.method = method;
     getUserLogin.url = url;
@@ -379,7 +423,10 @@ export const getUserUsername = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(getUserUsernameMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     getUserUsername.method = method;
     getUserUsername.url = url;
@@ -399,7 +446,10 @@ export const putUserUsername = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(putUserUsernameMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     putUserUsername.method = method;
     putUserUsername.url = url;
@@ -419,7 +469,10 @@ export const deleteUserUsername = /* #__PURE__ */ (() => {
         if (process.env.NODE_ENV === 'test') {
             return Promise.resolve(deleteUserUsernameMockData);
         }
-        return requester(url, { method, ...option });
+        return requester(url, {
+            method,
+            ...option,
+        });
     }
     deleteUserUsername.method = method;
     deleteUserUsername.url = url;
