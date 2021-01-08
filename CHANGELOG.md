@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.8](https://github.com/superwf/ts-gear/compare/v3.0.7...v3.0.8) (2021-01-08)
+
+
+### Bug Fixes
+
+* 添加default basepath: '/' ([f437d9e](https://github.com/superwf/ts-gear/commit/f437d9e83f9bbc8c3a8754907225db7fc225f9e5))
+
 ### [3.0.7](https://github.com/superwf/ts-gear/compare/v3.0.6...v3.0.7) (2021-01-07)
 
 
