@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.0.9](https://github.com/superwf/ts-gear/compare/v3.0.8...v3.0.9) (2021-01-15)
+
+
+### Bug Fixes
+
+* openapiv3的enum处理 ([09dedc3](https://github.com/superwf/ts-gear/commit/09dedc39d989e03d63409a457fcd644cd2e64356))
+
 ### [3.0.8](https://github.com/superwf/ts-gear/compare/v3.0.7...v3.0.8) (2021-01-08)
 
 
