@@ -12,7 +12,7 @@ const projects = [
         dest: 'service',
         source: '../../fixture/pet.json',
         requester: fetchRequester(),
-        prettierConfig,
+        // prettierConfig,
         transformJS: true,
     },
     {
@@ -21,7 +21,6 @@ const projects = [
         source: '../../fixture/projectE.json',
         keepGeneric: true,
         importRequesterStatement: 'import { requester } from "fffxx"',
-        prettierConfig,
     },
     {
         name: 'v3',
@@ -29,7 +28,7 @@ const projects = [
         source: '../../fixture/openapiv3.json',
         keepGeneric: true,
         importRequesterStatement: 'import { requester } from "fffxx"',
-        prettierConfig,
+        useCache: false,
     },
 ];
 export default projects;

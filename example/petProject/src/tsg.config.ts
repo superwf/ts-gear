@@ -9,6 +9,7 @@ const prettierConfig: Options = {
   singleQuote: true,
   trailingComma: 'all',
   jsxBracketSameLine: false,
+  // parser: 'babel',
 }
 
 const projects: Project[] = [
@@ -17,7 +18,7 @@ const projects: Project[] = [
     dest: 'service',
     source: '../../fixture/pet.json',
     requester: fetchRequester(),
-    prettierConfig,
+    // prettierConfig,
     transformJS: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
@@ -27,7 +28,7 @@ const projects: Project[] = [
     source: '../../fixture/projectE.json',
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
-    prettierConfig,
+    // prettierConfig,
   },
   {
     name: 'v3',
@@ -35,7 +36,8 @@ const projects: Project[] = [
     source: '../../fixture/openapiv3.json',
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
-    prettierConfig,
+    useCache: false,
+    // prettierConfig,
   },
 ]
 

@@ -10,8 +10,13 @@ const filterPaths = ['definitions', 'properties', 'parameters', 'responses', 'pa
 /** use traverse spec path to generate an available enum type name */
 export const generateEnumName = (traversePath: string[], spec: Spec) => {
   const path = [...traversePath]
+  /** 最后一层是'enum'，该层没用，所以弹出一层 */
   path.pop()
   if (path[0] === 'paths') {
+    /** 如果最后一层是schema，还需要弹出一层 */
+    if (path[path.length - 1] === 'schema') {
+      path.pop()
+    }
     if (path.includes('parameters')) {
       const parameterNode = get(spec, path)
       if (parameterNode.name) {
