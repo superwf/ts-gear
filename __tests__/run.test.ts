@@ -1,9 +1,7 @@
 import { join } from 'path'
-
-import { Spec } from 'swagger-schema-official'
-
+import type { Spec } from 'swagger-schema-official'
 import * as step from 'src/step'
-import { Project } from 'src/type'
+import type { Project } from 'src/type'
 import { getGlobal } from 'src/projectGlobalVariable'
 import { run } from 'src/run'
 
@@ -166,7 +164,7 @@ describe('run', () => {
       dest: './service',
       // keepGeneric: true,
       translationEngine: 'baidu',
-      requester: () => Promise.resolve({}),
+      importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     }
     step.assembleSchemaToGlobal(spec, project)
     step.parseGenericType(project)

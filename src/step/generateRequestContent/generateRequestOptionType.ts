@@ -1,21 +1,23 @@
 import type { Parameter, Reference } from 'swagger-schema-official'
 import { isEmpty, upperFirst } from 'lodash'
-
-import type { RequestParameterPosition } from '../../type'
+import type { RequestParameterPosition, Project } from '../../type'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { sow, harvest } from '../../source'
-
 import { assembleRequestParam } from './assembleRequestParam'
 
 /**
  * @param name request function parameter interface name
  * @param parameters swagger request parameters
  * */
-export const generateParameterType = (functionName: string, parameters: Array<Parameter | Reference>) => {
+export const generateRequestOptionType = (
+  functionName: string,
+  parameters: Array<Parameter | Reference>,
+  project: Project,
+) => {
   const source = sow()
   const parameterTypeName = `${upperFirst(functionName)}Option`
   const inter = source.addInterface({
-    isExported: true,
+    isExported: !!project.shouldExportRequestOptionType,
     name: parameterTypeName,
     docs: [`request parameter type for ${functionName}`],
   })

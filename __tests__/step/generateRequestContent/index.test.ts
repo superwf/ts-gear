@@ -1,6 +1,5 @@
 import type { Spec } from 'swagger-schema-official'
 import { cloneDeep } from 'lodash'
-
 import { generateRequestContent } from 'src/step/generateRequestContent'
 import * as petSchema from 'example/fixture/pet.json'
 import projects from 'example/petProject/src/tsg.config'
@@ -13,7 +12,7 @@ describe('src/step/generateRequestContent', () => {
     name: 'pet',
     dest: './service',
     source: 'fixture/pet.json',
-    requester: () => Promise.resolve(),
+    importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
   }
   it('generateRequestContent', () => {
     const schema = cloneDeep(petSchema) as Spec

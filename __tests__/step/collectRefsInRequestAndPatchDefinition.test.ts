@@ -1,8 +1,7 @@
 import { cloneDeep } from 'lodash'
-import { Spec } from 'swagger-schema-official'
-
+import type { Spec } from 'swagger-schema-official'
 import * as step from 'src/step'
-import { Project } from 'src/type'
+import type { Project } from 'src/type'
 import { getGlobal, restore } from 'src/projectGlobalVariable'
 
 describe('collectRefsInRequestAndPatchDefinition', () => {
@@ -151,7 +150,7 @@ describe('collectRefsInRequestAndPatchDefinition', () => {
       source: 'fixture/pontFixture.json',
       dest: './service',
       keepGeneric: false,
-      requester: () => Promise.resolve({}),
+      importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     }
     step.assembleSchemaToGlobal(cloneDeep(spec), project)
     step.collectRefsInRequestAndPatchDefinition(project)
@@ -167,7 +166,7 @@ describe('collectRefsInRequestAndPatchDefinition', () => {
       source: 'fixture/pontFixture.json',
       dest: './service',
       keepGeneric: true,
-      requester: () => Promise.resolve({}),
+      importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     }
     step.assembleSchemaToGlobal(cloneDeep(spec), project)
     step.parseGenericType(project)

@@ -1,5 +1,4 @@
 import { join } from 'path'
-
 import { noop } from 'lodash'
 // import { sync } from 'rimraf'
 

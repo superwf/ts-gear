@@ -10,7 +10,6 @@ import type {
   Path,
 } from 'swagger-schema-official'
 import type { Options } from 'prettier'
-
 import { tuple } from './tool/types'
 
 /** baidu and google can handle different language automatically
@@ -183,15 +182,7 @@ export interface Project {
    * use requesterImportStatement is a safer way
    * and this will override `requester` option
    * */
-  importRequesterStatement?: string
-
-  /** request function
-   * ts-gear provide two available requesters out of box, `fetchRequester` and `axiosRequester`.
-   * or else use your own function as requester is definitily ok,
-   * request function signiture as below
-   *   (url: string, param: RequestParameter) => Promise<any>
-   * */
-  requester?: Requester
+  importRequesterStatement: string
 
   /**
    * @default false
@@ -238,13 +229,28 @@ export interface Project {
   translationEngine?: TranslationEngine
 
   /**
+   * should export request function option types
+   * @default false
+   * */
+  shouldExportRequestOptionType?: boolean
+
+  /**
+   * should export request function response types
+   * @default false
+   * */
+  shouldExportResponseType?: boolean
+
+  /** generate mock data switch */
+  shouldGenerateMock?: boolean
+
+  /**
    * a string statement to tell use swagger sample data mock response data
    * used in decide whether request function should return mockData
    * @default "process.env.NODE_ENV === 'test'"
    * this statement must return boolean,
    * and should return false to be removed when optimize code in production mode.
    * */
-  shouldMockResponseStatement?: string
+  useMockResponseStatement?: string
 
   /** output content prettier config */
   prettierConfig?: Options

@@ -1,6 +1,5 @@
 import { EOL } from 'os'
 import { join } from 'path'
-
 import { getGlobal } from '../projectGlobalVariable'
 import { prettierWrite } from '../tool/prettierWrite'
 import type { Project } from '../type'
@@ -8,7 +7,6 @@ import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
 import { targetFileNames } from '../constant'
-
 import { importAllDefinition } from './importAllDefinition'
 
 /** gather global typescript content
@@ -43,7 +41,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
       return requestMap[name].typescriptContent
     })
     .join(EOL)
-  const requesterResult = requester(project, tsGearConfigPath)
+  const requesterResult = requester(project)
   prettierWrite(
     [warningComment, requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
       EOL,

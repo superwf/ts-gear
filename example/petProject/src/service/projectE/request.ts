@@ -6,12 +6,12 @@ import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
 /** request parameter type for deleteApiDataboardBoardEs */
-export interface DeleteApiDataboardBoardEsOption {
+interface DeleteApiDataboardBoardEsOption {
   /** 索引数组 */
   body?: Array<string>;
 }
 
-export interface DeleteApiDataboardBoardEsResponse {
+interface DeleteApiDataboardBoardEsResponse {
   /** OK */
   200: ReplyVOInt;
   /** No Content */
@@ -23,7 +23,6 @@ export interface DeleteApiDataboardBoardEsResponse {
 }
 
 export type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
-export const deleteApiDataboardBoardEsMockData = ("" as unknown) as DeleteApiDataboardBoardEsResponseSuccess;
 /**
  * 删除索引
  * tags: Es
@@ -35,9 +34,6 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   function deleteApiDataboardBoardEs(
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(deleteApiDataboardBoardEsMockData);
-    }
     return requester(url, {
       method,
       ...option,

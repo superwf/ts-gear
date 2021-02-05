@@ -11,7 +11,7 @@ import type { Project } from '../type'
  * when remote swagger doc has auth, the best way is download the spec to local, and assign the local file path.
  * the second param ref is https://developer.mozilla.org/zh-CN/docs/Web/API/Fetch_API/Using_Fetch
  * */
-export const fetchSwagger = async (project: Project, tsGearConfigPath: string) => {
+export const fetchOpenapiData = async (project: Project, tsGearConfigPath: string) => {
   const url = project.source
   if (url.startsWith('http')) {
     const verbose = `project: ${project.name} url: ${url}`

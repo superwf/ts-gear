@@ -5,7 +5,7 @@ import { info } from './tool/log'
 
 export const processProject = async (project: Project, tsGearConfigPath: string): Promise<void> => {
   step.prepareProjectDirectory(project, tsGearConfigPath)
-  const spec = await step.fetchSwagger(project, tsGearConfigPath)
+  const spec = await step.fetchOpenapiData(project, tsGearConfigPath)
   if (project.useCache && step.checkCache(project, tsGearConfigPath, spec)) {
     info(
       `cache hit, skip regenerate project(${project.name}), add "useCache: false" to your project in "tsg.config.ts" to disable cache`,

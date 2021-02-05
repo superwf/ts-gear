@@ -1,5 +1,4 @@
-import { Spec } from 'swagger-schema-official'
-
+import type { Spec } from 'swagger-schema-official'
 import { checkAndUpdateDefinitionTypeName, checkAndUpdateRequestRef } from 'src/step/parseGenericType'
 import * as step from 'src/step'
 import { getGlobal, restore } from 'src/projectGlobalVariable'
@@ -108,7 +107,7 @@ describe('parse definition with generic type', () => {
     dest: './service',
     source: 'fixture/ignore.json',
     keepGeneric: true,
-    requester: () => Promise.resolve({}),
+    importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
   }
 
   beforeEach(() => {

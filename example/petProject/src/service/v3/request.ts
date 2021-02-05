@@ -29,7 +29,7 @@ import type {
 } from "./definition";
 
 /** request parameter type for getApiLibraBoardExportDetails */
-export interface GetApiLibraBoardExportDetailsOption {
+interface GetApiLibraBoardExportDetailsOption {
   query?: {
     areaIds?: string;
     areaLevel?: number;
@@ -56,7 +56,7 @@ export interface GetApiLibraBoardExportDetailsOption {
   };
 }
 
-export interface GetApiLibraBoardExportDetailsResponse {
+interface GetApiLibraBoardExportDetailsResponse {
   /** OK */
   200: ReplyVOTsgString;
   /** Unauthorized */
@@ -68,11 +68,6 @@ export interface GetApiLibraBoardExportDetailsResponse {
 }
 
 export type GetApiLibraBoardExportDetailsResponseSuccess = GetApiLibraBoardExportDetailsResponse[200];
-export const getApiLibraBoardExportDetailsMockData = ({
-  code: "0",
-  data: "string",
-  message: "success",
-} as unknown) as GetApiLibraBoardExportDetailsResponseSuccess;
 /**
  * 导出对标明细数据
  * tags: 净利矩阵api
@@ -83,9 +78,6 @@ export const getApiLibraBoardExportDetails = /* #__PURE__ */ (() => {
   function getApiLibraBoardExportDetails(
     option?: GetApiLibraBoardExportDetailsOption
   ): Promise<GetApiLibraBoardExportDetailsResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(getApiLibraBoardExportDetailsMockData);
-    }
     return requester(url, {
       method,
       ...option,
@@ -98,7 +90,7 @@ export const getApiLibraBoardExportDetails = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getApiLibraBoardListDetail */
-export interface GetApiLibraBoardListDetailOption {
+interface GetApiLibraBoardListDetailOption {
   query?: {
     areaIds?: string;
     areaLevel?: number;
@@ -125,7 +117,7 @@ export interface GetApiLibraBoardListDetailOption {
   };
 }
 
-export interface GetApiLibraBoardListDetailResponse {
+interface GetApiLibraBoardListDetailResponse {
   /** OK */
   200: ReplyVO<PageVO<DetailListVO>>;
   /** Unauthorized */
@@ -137,36 +129,6 @@ export interface GetApiLibraBoardListDetailResponse {
 }
 
 export type GetApiLibraBoardListDetailResponseSuccess = GetApiLibraBoardListDetailResponse[200];
-export const getApiLibraBoardListDetailMockData = ({
-  code: "0",
-  data: {
-    currentPage: 1,
-    firstIndex: 0,
-    lastIndex: 10,
-    list: [
-      {
-        deliveryRate: 2.31,
-        dimensionId: "122211",
-        dimensionName: "蓝月亮",
-        fixedRate: 2.31,
-        gmv: 321112.31,
-        gmvPercent: 15,
-        grossProfitRate: 2.31,
-        orderAvgPrice: 32.31,
-        orderAvgPriceCM: -1.2,
-        skuNum: 121,
-        unitAvgPrice: 32.31,
-        unitPriceCM: -1.4,
-        variableRate: 2.31,
-        warehouseRate: 2.31,
-      },
-    ],
-    pageCount: 10,
-    pageSize: 10,
-    total: 100,
-  },
-  message: "success",
-} as unknown) as GetApiLibraBoardListDetailResponseSuccess;
 /**
  * 分页查询对标明细
  * tags: 净利矩阵api
@@ -177,9 +139,6 @@ export const getApiLibraBoardListDetail = /* #__PURE__ */ (() => {
   function getApiLibraBoardListDetail(
     option?: GetApiLibraBoardListDetailOption
   ): Promise<GetApiLibraBoardListDetailResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(getApiLibraBoardListDetailMockData);
-    }
     return requester(url, {
       method,
       ...option,
@@ -192,7 +151,7 @@ export const getApiLibraBoardListDetail = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getApiLibraBoardListMatrix */
-export interface GetApiLibraBoardListMatrixOption {
+interface GetApiLibraBoardListMatrixOption {
   query?: {
     areaIds?: string;
     areaLevel?: number;
@@ -221,7 +180,7 @@ export interface GetApiLibraBoardListMatrixOption {
   };
 }
 
-export interface GetApiLibraBoardListMatrixResponse {
+interface GetApiLibraBoardListMatrixResponse {
   /** OK */
   200: ReplyVO<MatrixPointVO>;
   /** Unauthorized */
@@ -233,23 +192,6 @@ export interface GetApiLibraBoardListMatrixResponse {
 }
 
 export type GetApiLibraBoardListMatrixResponseSuccess = GetApiLibraBoardListMatrixResponse[200];
-export const getApiLibraBoardListMatrixMockData = ({
-  code: "0",
-  data: {
-    curTaxRate: 2.31,
-    deliveryRate: 2.31,
-    dynamicParams: [
-      { dynamicDeliveryRate: -1.1, dynamicWarehouseRate: -1.1, x: 1.2 },
-    ],
-    fixedRate: 2.31,
-    orderAvgPrice: 32.31,
-    unitAvgPrice: 32.31,
-    unitPriceCM: -1.4,
-    variableRate: 2.31,
-    warehouseRate: 2.31,
-  },
-  message: "success",
-} as unknown) as GetApiLibraBoardListMatrixResponseSuccess;
 /**
  * 获取矩阵散点值
  * tags: 净利矩阵api
@@ -260,9 +202,6 @@ export const getApiLibraBoardListMatrix = /* #__PURE__ */ (() => {
   function getApiLibraBoardListMatrix(
     option?: GetApiLibraBoardListMatrixOption
   ): Promise<GetApiLibraBoardListMatrixResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(getApiLibraBoardListMatrixMockData);
-    }
     return requester(url, {
       method,
       ...option,
@@ -275,7 +214,7 @@ export const getApiLibraBoardListMatrix = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getApiLibraBoardListProfitCurve */
-export interface GetApiLibraBoardListProfitCurveOption {
+interface GetApiLibraBoardListProfitCurveOption {
   query?: {
     areaIds?: string;
     areaLevel?: number;
@@ -302,7 +241,7 @@ export interface GetApiLibraBoardListProfitCurveOption {
   };
 }
 
-export interface GetApiLibraBoardListProfitCurveResponse {
+interface GetApiLibraBoardListProfitCurveResponse {
   /** OK */
   200: ReplyVOListProfitCurveListVO;
   /** Unauthorized */
@@ -314,29 +253,6 @@ export interface GetApiLibraBoardListProfitCurveResponse {
 }
 
 export type GetApiLibraBoardListProfitCurveResponseSuccess = GetApiLibraBoardListProfitCurveResponse[200];
-export const getApiLibraBoardListProfitCurveMockData = ({
-  code: "0",
-  data: [
-    {
-      base: true,
-      baseDimension: "洗衣液",
-      details: [
-        {
-          date: "2020-12",
-          deliveryRate: 2.31,
-          grossProfitRate: 2.31,
-          orderAvgPrice: 32.31,
-          orderAvgPriceCM: -1.2,
-          unitPrice: 32.31,
-          unitPriceCM: -1.4,
-          warehouseRate: 2.31,
-        },
-      ],
-      gmv: 321123,
-    },
-  ],
-  message: "success",
-} as unknown) as GetApiLibraBoardListProfitCurveResponseSuccess;
 /**
  * 获取净利波动曲线
  * tags: 净利矩阵api
@@ -347,9 +263,6 @@ export const getApiLibraBoardListProfitCurve = /* #__PURE__ */ (() => {
   function getApiLibraBoardListProfitCurve(
     option?: GetApiLibraBoardListProfitCurveOption
   ): Promise<GetApiLibraBoardListProfitCurveResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(getApiLibraBoardListProfitCurveMockData);
-    }
     return requester(url, {
       method,
       ...option,
@@ -362,7 +275,7 @@ export const getApiLibraBoardListProfitCurve = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getApiLibraBoardQueryBubbles */
-export interface GetApiLibraBoardQueryBubblesOption {
+interface GetApiLibraBoardQueryBubblesOption {
   query?: {
     areaIds?: string;
     areaLevel?: number;
@@ -389,7 +302,7 @@ export interface GetApiLibraBoardQueryBubblesOption {
   };
 }
 
-export interface GetApiLibraBoardQueryBubblesResponse {
+interface GetApiLibraBoardQueryBubblesResponse {
   /** OK */
   200: ReplyVO<BubbleShowVO>;
   /** Unauthorized */
@@ -401,26 +314,6 @@ export interface GetApiLibraBoardQueryBubblesResponse {
 }
 
 export type GetApiLibraBoardQueryBubblesResponseSuccess = GetApiLibraBoardQueryBubblesResponse[200];
-export const getApiLibraBoardQueryBubblesMockData = ({
-  code: "0",
-  data: {
-    axisx: "[1,2.3,11.7]",
-    axisy: "[1,2.3,11.7]",
-    bubbles: [
-      {
-        base: true,
-        bubbleId: "100211",
-        bubbleName: "蓝月亮",
-        contributionMargin: -1.1,
-        gmv: 15122,
-        gmvPercent: 15,
-        xVal: 1.2,
-        yVal: 1.2,
-      },
-    ],
-  },
-  message: "success",
-} as unknown) as GetApiLibraBoardQueryBubblesResponseSuccess;
 /**
  * 查询净利平衡矩阵气泡
  * tags: 净利矩阵api
@@ -431,9 +324,6 @@ export const getApiLibraBoardQueryBubbles = /* #__PURE__ */ (() => {
   function getApiLibraBoardQueryBubbles(
     option?: GetApiLibraBoardQueryBubblesOption
   ): Promise<GetApiLibraBoardQueryBubblesResponseSuccess> {
-    if (process.env.NODE_ENV === "test") {
-      return Promise.resolve(getApiLibraBoardQueryBubblesMockData);
-    }
     return requester(url, {
       method,
       ...option,

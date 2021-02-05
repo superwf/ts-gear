@@ -1,12 +1,12 @@
-import { join } from 'path'
+/* eslint-disable import/first */
 import { readFileSync, existsSync, writeFileSync } from 'fs'
-
-import type { Project } from '../type'
+import { join } from 'path'
+import appRoot = require('app-root-path')
 import { contentHash } from '../tool/contentHash'
+import type { Project } from '../type'
 
 export const checkCache = (project: Project, tsGearConfigPath: string, spec: any): boolean => {
-  const dest = join(tsGearConfigPath, project.dest, project.name)
-  const cacheFile = join(dest, '.cache')
+  const cacheFile = join(appRoot.path, 'node_modules', '.cache')
   const hash = contentHash(JSON.stringify([project, spec]))
   if (!existsSync(cacheFile)) {
     writeFileSync(cacheFile, hash)

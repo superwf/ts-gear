@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const reduce = require('lodash/reduce')
-
 const tsconfig = require('./tsconfig.json')
 
 /* eslint-enable @typescript-eslint/no-var-requires */
@@ -56,7 +55,8 @@ module.exports = {
         usePrettierrc: false,
       },
     ],
-    'import/order': ['error', { 'newlines-between': 'always' }],
+    'import/order': ['error', { 'newlines-between': 'never' }],
+    // 'import/first': 0,
     '@typescript-eslint/consistent-type-imports': 'error',
 
     // '@typescript-eslint/camelcase': [

@@ -1,6 +1,6 @@
 export const configFileName = 'tsg.config'
 
-export const defaultShouldMockResponseStatement = 'process.env.NODE_ENV === "test"'
+export const defaultUseMockResponseStatement = 'process.env.NODE_ENV === "test"'
 
 export const targetFileNames = {
   index: 'index.ts',

@@ -6,7 +6,7 @@ describe('src/global', () => {
     name: 'pet',
     dest: './service',
     source: 'fixture/pet.json',
-    requester: () => Promise.resolve(),
+    importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
   }
   it('restore', () => {
     const { definitionMap, requestMap, requestRefSet } = getGlobal(project)

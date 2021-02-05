@@ -1,7 +1,5 @@
 import type { Options } from 'prettier'
-
 import type { Project } from 'ts-gear'
-import { fetchRequester } from 'ts-gear'
 
 const prettierConfig: Options = {
   semi: false,
@@ -17,7 +15,7 @@ const projects: Project[] = [
     name: 'pet',
     dest: 'service',
     source: '../../fixture/pet.json',
-    requester: fetchRequester(),
+    importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     // prettierConfig,
     transformJS: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',

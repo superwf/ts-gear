@@ -1,28 +1,21 @@
-import { EOL } from 'os'
-import * as path from 'path'
-
 import type { Project } from '../type'
-import { configFileName } from '../constant'
 import { renameImportStatementToRequester } from '../tool/renameImportStatementToRequester'
 
 /** get tsg.config.ts file relative path to import in request
  * */
-export const requester = (project: Project, tsGearConfigPath: string) => {
-  const configFileRelativePath = path.relative(
-    path.join(tsGearConfigPath, project.dest, project.name),
-    tsGearConfigPath,
-  )
+export const requester = (project: Project) => {
   if (project.importRequesterStatement) {
+    const importStatement = renameImportStatementToRequester(project.importRequesterStatement)
+    if (!importStatement) {
+      throw new Error(
+        `project: ${project.name} importRequesterStatement parse error, your statement is ${project.importRequesterStatement}, try to update to a "default import" or a "named import" statement with correct syntax`,
+      )
+    }
     return {
-      import: renameImportStatementToRequester(project.importRequesterStatement),
+      import: importStatement,
       code: '',
     }
   }
-  return {
-    import: `import projects from '${configFileRelativePath}/${configFileName}'`,
-    code: [
-      `const project = projects.find(p => p.name === '${project.name}')!`,
-      `const requester = project.requester!`,
-    ].join(EOL),
-  }
+
+  throw new Error(`project: ${project.name} missing "importRequesterStatement" config`)
 }

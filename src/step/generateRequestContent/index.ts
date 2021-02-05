@@ -1,26 +1,24 @@
 import { EOL } from 'os'
-
 import type { FunctionDeclarationStructure, OptionalKind, VariableDeclarationKind } from 'ts-morph'
 import type { Spec } from 'swagger-schema-official'
 import * as join from 'url-join'
-
 import type { Project } from '../../type'
 import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
-import { defaultShouldMockResponseStatement } from '../../constant'
-
+import { defaultUseMockResponseStatement } from '../../constant'
 import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
-import { generateParameterType } from './generateParameterType'
+import { generateRequestOptionType } from './generateRequestOptionType'
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: Project) => {
   const { apiFilter, withBasePath, withHost } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
-  const shouldMockResponseStatement = project.shouldMockResponseStatement || defaultShouldMockResponseStatement
+  const useMockResponseStatement = project.useMockResponseStatement || defaultUseMockResponseStatement
+  const { shouldGenerateMock } = project
 
   const resultContent: string[] = []
   Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
@@ -40,12 +38,12 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     let parameterTypeName = ''
     let parameterRequired = false
     if (request.parameters && request.parameters.length > 0) {
-      const parameterType = generateParameterType(requestFunctionName, request.parameters)
+      const parameterType = generateRequestOptionType(requestFunctionName, request.parameters, project)
       parameterTypeName = parameterType.parameterTypeName
       parameterRequired = parameterType.parameterRequired
       requestTypeScriptContent.push(parameterType.parameterTypeContent)
     }
-    const responseType = generateResponseType(requestFunctionName, request.responses)
+    const responseType = generateResponseType(requestFunctionName, request.responses, project)
     requestTypeScriptContent.push(responseType.responseTypeContent)
     requestTypeScriptContent.push(responseType.successTypeContent)
     const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
@@ -54,11 +52,12 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const requesterStatment = `return requester(url, {${withHost ? `, host: '${spec.host}'` : ''}${
       withBasePath ? `, basePath: '${spec.basePath}'` : ''
     }method${parameterTypeName ? ', ...option' : ''}}) as Promise<${responseType.successTypeName}>`
-    const functionStatment = `if (${shouldMockResponseStatement}) {
+    let functionStatment = shouldGenerateMock
+      ? `if (${useMockResponseStatement}) {
       return Promise.resolve(${requestFunctionName}MockData)
-
-    }
-    ${requesterStatment}`
+    }`
+      : ''
+    functionStatment += requesterStatment
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
       name: requestFunctionName,
       isExported: false,
@@ -74,10 +73,12 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
         type: parameterTypeName,
       })
     }
-    const mockStatment = `export const ${requestFunctionName}MockData = (${JSON.stringify(
-      generateMockData(request, definitionMap, enumMap),
-    )} as unknown as ${responseType.successTypeName})`
-    source.addStatements(mockStatment)
+    if (shouldGenerateMock) {
+      const mockStatment = `export const ${requestFunctionName}MockData = (${JSON.stringify(
+        generateMockData(request, definitionMap, enumMap),
+      )} as unknown as ${responseType.successTypeName})`
+      source.addStatements(mockStatment)
+    }
     requestFunctionSource.addFunction(functionData)
     source.addVariableStatement({
       declarationKind: 'const' as VariableDeclarationKind.Const,
@@ -89,12 +90,11 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
           initializer: `/* #__PURE__ */ (() => {
             const method = '${httpMethod}'
             const url = '${urlPath}'
-${harvest(requestFunctionSource)}
-${requestFunctionName}.method = method
-${requestFunctionName}.url = url
-return ${requestFunctionName}
-                         })()
-`,
+            ${harvest(requestFunctionSource)}
+            ${requestFunctionName}.method = method
+            ${requestFunctionName}.url = url
+            return ${requestFunctionName}
+         })()`,
         },
       ],
     })

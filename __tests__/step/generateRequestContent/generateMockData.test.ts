@@ -1,10 +1,9 @@
 import { cloneDeep } from 'lodash'
-import { Spec } from 'swagger-schema-official'
-
+import type { Spec } from 'swagger-schema-official'
 import * as petSpec from 'example/fixture/pet.json'
 import { generateMockData } from 'src/step/generateRequestContent/generateMockData'
 import * as step from 'src/step'
-import { Project } from 'src/type'
+import type { Project } from 'src/type'
 import { getGlobal, restore } from 'src/projectGlobalVariable'
 
 describe('sample', () => {
@@ -15,7 +14,7 @@ describe('sample', () => {
       dest: './service',
       // keepGeneric: true,
       translationEngine: 'baidu',
-      requester: () => Promise.resolve({}),
+      importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     }
 
     const spec = cloneDeep(petSpec) as Spec

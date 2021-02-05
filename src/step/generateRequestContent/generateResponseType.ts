@@ -1,12 +1,11 @@
 import { upperFirst } from 'lodash'
 import type { Response, Reference } from 'swagger-schema-official'
 import type { ResponseObject } from 'openapi3-ts'
-
 import { sow, harvest } from '../../source'
 import { schemaToTypescript } from '../../tool/schemaToTypescript'
 import { assembleDoc } from '../../tool/assembleDoc'
 import { getSchemaDeep } from '../../tool/getSchemaDeep'
-import type { AssembleResponse } from '../../type'
+import type { AssembleResponse, Project } from '../../type'
 
 /**
  * when has responses spec, get an interface type and use the first 2xx member as successType
@@ -15,6 +14,7 @@ import type { AssembleResponse } from '../../type'
 export const generateResponseType = (
   functionName: string,
   responses: { [responseName: string]: Response | Reference },
+  project: Project,
 ): AssembleResponse => {
   const responseTypeName = `${upperFirst(functionName)}Response`
 
@@ -27,7 +27,7 @@ export const generateResponseType = (
     const source = sow()
     const inter = source.addInterface({
       name: responseTypeName,
-      isExported: true,
+      isExported: !!project.shouldExportResponseType,
     })
     responseStatuses.forEach(status => {
       const statusRes = responses[status]
