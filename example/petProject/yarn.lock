@@ -2,11 +2,6 @@
 # yarn lockfile v1
 
 
-"@types/prettier@^2.0.0":
-  version "2.0.0"
-  resolved "http://registry.m.jd.com/@types/prettier/download/@types/prettier-2.0.0.tgz#dc85454b953178cc6043df5208b9e949b54a3bc4"
-  integrity sha1-3IVFS5UxeMxgQ99SCLnpSbVKO8Q=
-
 lodash@^4.17.15:
   version "4.17.15"
   resolved "http://registry.m.jd.com/lodash/download/lodash-4.17.15.tgz#b447f6670a0455bbfeedd11392eff330ea097548"
@@ -16,8 +11,3 @@ path-to-regexp@^3.0.0:
   version "3.0.0"
   resolved "http://registry.m.jd.com/path-to-regexp/download/path-to-regexp-3.0.0.tgz#c981a218f3df543fa28696be2f88e0c58d2e012a"
   integrity sha1-yYGiGPPfVD+ihpa+L4jgxY0uASo=
-
-prettier@^2.0.5:
-  version "2.0.5"
-  resolved "http://registry.m.jd.com/prettier/download/prettier-2.0.5.tgz#d6d56282455243f2f92cc1716692c08aa31522d4"
-  integrity sha1-1tVigkVSQ/L5LMFxZpLAiqMVItQ=

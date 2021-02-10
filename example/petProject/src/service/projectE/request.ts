@@ -22,7 +22,7 @@ interface DeleteApiDataboardBoardEsResponse {
   403: any;
 }
 
-export type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
+type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
 /**
  * 删除索引
  * tags: Es

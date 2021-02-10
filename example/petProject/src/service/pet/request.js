@@ -2,7 +2,7 @@
 /* tslint:disable */
 /** Do not modify this file manually.
 its content will be overwriten next time execute the `tsg` command. */
-import { requester as requester } from "ts-gear/requester/fetch";
+import { requester as requester } from "../../requester";
 /**
  * Update an existing pet
  * tags: pet

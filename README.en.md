@@ -4,6 +4,14 @@
 
 ## [中文文档](./README.md)
 
+## Note!
+
+English README is obsolete.
+
+I have tired of update both en and cn README, and give up this en version.
+
+If you are interested in this project, try to read the cn README with goolge translate, or send me an issue.
+
 ## Overview
 
 ### Purpose

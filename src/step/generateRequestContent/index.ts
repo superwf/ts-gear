@@ -18,7 +18,7 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
   const useMockResponseStatement = project.useMockResponseStatement || defaultUseMockResponseStatement
-  const { shouldGenerateMock } = project
+  const { shouldGenerateMock, shouldExportMockData, generateRequestFunction } = project
 
   const resultContent: string[] = []
   Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
@@ -74,7 +74,9 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
       })
     }
     if (shouldGenerateMock) {
-      const mockStatment = `export const ${requestFunctionName}MockData = (${JSON.stringify(
+      const mockStatment = `${
+        shouldExportMockData ? 'export' : ''
+      } const ${requestFunctionName}MockData = (${JSON.stringify(
         generateMockData(request, definitionMap, enumMap),
       )} as unknown as ${responseType.successTypeName})`
       source.addStatements(mockStatment)
@@ -87,7 +89,13 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
       declarations: [
         {
           name: requestFunctionName,
-          initializer: `/* #__PURE__ */ (() => {
+          initializer: generateRequestFunction
+            ? generateRequestFunction({
+                httpMethod,
+                pathname: request.pathname,
+                schema: spec,
+              })
+            : `/* #__PURE__ */ (() => {
             const method = '${httpMethod}'
             const url = '${urlPath}'
             ${harvest(requestFunctionSource)}

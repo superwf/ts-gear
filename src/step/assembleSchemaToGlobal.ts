@@ -1,6 +1,5 @@
 import { forEach, findKey } from 'lodash'
 import type { Spec } from 'swagger-schema-official'
-
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
 import type { Project } from '../type'
@@ -75,7 +74,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
           genFunctionName({
             httpMethod,
             pathname,
-            schema: operation!,
+            schema: spec,
           })
         ] = {
           pathname,

@@ -95,8 +95,6 @@ getPetPetId({
 
   * 可配置的 `translationEngine`, 可用的引擎有"baidu" 或 "google".
 
-  * ~~可配置的 `requester` , 默认提供 "fetch" 和 "axios" 两种，也可以自定义.~~
-
   * 可配置的 "dest" 目标文件夹.
 
   * 可配置的 `withHost` 与 `withBasePath`选项.
@@ -109,7 +107,44 @@ getPetPetId({
 
   * `useCache` 默认 false, 可设置为true，使用缓存。
 
-## 测试覆盖约50%
+## Version 4
+
+### 不兼容更行
+
+* 默认请求函数的参数与返回值类型不在导出，推荐使用类型工具`Parameters`与`ReturnType`来从请求函数类型本身获取。
+
+    如果需要导出参数与返回值类型，可配置项目中的
+
+    ```javascript
+    shouldExportRequestOptionType: true
+    shouldExportResponseType: true
+    ```
+
+* 缓存生成位置放到`node_modules/.cache`中，并且不再添加`.gitignore`文件。
+
+### 新配置项
+
+* generateRequestFunctionName
+
+例如：
+
+```javascript
+generateRequestFunctionName: ({
+  httpMethod: 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch'
+  pathname: string
+  schema: Path // openapi类型定义中的Path，内容太多不详细说了
+}): string => {
+  return `${httpMethod}${upperFirst(pathname.repalce('/api/commonPath', ''))}`
+}
+```
+
+* shouldGenerateMock，是否生成mock数据，默认为false，不生成。
+
+* shouldExportMockData，是否导出生成的mockData，默认false，不导出。
+
+* generateRequestFunction，生成请求函数体，用这个的话，函数内容ts-gear就不再管了，完全由这个自定义函数生成，慎重使用🤪。
+
+## 测试覆盖约50%，大概🤪
 
 ### Statements
 
@@ -149,7 +184,7 @@ getPetPetId({
 
 * 写入请求函数.
 
-* 生成索引一个导出所有的`index.ts`.
+* 生成一个导出所有内容的索引文件`index.ts`.
 
 ## 其他类似工具
 
@@ -161,7 +196,7 @@ getPetPetId({
 
 ### 本项目的特色
 
-大多数其他类型的openapi生成工具对原始定义的要求较高，容错率低，而且没有做生成范型的处理。而这几个点是本项目所重点解决的问题。
+大多数其他类型的openapi生成工具对原始定义的要求较高，容错率低，而且没有做生成范型的处理。而这几项目都是本工具的重点解决亮点。
 
 支持 OpenAPI Specification v2 v3.
 
@@ -170,7 +205,7 @@ getPetPetId({
 `tsg.config.ts` example
 
 ```typescript
-import { Project, fetchRequester, axiosRequester } from 'ts-gear'
+import type { Project } from 'ts-gear'
 
 const projects: Project[] = [
   { ... }
@@ -179,9 +214,7 @@ const projects: Project[] = [
 export default projects
 ```
 
-使用axios请看[axios](#axios)
-
-#### Config Options
+#### 配置项说明
 
 ##### 注意：以下所有配置的相对路径，都是`tsg.config.ts`文件所在的路径。例如该文件位置为`src/tsg.config.ts`，则配置中的路径都是相对`src`路径而定。
 

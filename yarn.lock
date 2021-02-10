@@ -898,6 +898,11 @@
   resolved "http://registry.m.jd.com/@types/prettier/download/@types/prettier-2.1.6.tgz#f4b1efa784e8db479cdb8b14403e2144b1e9ff03"
   integrity sha1-9LHvp4To20ec24sUQD4hRLHp/wM=
 
+"@types/prettier@^2.2.0":
+  version "2.2.0"
+  resolved "http://registry.m.jd.com/@types/prettier/download/@types/prettier-2.2.0.tgz#a4e8205a4955690eef712a6d0394a1d2e121e721"
+  integrity sha1-pOggWklVaQ7vcSptA5Sh0uEh5yE=
+
 "@types/prompts@^2.0.5":
   version "2.0.9"
   resolved "http://registry.m.jd.com/@types/prompts/download/@types/prompts-2.0.9.tgz#19f419310eaa224a520476b19d4183f6a2b3bd8f"
@@ -5211,7 +5216,7 @@ prettier-linter-helpers@^1.0.0:
   dependencies:
     fast-diff "^1.1.2"
 
-prettier@^2.0.5:
+prettier@^2.2.1:
   version "2.2.1"
   resolved "http://registry.m.jd.com/prettier/download/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
   integrity sha1-eVoaeN1S8HPaDNQrIfnJE4GSP/U=

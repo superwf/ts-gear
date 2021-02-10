@@ -1,5 +1,5 @@
 import type { Options } from 'prettier'
-import type { Project } from 'ts-gear'
+import type { Project } from '../../../src/type'
 
 const prettierConfig: Options = {
   semi: false,
@@ -15,9 +15,11 @@ const projects: Project[] = [
     name: 'pet',
     dest: 'service',
     source: '../../fixture/pet.json',
-    importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
+    importRequesterStatement: 'import { requester } from "../../requester"',
     // prettierConfig,
-    transformJS: true,
+    shouldExportRequestOptionType: true,
+    shouldExportResponseType: true,
+    shouldGenerateMock: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
   {
@@ -34,8 +36,9 @@ const projects: Project[] = [
     source: '../../fixture/openapiv3.json',
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
+    transformJS: true,
     useCache: false,
-    // prettierConfig,
+    prettierConfig,
   },
 ]
 

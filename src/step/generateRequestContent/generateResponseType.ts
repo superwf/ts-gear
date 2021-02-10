@@ -18,16 +18,18 @@ export const generateResponseType = (
 ): AssembleResponse => {
   const responseTypeName = `${upperFirst(functionName)}Response`
 
+  const shouldExport = !!project.shouldExportResponseType
+
   // use first 2xx response type as success response type
-  let successTypeContent = `export type ${responseTypeName}Success = any`
-  let responseTypeContent = `export type ${responseTypeName} = any`
+  let successTypeContent = `${shouldExport ? 'export' : ''} type ${responseTypeName}Success = any`
+  let responseTypeContent = `${shouldExport ? 'export' : ''} type ${responseTypeName} = any`
   const successTypeName = `${responseTypeName}Success`
   const responseStatuses = Object.getOwnPropertyNames(responses).sort()
   if (responseStatuses.length > 0) {
     const source = sow()
     const inter = source.addInterface({
       name: responseTypeName,
-      isExported: !!project.shouldExportResponseType,
+      isExported: shouldExport,
     })
     responseStatuses.forEach(status => {
       const statusRes = responses[status]
@@ -46,9 +48,13 @@ export const generateResponseType = (
     const firstResponseStatus = responseStatuses[0]
     if (firstResponseStatus.startsWith('2') || firstResponseStatus === 'default') {
       if (Number.isNaN(Number(firstResponseStatus))) {
-        successTypeContent = `export type ${responseTypeName}Success = ${responseTypeName}['${firstResponseStatus}']`
+        successTypeContent = `${
+          shouldExport ? 'export' : ''
+        } type ${responseTypeName}Success = ${responseTypeName}['${firstResponseStatus}']`
       } else {
-        successTypeContent = `export type ${responseTypeName}Success = ${responseTypeName}[${firstResponseStatus}]`
+        successTypeContent = `${
+          shouldExport ? 'export' : ''
+        } type ${responseTypeName}Success = ${responseTypeName}[${firstResponseStatus}]`
       }
     }
   }

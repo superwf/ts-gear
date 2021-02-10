@@ -1,4 +1,5 @@
 // import { JSONSchema4 } from 'json-schema'
+// import type { Spec } from 'swagger-schema-official'
 import type {
   Schema,
   Operation,
@@ -7,7 +8,8 @@ import type {
   Parameter,
   BaseParameter,
   ParameterType,
-  Path,
+  Spec,
+  // Path,
 } from 'swagger-schema-official'
 import type { Options } from 'prettier'
 import { tuple } from './tool/types'
@@ -65,7 +67,7 @@ export type ParameterPositionMap = {
 export interface GenerateRequestFunctionNameParameter {
   httpMethod: HttpMethod
   pathname: string
-  schema: Path
+  schema: Spec
 }
 
 export interface AssembleResponse {
@@ -240,8 +242,13 @@ export interface Project {
    * */
   shouldExportResponseType?: boolean
 
-  /** generate mock data switch */
+  /** generate mock data switch
+   * @default false */
   shouldGenerateMock?: boolean
+
+  /** export mock data when you need
+   * @default false */
+  shouldExportMockData?: boolean
 
   /**
    * a string statement to tell use swagger sample data mock response data
@@ -255,8 +262,11 @@ export interface Project {
   /** output content prettier config */
   prettierConfig?: Options
 
-  /** default generate request function method */
+  /** generate request function name method */
   generateRequestFunctionName?: (arg: GenerateRequestFunctionNameParameter) => string
+
+  /** if you need, use this option to generate your function all by your self */
+  generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
 
   /**
    * need js file? OK, change this to true
