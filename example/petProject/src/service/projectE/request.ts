@@ -31,7 +31,6 @@ type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsRespons
 export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   const method = "delete";
   const url = "/api/databoard/board/es";
-
   function request(
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
@@ -41,8 +40,9 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
+  /** http method */
   request.method = method;
+  /** request url */
   request.url = url;
-
   return request;
 })();

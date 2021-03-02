@@ -1,22 +1,28 @@
 import type { FunctionDeclarationStructure, OptionalKind, VariableDeclarationKind } from 'ts-morph'
-import type { Spec } from 'swagger-schema-official'
 import * as join from 'url-join'
+import type { Spec } from 'swagger-schema-official'
 import type { Project } from '../../type'
-import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
+import { sow, harvest } from '../../source'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
 import { generateRequestOptionType } from './generateRequestOptionType'
 
-/** from swagger spec paths assemble request functions */
-export const generateRequestContent = (spec: Spec, project: Project) => {
-  const { apiFilter, withBasePath, withHost, EOL } = project
-  const { requestMap } = getGlobal(project)
+/**
+ * 为了将mock数据可以暴露出来单独使用，需要的时候配合fetch-mock一起使用
+ * 且使返回mock数据的请求函数，与实际请求函数的签名保持一致
+ * 最终采用了这种将mock函数生成单独文件的方法
+ * 取消了将mock数据混合到实际请求函数中的做法
+ * */
+export const generateMockRequestContent = (spec: Spec, project: Project) => {
+  const { apiFilter, EOL } = project
+  const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
   const { generateRequestFunction } = project
 
-  const resultContent: string[] = []
+  // const resultContent: string[] = []
   Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
@@ -42,16 +48,12 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const responseType = generateResponseType(requestFunctionName, request.responses, project)
     requestTypeScriptContent.push(responseType.responseTypeContent)
     requestTypeScriptContent.push(responseType.successTypeContent)
-    const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
-    const requestFunctionSource = sow()
-    const requesterStatment = `return requester(url, {${withHost ? `, host: '${spec.host}'` : ''}${
-      withBasePath ? `, basePath: '${spec.basePath}'` : ''
-    }method${parameterTypeName ? ', ...option' : ''}}) as Promise<${responseType.successTypeName}>`
     /** 生成mock data */
-    const functionStatment = requesterStatment
+    let mockFunctionContent = ''
+    const mockRequestFunctionSource = sow()
+    const functionStatment = `return Promise.resolve(mockData)`
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
-      name: 'request',
       isExported: false,
       returnType: `Promise<${responseType.successTypeName}>`,
       statements: functionStatment,
@@ -64,7 +66,29 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
         type: parameterTypeName,
       })
     }
-    requestFunctionSource.addFunction(functionData)
+    const mockFunctionSource = sow()
+    mockRequestFunctionSource.addFunction(functionData)
+    mockFunctionSource.addVariableStatement({
+      declarationKind: 'const' as VariableDeclarationKind.Const,
+      declarations: [
+        {
+          name: 'mockRequest',
+          initializer(writter) {
+            writter.write(harvest(mockRequestFunctionSource))
+          },
+        },
+      ],
+    })
+    mockFunctionContent = `const mockData = (${JSON.stringify(
+      generateMockData(request, definitionMap, enumMap),
+    )} as unknown as ${responseType.successTypeName})
+        ${harvest(mockFunctionSource)}
+        mockRequest.method = method
+        mockRequest.url = url
+        mockRequest.mockData = mockData
+        return mockRequest
+      `
+    const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     source.addVariableStatement({
       declarationKind: 'const' as VariableDeclarationKind.Const,
       docs: assembleDoc(request.schema),
@@ -79,26 +103,21 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
                 schema: spec,
               })
             : `/* #__PURE__ */ (() => {
-            const method = '${httpMethod}'
-            const url = '${urlPath}'
-            ${harvest(requestFunctionSource)}
-            /** http method */
-            request.method = method
-            /** request url */
-            request.url = url
-            return request
+              /** http method */
+              const method = '${httpMethod}'
+              /** request url */
+              const url = '${urlPath}'
+              ${mockFunctionContent}
          })()`,
         },
       ],
     })
     requestTypeScriptContent.push(harvest(source))
     /** store typescript content to requestMap */
-    request.typescriptContent = requestTypeScriptContent.join(EOL)
-    resultContent.push(request.typescriptContent)
+    request.mockTypescriptContent = requestTypeScriptContent.join(EOL)
+    // resultContent.push(request.mockTypescriptContent)
   })
 
   /** return value only for test and debug */
   // return resultContent.join(EOL)
 }
-
-export * from './generateMockRequestContent'

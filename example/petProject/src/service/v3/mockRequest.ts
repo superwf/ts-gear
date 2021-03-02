@@ -75,20 +75,20 @@ type GetApiLibraBoardExportDetailsResponseSuccess = GetApiLibraBoardExportDetail
 export const getApiLibraBoardExportDetails = /* #__PURE__ */ (() => {
   const method = 'get'
   const url = '/api/libra/board/exportDetails'
-  function request(
+  const mockData = ({
+    code: '0',
+    data: 'string',
+    message: 'success',
+  } as unknown) as GetApiLibraBoardExportDetailsResponseSuccess
+  const mockRequest = function (
     option?: GetApiLibraBoardExportDetailsOption,
   ): Promise<GetApiLibraBoardExportDetailsResponseSuccess> {
-    return requester(url, {
-      method,
-      ...option,
-    }) as Promise<GetApiLibraBoardExportDetailsResponseSuccess>
+    return Promise.resolve(mockData)
   }
-
-  /** http method */
-  request.method = method
-  /** request url */
-  request.url = url
-  return request
+  mockRequest.method = method
+  mockRequest.url = url
+  mockRequest.mockData = mockData
+  return mockRequest
 })()
 
 /** request parameter type for getApiLibraBoardListDetail */
@@ -138,20 +138,45 @@ type GetApiLibraBoardListDetailResponseSuccess = GetApiLibraBoardListDetailRespo
 export const getApiLibraBoardListDetail = /* #__PURE__ */ (() => {
   const method = 'get'
   const url = '/api/libra/board/listDetail'
-  function request(
+  const mockData = ({
+    code: '0',
+    data: {
+      currentPage: 1,
+      firstIndex: 0,
+      lastIndex: 10,
+      list: [
+        {
+          deliveryRate: 2.31,
+          dimensionId: '122211',
+          dimensionName: '蓝月亮',
+          fixedRate: 2.31,
+          gmv: 321112.31,
+          gmvPercent: 15,
+          grossProfitRate: 2.31,
+          orderAvgPrice: 32.31,
+          orderAvgPriceCM: -1.2,
+          skuNum: 121,
+          unitAvgPrice: 32.31,
+          unitPriceCM: -1.4,
+          variableRate: 2.31,
+          warehouseRate: 2.31,
+        },
+      ],
+      pageCount: 10,
+      pageSize: 10,
+      total: 100,
+    },
+    message: 'success',
+  } as unknown) as GetApiLibraBoardListDetailResponseSuccess
+  const mockRequest = function (
     option?: GetApiLibraBoardListDetailOption,
   ): Promise<GetApiLibraBoardListDetailResponseSuccess> {
-    return requester(url, {
-      method,
-      ...option,
-    }) as Promise<GetApiLibraBoardListDetailResponseSuccess>
+    return Promise.resolve(mockData)
   }
-
-  /** http method */
-  request.method = method
-  /** request url */
-  request.url = url
-  return request
+  mockRequest.method = method
+  mockRequest.url = url
+  mockRequest.mockData = mockData
+  return mockRequest
 })()
 
 /** request parameter type for getApiLibraBoardListMatrix */
@@ -203,20 +228,32 @@ type GetApiLibraBoardListMatrixResponseSuccess = GetApiLibraBoardListMatrixRespo
 export const getApiLibraBoardListMatrix = /* #__PURE__ */ (() => {
   const method = 'get'
   const url = '/api/libra/board/listMatrix'
-  function request(
+  const mockData = ({
+    code: '0',
+    data: {
+      curTaxRate: 2.31,
+      deliveryRate: 2.31,
+      dynamicParams: [
+        { dynamicDeliveryRate: -1.1, dynamicWarehouseRate: -1.1, x: 1.2 },
+      ],
+      fixedRate: 2.31,
+      orderAvgPrice: 32.31,
+      unitAvgPrice: 32.31,
+      unitPriceCM: -1.4,
+      variableRate: 2.31,
+      warehouseRate: 2.31,
+    },
+    message: 'success',
+  } as unknown) as GetApiLibraBoardListMatrixResponseSuccess
+  const mockRequest = function (
     option?: GetApiLibraBoardListMatrixOption,
   ): Promise<GetApiLibraBoardListMatrixResponseSuccess> {
-    return requester(url, {
-      method,
-      ...option,
-    }) as Promise<GetApiLibraBoardListMatrixResponseSuccess>
+    return Promise.resolve(mockData)
   }
-
-  /** http method */
-  request.method = method
-  /** request url */
-  request.url = url
-  return request
+  mockRequest.method = method
+  mockRequest.url = url
+  mockRequest.mockData = mockData
+  return mockRequest
 })()
 
 /** request parameter type for getApiLibraBoardListProfitCurve */
@@ -266,20 +303,38 @@ type GetApiLibraBoardListProfitCurveResponseSuccess = GetApiLibraBoardListProfit
 export const getApiLibraBoardListProfitCurve = /* #__PURE__ */ (() => {
   const method = 'get'
   const url = '/api/libra/board/listProfitCurve'
-  function request(
+  const mockData = ({
+    code: '0',
+    data: [
+      {
+        base: true,
+        baseDimension: '洗衣液',
+        details: [
+          {
+            date: '2020-12',
+            deliveryRate: 2.31,
+            grossProfitRate: 2.31,
+            orderAvgPrice: 32.31,
+            orderAvgPriceCM: -1.2,
+            unitPrice: 32.31,
+            unitPriceCM: -1.4,
+            warehouseRate: 2.31,
+          },
+        ],
+        gmv: 321123,
+      },
+    ],
+    message: 'success',
+  } as unknown) as GetApiLibraBoardListProfitCurveResponseSuccess
+  const mockRequest = function (
     option?: GetApiLibraBoardListProfitCurveOption,
   ): Promise<GetApiLibraBoardListProfitCurveResponseSuccess> {
-    return requester(url, {
-      method,
-      ...option,
-    }) as Promise<GetApiLibraBoardListProfitCurveResponseSuccess>
+    return Promise.resolve(mockData)
   }
-
-  /** http method */
-  request.method = method
-  /** request url */
-  request.url = url
-  return request
+  mockRequest.method = method
+  mockRequest.url = url
+  mockRequest.mockData = mockData
+  return mockRequest
 })()
 
 /** request parameter type for getApiLibraBoardQueryBubbles */
@@ -329,18 +384,33 @@ type GetApiLibraBoardQueryBubblesResponseSuccess = GetApiLibraBoardQueryBubblesR
 export const getApiLibraBoardQueryBubbles = /* #__PURE__ */ (() => {
   const method = 'get'
   const url = '/api/libra/board/queryBubbles'
-  function request(
+  const mockData = ({
+    code: '0',
+    data: {
+      axisx: '[1,2.3,11.7]',
+      axisy: '[1,2.3,11.7]',
+      bubbles: [
+        {
+          base: true,
+          bubbleId: '100211',
+          bubbleName: '蓝月亮',
+          contributionMargin: -1.1,
+          gmv: 15122,
+          gmvPercent: 15,
+          xVal: 1.2,
+          yVal: 1.2,
+        },
+      ],
+    },
+    message: 'success',
+  } as unknown) as GetApiLibraBoardQueryBubblesResponseSuccess
+  const mockRequest = function (
     option?: GetApiLibraBoardQueryBubblesOption,
   ): Promise<GetApiLibraBoardQueryBubblesResponseSuccess> {
-    return requester(url, {
-      method,
-      ...option,
-    }) as Promise<GetApiLibraBoardQueryBubblesResponseSuccess>
+    return Promise.resolve(mockData)
   }
-
-  /** http method */
-  request.method = method
-  /** request url */
-  request.url = url
-  return request
+  mockRequest.method = method
+  mockRequest.url = url
+  mockRequest.mockData = mockData
+  return mockRequest
 })()

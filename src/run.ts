@@ -26,6 +26,9 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
   step.collectRefsInRequestAndPatchDefinition(project)
   step.generateDefinitionContent(project)
   step.generateRequestContent(spec, project)
+  if (project.shouldGenerateMock) {
+    step.generateMockRequestContent(spec, project)
+  }
   step.writeProject(project, tsGearConfigPath)
   if (project.transformJS) {
     step.toJS(project, tsGearConfigPath)

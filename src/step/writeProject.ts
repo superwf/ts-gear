@@ -49,6 +49,24 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     join(dest, targetFileNames.request),
     project.prettierConfig,
   )
+  if (project.shouldGenerateMock) {
+    const mockRequestContent = Object.getOwnPropertyNames(requestMap)
+      .map(name => {
+        return requestMap[name].mockTypescriptContent
+      })
+      .join(EOL)
+    prettierWrite(
+      [
+        warningComment(),
+        requesterResult.import,
+        importAllDefinition(project),
+        requesterResult.code,
+        mockRequestContent,
+      ].join(EOL),
+      join(dest, targetFileNames.mockRequest),
+      project.prettierConfig,
+    )
+  }
 
   prettierWrite([warningComment(), projectIndex].join(EOL), join(dest, targetFileNames.index), project.prettierConfig)
 }

@@ -91,6 +91,7 @@ export interface SwaggerRequest {
   httpMethod: HttpMethod
   schema: Operation
   typescriptContent?: string
+  mockTypescriptContent?: string
   parameters?: Array<Parameter | Reference>
   responses: { [responseName: string]: Response | Reference }
 }
@@ -276,9 +277,9 @@ export interface Project {
   useCache?: boolean
 
   /**
-   * 定制换行符
+   * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
    * 推荐设置为\n
-   * 设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
+   * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
    * */
   EOL?: '\n' | '\r' | '\r\n' | 'auto'
 }
