@@ -4,6 +4,7 @@ import type { Project } from './type'
 import { info } from './tool/log'
 
 export const processProject = async (project: Project, tsGearConfigPath: string): Promise<void> => {
+  step.processEOL(project)
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchOpenapiData(project, tsGearConfigPath)
   if (project.useCache && step.checkCache(project, tsGearConfigPath, spec)) {

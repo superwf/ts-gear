@@ -140,11 +140,9 @@ generateRequestFunctionName: ({
 
 * shouldGenerateMock，是否生成mock数据，默认为false，不生成。
 
-* shouldExportMockData，是否导出生成的mockData，默认false，不导出。
+* generateRequestFunction，生成请求函数体，用这个的话，函数内容ts-gear就不再管了，完全由这个自定义函数生成，慎重使用🙏。
 
-* generateRequestFunction，生成请求函数体，用这个的话，函数内容ts-gear就不再管了，完全由这个自定义函数生成，慎重使用🤪。
-
-## 测试覆盖约50%，大概🤪
+## 测试覆盖约50%，大概🤪，覆盖率统计比实际测试的显示的多。
 
 ### Statements
 

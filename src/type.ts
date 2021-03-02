@@ -246,10 +246,6 @@ export interface Project {
    * @default false */
   shouldGenerateMock?: boolean
 
-  /** export mock data when you need
-   * @default false */
-  shouldExportMockData?: boolean
-
   /**
    * a string statement to tell use swagger sample data mock response data
    * used in decide whether request function should return mockData
@@ -278,4 +274,11 @@ export interface Project {
    * @default false
    * */
   useCache?: boolean
+
+  /**
+   * 定制换行符
+   * 推荐设置为\n
+   * 设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
+   * */
+  EOL?: '\n' | '\r' | '\r\n' | 'auto'
 }

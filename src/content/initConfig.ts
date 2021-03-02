@@ -83,6 +83,7 @@ const projects: Project[] = [
     // }
 
     // useCache: false,
+    EOL: '\n'
   },
 ]
 

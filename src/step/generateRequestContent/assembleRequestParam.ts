@@ -1,5 +1,4 @@
 import type { Parameter, BodyParameter, Reference } from 'swagger-schema-official'
-
 import type { ParameterPositionMap } from '../../type'
 import { isReference } from '../../tool/isReference'
 import { assembleDoc } from '../../tool/assembleDoc'

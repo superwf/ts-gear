@@ -1,8 +1,9 @@
-import { EOL } from 'os'
+import { config } from '../constant'
 
-export const warningComment = [
-  '/* eslint-disable */',
-  '/* tslint:disable */',
-  '/** Do not modify this file manually.',
-  'its content will be overwriten next time execute the `tsg` command. */',
-].join(EOL)
+export const warningComment = () =>
+  [
+    '/* eslint-disable */',
+    '/* tslint:disable */',
+    '/** Do not modify manually.',
+    'content is generated automatically by `ts-gear`. */',
+  ].join(config.EOL)

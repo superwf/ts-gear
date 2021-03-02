@@ -20,6 +20,8 @@ const projects: Project[] = [
     shouldExportRequestOptionType: true,
     shouldExportResponseType: true,
     shouldGenerateMock: true,
+    useCache: false,
+    EOL: '\n',
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
   {
@@ -28,6 +30,7 @@ const projects: Project[] = [
     source: '../../fixture/projectE.json',
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
+    EOL: '\n',
     // prettierConfig,
   },
   {
@@ -36,9 +39,11 @@ const projects: Project[] = [
     source: '../../fixture/openapiv3.json',
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
+    shouldGenerateMock: true,
     transformJS: true,
     useCache: false,
     prettierConfig,
+    EOL: '\n',
   },
 ]
 

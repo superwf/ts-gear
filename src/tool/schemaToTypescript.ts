@@ -1,12 +1,10 @@
 /**
  * Open Api 2.0
  * https://github.com/OAI/OpenAPI-Specification/blob/master/versions/2.0.md */
-import { EOL } from 'os'
-
 import type { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-official'
 import { map } from 'lodash'
 import type { SchemaObject } from 'openapi3-ts'
-
+import { config } from '../constant'
 import { assembleDoc } from './assembleDoc'
 
 type SchemaOption = Schema | BodyParameter | Response | Parameter
@@ -15,6 +13,7 @@ const isBodyParameter = (schema: SchemaOption): schema is Required<BodyParameter
 
 /** generate inline property doc */
 const generatePropertyDoc = (schema: SchemaOption) => {
+  const { EOL } = config
   const docs = assembleDoc(schema)
   return docs ? `/**${EOL}${docs.join(EOL)} */${EOL}` : ''
 }
@@ -23,6 +22,7 @@ const generatePropertyDoc = (schema: SchemaOption) => {
  * @param schema
  * */
 const transform = (schema: SchemaOption): string => {
+  const { EOL } = config
   if (isBodyParameter(schema)) {
     return transform(schema.schema)
   }

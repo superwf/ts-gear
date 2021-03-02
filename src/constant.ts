@@ -7,3 +7,7 @@ export const targetFileNames = {
   definition: 'definition.ts',
   request: 'request.ts',
 }
+
+export const config = {
+  EOL: '\n',
+}

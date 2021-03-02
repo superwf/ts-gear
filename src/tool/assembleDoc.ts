@@ -1,10 +1,10 @@
-import { EOL } from 'os'
-
 import type { Schema, Operation, Parameter } from 'swagger-schema-official'
 import type { SchemaObject } from 'openapi3-ts'
+import { config } from '../constant'
 
 /** add many possible properties to doc */
 export const assembleDoc = (schema: Schema | Operation | Parameter) => {
+  const { EOL } = config
   if (typeof schema !== 'object') {
     return undefined
   }

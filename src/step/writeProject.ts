@@ -1,4 +1,3 @@
-import { EOL } from 'os'
 import { join } from 'path'
 import { getGlobal } from '../projectGlobalVariable'
 import { prettierWrite } from '../tool/prettierWrite'
@@ -6,13 +5,14 @@ import type { Project } from '../type'
 import { warningComment } from '../content/warningComment'
 import { projectIndex } from '../content/projectIndex'
 import { requester } from '../content/requester'
-import { targetFileNames } from '../constant'
+import { targetFileNames, config } from '../constant'
 import { importAllDefinition } from './importAllDefinition'
 
 /** gather global typescript content
  * write to project dir */
 export const writeProject = (project: Project, tsGearConfigPath: string) => {
   const { definitionMap, requestMap, enumMap } = getGlobal(project)
+  const { EOL } = config
   const dest = join(tsGearConfigPath, project.dest, project.name)
 
   const definitionTypeNameSet = new Set<string>()
@@ -31,7 +31,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     .map(({ typescriptContent }) => typescriptContent)
     .join(EOL)
   prettierWrite(
-    [warningComment, enumContent, definitionContent].join(EOL),
+    [warningComment(), enumContent, definitionContent].join(EOL),
     join(dest, targetFileNames.definition),
     project.prettierConfig,
   )
@@ -43,12 +43,12 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     .join(EOL)
   const requesterResult = requester(project)
   prettierWrite(
-    [warningComment, requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
+    [warningComment(), requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
       EOL,
     ),
     join(dest, targetFileNames.request),
     project.prettierConfig,
   )
 
-  prettierWrite([warningComment, projectIndex].join(EOL), join(dest, targetFileNames.index), project.prettierConfig)
+  prettierWrite([warningComment(), projectIndex].join(EOL), join(dest, targetFileNames.index), project.prettierConfig)
 }

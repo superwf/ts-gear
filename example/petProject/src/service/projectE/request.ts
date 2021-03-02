@@ -1,7 +1,7 @@
 /* eslint-disable */
 /* tslint:disable */
-/** Do not modify this file manually.
-its content will be overwriten next time execute the `tsg` command. */
+/** Do not modify manually.
+content is generated automatically by `ts-gear`. */
 import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
@@ -31,7 +31,8 @@ type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsRespons
 export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   const method = "delete";
   const url = "/api/databoard/board/es";
-  function deleteApiDataboardBoardEs(
+
+  function request(
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
     return requester(url, {
@@ -40,7 +41,8 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
-  deleteApiDataboardBoardEs.method = method;
-  deleteApiDataboardBoardEs.url = url;
-  return deleteApiDataboardBoardEs;
+  request.method = method;
+  request.url = url;
+
+  return request;
 })();
