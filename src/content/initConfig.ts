@@ -8,16 +8,21 @@ import { fetchRequester, axiosRequester } from 'ts-gear'
 
 const projects: Project[] = [
   {
-    /** project name
+    /**
+     * project name
      * will used to mkdir in "dest"
      * */
     name: 'pet',
-    /** the api files will be generated to
+
+    /**
+     * the api files will be generated to
      * @example 'service'
      * note: this directory is relative to this ts-gear config file
      * */
     dest: 'service',
-    /** swagger doc path
+
+    /**
+     * swagger doc path
      * could be remote or local json file
      * starts with "http" is remote
      * others are dealed local json file
@@ -27,26 +32,37 @@ const projects: Project[] = [
     // source: './fixture/pet.json',
 
     /**
-     * the param for fetch swagger doc
-     * see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
+      * request function statement
+      * @required
      * */
-      // fetchSwaggerDocOption: {
-      //   headers: { Accept: 'application/json,*/*' },
-      // },
+    importRequesterStatement: 'import xxx from "xxx"'
 
-    requester: fetchRequester(), // or axiosRequester() if you prefer axios
-
-    /** filter api path
+    /**
+     * filter api path
      * some project mix too mach useless api
      * use this option could avoid those to be written in your api file
      * */
     // apiFilter: /^\\/api/,
 
-    /** filter api path
+    /**
+     * filter api path
      * some project mix too mach useless api
      * use this option could avoid those to be written in your api file
      * */
     // preferClass: false,
+
+    /**
+     * @default false
+     * when assigned true, the requester function will receive the "host"
+     * defined in swagger
+     * */
+    // withHost: false
+
+    /**
+     * @default false
+     * when assigned true, the requester function will receive the "basePath" defined in swagger
+     * */
+    // withBasePath: false
 
     /**
      * @default true
@@ -72,18 +88,60 @@ const projects: Project[] = [
      * */
     // translationEngine: 'baidu',
 
-    /** use swagger sample data mock response data
-     * usually usage: process.env.NODE_ENV === 'test'
+    /**
+     * should export request function option types
+     * @default false
      * */
-    // mockResponse: process.env.NODE_ENV === 'test',
+    // shouldExportRequestOptionType: false
 
-    /** output content prettier config */
+    /**
+     * should export request function response types
+     * @default false
+     * */
+    // shouldExportResponseType: false
+
+    /**
+      * generate mock data switch
+      * @default false
+      * */
+    // shouldGenerateMock: false
+
+    /**
+     * output content prettier config
+     * */
     // prettierConfig: { 
     //   semi: false,
     // }
 
-    // useCache: false,
-    EOL: '\n'
+    /**
+     * generate request function name method
+     * */
+    // generateRequestFunctionName: (arg: GenerateRequestFunctionNameParameter) => string
+
+    /**
+     * if you need, use this option to generate your function all by your self
+     * */
+    // generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
+
+    /**
+     * need js file? OK, change this to true
+     * @default false
+     * */
+    // transformJS: false
+
+    /**
+     * use cache
+     * @default false
+     * */
+    // useCache: false
+
+    /**
+     * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
+     * 推荐设置为\n
+     * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
+     * @default '\n'
+     * */
+    // EOL?: '\n' | '\r' | '\r\n' | 'auto'
   },
 ]
 

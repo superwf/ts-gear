@@ -33,6 +33,6 @@ export function toJS(project: Project, tsGearConfigPath: string): void {
   if (exitCode === 0) {
     info(`project "${project.name}" transpiled to javascript success.`)
     // 成功后清除ts文件
-    // sync(join(targetPath, '*.ts'))
+    sync(join(targetPath, '*.ts'))
   }
 }

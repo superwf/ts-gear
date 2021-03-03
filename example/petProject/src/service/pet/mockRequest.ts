@@ -34,7 +34,9 @@ export type PutPetResponseSuccess = any;
  * consumes: application／json,application/xml
  */
 export const putPet = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "put";
+  /** request url */
   const url = "/v2/pet";
   const mockData = ("" as unknown) as PutPetResponseSuccess;
   const mockRequest = function (
@@ -67,7 +69,9 @@ export type PostPetResponseSuccess = any;
  * consumes: application／json,application/xml
  */
 export const postPet = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/pet";
   const mockData = ("" as unknown) as PostPetResponseSuccess;
   const mockRequest = function (
@@ -106,7 +110,9 @@ export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
  * produces: application／xml,application/json
  */
 export const getPetFindByStatus = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/pet/findByStatus";
   const mockData = ([
     {
@@ -160,7 +166,9 @@ export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
  * produces: application／xml,application/json
  */
 export const getPetPetId = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/pet/:petId";
   const mockData = ({
     id: 0,
@@ -217,7 +225,9 @@ export type PostPetPetIdResponseSuccess = any;
  * consumes: application／x-www-form-urlencoded
  */
 export const postPetPetId = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/pet/:petId";
   const mockData = ("" as unknown) as PostPetPetIdResponseSuccess;
   const mockRequest = function (
@@ -262,7 +272,9 @@ export type DeletePetPetIdResponseSuccess = any;
  * produces: application／xml,application/json
  */
 export const deletePetPetId = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "delete";
+  /** request url */
   const url = "/v2/pet/:petId";
   const mockData = ("" as unknown) as DeletePetPetIdResponseSuccess;
   const mockRequest = function (
@@ -312,7 +324,9 @@ export type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResp
  * consumes: multipart／form-data
  */
 export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/pet/:petId/uploadImage";
   const mockData = ({
     code: 0,
@@ -345,7 +359,9 @@ export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
  * produces: application／json
  */
 export const getStoreInventory = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/store/inventory";
   const mockData = ({
     additionalProp1: 0,
@@ -381,7 +397,9 @@ export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
  * produces: application／xml,application/json
  */
 export const postStoreOrder = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/store/order";
   const mockData = ({
     id: 0,
@@ -433,7 +451,9 @@ export type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[2
  * produces: application／xml,application/json
  */
 export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/store/order/:orderId";
   const mockData = ({
     id: 0,
@@ -483,7 +503,9 @@ export type DeleteStoreOrderOrderIdResponseSuccess = any;
  * produces: application／xml,application/json
  */
 export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "delete";
+  /** request url */
   const url = "/v2/store/order/:orderId";
   const mockData = ("" as unknown) as DeleteStoreOrderOrderIdResponseSuccess;
   const mockRequest = function (
@@ -516,7 +538,9 @@ export type PostUserResponseSuccess = PostUserResponse["default"];
  * produces: application／xml,application/json
  */
 export const postUser = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/user";
   const mockData = ("" as unknown) as PostUserResponseSuccess;
   const mockRequest = function (
@@ -548,7 +572,9 @@ export type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResp
  * produces: application／xml,application/json
  */
 export const postUserCreateWithArray = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/user/createWithArray";
   const mockData = ("" as unknown) as PostUserCreateWithArrayResponseSuccess;
   const mockRequest = function (
@@ -580,7 +606,9 @@ export type PostUserCreateWithListResponseSuccess = PostUserCreateWithListRespon
  * produces: application／xml,application/json
  */
 export const postUserCreateWithList = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "post";
+  /** request url */
   const url = "/v2/user/createWithList";
   const mockData = ("" as unknown) as PostUserCreateWithListResponseSuccess;
   const mockRequest = function (
@@ -621,7 +649,9 @@ export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
  * produces: application／xml,application/json
  */
 export const getUserLogin = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/user/login";
   const mockData = ("string" as unknown) as GetUserLoginResponseSuccess;
   const mockRequest = function (
@@ -647,7 +677,9 @@ export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
  * produces: application／xml,application/json
  */
 export const getUserLogout = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/user/logout";
   const mockData = ("" as unknown) as GetUserLogoutResponseSuccess;
   const mockRequest = function (): Promise<GetUserLogoutResponseSuccess> {
@@ -685,7 +717,9 @@ export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
  * produces: application／xml,application/json
  */
 export const getUserUsername = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "get";
+  /** request url */
   const url = "/v2/user/:username";
   const mockData = ({
     id: 0,
@@ -735,7 +769,9 @@ export type PutUserUsernameResponseSuccess = any;
  * produces: application／xml,application/json
  */
 export const putUserUsername = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "put";
+  /** request url */
   const url = "/v2/user/:username";
   const mockData = ("" as unknown) as PutUserUsernameResponseSuccess;
   const mockRequest = function (
@@ -774,7 +810,9 @@ export type DeleteUserUsernameResponseSuccess = any;
  * produces: application／xml,application/json
  */
 export const deleteUserUsername = /* #__PURE__ */ (() => {
+  /** http method */
   const method = "delete";
+  /** request url */
   const url = "/v2/user/:username";
   const mockData = ("" as unknown) as DeleteUserUsernameResponseSuccess;
   const mockRequest = function (

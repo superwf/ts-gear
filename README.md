@@ -14,6 +14,8 @@ inspired by [pont](https://github.com/alibaba/pont)
 
 `ts-gear`命名：ts是typescript与swagger的组合，gear寓意通过这个工具像齿轮一样，将前后端紧密的结合在一起，构成一架严密运转的机器。
 
+后来想想，其实应该是与openapi结合而不仅限与swagger，不过名字起了挺久那就这样吧不改了。
+
 ## 用法
 
 ### 安装
@@ -230,7 +232,6 @@ export default projects
 | keepGeneric | boolean | true | true | 尝试生成范型类型，虽然做了各种努力但肯定还有一些情况不能生成范型，如果运行失败可将该项设置为false |
 | translationEngine | 'baidu' \| 'google' | false |  | 如果文档中确实有一些类型的东西用中文定义的，可配置翻译引擎尝试翻译 |
 | shouldGenerateMock | boolean | true | 默认true，生成mock数据，如果您的项目不需要mock数据，或有自己的mock策略，可配置为false，减少生成的代码量 |
-| useMockResponseStatement | string | false | 默认为`process.env.NODE_ENV === 'test'` 是否使用生成的mock数据的判断声明。在`shouldGenerateMock`为false时没用 |
 | prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | 生成文件的`prettier`配置，参考`prettier`官网 |
 | transformJS | boolean | false | false | 是否生成`js`而不是`ts`文件 |
 | useCache | boolean | false | false | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。 |

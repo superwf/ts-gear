@@ -150,17 +150,20 @@ export interface ProjectGlobalMap {
 }
 
 export interface Project {
-  /** project name
+  /**
+   * project name
    * will used to mkdir in "dest"
    * */
   name: string
 
-  /** the api files will be generated to
+  /**
+   * the api files will be generated to
    * @example './service'
    * */
   dest: string
 
-  /** swagger doc path
+  /**
+   * swagger doc path
    * could be remote or local json file
    * starts with "http" is remote
    * others are dealed local json file
@@ -173,17 +176,17 @@ export interface Project {
    * */
   fetchSwaggerDocOption?: RequestInit
 
-  /** filter api path
+  /**
+   * filter api path
    * some project mix too mach useless api
    * use this option could avoid those to be written in your api file
    * */
   apiFilter?: ApiFilterFunction
 
-  /** request function statement
-   * some times requester will import too many code
-   * and cause some resolve errors
-   * use requesterImportStatement is a safer way
-   * and this will override `requester` option
+  /**
+   * request function statement
+   * @example "import xxx from 'xxx'"
+   * @required
    * */
   importRequesterStatement: string
 
@@ -201,6 +204,7 @@ export interface Project {
    * defined in swagger
    * */
   withHost?: boolean
+
   /**
    * @default false
    * when assigned true, the requester function will receive the "basePath" defined in swagger
@@ -218,7 +222,8 @@ export interface Project {
    * */
   keepGeneric?: boolean
 
-  /** if your swagger doc has some non english words in definitions keys or some $ref position,
+  /**
+   * if your swagger doc has some non english words in definitions keys or some $ref position,
    * choose an engine to transate those words to english
    * the translated results are not for human reading, but for program variable names.
    * because translation depends on internet, you may need to retry some times to get results successfuly.
@@ -243,26 +248,25 @@ export interface Project {
    * */
   shouldExportResponseType?: boolean
 
-  /** generate mock data switch
-   * @default false */
+  /**
+   * generate mock data switch
+   * @default false
+   * */
   shouldGenerateMock?: boolean
 
   /**
-   * a string statement to tell use swagger sample data mock response data
-   * used in decide whether request function should return mockData
-   * @default "process.env.NODE_ENV === 'test'"
-   * this statement must return boolean,
-   * and should return false to be removed when optimize code in production mode.
+   * output content prettier config
    * */
-  useMockResponseStatement?: string
-
-  /** output content prettier config */
   prettierConfig?: Options
 
-  /** generate request function name method */
+  /**
+   * generate request function name method
+   * */
   generateRequestFunctionName?: (arg: GenerateRequestFunctionNameParameter) => string
 
-  /** if you need, use this option to generate your function all by your self */
+  /**
+   * if you need, use this option to generate your function all by your self
+   * */
   generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
 
   /**
@@ -270,6 +274,7 @@ export interface Project {
    * @default false
    * */
   transformJS?: boolean
+
   /**
    * use cache
    * @default false
