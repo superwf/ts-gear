@@ -11,13 +11,15 @@ const projects: Project[] = [
     /**
      * project name
      * will used to mkdir in "dest"
+     * 工程名，会在dest指定的文件夹中生成对应的工程名文件夹
      * */
     name: 'pet',
 
     /**
      * the api files will be generated to
-     * @example 'service'
      * note: this directory is relative to this ts-gear config file
+     * @example 'service'
+     * 目标文件夹，相对路径以当前'tsg.config.ts'为基准
      * */
     dest: 'service',
 

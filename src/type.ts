@@ -153,12 +153,15 @@ export interface Project {
   /**
    * project name
    * will used to mkdir in "dest"
+   * 工程名，会在dest指定的文件夹中生成对应的工程名文件夹
    * */
   name: string
 
   /**
    * the api files will be generated to
+   * note: this directory is relative to this ts-gear config file
    * @example './service'
+   * 目标文件夹，相对路径以当前'tsg.config.ts'为基准
    * */
   dest: string
 
@@ -167,12 +170,18 @@ export interface Project {
    * could be remote or local json file
    * starts with "http" is remote
    * others are dealed local json file
+   * @example 'http://petstore.swagger.io/v2/swagger.json'
+   * @example './fixture/pet.json',
+   * openapi数据对应的网址，可以是远程或本地
+   * 如果是本地文件，则相对路径以当前tsg.config.ts为基准
    * */
   source: string
 
   /**
    * the param for fetch swagger doc
    * see https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters
+   * 如果source参数访问的远程接口需要一些认证参数
+   * 在这里添加这些需要的参数
    * */
   fetchSwaggerDocOption?: RequestInit
 
@@ -180,6 +189,7 @@ export interface Project {
    * filter api path
    * some project mix too mach useless api
    * use this option could avoid those to be written in your api file
+   * 过滤仅需要生成的api规则正则或函数
    * */
   apiFilter?: ApiFilterFunction
 
@@ -187,6 +197,7 @@ export interface Project {
    * request function statement
    * @example "import xxx from 'xxx'"
    * @required
+   * 引入自定义requester的模板字符串
    * */
   importRequesterStatement: string
 
@@ -195,6 +206,7 @@ export interface Project {
    * by default, definiton will generate ts "interface"
    * "class" can keep the property default value
    * set this to "true" to generate "class" instead of "interface"
+   * 默认将后端数据结构转为interface，设置为true则使用class
    * */
   preferClass?: boolean
 
@@ -202,12 +214,14 @@ export interface Project {
    * @default false
    * when assigned true, the requester function will receive the "host"
    * defined in swagger
+   * 每个请求函数中的请求url是否包括host，当项目明确需要跨域调用时候有用
    * */
   withHost?: boolean
 
   /**
    * @default false
    * when assigned true, the requester function will receive the "basePath" defined in swagger
+   * 每个请求函数中的请求url是否包括openapi定义的basePath
    * */
   withBasePath?: boolean
 
@@ -219,6 +233,7 @@ export interface Project {
    * assign "false" to this option
    * ts-gear will not generate generic type
    * the process of generating typescript content will be more stable.
+   * 是否尝试生成范型，若报错则设置为false更保险一些
    * */
   keepGeneric?: boolean
 
@@ -233,55 +248,65 @@ export interface Project {
    * if there are unregular charator, and you can not fix it,
    * try to use an engine provided by "translation.js"
    * "baidu" or "google"
+   * 如果一些定义中有非英文字符，可以尝试添加翻译引擎
    * */
   translationEngine?: TranslationEngine
 
   /**
    * should export request function option types
    * @default false
+   * 是否export请求参数类型，推荐不导出，需要使用时通过Parameters类型工具提取
    * */
   shouldExportRequestOptionType?: boolean
 
   /**
    * should export request function response types
    * @default false
+   * 是否export请求返回类型，推荐不导出，需要使用时通过ReturnType类型工具提取
    * */
   shouldExportResponseType?: boolean
 
   /**
    * generate mock data switch
    * @default false
+   * 是否生成mock数据文件
    * */
   shouldGenerateMock?: boolean
 
   /**
    * output content prettier config
+   * 生成代码的prettier格式化配置
    * */
   prettierConfig?: Options
 
   /**
    * generate request function name method
+   * 生成请求函数名的自定义方法
    * */
   generateRequestFunctionName?: (arg: GenerateRequestFunctionNameParameter) => string
 
   /**
    * if you need, use this option to generate your function all by your self
+   * 生成请求函数体的自定义方法，返回字符串作为函数体模板
    * */
   generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
 
   /**
    * need js file? OK, change this to true
    * @default false
+   * 如果是非ts项目，可使用该项将结果转为js
    * */
   transformJS?: boolean
 
   /**
    * use cache
    * @default false
+   * 使用缓存，默认为false
    * */
   useCache?: boolean
 
   /**
+   * custom EOF
    * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
    * 推荐设置为\n
    * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
