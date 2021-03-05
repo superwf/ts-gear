@@ -11,13 +11,15 @@ const projects: Project[] = [
     /**
      * project name
      * will used to mkdir in "dest"
+     * 工程名，会在dest指定的文件夹中生成对应的工程名文件夹
      * */
     name: 'pet',
 
     /**
      * the api files will be generated to
-     * @example 'service'
      * note: this directory is relative to this ts-gear config file
+     * @example 'service'
+     * 目标文件夹，相对路径以当前'tsg.config.ts'为基准
      * */
     dest: 'service',
 
@@ -137,11 +139,11 @@ const projects: Project[] = [
 
     /**
      * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
-     * 推荐设置为\n
-     * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
-     * @default '\n'
+     * 推荐设置为\\n
+     * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\\r\\n'，mac为'\\r'
+     * @default '\\n'
      * */
-    // EOL?: '\n' | '\r' | '\r\n' | 'auto'
+    // EOL?: '\\n' | '\\r' | '\\r\\n' | 'auto'
   },
 ]
 
