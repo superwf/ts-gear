@@ -2,6 +2,29 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/superwf/ts-gear/compare/v3.0.9...v4.0.0) (2021-03-08)
+
+
+### ⚠ BREAKING CHANGES
+
+* mock data file
+* mock data file
+
+### Features
+
+* 添加几个特性 ([58a4e32](https://github.com/superwf/ts-gear/commit/58a4e320085963910f8133c5f13b5e4640507724))
+* add EOF option ([e9bd30c](https://github.com/superwf/ts-gear/commit/e9bd30c413d497296e8eafcdb1f504c6088aae60))
+* v4 features ([872ea63](https://github.com/superwf/ts-gear/commit/872ea631bf1b552859bf3fceac9d83770ccee47e))
+
+
+### Bug Fixes
+
+* 全局处理EOL参数 ([2d84e94](https://github.com/superwf/ts-gear/commit/2d84e9458926886e28d0a22d02e73e86cba4556f))
+
+
+* 对一些参数进行了重构 ([850350b](https://github.com/superwf/ts-gear/commit/850350b7d47d7a6b0139a0b1cdc464264d7f8c56))
+* 对一些参数进行了重构 ([b5feae0](https://github.com/superwf/ts-gear/commit/b5feae084076e47d47ac80a4496ff8751f90e0cf))
+
 ### [3.0.9](https://github.com/superwf/ts-gear/compare/v3.0.8...v3.0.9) (2021-01-15)
 
 
