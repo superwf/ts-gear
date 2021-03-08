@@ -6,13 +6,15 @@ import { sow, harvest } from '../../source'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { config } from '../../constant'
 import { generateResponseType } from './generateResponseType'
 import { generateRequestOptionType } from './generateRequestOptionType'
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: Project) => {
-  const { apiFilter, withBasePath, withHost, EOL } = project
+  const { apiFilter, withBasePath, withHost } = project
   const { requestMap } = getGlobal(project)
+  const { EOL } = config
 
   const { generateRequestFunction } = project
 

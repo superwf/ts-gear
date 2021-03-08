@@ -1,7 +1,5 @@
 import { join } from 'path'
-
 import 'cross-fetch/polyfill'
-
 import { error, info } from '../tool/log'
 import type { Project } from '../type'
 
@@ -18,7 +16,7 @@ export const fetchOpenapiData = async (project: Project, tsGearConfigPath: strin
     info(`start fetching ${verbose}`)
     const res = await fetch(url, project.fetchSwaggerDocOption)
     const swaggerSchema = await res.json()
-    info(`got swagger spec doc from ${verbose}}`)
+    info(`got swagger spec doc from ${verbose}`)
     return swaggerSchema
   }
   const source = join(tsGearConfigPath, project.source)

@@ -44,5 +44,5 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
  * */
 export const run = async (): Promise<void> => {
   const { projects, tsGearConfigPath } = await step.getUserConfig()
-  projects.forEach(project => processProject(project, tsGearConfigPath))
+  await Promise.all(projects.map(project => processProject(project, tsGearConfigPath)))
 }

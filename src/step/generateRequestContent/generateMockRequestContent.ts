@@ -6,6 +6,7 @@ import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPat
 import { sow, harvest } from '../../source'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { config } from '../../constant'
 import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
 import { generateRequestOptionType } from './generateRequestOptionType'
@@ -17,10 +18,11 @@ import { generateRequestOptionType } from './generateRequestOptionType'
  * 取消了将mock数据混合到实际请求函数中的做法
  * */
 export const generateMockRequestContent = (spec: Spec, project: Project) => {
-  const { apiFilter, EOL } = project
+  const { apiFilter } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
   const { generateRequestFunction } = project
+  const { EOL } = config
 
   // const resultContent: string[] = []
   Object.getOwnPropertyNames(requestMap).forEach(requestFunctionName => {

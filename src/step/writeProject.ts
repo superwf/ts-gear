@@ -31,7 +31,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     .map(({ typescriptContent }) => typescriptContent)
     .join(EOL)
   prettierWrite(
-    [warningComment(), enumContent, definitionContent].join(EOL),
+    [warningComment(EOL as string), enumContent, definitionContent].join(EOL),
     join(dest, targetFileNames.definition),
     project.prettierConfig,
   )
@@ -43,9 +43,13 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     .join(EOL)
   const requesterResult = requester(project)
   prettierWrite(
-    [warningComment(), requesterResult.import, importAllDefinition(project), requesterResult.code, requestContent].join(
-      EOL,
-    ),
+    [
+      warningComment(EOL as string),
+      requesterResult.import,
+      importAllDefinition(project),
+      requesterResult.code,
+      requestContent,
+    ].join(EOL),
     join(dest, targetFileNames.request),
     project.prettierConfig,
   )
@@ -57,7 +61,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
       .join(EOL)
     prettierWrite(
       [
-        warningComment(),
+        warningComment(EOL as string),
         requesterResult.import,
         importAllDefinition(project),
         requesterResult.code,
@@ -68,5 +72,9 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
     )
   }
 
-  prettierWrite([warningComment(), projectIndex].join(EOL), join(dest, targetFileNames.index), project.prettierConfig)
+  prettierWrite(
+    [warningComment(EOL as string), projectIndex()].join(EOL),
+    join(dest, targetFileNames.index),
+    project.prettierConfig,
+  )
 }
