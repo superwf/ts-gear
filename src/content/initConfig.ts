@@ -4,7 +4,6 @@ export const initConfig = `
   * so this file would be included into your source file when compile
   * */
 import type { Project } from 'ts-gear'
-import { fetchRequester, axiosRequester } from 'ts-gear'
 
 const projects: Project[] = [
   {
@@ -37,7 +36,7 @@ const projects: Project[] = [
       * request function statement
       * @required
      * */
-    importRequesterStatement: 'import xxx from "xxx"'
+    importRequesterStatement: 'import xxx from "xxx"',
 
     /**
      * filter api path
@@ -58,13 +57,13 @@ const projects: Project[] = [
      * when assigned true, the requester function will receive the "host"
      * defined in swagger
      * */
-    // withHost: false
+    // withHost: false,
 
     /**
      * @default false
      * when assigned true, the requester function will receive the "basePath" defined in swagger
      * */
-    // withBasePath: false
+    // withBasePath: false,
 
     /**
      * @default true
@@ -94,56 +93,56 @@ const projects: Project[] = [
      * should export request function option types
      * @default false
      * */
-    // shouldExportRequestOptionType: false
+    // shouldExportRequestOptionType: false,
 
     /**
      * should export request function response types
      * @default false
      * */
-    // shouldExportResponseType: false
+    // shouldExportResponseType: false,
 
     /**
       * generate mock data switch
       * @default false
       * */
-    // shouldGenerateMock: false
+    // shouldGenerateMock: false,
 
     /**
      * output content prettier config
      * */
     // prettierConfig: { 
     //   semi: false,
-    // }
+    // },
 
     /**
      * generate request function name method
      * */
-    // generateRequestFunctionName: (arg: GenerateRequestFunctionNameParameter) => string
+    // generateRequestFunctionName: (arg: GenerateRequestFunctionNameParameter) => string,
 
     /**
      * if you need, use this option to generate your function all by your self
      * */
-    // generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
+    // generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string,
 
     /**
      * need js file? OK, change this to true
      * @default false
      * */
-    // transformJS: false
+    // transformJS: false,
 
     /**
      * use cache
      * @default false
      * */
-    // useCache: false
+    // useCache: false,
 
     /**
      * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
-     * 推荐设置为\n
-     * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
-     * @default '\n'
+     * 推荐设置为\\n
+     * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\\r\\n'，mac为'\\r'
+     * @default '\\n'
      * */
-    // EOL?: '\n' | '\r' | '\r\n' | 'auto'
+    // EOL?: '\\n' | '\\r' | '\\r\\n' | 'auto',
   },
 ]
 

@@ -12,12 +12,12 @@ import type {
 } from "./definition";
 
 /** request parameter type for putPet */
-export interface PutPetOption {
+interface PutPetOption {
   /** Pet object that needs to be added to the store */
   body: Pet;
 }
 
-export interface PutPetResponse {
+interface PutPetResponse {
   /** Invalid ID supplied */
   400: any;
   /** Pet not found */
@@ -26,7 +26,7 @@ export interface PutPetResponse {
   405: any;
 }
 
-export type PutPetResponseSuccess = any;
+type PutPetResponseSuccess = any;
 /**
  * Update an existing pet
  * tags: pet
@@ -51,17 +51,17 @@ export const putPet = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postPet */
-export interface PostPetOption {
+interface PostPetOption {
   /** Pet object that needs to be added to the store */
   body: Pet;
 }
 
-export interface PostPetResponse {
+interface PostPetResponse {
   /** Invalid input */
   405: any;
 }
 
-export type PostPetResponseSuccess = any;
+type PostPetResponseSuccess = any;
 /**
  * Add a new pet to the store
  * tags: pet
@@ -86,7 +86,7 @@ export const postPet = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getPetFindByStatus */
-export interface GetPetFindByStatusOption {
+interface GetPetFindByStatusOption {
   /** Status values that need to be considered for filter */
   query: {
     /**
@@ -95,14 +95,14 @@ export interface GetPetFindByStatusOption {
   };
 }
 
-export interface GetPetFindByStatusResponse {
+interface GetPetFindByStatusResponse {
   /** successful operation */
   200: Array<Pet>;
   /** Invalid status value */
   400: any;
 }
 
-export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
+type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
 /**
  * Multiple status values can be provided with comma separated strings
  * Finds Pets by status
@@ -129,7 +129,7 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getPetPetId */
-export interface GetPetPetIdOption {
+interface GetPetPetIdOption {
   /**
    * ID of pet to return
    * format: int64
@@ -142,7 +142,7 @@ export interface GetPetPetIdOption {
   };
 }
 
-export interface GetPetPetIdResponse {
+interface GetPetPetIdResponse {
   /** successful operation */
   200: Pet;
   /** Invalid ID supplied */
@@ -151,7 +151,7 @@ export interface GetPetPetIdResponse {
   404: any;
 }
 
-export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
+type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
 /**
  * Returns a single pet
  * Find pet by ID
@@ -178,7 +178,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postPetPetId */
-export interface PostPetPetIdOption {
+interface PostPetPetIdOption {
   /**
    * ID of pet that needs to be updated
    * format: int64
@@ -200,12 +200,12 @@ export interface PostPetPetIdOption {
   };
 }
 
-export interface PostPetPetIdResponse {
+interface PostPetPetIdResponse {
   /** Invalid input */
   405: any;
 }
 
-export type PostPetPetIdResponseSuccess = any;
+type PostPetPetIdResponseSuccess = any;
 /**
  * Updates a pet in the store with form data
  * tags: pet
@@ -232,7 +232,7 @@ export const postPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for deletePetPetId */
-export interface DeletePetPetIdOption {
+interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
@@ -248,14 +248,14 @@ export interface DeletePetPetIdOption {
   };
 }
 
-export interface DeletePetPetIdResponse {
+interface DeletePetPetIdResponse {
   /** Invalid ID supplied */
   400: any;
   /** Pet not found */
   404: any;
 }
 
-export type DeletePetPetIdResponseSuccess = any;
+type DeletePetPetIdResponseSuccess = any;
 /**
  * Deletes a pet
  * tags: pet
@@ -281,7 +281,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postPetPetIdUploadImage */
-export interface PostPetPetIdUploadImageOption {
+interface PostPetPetIdUploadImageOption {
   /**
    * ID of pet to update
    * format: int64
@@ -303,12 +303,12 @@ export interface PostPetPetIdUploadImageOption {
   };
 }
 
-export interface PostPetPetIdUploadImageResponse {
+interface PostPetPetIdUploadImageResponse {
   /** successful operation */
   200: ApiResponse;
 }
 
-export type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200];
+type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200];
 /**
  * uploads an image
  * tags: pet
@@ -334,14 +334,14 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   return request;
 })();
 
-export interface GetStoreInventoryResponse {
+interface GetStoreInventoryResponse {
   /** successful operation */
   200: {
     [propertyName: string]: number;
   };
 }
 
-export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
+type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
 /**
  * Returns a map of status codes to quantities
  * Returns pet inventories by status
@@ -365,19 +365,19 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postStoreOrder */
-export interface PostStoreOrderOption {
+interface PostStoreOrderOption {
   /** order placed for purchasing the pet */
   body: Order;
 }
 
-export interface PostStoreOrderResponse {
+interface PostStoreOrderResponse {
   /** successful operation */
   200: Order;
   /** Invalid Order */
   400: any;
 }
 
-export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
+type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
  * Place an order for a pet
  * tags: store
@@ -403,7 +403,7 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getStoreOrderOrderId */
-export interface GetStoreOrderOrderIdOption {
+interface GetStoreOrderOrderIdOption {
   /**
    * ID of pet that needs to be fetched
    * format: int64
@@ -416,7 +416,7 @@ export interface GetStoreOrderOrderIdOption {
   };
 }
 
-export interface GetStoreOrderOrderIdResponse {
+interface GetStoreOrderOrderIdResponse {
   /** successful operation */
   200: Order;
   /** Invalid ID supplied */
@@ -425,7 +425,7 @@ export interface GetStoreOrderOrderIdResponse {
   404: any;
 }
 
-export type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200];
+type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200];
 /**
  * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  * Find purchase order by ID
@@ -452,7 +452,7 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for deleteStoreOrderOrderId */
-export interface DeleteStoreOrderOrderIdOption {
+interface DeleteStoreOrderOrderIdOption {
   /**
    * ID of the order that needs to be deleted
    * format: int64
@@ -465,14 +465,14 @@ export interface DeleteStoreOrderOrderIdOption {
   };
 }
 
-export interface DeleteStoreOrderOrderIdResponse {
+interface DeleteStoreOrderOrderIdResponse {
   /** Invalid ID supplied */
   400: any;
   /** Order not found */
   404: any;
 }
 
-export type DeleteStoreOrderOrderIdResponseSuccess = any;
+type DeleteStoreOrderOrderIdResponseSuccess = any;
 /**
  * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  * Delete purchase order by ID
@@ -499,17 +499,17 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postUser */
-export interface PostUserOption {
+interface PostUserOption {
   /** Created user object */
   body: User;
 }
 
-export interface PostUserResponse {
+interface PostUserResponse {
   /** successful operation */
   default: any;
 }
 
-export type PostUserResponseSuccess = PostUserResponse["default"];
+type PostUserResponseSuccess = PostUserResponse["default"];
 /**
  * This can only be done by the logged in user.
  * Create user
@@ -534,17 +534,17 @@ export const postUser = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postUserCreateWithArray */
-export interface PostUserCreateWithArrayOption {
+interface PostUserCreateWithArrayOption {
   /** List of user object */
   body: Array<User>;
 }
 
-export interface PostUserCreateWithArrayResponse {
+interface PostUserCreateWithArrayResponse {
   /** successful operation */
   default: any;
 }
 
-export type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse["default"];
+type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse["default"];
 /**
  * Creates list of users with given input array
  * tags: user
@@ -570,17 +570,17 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for postUserCreateWithList */
-export interface PostUserCreateWithListOption {
+interface PostUserCreateWithListOption {
   /** List of user object */
   body: Array<User>;
 }
 
-export interface PostUserCreateWithListResponse {
+interface PostUserCreateWithListResponse {
   /** successful operation */
   default: any;
 }
 
-export type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse["default"];
+type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse["default"];
 /**
  * Creates list of users with given input array
  * tags: user
@@ -606,7 +606,7 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getUserLogin */
-export interface GetUserLoginOption {
+interface GetUserLoginOption {
   /** The user name for login */
   query: {
     /**
@@ -618,14 +618,14 @@ export interface GetUserLoginOption {
   };
 }
 
-export interface GetUserLoginResponse {
+interface GetUserLoginResponse {
   /** successful operation */
   200: string;
   /** Invalid username／password supplied */
   400: any;
 }
 
-export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
+type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
  * Logs user into the system
  * tags: user
@@ -650,12 +650,12 @@ export const getUserLogin = /* #__PURE__ */ (() => {
   return request;
 })();
 
-export interface GetUserLogoutResponse {
+interface GetUserLogoutResponse {
   /** successful operation */
   default: any;
 }
 
-export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
+type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
 /**
  * Logs out current logged in user session
  * tags: user
@@ -676,7 +676,7 @@ export const getUserLogout = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for getUserUsername */
-export interface GetUserUsernameOption {
+interface GetUserUsernameOption {
   /** The name that needs to be fetched. Use user1 for testing. */
   path: {
     /**
@@ -685,7 +685,7 @@ export interface GetUserUsernameOption {
   };
 }
 
-export interface GetUserUsernameResponse {
+interface GetUserUsernameResponse {
   /** successful operation */
   200: User;
   /** Invalid username supplied */
@@ -694,7 +694,7 @@ export interface GetUserUsernameResponse {
   404: any;
 }
 
-export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
+type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
  * Get user by user name
  * tags: user
@@ -720,7 +720,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for putUserUsername */
-export interface PutUserUsernameOption {
+interface PutUserUsernameOption {
   /** name that need to be updated */
   path: {
     /**
@@ -731,14 +731,14 @@ export interface PutUserUsernameOption {
   body: User;
 }
 
-export interface PutUserUsernameResponse {
+interface PutUserUsernameResponse {
   /** Invalid user supplied */
   400: any;
   /** User not found */
   404: any;
 }
 
-export type PutUserUsernameResponseSuccess = any;
+type PutUserUsernameResponseSuccess = any;
 /**
  * This can only be done by the logged in user.
  * Updated user
@@ -765,7 +765,7 @@ export const putUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** request parameter type for deleteUserUsername */
-export interface DeleteUserUsernameOption {
+interface DeleteUserUsernameOption {
   /** The name that needs to be deleted */
   path: {
     /**
@@ -774,14 +774,14 @@ export interface DeleteUserUsernameOption {
   };
 }
 
-export interface DeleteUserUsernameResponse {
+interface DeleteUserUsernameResponse {
   /** Invalid username supplied */
   400: any;
   /** User not found */
   404: any;
 }
 
-export type DeleteUserUsernameResponseSuccess = any;
+type DeleteUserUsernameResponseSuccess = any;
 /**
  * This can only be done by the logged in user.
  * Delete user

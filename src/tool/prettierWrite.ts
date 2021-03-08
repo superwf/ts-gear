@@ -1,5 +1,4 @@
 import { writeFileSync } from 'fs'
-
 import type { Options } from 'prettier'
 import { format } from 'prettier'
 

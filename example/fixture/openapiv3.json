@@ -11,446 +11,52 @@
     },
     "version": "1.0"
   },
-  "servers": [
-    { "url": "http://10.170.163.224:80", "description": "Inferred Url" }
-  ],
-  "tags": [
-    { "name": "净利矩阵api", "description": "Libra Databoard Controller" }
-  ],
   "paths": {
-    "/api/libra/board/exportDetails": {
+    "/api/datamap/fieldDef": {
       "get": {
-        "tags": ["净利矩阵api"],
-        "summary": "导出对标明细数据",
-        "operationId": "exportDetailsUsingGET",
+        "tags": ["【表字段信息】API"],
+        "summary": "分页查询【表字段信息】",
+        "operationId": "listUsingGET",
         "parameters": [
           {
-            "name": "areaIds",
+            "name": "createdBy",
             "in": "query",
+            "description": "创建人",
             "required": false,
             "style": "form",
             "schema": { "type": "string" }
           },
           {
-            "name": "areaLevel",
+            "name": "createdTimeEnd",
             "in": "query",
+            "description": "创建时间",
             "required": false,
             "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
+            "schema": { "type": "string", "format": "date-time" }
           },
           {
-            "name": "baseDimension",
+            "name": "createdTimeStart",
             "in": "query",
+            "description": "创建时间",
             "required": false,
             "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
+            "schema": { "type": "string", "format": "date-time" }
           },
           {
-            "name": "brandIds",
+            "name": "deleted",
             "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "cidLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "cids",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "compareDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "dateType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "pageNo",
-            "in": "query",
-            "description": "分页参数，第几页",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "分页参数，每页的条数",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "maximum": 1000,
-              "exclusiveMaximum": false,
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "priceType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string", "enum": ["ORDER", "UNIT"] }
-          },
-          {
-            "name": "startIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "startTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "warehouses",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": { "$ref": "#/components/schemas/ReplyVO«string»" }
-              }
-            }
-          },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
-        }
-      }
-    },
-    "/api/libra/board/listDetail": {
-      "get": {
-        "tags": ["净利矩阵api"],
-        "summary": "分页查询对标明细",
-        "operationId": "listDetailUsingGET",
-        "parameters": [
-          {
-            "name": "areaIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "areaLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "baseDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "brandIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "cidLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "cids",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "compareDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "dateType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "pageNo",
-            "in": "query",
-            "description": "分页参数，第几页",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "分页参数，每页的条数",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "maximum": 1000,
-              "exclusiveMaximum": false,
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "priceType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string", "enum": ["ORDER", "UNIT"] }
-          },
-          {
-            "name": "startIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "startTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "warehouses",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "OK",
-            "content": {
-              "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReplyVO«PageVO«DetailListVO»»"
-                }
-              }
-            }
-          },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
-        }
-      }
-    },
-    "/api/libra/board/listMatrix": {
-      "get": {
-        "tags": ["净利矩阵api"],
-        "summary": "获取矩阵散点值",
-        "operationId": "listMatrixUsingGET",
-        "parameters": [
-          {
-            "name": "areaIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "areaLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "base",
-            "in": "query",
+            "description": "是否删除：0-否，1-是",
             "required": false,
             "style": "form",
             "schema": { "type": "boolean" }
           },
           {
-            "name": "baseDimension",
+            "name": "description",
             "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "brandIds",
-            "in": "query",
+            "description": "字段描述",
             "required": false,
             "style": "form",
             "schema": { "type": "string" }
-          },
-          {
-            "name": "bubbleId",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "cidLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "cids",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "compareDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "dateType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
           },
           {
             "name": "endIndex",
@@ -460,11 +66,44 @@
             "schema": { "type": "integer", "format": "int32" }
           },
           {
-            "name": "endTimeStr",
+            "name": "fieldId",
             "in": "query",
+            "description": "字段Id：table_id+field_name",
             "required": false,
             "style": "form",
             "schema": { "type": "string" }
+          },
+          {
+            "name": "fieldName",
+            "in": "query",
+            "description": "字段名称",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "operatedBy",
+            "in": "query",
+            "description": "修改人",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string" }
+          },
+          {
+            "name": "operatedTimeEnd",
+            "in": "query",
+            "description": "修改时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
+          },
+          {
+            "name": "operatedTimeStart",
+            "in": "query",
+            "description": "修改时间",
+            "required": false,
+            "style": "form",
+            "schema": { "type": "string", "format": "date-time" }
           },
           {
             "name": "pageNo",
@@ -488,18 +127,9 @@
             "schema": {
               "maximum": 1000,
               "exclusiveMaximum": false,
-              "minimum": 1,
-              "exclusiveMinimum": false,
               "type": "integer",
               "format": "int32"
             }
-          },
-          {
-            "name": "priceType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string", "enum": ["ORDER", "UNIT"] }
           },
           {
             "name": "startIndex",
@@ -509,15 +139,17 @@
             "schema": { "type": "integer", "format": "int32" }
           },
           {
-            "name": "startTimeStr",
+            "name": "tableId",
             "in": "query",
+            "description": "关联table_defination表",
             "required": false,
             "style": "form",
             "schema": { "type": "string" }
           },
           {
-            "name": "warehouses",
+            "name": "type",
             "in": "query",
+            "description": "字段类型：boolean,long,double,string,date",
             "required": false,
             "style": "form",
             "schema": { "type": "string" }
@@ -529,7 +161,7 @@
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReplyVO«MatrixPointVO»"
+                  "$ref": "#/components/schemas/ReplyVO«PageVO«FieldDefListVO»»"
                 }
               }
             }
@@ -538,168 +170,45 @@
           "403": { "description": "Forbidden" },
           "404": { "description": "Not Found" }
         }
-      }
-    },
-    "/api/libra/board/listProfitCurve": {
-      "get": {
-        "tags": ["净利矩阵api"],
-        "summary": "获取净利波动曲线",
-        "operationId": "listProfitCurveUsingGET",
-        "parameters": [
-          {
-            "name": "areaIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "areaLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "baseDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "brandIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "cidLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "cids",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "compareDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "dateType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "pageNo",
-            "in": "query",
-            "description": "分页参数，第几页",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "分页参数，每页的条数",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "maximum": 1000,
-              "exclusiveMaximum": false,
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "priceType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string", "enum": ["ORDER", "UNIT"] }
-          },
-          {
-            "name": "startIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "startTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "warehouses",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          }
-        ],
+      },
+      "put": {
+        "tags": ["API"],
+        "summary": "修改",
+        "operationId": "updateUsingPUT",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
                 "schema": {
-                  "$ref": "#/components/schemas/ReplyVO«List«ProfitCurveListVO»»"
+                  "$ref": "#/components/schemas/ReplyVO«FieldDefShowVO»"
+                }
+              }
+            }
+          },
+          "201": { "description": "Created" },
+          "401": { "description": "Unauthorized" },
+          "403": { "description": "Forbidden" },
+          "404": { "description": "Not Found" }
+        }
+      },
+      "post": {
+        "tags": ["表字段信息"],
+        "summary": "新增",
+        "operationId": "saveUsingPOST",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "*/*": {
+                "schema": {
+                  "$ref": "#/components/schemas/ReplyVO"
                 }
               }
             }
@@ -708,653 +217,57 @@
           "403": { "description": "Forbidden" },
           "404": { "description": "Not Found" }
         }
-      }
-    },
-    "/api/libra/board/queryBubbles": {
-      "get": {
-        "tags": ["净利矩阵api"],
-        "summary": "查询净利平衡矩阵气泡",
-        "operationId": "queryBubblesUsingGET",
-        "parameters": [
-          {
-            "name": "areaIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "areaLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "baseDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "brandIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "cidLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "cids",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "compareDimension",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "type": "string",
-              "enum": ["AREA", "BRAND", "CATE", "DEPT", "WAREHOUSE"]
-            }
-          },
-          {
-            "name": "dateType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptIds",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "deptLevel",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "endTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "pageNo",
-            "in": "query",
-            "description": "分页参数，第几页",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "pageSize",
-            "in": "query",
-            "description": "分页参数，每页的条数",
-            "required": false,
-            "style": "form",
-            "schema": {
-              "maximum": 1000,
-              "exclusiveMaximum": false,
-              "minimum": 1,
-              "exclusiveMinimum": false,
-              "type": "integer",
-              "format": "int32"
-            }
-          },
-          {
-            "name": "priceType",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string", "enum": ["ORDER", "UNIT"] }
-          },
-          {
-            "name": "startIndex",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "integer", "format": "int32" }
-          },
-          {
-            "name": "startTimeStr",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          },
-          {
-            "name": "warehouses",
-            "in": "query",
-            "required": false,
-            "style": "form",
-            "schema": { "type": "string" }
-          }
-        ],
+      },
+      "delete": {
+        "tags": ["API"],
+        "summary": "批量删除",
+        "operationId": "deleteBatchUsingDELETE",
+        "requestBody": {
+          "content": { "application/json": { "schema": { "type": "string" } } }
+        },
         "responses": {
           "200": {
             "description": "OK",
             "content": {
               "*/*": {
-                "schema": {
-                  "$ref": "#/components/schemas/ReplyVO«BubbleShowVO»"
-                }
+                "schema": { "$ref": "#/components/schemas/FieldDefAddDTO" }
               }
             }
           },
+          "204": { "description": "No Content" },
           "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" },
-          "404": { "description": "Not Found" }
+          "403": { "description": "Forbidden" }
         }
       }
     }
   },
   "components": {
     "schemas": {
-      "BubbleListVO": {
-        "title": "BubbleListVO",
+      "FieldDefAddDTO": {
+        "title": "FieldDefAddDTO",
+        "required": ["fieldId", "fieldName", "tableId", "type"],
         "type": "object",
         "properties": {
-          "base": { "type": "boolean" },
-          "bubbleId": {
+          "description": { "type": "string", "description": "字段描述" },
+          "fieldId": {
             "type": "string",
-            "description": "气泡id",
-            "example": "100211"
+            "description": "字段Id"
           },
-          "bubbleName": {
+          "fieldName": {
             "type": "string",
-            "description": "气泡名称",
-            "example": "蓝月亮"
+            "description": "字段名称",
+            "example": "name1"
           },
-          "contributionMargin": {
-            "type": "number",
-            "description": "贡献利润",
-            "format": "double",
-            "example": -1.1
+          "tableId": {
+            "type": "string",
+            "description": "关联"
           },
-          "gmv": {
-            "type": "number",
-            "description": "GMV",
-            "format": "double",
-            "example": 15122
-          },
-          "gmvPercent": {
-            "type": "number",
-            "description": "GMV占比",
-            "format": "double",
-            "example": 15
-          },
-          "xVal": {
-            "type": "number",
-            "description": "x轴坐标",
-            "format": "double",
-            "example": 1.2
-          },
-          "yVal": {
-            "type": "number",
-            "description": "y轴坐标",
-            "format": "double",
-            "example": 1.2
+          "type": {
+            "type": "string",
+            "description": "字段类型：boolean,long,double,string,date"
           }
-        }
-      },
-      "BubbleShowVO": {
-        "title": "BubbleShowVO",
-        "type": "object",
-        "properties": {
-          "axisx": {
-            "type": "array",
-            "description": "横轴坐标",
-            "example": "[1,2.3,11.7]",
-            "items": { "type": "number" }
-          },
-          "axisy": {
-            "type": "array",
-            "description": "纵轴坐标",
-            "example": "[1,2.3,11.7]",
-            "items": { "type": "number" }
-          },
-          "bubbles": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/BubbleListVO" }
-          }
-        }
-      },
-      "DetailListVO": {
-        "title": "DetailListVO",
-        "type": "object",
-        "properties": {
-          "deliveryRate": {
-            "type": "number",
-            "description": "配送费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "dimensionId": {
-            "type": "string",
-            "description": "维度id",
-            "example": "122211"
-          },
-          "dimensionName": {
-            "type": "string",
-            "description": "维度名称",
-            "example": "蓝月亮"
-          },
-          "fixedRate": {
-            "type": "number",
-            "description": "固定费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "gmv": {
-            "type": "number",
-            "description": "gmv",
-            "format": "double",
-            "example": 321112.31
-          },
-          "gmvPercent": {
-            "type": "number",
-            "description": "GMV占比",
-            "format": "double",
-            "example": 15
-          },
-          "grossProfitRate": {
-            "type": "number",
-            "description": "综合毛利率",
-            "format": "double",
-            "example": 2.31
-          },
-          "orderAvgPrice": {
-            "type": "number",
-            "description": "单均价",
-            "format": "double",
-            "example": 32.31
-          },
-          "orderAvgPriceCM": {
-            "type": "number",
-            "description": "单均价贡献利润",
-            "format": "double",
-            "example": -1.2
-          },
-          "skuNum": {
-            "type": "integer",
-            "description": "sku数量",
-            "format": "int32",
-            "example": 121
-          },
-          "unitAvgPrice": {
-            "type": "number",
-            "description": "件均价",
-            "format": "double",
-            "example": 32.31
-          },
-          "unitPriceCM": {
-            "type": "number",
-            "description": "件单价贡献利润",
-            "format": "double",
-            "example": -1.4
-          },
-          "variableRate": {
-            "type": "number",
-            "description": "变动费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "warehouseRate": {
-            "type": "number",
-            "description": "仓储费率",
-            "format": "double",
-            "example": 2.31
-          }
-        }
-      },
-      "MatrixDynamicParamVO": {
-        "title": "MatrixDynamicParamVO",
-        "type": "object",
-        "properties": {
-          "dynamicDeliveryRate": {
-            "type": "number",
-            "description": "动态配送费率",
-            "format": "double",
-            "example": -1.1
-          },
-          "dynamicWarehouseRate": {
-            "type": "number",
-            "description": "动态仓储费率",
-            "format": "double",
-            "example": -1.1
-          },
-          "x": {
-            "type": "number",
-            "description": "x轴坐标",
-            "format": "double",
-            "example": 1.2
-          }
-        }
-      },
-      "MatrixPointVO": {
-        "title": "MatrixPointVO",
-        "type": "object",
-        "properties": {
-          "curTaxRate": {
-            "type": "number",
-            "description": "当前增值税率",
-            "format": "double",
-            "example": 2.31
-          },
-          "deliveryRate": {
-            "type": "number",
-            "description": "配送费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "dynamicParams": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/MatrixDynamicParamVO" }
-          },
-          "fixedRate": {
-            "type": "number",
-            "description": "固定费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "orderAvgPrice": {
-            "type": "number",
-            "description": "单均价",
-            "format": "double",
-            "example": 32.31
-          },
-          "unitAvgPrice": {
-            "type": "number",
-            "description": "件均价",
-            "format": "double",
-            "example": 32.31
-          },
-          "unitPriceCM": {
-            "type": "number",
-            "description": "件单价贡献利润",
-            "format": "double",
-            "example": -1.4
-          },
-          "variableRate": {
-            "type": "number",
-            "description": "变动费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "warehouseRate": {
-            "type": "number",
-            "description": "仓储费率",
-            "format": "double",
-            "example": 2.31
-          }
-        }
-      },
-      "PageVO«DetailListVO»": {
-        "title": "PageVO«DetailListVO»",
-        "required": [
-          "currentPage",
-          "firstIndex",
-          "lastIndex",
-          "list",
-          "pageCount",
-          "pageSize",
-          "total"
-        ],
-        "type": "object",
-        "properties": {
-          "currentPage": {
-            "type": "integer",
-            "description": "页码",
-            "format": "int32",
-            "example": 1
-          },
-          "firstIndex": {
-            "type": "integer",
-            "description": "开始序号",
-            "format": "int32",
-            "example": 0
-          },
-          "lastIndex": {
-            "type": "integer",
-            "description": "结束序号",
-            "format": "int32",
-            "example": 10
-          },
-          "list": {
-            "type": "array",
-            "description": "数据列表",
-            "items": { "$ref": "#/components/schemas/DetailListVO" }
-          },
-          "pageCount": {
-            "type": "integer",
-            "description": "总页数",
-            "format": "int32",
-            "example": 10
-          },
-          "pageSize": {
-            "type": "integer",
-            "description": "每页条数",
-            "format": "int32",
-            "example": 10
-          },
-          "total": {
-            "type": "integer",
-            "description": "总条数",
-            "format": "int32",
-            "example": 100
-          }
-        }
-      },
-      "ProfitCurveListVO": {
-        "title": "ProfitCurveListVO",
-        "type": "object",
-        "properties": {
-          "base": { "type": "boolean" },
-          "baseDimension": {
-            "type": "string",
-            "description": "曲线名称",
-            "example": "洗衣液"
-          },
-          "details": {
-            "type": "array",
-            "items": { "$ref": "#/components/schemas/ProfitCurvePointVO" }
-          },
-          "gmv": {
-            "type": "number",
-            "description": "当前曲线GMV",
-            "format": "double",
-            "example": 321123
-          }
-        }
-      },
-      "ProfitCurvePointVO": {
-        "title": "ProfitCurvePointVO",
-        "type": "object",
-        "properties": {
-          "date": {
-            "type": "string",
-            "description": "x轴坐标：日期",
-            "example": "2020-12"
-          },
-          "deliveryRate": {
-            "type": "number",
-            "description": "配送费率",
-            "format": "double",
-            "example": 2.31
-          },
-          "grossProfitRate": {
-            "type": "number",
-            "description": "综合毛利率",
-            "format": "double",
-            "example": 2.31
-          },
-          "orderAvgPrice": {
-            "type": "number",
-            "description": "单均价",
-            "format": "double",
-            "example": 32.31
-          },
-          "orderAvgPriceCM": {
-            "type": "number",
-            "description": "单均价贡献利润",
-            "format": "double",
-            "example": -1.2
-          },
-          "unitPrice": {
-            "type": "number",
-            "description": "件单价",
-            "format": "double",
-            "example": 32.31
-          },
-          "unitPriceCM": {
-            "type": "number",
-            "description": "件单价贡献利润",
-            "format": "double",
-            "example": -1.4
-          },
-          "warehouseRate": {
-            "type": "number",
-            "description": "仓储费率",
-            "format": "double",
-            "example": 2.31
-          }
-        }
-      },
-      "ReplyVO«BubbleShowVO»": {
-        "title": "ReplyVO«BubbleShowVO»",
-        "required": ["code", "message"],
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "响应代码【0正确,非0错误】",
-            "example": "0"
-          },
-          "data": {
-            "description": "返回数据",
-            "$ref": "#/components/schemas/BubbleShowVO"
-          },
-          "message": {
-            "type": "string",
-            "description": "结果描述",
-            "example": "success"
-          }
-        }
-      },
-      "ReplyVO«List«ProfitCurveListVO»»": {
-        "title": "ReplyVO«List«ProfitCurveListVO»»",
-        "required": ["code", "message"],
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "响应代码【0正确,非0错误】",
-            "example": "0"
-          },
-          "data": {
-            "type": "array",
-            "description": "返回数据",
-            "items": { "$ref": "#/components/schemas/ProfitCurveListVO" }
-          },
-          "message": {
-            "type": "string",
-            "description": "结果描述",
-            "example": "success"
-          }
-        }
-      },
-      "ReplyVO«MatrixPointVO»": {
-        "title": "ReplyVO«MatrixPointVO»",
-        "required": ["code", "message"],
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "响应代码【0正确,非0错误】",
-            "example": "0"
-          },
-          "data": {
-            "description": "返回数据",
-            "$ref": "#/components/schemas/MatrixPointVO"
-          },
-          "message": {
-            "type": "string",
-            "description": "结果描述",
-            "example": "success"
-          }
-        }
-      },
-      "ReplyVO«PageVO«DetailListVO»»": {
-        "title": "ReplyVO«PageVO«DetailListVO»»",
-        "required": ["code", "message"],
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "响应代码【0正确,非0错误】",
-            "example": "0"
-          },
-          "data": {
-            "description": "返回数据",
-            "$ref": "#/components/schemas/PageVO«DetailListVO»"
-          },
-          "message": {
-            "type": "string",
-            "description": "结果描述",
-            "example": "success"
-          }
-        }
-      },
-      "ReplyVO«string»": {
-        "title": "ReplyVO«string»",
-        "required": ["code", "message"],
-        "type": "object",
-        "properties": {
-          "code": {
-            "type": "string",
-            "description": "响应代码【0正确,非0错误】",
-            "example": "0"
-          },
-          "data": { "type": "string", "description": "返回数据" },
-          "message": {
-            "type": "string",
-            "description": "结果描述",
-            "example": "success"
-          }
-        }
+        },
+        "description": "新增【表字段信息】的参数"
       }
     }
   }
