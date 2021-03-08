@@ -79,39 +79,7 @@ getPetPetId({
 
 ![type generated example](./doc/pet.gif)
 
-## Version 3 新特性与更新
-
-* `keepGeneric`尝试生成范型类型, 例如`ReplyVO<Data>`，如果生成的范型有错误应将该项目设置为false。
-
-* 使用包 `swagger-schema-official`来规范openapi类型。
-
-* 生成 `enum` 类型, 例如 `export type PetStatus = "available" | "pending" | "sold";`.
-
-* 生成更完善的注释文档。
-
-* 使用 `src/tsg.config.ts` 作为配置文件, to include all code generating process in typescript system.
-
-* 使用`swagger-ui`生成mockData的方法，在`${requestFunctionName}MockData` 中给test环境使用.
-
-* 每个project可单独配置.
-
-  * 可配置的 `translationEngine`, 可用的引擎有"baidu" 或 "google".
-
-  * 可配置的 "dest" 目标文件夹.
-
-  * 可配置的 `withHost` 与 `withBasePath`选项.
-
-  * 使用`preferClass` 选项生成 `class`，默认为false，将基础数据结构生成`interface`。
-
-  * `shouldMockResponseStatement`，默认为 `"process.env.NODE_ENV === 'test'"`，生成测试环境的mock数据。
-
-  * `prettierConfig` 支持 `prettier` version 2 配置.
-
-  * `useCache` 默认 false, 可设置为true，使用缓存。
-
-## Version 4
-
-### 不兼容更行
+### V4不兼容更新
 
 * 默认请求函数的参数与返回值类型不在导出，推荐使用类型工具`Parameters`与`ReturnType`来从请求函数类型本身获取。
 
@@ -122,7 +90,7 @@ getPetPetId({
     shouldExportResponseType: true
     ```
 
-* 缓存生成位置放到`node_modules/.cache`中，并且不再添加`.gitignore`文件。
+* 默认不生成mock数据，需要的话可配置`shouldGenerateMock: true`，生成独立的mockRequest文件。
 
 ### 新配置项
 
@@ -176,15 +144,17 @@ generateRequestFunctionName: ({
 
 * 解析范型名称。
 
-* 将所有请求与定义名称组装到内部的全局变量中.
+* 将所有请求与定义名称组装到内部的全局变量中。
 
-* 准备好输出文件夹.
+* 配置当前输出换行符。
 
-* 写入枚举与基础类型定义.
+* 准备好输出文件夹。
 
-* 写入请求函数.
+* 写入枚举与基础类型定义。
 
-* 生成一个导出所有内容的索引文件`index.ts`.
+* 写入请求函数。
+
+* 生成一个导出所有内容的索引文件`index.ts`。
 
 ## 其他类似工具
 
@@ -223,7 +193,7 @@ export default projects
 | name | string | true | | 项目名称，需符合合法变量名称 |
 | dest | string | true | | 输出文件夹，默认在以`src`中，比如配置为`service`，则实际目录为`src/service` |
 | source | string | true | | openapi文档的json定义url <br /> 可以是远程(例如：`http://1.1.1.1/v2/api-docs`)或本地(例如`src/service/api.json`)，如果远程访问有登录或其他网络问题，推荐将定义文档下载到本地 |
-| fetchSwaggerDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | 配合上个配置项`source`，当远程访问`source`有登录或其他校验需求时，配置该项填写校验信息，该项是原生`fetch`的第二个配置参数。 |
+| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | 配合上个配置项`source`，当远程访问`source`有登录或其他校验需求时，配置该项填写校验信息，该项是原生`fetch`的第二个配置参数。 |
 | apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false | | 生成请求函数的过滤器，一个大的api定义文档中可能大多数都用不到，使用正则或函数可仅生成自己项目需要的api函数，减轻编译负担 |
 | importRequesterStatement | string | true | | 例如:`import axios from "axios"`或`import { request } from '../your/request'`，默认导入或命名导入都可以，如果是命名导入有多个则会使用第一个作为请求函数 |
 | preferClass | boolean | false | false | 会使用class而不是interface生成接口中定义的数据类型（请求参数与返回值类型不会生成）|
@@ -232,9 +202,14 @@ export default projects
 | keepGeneric | boolean | true | true | 尝试生成范型类型，虽然做了各种努力但肯定还有一些情况不能生成范型，如果运行失败可将该项设置为false |
 | translationEngine | 'baidu' \| 'google' | false |  | 如果文档中确实有一些类型的东西用中文定义的，可配置翻译引擎尝试翻译 |
 | shouldGenerateMock | boolean | true | 默认true，生成mock数据，如果您的项目不需要mock数据，或有自己的mock策略，可配置为false，减少生成的代码量 |
+| shouldExportRequestOptionType | boolean | false | 默认false，不导出 |
+| shouldExportResponseType | boolean | false | 默认false，不导出 |
 | prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | 生成文件的`prettier`配置，参考`prettier`官网 |
+| generateRequestFunctionName | (arg: GenerateRequestFunctionNameParameter) => string | false | 生成请求函数名称的函数 |
+| generateRequestFunction | (arg: GenerateRequestFunctionNameParameter) => string | false | 生成请求函数体的函数 |
 | transformJS | boolean | false | false | 是否生成`js`而不是`ts`文件 |
 | useCache | boolean | false | false | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。 |
+| EOL | string | false  | '\n' | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。 |
 
 ### axios
 
@@ -251,17 +226,17 @@ export default projects
 ```javascript
   "paths": {
     "/pet": {
-      "post": { // will generate `postPet` function
+      "post": { // 生成 `postPet`
       ...
       },
     },
     "/pet/findByTags": {
-      "get": { // will generate 'getPetFindByTags' function
+      "get": { // 生成 'getPetFindByTags'
       ...
       },
     },
     "/pet/{petId}": {
-      "get": { // will generate 'getPetPetId' function
+      "get": { // 生成 'getPetPetId' function
       ...
       },
     },

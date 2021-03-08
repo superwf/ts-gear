@@ -183,7 +183,7 @@ export interface Project {
    * 如果source参数访问的远程接口需要一些认证参数
    * 在这里添加这些需要的参数
    * */
-  fetchSwaggerDocOption?: RequestInit
+  fetchApiDocOption?: RequestInit
 
   /**
    * filter api path
@@ -253,6 +253,13 @@ export interface Project {
   translationEngine?: TranslationEngine
 
   /**
+   * generate mock data switch
+   * @default false
+   * 是否生成mock数据文件
+   * */
+  shouldGenerateMock?: boolean
+
+  /**
    * should export request function option types
    * @default false
    * 是否export请求参数类型，推荐不导出，需要使用时通过Parameters类型工具提取
@@ -265,13 +272,6 @@ export interface Project {
    * 是否export请求返回类型，推荐不导出，需要使用时通过ReturnType类型工具提取
    * */
   shouldExportResponseType?: boolean
-
-  /**
-   * generate mock data switch
-   * @default false
-   * 是否生成mock数据文件
-   * */
-  shouldGenerateMock?: boolean
 
   /**
    * output content prettier config

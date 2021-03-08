@@ -14,7 +14,7 @@ export const fetchOpenapiData = async (project: Project, tsGearConfigPath: strin
   if (url.startsWith('http')) {
     const verbose = `project: ${project.name} url: ${url}`
     info(`start fetching ${verbose}`)
-    const res = await fetch(url, project.fetchSwaggerDocOption)
+    const res = await fetch(url, project.fetchApiDocOption)
     const swaggerSchema = await res.json()
     info(`got swagger spec doc from ${verbose}`)
     return swaggerSchema

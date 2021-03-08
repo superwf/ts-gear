@@ -22,7 +22,9 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
       if (parameter.required && !positionParameter.required.includes(parameter.name)) {
         positionParameter.required.push(parameter.name)
       }
-      positionParameter.properties![parameter.name] = parameter
+      if (positionParameter.properties) {
+        positionParameter.properties![parameter.name] = parameter
+      }
       /**
        * 为兼容openapiv3，在src/step/assembleSchemaToGlobal
        * 将formData的schema也放进来，与body的格式一致
