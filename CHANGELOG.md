@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.2](https://github.com/superwf/ts-gear/compare/v4.0.1...v4.0.2) (2021-04-13)
+
+
+### Bug Fixes
+
+* add rimraf ([35d8af7](https://github.com/superwf/ts-gear/commit/35d8af717cb290401af65772a615b9067d2810de))
+
 ### [4.0.1](https://github.com/superwf/ts-gear/compare/v4.0.0...v4.0.1) (2021-03-08)
 
 
