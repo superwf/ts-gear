@@ -1,5 +1,4 @@
 import { EOL } from 'os'
-
 import { schemaToTypescript as transform } from 'src/tool/schemaToTypescript'
 
 describe('transformSwaggerPropertyToTsType', () => {
@@ -75,9 +74,11 @@ describe('transformSwaggerPropertyToTsType', () => {
       }),
     ).toBe(`{
 /**
-数据资源类型
-format: int32
-example: 1 */
+@description
+  数据资源类型
+@format: int32
+@example
+  1 */
 'X-Tag'?: number
 }`)
   })

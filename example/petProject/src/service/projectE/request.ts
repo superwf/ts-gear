@@ -5,28 +5,45 @@ content is generated automatically by `ts-gear`. */
 import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
-/** request parameter type for deleteApiDataboardBoardEs */
+/** @description request parameter type for deleteApiDataboardBoardEs */
 interface DeleteApiDataboardBoardEsOption {
-  /** 索引数组 */
+  /**
+   * @description
+   *   索引数组
+   */
   body?: Array<string>;
 }
 
+/** @description response type for deleteApiDataboardBoardEs */
 interface DeleteApiDataboardBoardEsResponse {
-  /** OK */
+  /**
+   * @description
+   *   OK
+   */
   200: ReplyVOInt;
-  /** No Content */
+  /**
+   * @description
+   *   No Content
+   */
   204: any;
-  /** Unauthorized */
+  /**
+   * @description
+   *   Unauthorized
+   */
   401: any;
-  /** Forbidden */
+  /**
+   * @description
+   *   Forbidden
+   */
   403: any;
 }
 
 type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
 /**
- * 删除索引
- * tags: Es
- * produces: *／*
+ * @description
+ *   删除索引
+ * @tags: Es
+ * @produces: *／*
  */
 export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   const method = "delete";

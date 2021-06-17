@@ -9,48 +9,56 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
     return undefined
   }
   const docs: string[] = []
-  if ('description' in schema) {
-    docs.push(String(schema.description))
-  }
-  if ('summary' in schema) {
-    docs.push(String(schema.summary))
+  const hasDescription = 'description' in schema || 'summary' in schema
+  if (hasDescription) {
+    docs.push('@description')
+    if ('description' in schema) {
+      docs.push(`  ${String(schema.description)}`)
+    }
+    if ('summary' in schema) {
+      docs.push(`  ${String(schema.summary)}`)
+    }
   }
   if ('format' in schema) {
-    docs.push(`format: ${schema.format}`)
+    docs.push(`@format: ${schema.format}`)
   }
   if ('tags' in schema && schema.tags) {
-    docs.push(`tags: ${schema.tags.join()}`)
+    docs.push(`@tags: ${schema.tags.join()}`)
   }
   if ('default' in schema) {
-    docs.push(`default: ${schema.default}`)
+    docs.push(`@default: ${schema.default}`)
   }
   if ('produces' in schema) {
-    docs.push(`produces: ${schema.produces}`)
+    docs.push(`@produces: ${schema.produces}`)
   }
   if ('consumes' in schema) {
-    docs.push(`consumes: ${schema.consumes}`)
+    docs.push(`@consumes: ${schema.consumes}`)
   }
-  if ('example' in schema) {
-    docs.push(`example: ${schema.example}`)
-  }
-  if ('readOnly' in schema) {
-    docs.push(`example: ${schema.readOnly}`)
+  const hasExample = 'example' in schema || 'readOnly' in schema || 'writeOnly' in schema
+  const v3Schema = schema as SchemaObject
+  if (hasExample) {
+    docs.push(`@example`)
+    if ('example' in schema) {
+      docs.push(`  ${schema.example}`)
+    }
+    if ('readOnly' in schema) {
+      docs.push(`  ${schema.readOnly}`)
+    }
+    if ('writeOnly' in schema) {
+      docs.push(`  ${v3Schema.writeOnly}`)
+    }
   }
   if ('deprecated' in schema && schema.deprecated) {
     docs.push('@deprecated')
   }
-  const v3Schema = schema as SchemaObject
-  if ('writeOnly' in schema) {
-    docs.push(`example: ${v3Schema.writeOnly}`)
-  }
   if (v3Schema.not) {
-    docs.push(`not: ${v3Schema.not}`)
+    docs.push(`@not: ${v3Schema.not}`)
   }
   if (v3Schema.anyOf) {
-    docs.push(`must anyOf: ${v3Schema.anyOf}`)
+    docs.push(`@anyOf: ${v3Schema.anyOf}`)
   }
   if (v3Schema.oneOf) {
-    docs.push(`must anyOf: ${v3Schema.oneOf}`)
+    docs.push(`@oneOf: ${v3Schema.oneOf}`)
   }
   if (docs.length === 0) {
     return undefined

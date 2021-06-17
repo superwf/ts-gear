@@ -11,27 +11,42 @@ import type {
   User,
 } from "./definition";
 
-/** request parameter type for putPet */
+/** @description request parameter type for putPet */
 interface PutPetOption {
-  /** Pet object that needs to be added to the store */
+  /**
+   * @description
+   *   Pet object that needs to be added to the store
+   */
   body: Pet;
 }
 
+/** @description response type for putPet */
 interface PutPetResponse {
-  /** Invalid ID supplied */
+  /**
+   * @description
+   *   Invalid ID supplied
+   */
   400: any;
-  /** Pet not found */
+  /**
+   * @description
+   *   Pet not found
+   */
   404: any;
-  /** Validation exception */
+  /**
+   * @description
+   *   Validation exception
+   */
   405: any;
 }
 
 type PutPetResponseSuccess = any;
 /**
- * Update an existing pet
- * tags: pet
- * produces: application／xml,application/json
- * consumes: application／json,application/xml
+ * @description
+ *
+ *   Update an existing pet
+ * @tags: pet
+ * @produces: application／xml,application/json
+ * @consumes: application／json,application/xml
  */
 export const putPet = /* #__PURE__ */ (() => {
   const method = "put";
@@ -50,23 +65,32 @@ export const putPet = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postPet */
+/** @description request parameter type for postPet */
 interface PostPetOption {
-  /** Pet object that needs to be added to the store */
+  /**
+   * @description
+   *   Pet object that needs to be added to the store
+   */
   body: Pet;
 }
 
+/** @description response type for postPet */
 interface PostPetResponse {
-  /** Invalid input */
+  /**
+   * @description
+   *   Invalid input
+   */
   405: any;
 }
 
 type PostPetResponseSuccess = any;
 /**
- * Add a new pet to the store
- * tags: pet
- * produces: application／xml,application/json
- * consumes: application／json,application/xml
+ * @description
+ *
+ *   Add a new pet to the store
+ * @tags: pet
+ * @produces: application／xml,application/json
+ * @consumes: application／json,application/xml
  */
 export const postPet = /* #__PURE__ */ (() => {
   const method = "post";
@@ -85,29 +109,41 @@ export const postPet = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for getPetFindByStatus */
+/** @description request parameter type for getPetFindByStatus */
 interface GetPetFindByStatusOption {
-  /** Status values that need to be considered for filter */
+  /**
+   * @description
+   *   Status values that need to be considered for filter
+   */
   query: {
     /**
-        Status values that need to be considered for filter */
+        @description
+          Status values that need to be considered for filter */
     status: Array<GetPetFindByStatusItems>;
   };
 }
 
+/** @description response type for getPetFindByStatus */
 interface GetPetFindByStatusResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: Array<Pet>;
-  /** Invalid status value */
+  /**
+   * @description
+   *   Invalid status value
+   */
   400: any;
 }
 
 type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
 /**
- * Multiple status values can be provided with comma separated strings
- * Finds Pets by status
- * tags: pet
- * produces: application／xml,application/json
+ * @description
+ *   Multiple status values can be provided with comma separated strings
+ *   Finds Pets by status
+ * @tags: pet
+ * @produces: application／xml,application/json
  */
 export const getPetFindByStatus = /* #__PURE__ */ (() => {
   const method = "get";
@@ -128,35 +164,48 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for getPetPetId */
+/** @description request parameter type for getPetPetId */
 interface GetPetPetIdOption {
   /**
-   * ID of pet to return
-   * format: int64
+   * @description
+   *   ID of pet to return
+   * @format: int64
    */
   path: {
     /**
-        ID of pet to return
-        format: int64 */
+        @description
+          ID of pet to return
+        @format: int64 */
     petId: number;
   };
 }
 
+/** @description response type for getPetPetId */
 interface GetPetPetIdResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: Pet;
-  /** Invalid ID supplied */
+  /**
+   * @description
+   *   Invalid ID supplied
+   */
   400: any;
-  /** Pet not found */
+  /**
+   * @description
+   *   Pet not found
+   */
   404: any;
 }
 
 type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
 /**
- * Returns a single pet
- * Find pet by ID
- * tags: pet
- * produces: application／xml,application/json
+ * @description
+ *   Returns a single pet
+ *   Find pet by ID
+ * @tags: pet
+ * @produces: application／xml,application/json
  */
 export const getPetPetId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -177,40 +226,53 @@ export const getPetPetId = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postPetPetId */
+/** @description request parameter type for postPetPetId */
 interface PostPetPetIdOption {
   /**
-   * ID of pet that needs to be updated
-   * format: int64
+   * @description
+   *   ID of pet that needs to be updated
+   * @format: int64
    */
   path: {
     /**
-        ID of pet that needs to be updated
-        format: int64 */
+        @description
+          ID of pet that needs to be updated
+        @format: int64 */
     petId: number;
   };
-  /** Updated name of the pet */
+  /**
+   * @description
+   *   Updated name of the pet
+   */
   formData?: {
     /**
-        Updated name of the pet */
+        @description
+          Updated name of the pet */
     name?: string;
     /**
-        Updated status of the pet */
+        @description
+          Updated status of the pet */
     status?: string;
   };
 }
 
+/** @description response type for postPetPetId */
 interface PostPetPetIdResponse {
-  /** Invalid input */
+  /**
+   * @description
+   *   Invalid input
+   */
   405: any;
 }
 
 type PostPetPetIdResponseSuccess = any;
 /**
- * Updates a pet in the store with form data
- * tags: pet
- * produces: application／xml,application/json
- * consumes: application／x-www-form-urlencoded
+ * @description
+ *
+ *   Updates a pet in the store with form data
+ * @tags: pet
+ * @produces: application／xml,application/json
+ * @consumes: application／x-www-form-urlencoded
  */
 export const postPetPetId = /* #__PURE__ */ (() => {
   const method = "post";
@@ -231,35 +293,46 @@ export const postPetPetId = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for deletePetPetId */
+/** @description request parameter type for deletePetPetId */
 interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
   /**
-   * Pet id to delete
-   * format: int64
+   * @description
+   *   Pet id to delete
+   * @format: int64
    */
   path: {
     /**
-        Pet id to delete
-        format: int64 */
+        @description
+          Pet id to delete
+        @format: int64 */
     petId: number;
   };
 }
 
+/** @description response type for deletePetPetId */
 interface DeletePetPetIdResponse {
-  /** Invalid ID supplied */
+  /**
+   * @description
+   *   Invalid ID supplied
+   */
   400: any;
-  /** Pet not found */
+  /**
+   * @description
+   *   Pet not found
+   */
   404: any;
 }
 
 type DeletePetPetIdResponseSuccess = any;
 /**
- * Deletes a pet
- * tags: pet
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Deletes a pet
+ * @tags: pet
+ * @produces: application／xml,application/json
  */
 export const deletePetPetId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -280,40 +353,53 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postPetPetIdUploadImage */
+/** @description request parameter type for postPetPetIdUploadImage */
 interface PostPetPetIdUploadImageOption {
   /**
-   * ID of pet to update
-   * format: int64
+   * @description
+   *   ID of pet to update
+   * @format: int64
    */
   path: {
     /**
-        ID of pet to update
-        format: int64 */
+        @description
+          ID of pet to update
+        @format: int64 */
     petId: number;
   };
-  /** Additional data to pass to server */
+  /**
+   * @description
+   *   Additional data to pass to server
+   */
   formData?: {
     /**
-        Additional data to pass to server */
+        @description
+          Additional data to pass to server */
     additionalMetadata?: string;
     /**
-        file to upload */
+        @description
+          file to upload */
     file?: File;
   };
 }
 
+/** @description response type for postPetPetIdUploadImage */
 interface PostPetPetIdUploadImageResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: ApiResponse;
 }
 
 type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200];
 /**
- * uploads an image
- * tags: pet
- * produces: application／json
- * consumes: multipart／form-data
+ * @description
+ *
+ *   uploads an image
+ * @tags: pet
+ * @produces: application／json
+ * @consumes: multipart／form-data
  */
 export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   const method = "post";
@@ -334,8 +420,12 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   return request;
 })();
 
+/** @description response type for getStoreInventory */
 interface GetStoreInventoryResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: {
     [propertyName: string]: number;
   };
@@ -343,10 +433,11 @@ interface GetStoreInventoryResponse {
 
 type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
 /**
- * Returns a map of status codes to quantities
- * Returns pet inventories by status
- * tags: store
- * produces: application／json
+ * @description
+ *   Returns a map of status codes to quantities
+ *   Returns pet inventories by status
+ * @tags: store
+ * @produces: application／json
  */
 export const getStoreInventory = /* #__PURE__ */ (() => {
   const method = "get";
@@ -364,24 +455,36 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postStoreOrder */
+/** @description request parameter type for postStoreOrder */
 interface PostStoreOrderOption {
-  /** order placed for purchasing the pet */
+  /**
+   * @description
+   *   order placed for purchasing the pet
+   */
   body: Order;
 }
 
+/** @description response type for postStoreOrder */
 interface PostStoreOrderResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: Order;
-  /** Invalid Order */
+  /**
+   * @description
+   *   Invalid Order
+   */
   400: any;
 }
 
 type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
- * Place an order for a pet
- * tags: store
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Place an order for a pet
+ * @tags: store
+ * @produces: application／xml,application/json
  */
 export const postStoreOrder = /* #__PURE__ */ (() => {
   const method = "post";
@@ -402,35 +505,48 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for getStoreOrderOrderId */
+/** @description request parameter type for getStoreOrderOrderId */
 interface GetStoreOrderOrderIdOption {
   /**
-   * ID of pet that needs to be fetched
-   * format: int64
+   * @description
+   *   ID of pet that needs to be fetched
+   * @format: int64
    */
   path: {
     /**
-        ID of pet that needs to be fetched
-        format: int64 */
+        @description
+          ID of pet that needs to be fetched
+        @format: int64 */
     orderId: number;
   };
 }
 
+/** @description response type for getStoreOrderOrderId */
 interface GetStoreOrderOrderIdResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: Order;
-  /** Invalid ID supplied */
+  /**
+   * @description
+   *   Invalid ID supplied
+   */
   400: any;
-  /** Order not found */
+  /**
+   * @description
+   *   Order not found
+   */
   404: any;
 }
 
 type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200];
 /**
- * For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
- * Find purchase order by ID
- * tags: store
- * produces: application／xml,application/json
+ * @description
+ *   For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+ *   Find purchase order by ID
+ * @tags: store
+ * @produces: application／xml,application/json
  */
 export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -451,33 +567,43 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for deleteStoreOrderOrderId */
+/** @description request parameter type for deleteStoreOrderOrderId */
 interface DeleteStoreOrderOrderIdOption {
   /**
-   * ID of the order that needs to be deleted
-   * format: int64
+   * @description
+   *   ID of the order that needs to be deleted
+   * @format: int64
    */
   path: {
     /**
-        ID of the order that needs to be deleted
-        format: int64 */
+        @description
+          ID of the order that needs to be deleted
+        @format: int64 */
     orderId: number;
   };
 }
 
+/** @description response type for deleteStoreOrderOrderId */
 interface DeleteStoreOrderOrderIdResponse {
-  /** Invalid ID supplied */
+  /**
+   * @description
+   *   Invalid ID supplied
+   */
   400: any;
-  /** Order not found */
+  /**
+   * @description
+   *   Order not found
+   */
   404: any;
 }
 
 type DeleteStoreOrderOrderIdResponseSuccess = any;
 /**
- * For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
- * Delete purchase order by ID
- * tags: store
- * produces: application／xml,application/json
+ * @description
+ *   For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+ *   Delete purchase order by ID
+ * @tags: store
+ * @produces: application／xml,application/json
  */
 export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -498,23 +624,31 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postUser */
+/** @description request parameter type for postUser */
 interface PostUserOption {
-  /** Created user object */
+  /**
+   * @description
+   *   Created user object
+   */
   body: User;
 }
 
+/** @description response type for postUser */
 interface PostUserResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   default: any;
 }
 
 type PostUserResponseSuccess = PostUserResponse["default"];
 /**
- * This can only be done by the logged in user.
- * Create user
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *   This can only be done by the logged in user.
+ *   Create user
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const postUser = /* #__PURE__ */ (() => {
   const method = "post";
@@ -533,22 +667,31 @@ export const postUser = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postUserCreateWithArray */
+/** @description request parameter type for postUserCreateWithArray */
 interface PostUserCreateWithArrayOption {
-  /** List of user object */
+  /**
+   * @description
+   *   List of user object
+   */
   body: Array<User>;
 }
 
+/** @description response type for postUserCreateWithArray */
 interface PostUserCreateWithArrayResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   default: any;
 }
 
 type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse["default"];
 /**
- * Creates list of users with given input array
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Creates list of users with given input array
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const postUserCreateWithArray = /* #__PURE__ */ (() => {
   const method = "post";
@@ -569,22 +712,31 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for postUserCreateWithList */
+/** @description request parameter type for postUserCreateWithList */
 interface PostUserCreateWithListOption {
-  /** List of user object */
+  /**
+   * @description
+   *   List of user object
+   */
   body: Array<User>;
 }
 
+/** @description response type for postUserCreateWithList */
 interface PostUserCreateWithListResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   default: any;
 }
 
 type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse["default"];
 /**
- * Creates list of users with given input array
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Creates list of users with given input array
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const postUserCreateWithList = /* #__PURE__ */ (() => {
   const method = "post";
@@ -605,31 +757,45 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for getUserLogin */
+/** @description request parameter type for getUserLogin */
 interface GetUserLoginOption {
-  /** The user name for login */
+  /**
+   * @description
+   *   The user name for login
+   */
   query: {
     /**
-        The user name for login */
+        @description
+          The user name for login */
     username: string;
     /**
-        The password for login in clear text */
+        @description
+          The password for login in clear text */
     password: string;
   };
 }
 
+/** @description response type for getUserLogin */
 interface GetUserLoginResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: string;
-  /** Invalid username／password supplied */
+  /**
+   * @description
+   *   Invalid username／password supplied
+   */
   400: any;
 }
 
 type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
- * Logs user into the system
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Logs user into the system
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const getUserLogin = /* #__PURE__ */ (() => {
   const method = "get";
@@ -650,16 +816,22 @@ export const getUserLogin = /* #__PURE__ */ (() => {
   return request;
 })();
 
+/** @description response type for getUserLogout */
 interface GetUserLogoutResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   default: any;
 }
 
 type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
 /**
- * Logs out current logged in user session
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Logs out current logged in user session
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const getUserLogout = /* #__PURE__ */ (() => {
   const method = "get";
@@ -675,30 +847,46 @@ export const getUserLogout = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for getUserUsername */
+/** @description request parameter type for getUserUsername */
 interface GetUserUsernameOption {
-  /** The name that needs to be fetched. Use user1 for testing. */
+  /**
+   * @description
+   *   The name that needs to be fetched. Use user1 for testing.
+   */
   path: {
     /**
-        The name that needs to be fetched. Use user1 for testing.  */
+        @description
+          The name that needs to be fetched. Use user1 for testing.  */
     username: string;
   };
 }
 
+/** @description response type for getUserUsername */
 interface GetUserUsernameResponse {
-  /** successful operation */
+  /**
+   * @description
+   *   successful operation
+   */
   200: User;
-  /** Invalid username supplied */
+  /**
+   * @description
+   *   Invalid username supplied
+   */
   400: any;
-  /** User not found */
+  /**
+   * @description
+   *   User not found
+   */
   404: any;
 }
 
 type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
- * Get user by user name
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *
+ *   Get user by user name
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const getUserUsername = /* #__PURE__ */ (() => {
   const method = "get";
@@ -719,31 +907,46 @@ export const getUserUsername = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for putUserUsername */
+/** @description request parameter type for putUserUsername */
 interface PutUserUsernameOption {
-  /** name that need to be updated */
+  /**
+   * @description
+   *   name that need to be updated
+   */
   path: {
     /**
-        name that need to be updated */
+        @description
+          name that need to be updated */
     username: string;
   };
-  /** Updated user object */
+  /**
+   * @description
+   *   Updated user object
+   */
   body: User;
 }
 
+/** @description response type for putUserUsername */
 interface PutUserUsernameResponse {
-  /** Invalid user supplied */
+  /**
+   * @description
+   *   Invalid user supplied
+   */
   400: any;
-  /** User not found */
+  /**
+   * @description
+   *   User not found
+   */
   404: any;
 }
 
 type PutUserUsernameResponseSuccess = any;
 /**
- * This can only be done by the logged in user.
- * Updated user
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *   This can only be done by the logged in user.
+ *   Updated user
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const putUserUsername = /* #__PURE__ */ (() => {
   const method = "put";
@@ -764,29 +967,41 @@ export const putUserUsername = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** request parameter type for deleteUserUsername */
+/** @description request parameter type for deleteUserUsername */
 interface DeleteUserUsernameOption {
-  /** The name that needs to be deleted */
+  /**
+   * @description
+   *   The name that needs to be deleted
+   */
   path: {
     /**
-        The name that needs to be deleted */
+        @description
+          The name that needs to be deleted */
     username: string;
   };
 }
 
+/** @description response type for deleteUserUsername */
 interface DeleteUserUsernameResponse {
-  /** Invalid username supplied */
+  /**
+   * @description
+   *   Invalid username supplied
+   */
   400: any;
-  /** User not found */
+  /**
+   * @description
+   *   User not found
+   */
   404: any;
 }
 
 type DeleteUserUsernameResponseSuccess = any;
 /**
- * This can only be done by the logged in user.
- * Delete user
- * tags: user
- * produces: application／xml,application/json
+ * @description
+ *   This can only be done by the logged in user.
+ *   Delete user
+ * @tags: user
+ * @produces: application／xml,application/json
  */
 export const deleteUserUsername = /* #__PURE__ */ (() => {
   const method = "delete";

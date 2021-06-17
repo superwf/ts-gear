@@ -30,6 +30,7 @@ export const generateResponseType = (
     const inter = source.addInterface({
       name: responseTypeName,
       isExported: shouldExport,
+      docs: [`@description response type for ${functionName}`],
     })
     responseStatuses.forEach(status => {
       const statusRes = responses[status]

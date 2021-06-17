@@ -19,7 +19,7 @@ export const generateRequestOptionType = (
   const inter = source.addInterface({
     isExported: !!project.shouldExportRequestOptionType,
     name: parameterTypeName,
-    docs: [`request parameter type for ${functionName}`],
+    docs: [`@description request parameter type for ${functionName}`],
   })
   const assembledParameters = assembleRequestParam(parameters)
   let parameterRequired = false
