@@ -117,7 +117,7 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetApiDatamapFieldDefResponseSuccess>
+    }) as unknown as Promise<GetApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -176,7 +176,7 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PutApiDatamapFieldDefResponseSuccess>
+    }) as unknown as Promise<PutApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -230,7 +230,7 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostApiDatamapFieldDefResponseSuccess>
+    }) as unknown as Promise<PostApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -269,7 +269,8 @@ interface DeleteApiDatamapFieldDefResponse {
   403: any
 }
 
-type DeleteApiDatamapFieldDefResponseSuccess = DeleteApiDatamapFieldDefResponse[200]
+type DeleteApiDatamapFieldDefResponseSuccess =
+  DeleteApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   批量删除
@@ -284,7 +285,7 @@ export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
+    }) as unknown as Promise<DeleteApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */

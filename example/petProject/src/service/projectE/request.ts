@@ -38,7 +38,8 @@ interface DeleteApiDataboardBoardEsResponse {
   403: any;
 }
 
-type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
+type DeleteApiDataboardBoardEsResponseSuccess =
+  DeleteApiDataboardBoardEsResponse[200];
 /**
  * @description
  *   删除索引
@@ -54,7 +55,7 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
+    }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
   /** http method */

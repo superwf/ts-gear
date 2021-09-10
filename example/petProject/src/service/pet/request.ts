@@ -55,7 +55,7 @@ export const putPet = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PutPetResponseSuccess>;
+    }) as unknown as Promise<PutPetResponseSuccess>;
   }
 
   /** http method */
@@ -99,7 +99,7 @@ export const postPet = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetResponseSuccess>;
+    }) as unknown as Promise<PostPetResponseSuccess>;
   }
 
   /** http method */
@@ -154,7 +154,7 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetPetFindByStatusResponseSuccess>;
+    }) as unknown as Promise<GetPetFindByStatusResponseSuccess>;
   }
 
   /** http method */
@@ -216,7 +216,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetPetPetIdResponseSuccess>;
+    }) as unknown as Promise<GetPetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -283,7 +283,7 @@ export const postPetPetId = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetPetIdResponseSuccess>;
+    }) as unknown as Promise<PostPetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -343,7 +343,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<DeletePetPetIdResponseSuccess>;
+    }) as unknown as Promise<DeletePetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -392,7 +392,8 @@ interface PostPetPetIdUploadImageResponse {
   200: ApiResponse;
 }
 
-type PostPetPetIdUploadImageResponseSuccess = PostPetPetIdUploadImageResponse[200];
+type PostPetPetIdUploadImageResponseSuccess =
+  PostPetPetIdUploadImageResponse[200];
 /**
  * @description
  *
@@ -410,7 +411,7 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetPetIdUploadImageResponseSuccess>;
+    }) as unknown as Promise<PostPetPetIdUploadImageResponseSuccess>;
   }
 
   /** http method */
@@ -445,7 +446,7 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
   function request(): Promise<GetStoreInventoryResponseSuccess> {
     return requester(url, {
       method,
-    }) as Promise<GetStoreInventoryResponseSuccess>;
+    }) as unknown as Promise<GetStoreInventoryResponseSuccess>;
   }
 
   /** http method */
@@ -495,7 +496,7 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostStoreOrderResponseSuccess>;
+    }) as unknown as Promise<PostStoreOrderResponseSuccess>;
   }
 
   /** http method */
@@ -557,7 +558,7 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetStoreOrderOrderIdResponseSuccess>;
+    }) as unknown as Promise<GetStoreOrderOrderIdResponseSuccess>;
   }
 
   /** http method */
@@ -614,7 +615,7 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteStoreOrderOrderIdResponseSuccess>;
+    }) as unknown as Promise<DeleteStoreOrderOrderIdResponseSuccess>;
   }
 
   /** http method */
@@ -657,7 +658,7 @@ export const postUser = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserResponseSuccess>;
+    }) as unknown as Promise<PostUserResponseSuccess>;
   }
 
   /** http method */
@@ -685,7 +686,8 @@ interface PostUserCreateWithArrayResponse {
   default: any;
 }
 
-type PostUserCreateWithArrayResponseSuccess = PostUserCreateWithArrayResponse["default"];
+type PostUserCreateWithArrayResponseSuccess =
+  PostUserCreateWithArrayResponse["default"];
 /**
  * @description
  *
@@ -702,7 +704,7 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserCreateWithArrayResponseSuccess>;
+    }) as unknown as Promise<PostUserCreateWithArrayResponseSuccess>;
   }
 
   /** http method */
@@ -730,7 +732,8 @@ interface PostUserCreateWithListResponse {
   default: any;
 }
 
-type PostUserCreateWithListResponseSuccess = PostUserCreateWithListResponse["default"];
+type PostUserCreateWithListResponseSuccess =
+  PostUserCreateWithListResponse["default"];
 /**
  * @description
  *
@@ -747,7 +750,7 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserCreateWithListResponseSuccess>;
+    }) as unknown as Promise<PostUserCreateWithListResponseSuccess>;
   }
 
   /** http method */
@@ -806,7 +809,7 @@ export const getUserLogin = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetUserLoginResponseSuccess>;
+    }) as unknown as Promise<GetUserLoginResponseSuccess>;
   }
 
   /** http method */
@@ -837,7 +840,9 @@ export const getUserLogout = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/v2/user/logout";
   function request(): Promise<GetUserLogoutResponseSuccess> {
-    return requester(url, { method }) as Promise<GetUserLogoutResponseSuccess>;
+    return requester(url, {
+      method,
+    }) as unknown as Promise<GetUserLogoutResponseSuccess>;
   }
 
   /** http method */
@@ -897,7 +902,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<GetUserUsernameResponseSuccess>;
+    }) as unknown as Promise<GetUserUsernameResponseSuccess>;
   }
 
   /** http method */
@@ -957,7 +962,7 @@ export const putUserUsername = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<PutUserUsernameResponseSuccess>;
+    }) as unknown as Promise<PutUserUsernameResponseSuccess>;
   }
 
   /** http method */
@@ -1012,7 +1017,7 @@ export const deleteUserUsername = /* #__PURE__ */ (() => {
     return requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteUserUsernameResponseSuccess>;
+    }) as unknown as Promise<DeleteUserUsernameResponseSuccess>;
   }
 
   /** http method */

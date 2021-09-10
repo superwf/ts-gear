@@ -1,9 +1,7 @@
 /** use native fetch to request */
 import * as URL from 'url'
-
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
-
 import type { RequestParameter, Requester } from '../type'
 
 const jsonType = 'application/json'
@@ -49,8 +47,12 @@ export function interceptRequest(
   try {
     url = parseUrl(url, option)
   } catch (e) {
-    throw new Error(e.message)
+    if (e instanceof Error) {
+      throw new Error(e.message)
+    }
+    throw e
   }
+  console.log(url)
   const requestOption: RequestInit = {
     method: option.method,
     ...requestInit,
@@ -109,12 +111,14 @@ export function interceptResponse(res: Response) {
 }
 
 /** native fetch wrappper */
-export const requester = (
-  requestInit?: RequestInit & {
-    baseURL?: string
-  },
-): Requester => (apiUrl: string, param?: RequestParameter) => {
-  const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
-  const baseURL = (requestInit && requestInit.baseURL) || ''
-  return fetch(`${baseURL}${url}`, option).then(interceptResponse)
-}
+export const requester =
+  (
+    requestInit?: RequestInit & {
+      baseURL?: string
+    },
+  ): Requester =>
+  async (apiUrl: string, param?: RequestParameter) => {
+    const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
+    const baseURL = (requestInit && requestInit.baseURL) || ''
+    return fetch(`${baseURL}${url}`, option).then(interceptResponse)
+  }

@@ -1,9 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const { sep, join } = require('path')
-
 const { reduce } = require('lodash')
 const { defaults: tsjPreset } = require('ts-jest/presets')
-
 const tsconfig = require('./tsconfig.json')
 /* eslint-enable @typescript-eslint/no-var-requires */
 

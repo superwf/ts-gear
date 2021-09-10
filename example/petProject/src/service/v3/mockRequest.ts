@@ -113,7 +113,7 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'get'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as GetApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as GetApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: GetApiDatamapFieldDefOption,
   ): Promise<GetApiDatamapFieldDefResponseSuccess> {
@@ -170,7 +170,7 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'put'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as PutApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as PutApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: PutApiDatamapFieldDefOption,
   ): Promise<PutApiDatamapFieldDefResponseSuccess> {
@@ -222,7 +222,7 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'post'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as PostApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as PostApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: PostApiDatamapFieldDefOption,
   ): Promise<PostApiDatamapFieldDefResponseSuccess> {
@@ -263,7 +263,8 @@ interface DeleteApiDatamapFieldDefResponse {
   403: any
 }
 
-type DeleteApiDatamapFieldDefResponseSuccess = DeleteApiDatamapFieldDefResponse[200]
+type DeleteApiDatamapFieldDefResponseSuccess =
+  DeleteApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   批量删除
@@ -274,13 +275,13 @@ export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'delete'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ({
+  const mockData = {
     description: 'string',
     fieldId: 'string',
     fieldName: 'name1',
     tableId: 'string',
     type: 'string',
-  } as unknown) as DeleteApiDatamapFieldDefResponseSuccess
+  } as unknown as DeleteApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: DeleteApiDatamapFieldDefOption,
   ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {

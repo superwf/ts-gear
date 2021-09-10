@@ -1,6 +1,5 @@
 import axios from 'axios'
 import * as moxios from 'moxios'
-
 import { requester } from 'src/requester/axios'
 
 describe('requester fetch', () => {

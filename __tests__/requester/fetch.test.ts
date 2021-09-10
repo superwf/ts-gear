@@ -1,10 +1,9 @@
 import { getOnce, postOnce, putOnce, lastCall } from 'fetch-mock'
-
 import 'whatwg-fetch'
 import { requester } from 'src/requester/fetch'
 
 describe('requester fetch', () => {
-  it('get header', async () => {
+  it.only('get header', async () => {
     getOnce('/abc', { ok: true })
     let result = await requester()('/abc', {
       method: 'get',
@@ -38,25 +37,20 @@ describe('requester fetch', () => {
 
   it('intercept request', async () => {
     getOnce('/abc', 200, { overwriteRoutes: true })
-    try {
+    expect(async () => {
       await requester()('/abc/:id/:slot', {
         path: { id: '1' },
       })
-    } catch (e) {
-      expect(e.message).toContain('Expected "slot" to be a string')
-    }
+    }).toThrow(/Expected "slot" to be a string/)
   })
 
   it('response error', async () => {
     getOnce('/return500', { status: 500 })
-    try {
+    expect(async () => {
       await requester()('/return500')
-    } catch (e) {
-      expect(e.message).toContain('status: 500')
-      expect(e.message).toContain('url: /return500')
-      const call = lastCall()
-      expect(call![0]!).toBe('/return500')
-    }
+    }).toThrow(/status: 500 url: \/return500\//)
+    const call = lastCall()
+    expect(call![0]!).toBe('/return500')
     // expect(result).toEqual({ ok: true })
   })
 
