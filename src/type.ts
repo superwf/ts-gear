@@ -1,5 +1,3 @@
-// import { JSONSchema4 } from 'json-schema'
-// import type { Spec } from 'swagger-schema-official'
 import type {
   Schema,
   Operation,
@@ -36,11 +34,6 @@ export type RequestParameter = {
 
 /** requester function signature */
 export type Requester = (url: string, param?: RequestParameter) => Promise<any>
-
-// export interface IRequestFunction<T1, T2> {
-//   (option: T1): Promise<T2>
-//   mockData?: T2
-// }
 
 /** json schema traverse datatype */
 export interface TraverseSchemaNode {
@@ -195,7 +188,7 @@ export interface Project {
 
   /**
    * request function statement
-   * @example "import xxx from 'xxx'"
+   * @example "import { requester } from 'ts-gear/requester/fetch'"
    * @required
    * 引入自定义requester的模板字符串
    * */
@@ -261,21 +254,22 @@ export interface Project {
 
   /**
    * should export request function option types
-   * @default false
+   * @default true
    * 是否export请求参数类型，推荐不导出，需要使用时通过Parameters类型工具提取
    * */
   shouldExportRequestOptionType?: boolean
 
   /**
    * should export request function response types
-   * @default false
-   * 是否export请求返回类型，推荐不导出，需要使用时通过ReturnType类型工具提取
+   * @default true
+   * 是否export请求返回类型，推荐导出
+   * 若不导出也可通过`ReturnType`类型工具提取
    * */
   shouldExportResponseType?: boolean
 
   /**
    * output content prettier config
-   * 生成代码的prettier格式化配置
+   * 生成代码的`prettier`格式化配置
    * */
   prettierConfig?: Options
 
@@ -306,6 +300,7 @@ export interface Project {
   useCache?: boolean
 
   /**
+   * @default '\n'
    * custom EOF
    * 定制换行符，之前的版本从当前运行的操作系统获取换行符的行为是错误的，会使不同的人生成的文件内容不一致
    * 推荐设置为\n

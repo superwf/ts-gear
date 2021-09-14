@@ -12,7 +12,7 @@ import type {
 } from "./definition";
 
 /** @description request parameter type for putPet */
-interface PutPetOption {
+export interface PutPetOption {
   /**
    * @description
    *   Pet object that needs to be added to the store
@@ -21,7 +21,7 @@ interface PutPetOption {
 }
 
 /** @description response type for putPet */
-interface PutPetResponse {
+export interface PutPetResponse {
   /**
    * @description
    *   Invalid ID supplied
@@ -39,7 +39,7 @@ interface PutPetResponse {
   405: any;
 }
 
-type PutPetResponseSuccess = any;
+export type PutPetResponseSuccess = any;
 /**
  * @description
  *
@@ -66,7 +66,7 @@ export const putPet = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPet */
-interface PostPetOption {
+export interface PostPetOption {
   /**
    * @description
    *   Pet object that needs to be added to the store
@@ -75,7 +75,7 @@ interface PostPetOption {
 }
 
 /** @description response type for postPet */
-interface PostPetResponse {
+export interface PostPetResponse {
   /**
    * @description
    *   Invalid input
@@ -83,7 +83,7 @@ interface PostPetResponse {
   405: any;
 }
 
-type PostPetResponseSuccess = any;
+export type PostPetResponseSuccess = any;
 /**
  * @description
  *
@@ -110,7 +110,7 @@ export const postPet = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getPetFindByStatus */
-interface GetPetFindByStatusOption {
+export interface GetPetFindByStatusOption {
   /**
    * @description
    *   Status values that need to be considered for filter
@@ -124,7 +124,7 @@ interface GetPetFindByStatusOption {
 }
 
 /** @description response type for getPetFindByStatus */
-interface GetPetFindByStatusResponse {
+export interface GetPetFindByStatusResponse {
   /**
    * @description
    *   successful operation
@@ -137,7 +137,7 @@ interface GetPetFindByStatusResponse {
   400: any;
 }
 
-type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
+export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
 /**
  * @description
  *   Multiple status values can be provided with comma separated strings
@@ -165,7 +165,7 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getPetPetId */
-interface GetPetPetIdOption {
+export interface GetPetPetIdOption {
   /**
    * @description
    *   ID of pet to return
@@ -181,7 +181,7 @@ interface GetPetPetIdOption {
 }
 
 /** @description response type for getPetPetId */
-interface GetPetPetIdResponse {
+export interface GetPetPetIdResponse {
   /**
    * @description
    *   successful operation
@@ -199,7 +199,7 @@ interface GetPetPetIdResponse {
   404: any;
 }
 
-type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
+export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
 /**
  * @description
  *   Returns a single pet
@@ -227,7 +227,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   ID of pet that needs to be updated
@@ -257,7 +257,7 @@ interface PostPetPetIdOption {
 }
 
 /** @description response type for postPetPetId */
-interface PostPetPetIdResponse {
+export interface PostPetPetIdResponse {
   /**
    * @description
    *   Invalid input
@@ -265,7 +265,7 @@ interface PostPetPetIdResponse {
   405: any;
 }
 
-type PostPetPetIdResponseSuccess = any;
+export type PostPetPetIdResponseSuccess = any;
 /**
  * @description
  *
@@ -294,7 +294,7 @@ export const postPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
@@ -313,7 +313,7 @@ interface DeletePetPetIdOption {
 }
 
 /** @description response type for deletePetPetId */
-interface DeletePetPetIdResponse {
+export interface DeletePetPetIdResponse {
   /**
    * @description
    *   Invalid ID supplied
@@ -326,7 +326,7 @@ interface DeletePetPetIdResponse {
   404: any;
 }
 
-type DeletePetPetIdResponseSuccess = any;
+export type DeletePetPetIdResponseSuccess = any;
 /**
  * @description
  *
@@ -354,7 +354,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   ID of pet to update
@@ -384,7 +384,7 @@ interface PostPetPetIdUploadImageOption {
 }
 
 /** @description response type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageResponse {
+export interface PostPetPetIdUploadImageResponse {
   /**
    * @description
    *   successful operation
@@ -392,7 +392,7 @@ interface PostPetPetIdUploadImageResponse {
   200: ApiResponse;
 }
 
-type PostPetPetIdUploadImageResponseSuccess =
+export type PostPetPetIdUploadImageResponseSuccess =
   PostPetPetIdUploadImageResponse[200];
 /**
  * @description
@@ -422,7 +422,7 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
 })();
 
 /** @description response type for getStoreInventory */
-interface GetStoreInventoryResponse {
+export interface GetStoreInventoryResponse {
   /**
    * @description
    *   successful operation
@@ -432,7 +432,7 @@ interface GetStoreInventoryResponse {
   };
 }
 
-type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
+export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
 /**
  * @description
  *   Returns a map of status codes to quantities
@@ -457,7 +457,7 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postStoreOrder */
-interface PostStoreOrderOption {
+export interface PostStoreOrderOption {
   /**
    * @description
    *   order placed for purchasing the pet
@@ -466,7 +466,7 @@ interface PostStoreOrderOption {
 }
 
 /** @description response type for postStoreOrder */
-interface PostStoreOrderResponse {
+export interface PostStoreOrderResponse {
   /**
    * @description
    *   successful operation
@@ -479,7 +479,7 @@ interface PostStoreOrderResponse {
   400: any;
 }
 
-type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
+export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
  * @description
  *
@@ -507,7 +507,7 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getStoreOrderOrderId */
-interface GetStoreOrderOrderIdOption {
+export interface GetStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of pet that needs to be fetched
@@ -523,7 +523,7 @@ interface GetStoreOrderOrderIdOption {
 }
 
 /** @description response type for getStoreOrderOrderId */
-interface GetStoreOrderOrderIdResponse {
+export interface GetStoreOrderOrderIdResponse {
   /**
    * @description
    *   successful operation
@@ -541,7 +541,8 @@ interface GetStoreOrderOrderIdResponse {
   404: any;
 }
 
-type GetStoreOrderOrderIdResponseSuccess = GetStoreOrderOrderIdResponse[200];
+export type GetStoreOrderOrderIdResponseSuccess =
+  GetStoreOrderOrderIdResponse[200];
 /**
  * @description
  *   For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
@@ -569,7 +570,7 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deleteStoreOrderOrderId */
-interface DeleteStoreOrderOrderIdOption {
+export interface DeleteStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of the order that needs to be deleted
@@ -585,7 +586,7 @@ interface DeleteStoreOrderOrderIdOption {
 }
 
 /** @description response type for deleteStoreOrderOrderId */
-interface DeleteStoreOrderOrderIdResponse {
+export interface DeleteStoreOrderOrderIdResponse {
   /**
    * @description
    *   Invalid ID supplied
@@ -598,7 +599,7 @@ interface DeleteStoreOrderOrderIdResponse {
   404: any;
 }
 
-type DeleteStoreOrderOrderIdResponseSuccess = any;
+export type DeleteStoreOrderOrderIdResponseSuccess = any;
 /**
  * @description
  *   For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
@@ -626,7 +627,7 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUser */
-interface PostUserOption {
+export interface PostUserOption {
   /**
    * @description
    *   Created user object
@@ -635,7 +636,7 @@ interface PostUserOption {
 }
 
 /** @description response type for postUser */
-interface PostUserResponse {
+export interface PostUserResponse {
   /**
    * @description
    *   successful operation
@@ -643,7 +644,7 @@ interface PostUserResponse {
   default: any;
 }
 
-type PostUserResponseSuccess = PostUserResponse["default"];
+export type PostUserResponseSuccess = PostUserResponse["default"];
 /**
  * @description
  *   This can only be done by the logged in user.
@@ -669,7 +670,7 @@ export const postUser = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUserCreateWithArray */
-interface PostUserCreateWithArrayOption {
+export interface PostUserCreateWithArrayOption {
   /**
    * @description
    *   List of user object
@@ -678,7 +679,7 @@ interface PostUserCreateWithArrayOption {
 }
 
 /** @description response type for postUserCreateWithArray */
-interface PostUserCreateWithArrayResponse {
+export interface PostUserCreateWithArrayResponse {
   /**
    * @description
    *   successful operation
@@ -686,7 +687,7 @@ interface PostUserCreateWithArrayResponse {
   default: any;
 }
 
-type PostUserCreateWithArrayResponseSuccess =
+export type PostUserCreateWithArrayResponseSuccess =
   PostUserCreateWithArrayResponse["default"];
 /**
  * @description
@@ -715,7 +716,7 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUserCreateWithList */
-interface PostUserCreateWithListOption {
+export interface PostUserCreateWithListOption {
   /**
    * @description
    *   List of user object
@@ -724,7 +725,7 @@ interface PostUserCreateWithListOption {
 }
 
 /** @description response type for postUserCreateWithList */
-interface PostUserCreateWithListResponse {
+export interface PostUserCreateWithListResponse {
   /**
    * @description
    *   successful operation
@@ -732,7 +733,7 @@ interface PostUserCreateWithListResponse {
   default: any;
 }
 
-type PostUserCreateWithListResponseSuccess =
+export type PostUserCreateWithListResponseSuccess =
   PostUserCreateWithListResponse["default"];
 /**
  * @description
@@ -761,7 +762,7 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getUserLogin */
-interface GetUserLoginOption {
+export interface GetUserLoginOption {
   /**
    * @description
    *   The user name for login
@@ -779,7 +780,7 @@ interface GetUserLoginOption {
 }
 
 /** @description response type for getUserLogin */
-interface GetUserLoginResponse {
+export interface GetUserLoginResponse {
   /**
    * @description
    *   successful operation
@@ -792,7 +793,7 @@ interface GetUserLoginResponse {
   400: any;
 }
 
-type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
+export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
  * @description
  *
@@ -820,7 +821,7 @@ export const getUserLogin = /* #__PURE__ */ (() => {
 })();
 
 /** @description response type for getUserLogout */
-interface GetUserLogoutResponse {
+export interface GetUserLogoutResponse {
   /**
    * @description
    *   successful operation
@@ -828,7 +829,7 @@ interface GetUserLogoutResponse {
   default: any;
 }
 
-type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
+export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
 /**
  * @description
  *
@@ -853,7 +854,7 @@ export const getUserLogout = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getUserUsername */
-interface GetUserUsernameOption {
+export interface GetUserUsernameOption {
   /**
    * @description
    *   The name that needs to be fetched. Use user1 for testing.
@@ -867,7 +868,7 @@ interface GetUserUsernameOption {
 }
 
 /** @description response type for getUserUsername */
-interface GetUserUsernameResponse {
+export interface GetUserUsernameResponse {
   /**
    * @description
    *   successful operation
@@ -885,7 +886,7 @@ interface GetUserUsernameResponse {
   404: any;
 }
 
-type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
+export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
  * @description
  *
@@ -913,7 +914,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   name that need to be updated
@@ -932,7 +933,7 @@ interface PutUserUsernameOption {
 }
 
 /** @description response type for putUserUsername */
-interface PutUserUsernameResponse {
+export interface PutUserUsernameResponse {
   /**
    * @description
    *   Invalid user supplied
@@ -945,7 +946,7 @@ interface PutUserUsernameResponse {
   404: any;
 }
 
-type PutUserUsernameResponseSuccess = any;
+export type PutUserUsernameResponseSuccess = any;
 /**
  * @description
  *   This can only be done by the logged in user.
@@ -973,7 +974,7 @@ export const putUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deleteUserUsername */
-interface DeleteUserUsernameOption {
+export interface DeleteUserUsernameOption {
   /**
    * @description
    *   The name that needs to be deleted
@@ -987,7 +988,7 @@ interface DeleteUserUsernameOption {
 }
 
 /** @description response type for deleteUserUsername */
-interface DeleteUserUsernameResponse {
+export interface DeleteUserUsernameResponse {
   /**
    * @description
    *   Invalid username supplied
@@ -1000,7 +1001,7 @@ interface DeleteUserUsernameResponse {
   404: any;
 }
 
-type DeleteUserUsernameResponseSuccess = any;
+export type DeleteUserUsernameResponseSuccess = any;
 /**
  * @description
  *   This can only be done by the logged in user.

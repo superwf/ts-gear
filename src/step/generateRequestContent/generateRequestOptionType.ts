@@ -17,7 +17,7 @@ export const generateRequestOptionType = (
   const source = sow()
   const parameterTypeName = `${upperFirst(functionName)}Option`
   const inter = source.addInterface({
-    isExported: !!project.shouldExportRequestOptionType,
+    isExported: project.shouldExportRequestOptionType === undefined || !!project.shouldExportRequestOptionType,
     name: parameterTypeName,
     docs: [`@description request parameter type for ${functionName}`],
   })

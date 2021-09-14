@@ -6,7 +6,7 @@ import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
-interface DeleteApiDataboardBoardEsOption {
+export interface DeleteApiDataboardBoardEsOption {
   /**
    * @description
    *   索引数组
@@ -15,7 +15,7 @@ interface DeleteApiDataboardBoardEsOption {
 }
 
 /** @description response type for deleteApiDataboardBoardEs */
-interface DeleteApiDataboardBoardEsResponse {
+export interface DeleteApiDataboardBoardEsResponse {
   /**
    * @description
    *   OK
@@ -38,7 +38,7 @@ interface DeleteApiDataboardBoardEsResponse {
   403: any;
 }
 
-type DeleteApiDataboardBoardEsResponseSuccess =
+export type DeleteApiDataboardBoardEsResponseSuccess =
   DeleteApiDataboardBoardEsResponse[200];
 /**
  * @description

@@ -11,7 +11,7 @@ import type {
 } from './definition'
 
 /** @description request parameter type for getApiDatamapFieldDef */
-interface GetApiDatamapFieldDefOption {
+export interface GetApiDatamapFieldDefOption {
   /**
    * @description
    *   创建人
@@ -79,7 +79,7 @@ interface GetApiDatamapFieldDefOption {
 }
 
 /** @description response type for getApiDatamapFieldDef */
-interface GetApiDatamapFieldDefResponse {
+export interface GetApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -102,7 +102,8 @@ interface GetApiDatamapFieldDefResponse {
   404: any
 }
 
-type GetApiDatamapFieldDefResponseSuccess = GetApiDatamapFieldDefResponse[200]
+export type GetApiDatamapFieldDefResponseSuccess =
+  GetApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   分页查询【表字段信息】
@@ -128,12 +129,12 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for putApiDatamapFieldDef */
-interface PutApiDatamapFieldDefOption {
+export interface PutApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for putApiDatamapFieldDef */
-interface PutApiDatamapFieldDefResponse {
+export interface PutApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -161,7 +162,8 @@ interface PutApiDatamapFieldDefResponse {
   404: any
 }
 
-type PutApiDatamapFieldDefResponseSuccess = PutApiDatamapFieldDefResponse[200]
+export type PutApiDatamapFieldDefResponseSuccess =
+  PutApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   修改
@@ -187,12 +189,12 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for postApiDatamapFieldDef */
-interface PostApiDatamapFieldDefOption {
+export interface PostApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for postApiDatamapFieldDef */
-interface PostApiDatamapFieldDefResponse {
+export interface PostApiDatamapFieldDefResponse {
   /**
    * @description
    *   Created
@@ -215,7 +217,8 @@ interface PostApiDatamapFieldDefResponse {
   404: any
 }
 
-type PostApiDatamapFieldDefResponseSuccess = PostApiDatamapFieldDefResponse[201]
+export type PostApiDatamapFieldDefResponseSuccess =
+  PostApiDatamapFieldDefResponse[201]
 /**
  * @description
  *   新增
@@ -241,12 +244,12 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for deleteApiDatamapFieldDef */
-interface DeleteApiDatamapFieldDefOption {
+export interface DeleteApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for deleteApiDatamapFieldDef */
-interface DeleteApiDatamapFieldDefResponse {
+export interface DeleteApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -269,7 +272,7 @@ interface DeleteApiDatamapFieldDefResponse {
   403: any
 }
 
-type DeleteApiDatamapFieldDefResponseSuccess =
+export type DeleteApiDatamapFieldDefResponseSuccess =
   DeleteApiDatamapFieldDefResponse[200]
 /**
  * @description

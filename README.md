@@ -1,52 +1,75 @@
 # ts-gear
 
-## [English doc](./README.en.md)
+[![NPM Version](http://img.shields.io/npm/v/ts-gear.svg?style=flat)](https://www.npmjs.org/package/ts-gear)
 
-## 用途
+![logo](./logo.png)
 
-自动从swagger生成ts类型与请求接口的函数
+- [ts-gear](#ts-gear)
+  - [Overview](#overview)
+  - [Example](#example)
+  - [Installation](#installation)
+  - [Usage](#usage)
+    - [Initiate configuration file](#initiate-configuration-file)
+    - [Run](#run)
+    - [Check service directory](#check-service-directory)
 
-方便的感知后端接口定义的变化。
+## Overview
 
-## 起源
+Parse openapi prototal then generate your service code by one command.
 
-inspired by [pont](https://github.com/alibaba/pont)
+This tool has high compatibility with various kind of not standard openapi definition doc.
 
-`ts-gear`命名：ts是typescript与swagger的组合，gear寓意通过这个工具像齿轮一样，将前后端紧密的结合在一起，构成一架严密运转的机器。
+Ts-gear can be used to generate typescript type files and request function from openapi spec doc.
 
-后来想想，其实应该是与openapi结合而不仅限与swagger，不过名字起了挺久那就这样吧不改了。
+With this tool all openapi doc definition and request methods would be converted to typescript request functions automatically, and when the doc updates, just rerun `tsg` typescript will report any type updates.
 
-## 用法
+If you have tried `OpenAPI Generator`, `swagger-codegen` or `oazapfts` and some other tools, but get errors, just try this.
 
-### 安装
+## Example
+
+A good example is a better doc.
+
+Run it to see how ts-gear works.
+
+TODO: prepare an example by create-react-app and ts-gear.
+
+## Installation
 
 ```bash
-yarn add ts-gear -D
-// or
 npm install ts-gear -D
+// or by yarn
+yarn add ts-gear -D
 ```
 
-### 生成初始化配置
+## Usage
 
-在项目`src`目录下生成配置文件`tsg.config.ts`。
+### Initiate configuration file
 
 ```bash
 tsg -i
 ```
 
-💡 因为该配置文件与请求函数有关，会在生成的代码调用，因此放到`src`文件夹中。
+generate an initial configuration file `src/tsg.config.ts`.
 
-### 运行tsg
+🐾 Why in `src` directory ? 
+
+Most cases `src` will be included in typescript system by `tsconfig.json`. Put it in src will confirm it will be automatically taken over by typescript.
+
+Skip this step if there is already a configuration file.
+
+### Run
 
 ```bash
-npx tsg // default use `src/tsg.config.ts`
+npx tsg
 // or assign another config file
 npx tsg -c other_dir/tsg.config.ts
 // or if only need update one project, use -p for the project name
 npx tsg -p pet
 ```
 
-#### 查看`src/service`文件夹，结构如下
+### check service directory
+
+The service directory structure should look like below.
 
 ```bash
 ▾ src/
@@ -58,11 +81,13 @@ npx tsg -p pet
         index.ts
 ```
 
-[more directory information](#目录结构)
+[more directory information](#Directory information)
 
-#### 如何在代码中调用
+### Use in your code
 
-例如：在`src/store/pet.ts`文件中
+After the command line operation, use the generated file in `service` directory.
+
+For example, in `src/store/pet.ts`
 
 ```javascript
 import { getPetPetId } from '../../service/pet'
@@ -79,40 +104,49 @@ getPetPetId({
 
 ![type generated example](./doc/pet.gif)
 
-### V4不兼容更新
+## Version 3 new features and changes.
 
-* 默认请求函数的参数与返回值类型不在导出，推荐使用类型工具`Parameters`与`ReturnType`来从请求函数类型本身获取。
+* Try the most to parse and generate `generic type` names, as `ReplyVO<Data>`.
 
-    如果需要导出参数与返回值类型，可配置项目中的
+* Use `swagger-schema-official` for openapi type definition.
 
-    ```javascript
-    shouldExportRequestOptionType: true
-    shouldExportResponseType: true
+* Generate `enum` types, like `export type PetStatus = "available" | "pending" | "sold";`.
+
+* More detailed information for every type and properties document.
+
+* Use `tsg.config.ts` file in `src` directory for configuration file, to include all code generating process in typescript system.
+
+* Most part use `ts-morph` typescript syntax parser to generate code.
+
+* Use `swagger-ui` mock methods to provide `${requestFunctionName}MockData` for each request function for test env.
+
+* Every project configureable features.
+
+  * Configureable `translationEngine`, "baidu" or "google" are available.
+
+  * Configureable `requester` option, a "fetch" and an "axios" requester are provided out of box by `ts-gear`, self custom requester is also accepted.
+
+  * Configureable "dest" directory.
+
+  * add configuration option `withHost` and `withBasePath`.
+
+  * `preferClass` option to generate `class` instead of `interface`, default `false`. When set to true, but most properties do not has default value, so you need to set your `tsconfig.json` as below.
+
+    ```typescript
+      "strictPropertyInitialization": false,
     ```
 
-* 默认不生成mock数据，需要的话可配置`shouldGenerateMock: true`，生成独立的mockRequest文件。
+  * `keepGeneric` default true, but if there are some errors occuring when running `tsg`, this option could be set to `false` to generate more stable code.
 
-### 新配置项
+  * `shouldMockResponseStatement` default `"process.env.NODE_ENV === 'test'"` to generate mock response for test env. use this statement could make the mock response code removeable when production optimized.
 
-* generateRequestFunctionName
+  * `prettierConfig` for output code prettier style, only support `prettier` version 2 configuration.
 
-例如：
+  * `useCache` default false, set true to enable cache.
 
-```javascript
-generateRequestFunctionName: ({
-  httpMethod: 'get' | 'put' | 'post' | 'delete' | 'options' | 'head' | 'patch'
-  pathname: string
-  schema: Path // openapi类型定义中的Path，内容太多不详细说了
-}): string => {
-  return `${httpMethod}${upperFirst(pathname.repalce('/api/commonPath', ''))}`
-}
-```
+## test coverage
 
-* shouldGenerateMock，是否生成mock数据，默认为false，不生成。
-
-* generateRequestFunction，生成请求函数体，用这个的话，函数内容ts-gear就不再管了，完全由这个自定义函数生成，慎重使用🙏。
-
-## 测试覆盖约50%，大概🤪，覆盖率统计比实际测试的显示的多。
+real coverage more than 50%.
 
 ### Statements
 
@@ -130,52 +164,62 @@ generateRequestFunctionName: ({
 
 ![Lines](./badges/badge-lines.svg)
 
-### 运行步骤
+### process swagger spec doc steps(or check `src/run.ts`).
 
-* 读取配置文件。
+* read user config file.
 
-* 读取命令行参数过滤需要解析的项目。
+* filter projects by name if there are command line params.
 
-* 获取各个项目的openapi数据。
+* fetch each project swagger doc.
 
-* 如果设置了翻译，调用翻印接口。
+* translate if transate engine is assigned.
 
-* 统一格式化所有特殊字符。
+* format unregular charators in $ref and definitions.
 
-* 解析范型名称。
+* process generic type names.
 
-* 将所有请求与定义名称组装到内部的全局变量中。
+* assemble requests and definitions to global map variables.
 
-* 配置当前输出换行符。
+* prepare project dest directory.
 
-* 准备好输出文件夹。
+* generate and write enum and definitions.
 
-* 写入枚举与基础类型定义。
+* generate and write request.
 
-* 写入请求函数。
+* write project directory "index.ts".
 
-* 生成一个导出所有内容的索引文件`index.ts`。
+## Origin
 
-## 其他类似工具
+Inspired by [pont](https://github.com/alibaba/pont).
+
+When I first had the idea for automatically generate typescript from json schema, I found `pont`. But it was in an early unstable stage, so after some trying I stopped using it, and write this one for more compatible to the swagger doc style of my own team.
+
+## Other similar tools
 
 * [OpenAPI Generator](https://openapi-generator.tech/)
 
-* [swagger-codegen](https://swagger.io/tools/swagger-codegen/)
+    Here are many languages support. If the swagger doc is defined generally standard, this tool is enough.
 
 * [oazapfts](https://github.com/cellular/oazapfts)
 
-### 本项目的特色
+    oazapfts use typescript native api to generate ts file, but non-standard swagge doc generated code could not work out of box.
 
-大多数其他类型的openapi生成工具对原始定义的要求较高，容错率低，而且没有做生成范型的处理。而这几项目都是本工具的重点解决亮点。
+### What is this one different to other similar ones?
 
-支持 OpenAPI Specification v2 v3.
+Most other code generators depends on the standard swagger spec doc.
 
-### 配置样例
+But in real world, especially in my case, most swagger doc has many definition errors. There are many `$ref` does not has corresponding `definition`, many unregular charators occur in names and properties, also the generic parse problems as `ReplyVO<PageVO<List>>`.
+
+`ts-gear` try most to resolve all thses issues.
+
+Support OpenAPI Specification v2 and v3.
+
+### Config
 
 `tsg.config.ts` example
 
 ```typescript
-import type { Project } from 'ts-gear'
+import { Project, fetchRequester, axiosRequester } from 'ts-gear'
 
 const projects: Project[] = [
   { ... }
@@ -184,66 +228,58 @@ const projects: Project[] = [
 export default projects
 ```
 
-#### 配置项说明
-
-##### 注意：以下所有配置的相对路径，都是`tsg.config.ts`文件所在的路径。例如该文件位置为`src/tsg.config.ts`，则配置中的路径都是相对`src`路径而定。
+#### Config Options
 
 | Option name | type | required | default | description |
 |--------|------|---------|----------|-------------|
-| name | string | true | | 项目名称，需符合合法变量名称 |
-| dest | string | true | | 输出文件夹，默认在以`src`中，比如配置为`service`，则实际目录为`src/service` |
-| source | string | true | | openapi文档的json定义url <br /> 可以是远程(例如：`http://1.1.1.1/v2/api-docs`)或本地(例如`src/service/api.json`)，如果远程访问有登录或其他网络问题，推荐将定义文档下载到本地 |
-| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | 配合上个配置项`source`，当远程访问`source`有登录或其他校验需求时，配置该项填写校验信息，该项是原生`fetch`的第二个配置参数。 |
-| apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false | | 生成请求函数的过滤器，一个大的api定义文档中可能大多数都用不到，使用正则或函数可仅生成自己项目需要的api函数，减轻编译负担 |
-| importRequesterStatement | string | true | | 例如:`import axios from "axios"`或`import { request } from '../your/request'`，默认导入或命名导入都可以，如果是命名导入有多个则会使用第一个作为请求函数 |
-| preferClass | boolean | false | false | 会使用class而不是interface生成接口中定义的数据类型（请求参数与返回值类型不会生成）|
-| withHost | boolean | false | false | 为true时，每个请求函数请求的api url不再是`/api/url`这种路径格式，而是`http://1.1.1.1/api/url`这种完整的格式，当需要生成跨域请求时可以配置为true |
-| withBasePath | boolean | false | false | 为true时，每个请求url的路径前面都会加上openapi定义中的`basePath`项，按需配置 |
-| keepGeneric | boolean | true | true | 尝试生成范型类型，虽然做了各种努力但肯定还有一些情况不能生成范型，如果运行失败可将该项设置为false |
-| translationEngine | 'baidu' \| 'google' | false |  | 如果文档中确实有一些类型的东西用中文定义的，可配置翻译引擎尝试翻译 |
-| shouldGenerateMock | boolean | true | 默认true，生成mock数据，如果您的项目不需要mock数据，或有自己的mock策略，可配置为false，减少生成的代码量 |
-| shouldExportRequestOptionType | boolean | false | 默认false，不导出 |
-| shouldExportResponseType | boolean | false | 默认false，不导出 |
-| prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | 生成文件的`prettier`配置，参考`prettier`官网 |
-| generateRequestFunctionName | (arg: GenerateRequestFunctionNameParameter) => string | false | 生成请求函数名称的函数 |
-| generateRequestFunction | (arg: GenerateRequestFunctionNameParameter) => string | false | 生成请求函数体的函数 |
-| transformJS | boolean | false | false | 是否生成`js`而不是`ts`文件 |
-| useCache | boolean | false | false | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。 |
-| EOL | string | false  | '\n' | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。 |
+| name | string | true | | your project name |
+| dest | string | true | | parent directory of project |
+| source | string | true | | swagger doc url <br /> remote url or local json file |
+| fetchSwaggerDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | swagger doc url<br />support remote or local json |
+| apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false | | regexp or function to filter<br />the request path should generate |
+| requester | (url: string, param?: RequestParameter) => Promise<any> | false | | request func invoked in each request method, make sure provide `requester` or `importRequesterStatement` |
+| importRequesterStatement | string | false | | like `import axios from "axios"`, make sure provide `requester` or `importRequesterStatement` |
+| preferClass | boolean | false | false | generate class rather than class |
+| withHost | boolean | false | false | request with swagger doc `host` in when invoke the `requester` func |
+| withBasePath | boolean | false | false | request with swagger doc `basePath` in when invoke the `requester` func |
+| keepGeneric | boolean | false | true | try parse available generic type |
+| translationEngine | 'baidu' \| 'google' | false |  | translate special charators in swagger doc definitions |
+| shouldMockResponseStatement | string | false | "process.env.NODE_ENV === 'test'" | boolean statement switcher for using mock data |
+| prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | prettier v2 options |
+| transformJS | boolean | false | false | should generate js file |
 
-### axios
 
-`ts-gear`内置的`axiosRequester`接受一个`axios`的实例作为参数，如果没有则使用默认的`axios`。
+### Directory information
 
-对于`axios`的各种配置可自己首先创建一个`axios`实例，然后传入`axiosRequester`使用。
+* The `definition.ts` is generated by the `definitions` part of `swagger spec`, includes all the base data structures.
 
-### 目录结构
-
-* `definition.ts`由`definitions`部分生成，包含所有基础类型定义。
-
-* `request.ts`由`paths`生成，请求函数的命名规则：`http request + api path`，例如:
+* The `request.ts` is generated by the `paths` part of `swagger spec`，each request function naming rule is `http request + api path`，for example:
 
 ```javascript
   "paths": {
     "/pet": {
-      "post": { // 生成 `postPet`
+      "post": { // will generate `postPet` function
       ...
       },
     },
     "/pet/findByTags": {
-      "get": { // 生成 'getPetFindByTags'
+      "get": { // will generate 'getPetFindByTags' function
       ...
       },
     },
     "/pet/{petId}": {
-      "get": { // 生成 'getPetPetId' function
+      "get": { // will generate 'getPetPetId' function
       ...
       },
     },
 ```
 
-* `index.ts`是`definition.ts`与`request.ts`的导出出口文件。
+* The `index.ts` is entry file for `definition.ts` and `request.ts`.
 
-每个请求函数的入参与返回数据类型，都会生成确定的ts类型。
+Each request function parameter type and return type are mapped to the swagger definition.
 
-如果生成的请求函数不能满足需求，也可以只使用`definition.ts`中的数据类型定义。
+If you prefer to use your owne request way, you can only use the `definition.ts` for data type.
+
+## Errata And Feedback
+
+This tool only has the `swagger ui` pet fixture and my projects swagger spec docs for dev fixtures. Issues are welcomed when you errors occurand remember to provide your swagger doc for fixtures, just some problem part definitions are enough.
