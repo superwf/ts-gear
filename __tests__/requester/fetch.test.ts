@@ -1,9 +1,14 @@
-import { getOnce, postOnce, putOnce, lastCall } from 'fetch-mock'
+import * as fetchMock from 'fetch-mock'
 import 'whatwg-fetch'
 import { requester } from 'src/requester/fetch'
 
+const getOnce = fetchMock.getOnce.bind(fetchMock)
+const postOnce = fetchMock.postOnce.bind(fetchMock)
+const putOnce = fetchMock.putOnce.bind(fetchMock)
+const lastCall = fetchMock.lastCall.bind(fetchMock)
+
 describe('requester fetch', () => {
-  it.only('get header', async () => {
+  it('get header', async () => {
     getOnce('/abc', { ok: true })
     let result = await requester()('/abc', {
       method: 'get',
@@ -37,18 +42,18 @@ describe('requester fetch', () => {
 
   it('intercept request', async () => {
     getOnce('/abc', 200, { overwriteRoutes: true })
-    expect(async () => {
-      await requester()('/abc/:id/:slot', {
+    await expect(async () => {
+      return requester()('/abc/:id/:slot', {
         path: { id: '1' },
       })
-    }).toThrow(/Expected "slot" to be a string/)
+    }).rejects.toThrow(/Expected/)
   })
 
   it('response error', async () => {
     getOnce('/return500', { status: 500 })
-    expect(async () => {
+    await expect(async () => {
       await requester()('/return500')
-    }).toThrow(/status: 500 url: \/return500\//)
+    }).rejects.toThrow(/status: 500, Internal Server Error, url: \/return500/)
     const call = lastCall()
     expect(call![0]!).toBe('/return500')
     // expect(result).toEqual({ ok: true })

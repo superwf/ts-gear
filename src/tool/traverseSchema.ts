@@ -1,5 +1,4 @@
 import * as traverse from 'traverse'
-
 import type { TraverseSchemaNode } from '../type'
 
 /**

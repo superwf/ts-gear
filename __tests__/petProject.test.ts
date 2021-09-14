@@ -1,6 +1,4 @@
 import 'whatwg-fetch'
-import * as URL from 'url'
-
 import { deletePetPetId, getUserLogin } from 'example/petProject/src/service/pet/request'
 
 /** 在run的测试用例运行之后，已经生成了pet的service文件 */
@@ -60,7 +58,7 @@ describe('pet methods', () => {
       query,
     })
     expect(mockFetch).toHaveBeenCalledTimes(1)
-    expect(mockFetch).toHaveBeenLastCalledWith(`/v2/user/login${URL.format({ query })}`, {
+    expect(mockFetch).toHaveBeenLastCalledWith(`/v2/user/login?${new URLSearchParams(query)}`, {
       method: 'get',
     })
     expect(res).toEqual(mockRes)

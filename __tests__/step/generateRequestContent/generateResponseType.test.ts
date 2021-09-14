@@ -13,6 +13,7 @@ describe('response type content', () => {
     source: 'fixture/pet.json',
     importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
   }
+
   it('response', () => {
     const schema = cloneDeep(petSpec) as Spec
     step.cleanRefAndDefinitionName(schema, true)

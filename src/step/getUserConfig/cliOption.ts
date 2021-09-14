@@ -1,5 +1,4 @@
-import * as program from 'commander'
-
+import { Command } from 'commander'
 import { configFileName } from '../../constant'
 
 function collectProjects(value: string) {
@@ -12,14 +11,16 @@ interface IResult {
   config: string
 }
 
+const program = new Command()
+
 /**
- * @remarks collect project names from cli
+ * collect project names from cli
  * */
 export const getCliOption = (): IResult => {
   // eslint-disable-next-line
-  // const pkg = require('../../../package.json')
+  const pkg = require('../../../package.json')
   program
-    // .version(pkg.version)
+    .version(pkg.version)
     .usage('tsg or tsg -p projectName')
     .option(
       '-p, --projects <project name>',
@@ -30,21 +31,23 @@ export const getCliOption = (): IResult => {
     .option('-c, --config <assign config file>', 'assign config file')
     .parse(process.argv)
 
+  const options = program.opts()
+
   const result: IResult = {
     names: [],
-    init: Boolean(program.init),
+    init: Boolean(options.init),
     config: '',
   }
-  const names = program.projects
+  const names = options.projects
   if (names) {
     result.names = names
   }
-  if (program.config) {
-    result.config = String(program.config).trim()
+  if (options.config) {
+    result.config = String(options.config).trim()
   }
   // if not delete commander cache
   // program will keep cache and break test
-  delete program.projects
-  delete program.init
+  delete options.projects
+  delete options.init
   return result
 }

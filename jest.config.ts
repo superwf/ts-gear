@@ -1,3 +1,17 @@
+import { sep, join } from 'path'
+import { reduce } from 'lodash'
+import { defaults as tsjPreset } from 'ts-jest/presets'
+import tsconfig = require('./tsconfig.json')
+
+const pathAlias = reduce(
+  tsconfig.compilerOptions.paths,
+  (r, v, k) => ({
+    ...r,
+    [k.replace(`${sep}*`, '')]: join(__dirname, v[0].replace(`${sep}*`, '')),
+  }),
+  {} as Record<string, string>,
+)
+
 /*
  * For a detailed explanation regarding each configuration property and type check, visit:
  * https://jestjs.io/docs/configuration
@@ -20,7 +34,7 @@ export default {
   collectCoverage: true,
 
   // An array of glob patterns indicating a set of files for which coverage information should be collected
-  // collectCoverageFrom: undefined,
+  collectCoverageFrom: ['src/**/*.{ts,tsx}', '!*.d.ts', '!src/main.ts'],
 
   // The directory where Jest should output its coverage files
   coverageDirectory: 'coverage',
@@ -34,12 +48,7 @@ export default {
   coverageProvider: 'v8',
 
   // A list of reporter names that Jest uses when writing coverage reports
-  // coverageReporters: [
-  //   "json",
-  //   "text",
-  //   "lcov",
-  //   "clover"
-  // ],
+  coverageReporters: ['text-summary', 'text', 'json', 'lcov', 'clover', 'json-summary'],
 
   // An object that configures minimum threshold enforcement for coverage results
   // coverageThreshold: undefined,
@@ -71,17 +80,19 @@ export default {
   // ],
 
   // An array of file extensions your modules use
-  // moduleFileExtensions: [
-  //   "js",
-  //   "jsx",
-  //   "ts",
-  //   "tsx",
-  //   "json",
-  //   "node"
-  // ],
+  moduleFileExtensions: ['js', 'jsx', 'ts', 'tsx', 'json', 'node'],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    ...reduce(
+      pathAlias,
+      (r, v, k) => {
+        r[`^${k}/(.+)$`] = `${v.replace(__dirname, '<rootDir>')}/$1`
+        return r
+      },
+      {} as Record<string, string>,
+    ),
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -158,6 +169,7 @@ export default {
 
   // The regexp pattern or array of patterns that Jest uses to detect test files
   // testRegex: [],
+  testRegex: ['__tests__/.*\\.test\\.ts$'],
 
   // This option allows the use of a custom results processor
   // testResultsProcessor: undefined,
@@ -172,7 +184,10 @@ export default {
   // timers: "real",
 
   // A map from regular expressions to paths to transformers
-  // transform: undefined,
+  transform: {
+    ...tsjPreset.transform,
+    '^.+\\.(js|jsx|mjs)$': '<rootDir>/node_modules/ts-jest',
+  },
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
   // transformIgnorePatterns: [
@@ -187,7 +202,7 @@ export default {
   // verbose: undefined,
 
   // An array of regexp patterns that are matched against all source file paths before re-running tests in watch mode
-  // watchPathIgnorePatterns: [],
+  watchPathIgnorePatterns: ['tmp', 'example'],
 
   // Whether to use watchman for file crawling
   // watchman: true,

@@ -1,5 +1,5 @@
 /** use native fetch to request */
-import * as URL from 'url'
+import { URL } from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 import type { RequestParameter, Requester } from 'ts-gear'
@@ -18,16 +18,29 @@ export const parseUrl = (url: string, option: RequestParameter): string => {
     url = pathToRegexp.compile(url)(option.path)
   }
   if (option.query) {
-    const urlObject = URL.parse(url, true) // true: let the urlObject.query is object
-    // see url#format, only search is absent, query will be used
-    delete urlObject.search
-    url = URL.format({
-      ...urlObject,
-      query: {
-        ...urlObject.query,
-        ...option.query,
-      },
+    let onlyPathname = false
+    if (!url.startsWith('http:') || !url.startsWith('https:')) {
+      url = `http://fakehost${url}`
+      onlyPathname = true
+    }
+    const urlObject = new URL(url)
+    const search = new URLSearchParams(urlObject.search)
+    Object.getOwnPropertyNames(option.query).forEach(k => {
+      const v = option.query[k]
+      if (Array.isArray(v)) {
+        v.forEach((item, i) => {
+          if (i === 0) {
+            search.set(k, item)
+          } else {
+            search.append(k, item)
+          }
+        })
+      } else {
+        search.set(k, v)
+      }
     })
+    const searchString = search.toString()
+    url = `${onlyPathname ? '' : urlObject.origin}${urlObject.pathname}${searchString ? '?' : ''}${searchString}`
   }
   return url
 }
@@ -44,11 +57,7 @@ export function interceptRequest(
   },
 ): [string, RequestInit] {
   const { requestInit } = option
-  try {
-    url = parseUrl(url, option)
-  } catch (e) {
-    throw new Error(e.message)
-  }
+  url = parseUrl(url, option)
   const requestOption: RequestInit = {
     method: option.method,
     ...requestInit,
@@ -107,7 +116,7 @@ export function interceptResponse(res: Response) {
 }
 
 /** native fetch wrappper */
-export const requester: Requester = (apiUrl: string, param?: any) => {
+export const requester: Requester = async (apiUrl: string, param?: any) => {
   const [url, option] = interceptRequest(apiUrl, { ...param })
   return fetch(url, option).then(interceptResponse)
 }

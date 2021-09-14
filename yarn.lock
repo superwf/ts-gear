@@ -1631,10 +1631,10 @@ combined-stream@^1.0.8:
   dependencies:
     delayed-stream "~1.0.0"
 
-commander@^4.1.0:
-  version "4.1.1"
-  resolved "http://registry.m.jd.com/commander/download/commander-4.1.1.tgz#9fd602bd936294e9e9ef46a3f4d6964044b18068"
-  integrity sha1-n9YCvZNilOnp70aj9NaWQESxgGg=
+commander@^8.2.0:
+  version "8.2.0"
+  resolved "http://registry.m.jd.com/commander/download/commander-8.2.0.tgz#37fe2bde301d87d47a53adeff8b5915db1381ca8"
+  integrity sha1-N/4r3jAdh9R6U63v+LWRXbE4HKg=
 
 commitlint@^11.0.0:
   version "11.0.0"
@@ -4718,7 +4718,7 @@ progress@^2.0.0:
   resolved "http://registry.m.jd.com/progress/download/progress-2.0.3.tgz#7e8cf8d8f5b8f239c1bc68beb4eb78567d572ef8"
   integrity sha1-foz42PW48jnBvGi+tOt4Vn1XLvg=
 
-prompts@^2.0.1, prompts@^2.3.2:
+prompts@^2.0.1, prompts@^2.4.1:
   version "2.4.1"
   resolved "http://registry.m.jd.com/prompts/download/prompts-2.4.1.tgz#befd3b1195ba052f9fd2fde8a486c4e82ee77f61"
   integrity sha1-vv07EZW6BS+f0v3opIbE6C7nf2E=

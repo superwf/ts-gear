@@ -1,5 +1,5 @@
 /** use native fetch to request */
-import * as URL from 'url'
+import { URL } from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 import type { RequestParameter, Requester } from '../type'
@@ -18,16 +18,29 @@ export const parseUrl = (url: string, option: RequestParameter): string => {
     url = pathToRegexp.compile(url)(option.path)
   }
   if (option.query) {
-    const urlObject = URL.parse(url, true) // true: let the urlObject.query is object
-    // see url#format, only search is absent, query will be used
-    delete urlObject.search
-    url = URL.format({
-      ...urlObject,
-      query: {
-        ...urlObject.query,
-        ...option.query,
-      },
+    let onlyPathname = false
+    if (!url.startsWith('http:') || !url.startsWith('https:')) {
+      url = `http://localhost${url}`
+      onlyPathname = true
+    }
+    const urlObject = new URL(url)
+    const search = new URLSearchParams(urlObject.search)
+    Object.getOwnPropertyNames(option.query).forEach(k => {
+      const v = option.query[k]
+      if (Array.isArray(v)) {
+        v.forEach((item, i) => {
+          if (i === 0) {
+            search.set(k, item)
+          } else {
+            search.append(k, item)
+          }
+        })
+      } else {
+        search.set(k, v)
+      }
     })
+    const searchString = search.toString()
+    url = `${onlyPathname ? '' : urlObject.origin}${urlObject.pathname}${searchString ? '?' : ''}${searchString}`
   }
   return url
 }
@@ -52,7 +65,6 @@ export function interceptRequest(
     }
     throw e
   }
-  console.log(url)
   const requestOption: RequestInit = {
     method: option.method,
     ...requestInit,
