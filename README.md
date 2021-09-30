@@ -6,7 +6,7 @@
 
 - [ts-gear](#ts-gear)
   - [Overview](#overview)
-    - [Key feature](#key-feature)
+    - [Key feature ☯](#key-feature-☯)
   - [Example](#example)
   - [Installation](#installation)
   - [Usage](#usage)
@@ -36,9 +36,11 @@ With this tool all openapi doc definition and request methods would be converted
 
 If you have tried `pont`, `OpenAPI Generator`, `swagger-codegen` or `oazapfts` and some other tools, but get errors, just try this.
 
-### Key feature
+### Key feature ☯
 
-1. high compatibility with various kind of openapi doc definition.
+These features make this lib different with `pont`, `OpenAPI Generator`, `swagger-codegen` or `oazapfts` and some tools, if you know some thing better, please let me know.
+
+1. **high compatibility** with various kind of openapi doc definition.
 
 Most other code generators depends on the standard openapi spec doc.
 
@@ -54,15 +56,15 @@ But in real world, especially in my case, all doc has some definition errors.
 
 `ts-gear` try most to resolve all thses issues.
 
-1. Each request is an independ function, best for tree shake.
+1. Each request is an independ function, best for **TREE SHAKE**.
 
-1. Try most to generate generic types, if fail, you can update config `keepGeneric: false` to generate your service that at least can work.
+1. Try most to generate **generic types**, if fail, you can update config `keepGeneric: false` to generate your service that at least can work.
 
-1. Use prettier to output service files, and the prettier config can be configured.
+1. Use **prettier** to output service files, and the prettier config can be configured.
 
-1. Use `ts-morph` for most ast operation, so most error occur in code generating step, not runtime step.
+1. Use `ts-morph` for most **ast operation**, so most error occur in code generating step, not runtime step.
 
-1. Automatically Support OpenAPI Specification v2 and v3, no need to appoint in config file.
+1. Automatically **Support OpenAPI Specification v2 and v3**, no need to appoint in config file.
 
 ## Example
 
