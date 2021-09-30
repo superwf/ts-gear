@@ -6,14 +6,25 @@
 
 - [ts-gear](#ts-gear)
   - [Overview](#overview)
+    - [Key feature](#key-feature)
   - [Example](#example)
   - [Installation](#installation)
   - [Usage](#usage)
     - [Initiate configuration file](#initiate-configuration-file)
     - [Run](#run)
     - [Check service directory](#check-service-directory)
+    - [Use in your code](#use-in-your-code)
+  - [Test coverage](#test-coverage)
+  - [Diveinto source](#dive-into-source)
+  - [Other similar tools](#other-similar-tools)
 
 ## Overview
+
+Inspired by [pont](https://github.com/alibaba/pont).
+
+When I first had the idea for automatically generate typescript from json schema, I found `pont`. But it was in an early unstable stage, and I do not like the output code style, and the worst is it can not process some bad defined swagger doc.
+
+So after some trying I stopped using `pont`, and deside to make a new wheel.
 
 Parse openapi prototal then generate your service code by one command.
 
@@ -23,7 +34,35 @@ Ts-gear can be used to generate typescript type files and request function from 
 
 With this tool all openapi doc definition and request methods would be converted to typescript request functions automatically, and when the doc updates, just rerun `tsg` typescript will report any type updates.
 
-If you have tried `OpenAPI Generator`, `swagger-codegen` or `oazapfts` and some other tools, but get errors, just try this.
+If you have tried `pont`, `OpenAPI Generator`, `swagger-codegen` or `oazapfts` and some other tools, but get errors, just try this.
+
+### Key feature
+
+1. high compatibility with various kind of openapi doc definition.
+
+Most other code generators depends on the standard openapi spec doc.
+
+But in real world, especially in my case, all doc has some definition errors.
+
+- Many `$ref` does not has corresponding `definition`.
+
+- Many unregular charators occur in names and properties those can not be used as variable or type name, such as "输出参数".
+
+- Too hard to parse generic types as `ReplyVO<PageVO<List>>`.
+
+- Many javascript key word conflict such as `Map`, `Set`.
+
+`ts-gear` try most to resolve all thses issues.
+
+1. Each request is an independ function, best for tree shake.
+
+1. Try most to generate generic types, if fail, you can update config `keepGeneric: false` to generate your service that at least can work.
+
+1. Use prettier to output service files, and the prettier config can be configured.
+
+1. Use `ts-morph` for most ast operation, so most error occur in code generating step, not runtime step.
+
+1. Automatically Support OpenAPI Specification v2 and v3, no need to appoint in config file.
 
 ## Example
 
@@ -69,7 +108,7 @@ npx tsg -p pet
 
 ### check service directory
 
-The service directory structure should look like below.
+The service directory structure should look like as below.
 
 ```bash
 ▾ src/
@@ -104,115 +143,51 @@ getPetPetId({
 
 ![type generated example](./doc/pet.gif)
 
-## Version 3 new features and changes.
+## Test coverage
 
-* Try the most to parse and generate `generic type` names, as `ReplyVO<Data>`.
+![Statements](./badge/badge-statements.svg)
 
-* Use `swagger-schema-official` for openapi type definition.
+![Branches](./badge/badge-branches.svg)
 
-* Generate `enum` types, like `export type PetStatus = "available" | "pending" | "sold";`.
+![Functions](./badge/badge-functions.svg)
 
-* More detailed information for every type and properties document.
+![Lines](./badge/badge-lines.svg)
 
-* Use `tsg.config.ts` file in `src` directory for configuration file, to include all code generating process in typescript system.
+### Dive into source
 
-* Most part use `ts-morph` typescript syntax parser to generate code.
+process openapi doc steps as shown below.
 
-* Use `swagger-ui` mock methods to provide `${requestFunctionName}MockData` for each request function for test env.
+- read user config file.
 
-* Every project configureable features.
+- filter projects by name if there are command line params.
 
-  * Configureable `translationEngine`, "baidu" or "google" are available.
+- fetch each project swagger doc.
 
-  * Configureable `requester` option, a "fetch" and an "axios" requester are provided out of box by `ts-gear`, self custom requester is also accepted.
+- translate if transate engine is assigned.
 
-  * Configureable "dest" directory.
+- format unregular charators in $ref and definitions.
 
-  * add configuration option `withHost` and `withBasePath`.
+- process generic type names.
 
-  * `preferClass` option to generate `class` instead of `interface`, default `false`. When set to true, but most properties do not has default value, so you need to set your `tsconfig.json` as below.
+- assemble requests and definitions to global map variables.
 
-    ```typescript
-      "strictPropertyInitialization": false,
-    ```
+- prepare project dest directory.
 
-  * `keepGeneric` default true, but if there are some errors occuring when running `tsg`, this option could be set to `false` to generate more stable code.
+- generate and write enum and definitions.
 
-  * `shouldMockResponseStatement` default `"process.env.NODE_ENV === 'test'"` to generate mock response for test env. use this statement could make the mock response code removeable when production optimized.
+- generate and write request.
 
-  * `prettierConfig` for output code prettier style, only support `prettier` version 2 configuration.
-
-  * `useCache` default false, set true to enable cache.
-
-## test coverage
-
-real coverage more than 50%.
-
-### Statements
-
-![Statements](./badges/badge-statements.svg)
-
-### Branches
-
-![Branches](./badges/badge-branches.svg)
-
-### Functions
-
-![Functions](./badges/badge-functions.svg)
-
-### Lines
-
-![Lines](./badges/badge-lines.svg)
-
-### process swagger spec doc steps(or check `src/run.ts`).
-
-* read user config file.
-
-* filter projects by name if there are command line params.
-
-* fetch each project swagger doc.
-
-* translate if transate engine is assigned.
-
-* format unregular charators in $ref and definitions.
-
-* process generic type names.
-
-* assemble requests and definitions to global map variables.
-
-* prepare project dest directory.
-
-* generate and write enum and definitions.
-
-* generate and write request.
-
-* write project directory "index.ts".
-
-## Origin
-
-Inspired by [pont](https://github.com/alibaba/pont).
-
-When I first had the idea for automatically generate typescript from json schema, I found `pont`. But it was in an early unstable stage, so after some trying I stopped using it, and write this one for more compatible to the swagger doc style of my own team.
+- write project directory "index.ts".
 
 ## Other similar tools
 
-* [OpenAPI Generator](https://openapi-generator.tech/)
+- [OpenAPI Generator](https://openapi-generator.tech/)
 
     Here are many languages support. If the swagger doc is defined generally standard, this tool is enough.
 
-* [oazapfts](https://github.com/cellular/oazapfts)
+- [oazapfts](https://github.com/cellular/oazapfts)
 
     oazapfts use typescript native api to generate ts file, but non-standard swagge doc generated code could not work out of box.
-
-### What is this one different to other similar ones?
-
-Most other code generators depends on the standard swagger spec doc.
-
-But in real world, especially in my case, most swagger doc has many definition errors. There are many `$ref` does not has corresponding `definition`, many unregular charators occur in names and properties, also the generic parse problems as `ReplyVO<PageVO<List>>`.
-
-`ts-gear` try most to resolve all thses issues.
-
-Support OpenAPI Specification v2 and v3.
 
 ### Config
 
@@ -251,9 +226,9 @@ export default projects
 
 ### Directory information
 
-* The `definition.ts` is generated by the `definitions` part of `swagger spec`, includes all the base data structures.
+- The `definition.ts` is generated by the `definitions` part of `swagger spec`, includes all the base data structures.
 
-* The `request.ts` is generated by the `paths` part of `swagger spec`，each request function naming rule is `http request + api path`，for example:
+- The `request.ts` is generated by the `paths` part of `swagger spec`，each request function naming rule is `http request + api path`，for example:
 
 ```javascript
   "paths": {
