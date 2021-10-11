@@ -47,9 +47,14 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
     const requestFunctionSource = sow()
-    const requesterStatment = `return requester(url, {${withHost ? `, host: '${spec.host}'` : ''}${
-      withBasePath ? `, basePath: '${spec.basePath}'` : ''
-    }method${parameterTypeName ? ', ...option' : ''}}) as unknown as Promise<${responseType.successTypeName}>`
+    const requesterStatment = `return requester(url, {${[
+      withHost ? `host: '${spec.host}'` : '',
+      withBasePath ? `, basePath: '${spec.basePath}'` : '',
+      'method',
+      parameterTypeName ? ', ...option' : '',
+    ]
+      .filter(Boolean)
+      .join(',')}}) as unknown as Promise<${responseType.successTypeName}>`
     /** 生成mock data */
     const functionStatment = requesterStatment
     const functionData: OptionalKind<FunctionDeclarationStructure> = {
