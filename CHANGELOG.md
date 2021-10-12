@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.5](https://github.com/superwf/ts-gear/compare/v4.0.4...v4.0.5) (2021-10-12)
+
+
+### Bug Fixes
+
+* generateRequestContent ([ba60b92](https://github.com/superwf/ts-gear/commit/ba60b9268eec3fca59b9e57bcaaa9e0bf99cd534))
+
 ### [4.0.4](https://github.com/superwf/ts-gear/compare/v4.0.3...v4.0.4) (2021-10-11)
 
 
