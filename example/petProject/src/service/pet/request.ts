@@ -52,10 +52,10 @@ export const putPet = /* #__PURE__ */ (() => {
   const method = "put";
   const url = "/v2/pet";
   function request(option: PutPetOption): Promise<PutPetResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PutPetResponseSuccess>;
+    }) as unknown) as Promise<PutPetResponseSuccess>;
   }
 
   /** http method */
@@ -96,10 +96,10 @@ export const postPet = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/v2/pet";
   function request(option: PostPetOption): Promise<PostPetResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetResponseSuccess>;
+    }) as unknown) as Promise<PostPetResponseSuccess>;
   }
 
   /** http method */
@@ -151,10 +151,10 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
   function request(
     option: GetPetFindByStatusOption
   ): Promise<GetPetFindByStatusResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetPetFindByStatusResponseSuccess>;
+    }) as unknown) as Promise<GetPetFindByStatusResponseSuccess>;
   }
 
   /** http method */
@@ -213,10 +213,10 @@ export const getPetPetId = /* #__PURE__ */ (() => {
   function request(
     option: GetPetPetIdOption
   ): Promise<GetPetPetIdResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetPetPetIdResponseSuccess>;
+    }) as unknown) as Promise<GetPetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -280,10 +280,10 @@ export const postPetPetId = /* #__PURE__ */ (() => {
   function request(
     option: PostPetPetIdOption
   ): Promise<PostPetPetIdResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetPetIdResponseSuccess>;
+    }) as unknown) as Promise<PostPetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -340,10 +340,10 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
   function request(
     option: DeletePetPetIdOption
   ): Promise<DeletePetPetIdResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<DeletePetPetIdResponseSuccess>;
+    }) as unknown) as Promise<DeletePetPetIdResponseSuccess>;
   }
 
   /** http method */
@@ -407,10 +407,10 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   function request(
     option: PostPetPetIdUploadImageOption
   ): Promise<PostPetPetIdUploadImageResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostPetPetIdUploadImageResponseSuccess>;
+    }) as unknown) as Promise<PostPetPetIdUploadImageResponseSuccess>;
   }
 
   /** http method */
@@ -443,9 +443,9 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/v2/store/inventory";
   function request(): Promise<GetStoreInventoryResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
-    }) as Promise<GetStoreInventoryResponseSuccess>;
+    }) as unknown) as Promise<GetStoreInventoryResponseSuccess>;
   }
 
   /** http method */
@@ -492,10 +492,10 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
   function request(
     option: PostStoreOrderOption
   ): Promise<PostStoreOrderResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostStoreOrderResponseSuccess>;
+    }) as unknown) as Promise<PostStoreOrderResponseSuccess>;
   }
 
   /** http method */
@@ -554,10 +554,10 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   function request(
     option: GetStoreOrderOrderIdOption
   ): Promise<GetStoreOrderOrderIdResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetStoreOrderOrderIdResponseSuccess>;
+    }) as unknown) as Promise<GetStoreOrderOrderIdResponseSuccess>;
   }
 
   /** http method */
@@ -611,10 +611,10 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   function request(
     option: DeleteStoreOrderOrderIdOption
   ): Promise<DeleteStoreOrderOrderIdResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteStoreOrderOrderIdResponseSuccess>;
+    }) as unknown) as Promise<DeleteStoreOrderOrderIdResponseSuccess>;
   }
 
   /** http method */
@@ -654,10 +654,10 @@ export const postUser = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/v2/user";
   function request(option: PostUserOption): Promise<PostUserResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserResponseSuccess>;
+    }) as unknown) as Promise<PostUserResponseSuccess>;
   }
 
   /** http method */
@@ -699,10 +699,10 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
   function request(
     option: PostUserCreateWithArrayOption
   ): Promise<PostUserCreateWithArrayResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserCreateWithArrayResponseSuccess>;
+    }) as unknown) as Promise<PostUserCreateWithArrayResponseSuccess>;
   }
 
   /** http method */
@@ -744,10 +744,10 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
   function request(
     option: PostUserCreateWithListOption
   ): Promise<PostUserCreateWithListResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostUserCreateWithListResponseSuccess>;
+    }) as unknown) as Promise<PostUserCreateWithListResponseSuccess>;
   }
 
   /** http method */
@@ -803,10 +803,10 @@ export const getUserLogin = /* #__PURE__ */ (() => {
   function request(
     option: GetUserLoginOption
   ): Promise<GetUserLoginResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetUserLoginResponseSuccess>;
+    }) as unknown) as Promise<GetUserLoginResponseSuccess>;
   }
 
   /** http method */
@@ -837,7 +837,9 @@ export const getUserLogout = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/v2/user/logout";
   function request(): Promise<GetUserLogoutResponseSuccess> {
-    return requester(url, { method }) as Promise<GetUserLogoutResponseSuccess>;
+    return (requester(url, {
+      method,
+    }) as unknown) as Promise<GetUserLogoutResponseSuccess>;
   }
 
   /** http method */
@@ -894,10 +896,10 @@ export const getUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: GetUserUsernameOption
   ): Promise<GetUserUsernameResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetUserUsernameResponseSuccess>;
+    }) as unknown) as Promise<GetUserUsernameResponseSuccess>;
   }
 
   /** http method */
@@ -954,10 +956,10 @@ export const putUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: PutUserUsernameOption
   ): Promise<PutUserUsernameResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PutUserUsernameResponseSuccess>;
+    }) as unknown) as Promise<PutUserUsernameResponseSuccess>;
   }
 
   /** http method */
@@ -1009,10 +1011,10 @@ export const deleteUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: DeleteUserUsernameOption
   ): Promise<DeleteUserUsernameResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteUserUsernameResponseSuccess>;
+    }) as unknown) as Promise<DeleteUserUsernameResponseSuccess>;
   }
 
   /** http method */

@@ -114,10 +114,10 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
   function request(
     option?: GetApiDatamapFieldDefOption,
   ): Promise<GetApiDatamapFieldDefResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<GetApiDatamapFieldDefResponseSuccess>
+    }) as unknown) as Promise<GetApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -173,10 +173,10 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
   function request(
     option?: PutApiDatamapFieldDefOption,
   ): Promise<PutApiDatamapFieldDefResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PutApiDatamapFieldDefResponseSuccess>
+    }) as unknown) as Promise<PutApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -227,10 +227,10 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   function request(
     option?: PostApiDatamapFieldDefOption,
   ): Promise<PostApiDatamapFieldDefResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<PostApiDatamapFieldDefResponseSuccess>
+    }) as unknown) as Promise<PostApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */
@@ -281,10 +281,10 @@ export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
   function request(
     option?: DeleteApiDatamapFieldDefOption,
   ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
+    }) as unknown) as Promise<DeleteApiDatamapFieldDefResponseSuccess>
   }
 
   /** http method */

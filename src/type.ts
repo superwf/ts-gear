@@ -289,7 +289,7 @@ export interface Project {
    * if you need, use this option to generate your function all by your self
    * 生成请求函数体的自定义方法，返回字符串作为函数体模板
    * */
-  generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter) => string
+  generateRequestFunction?: (arg: GenerateRequestFunctionNameParameter & { originSource: string }) => string
 
   /**
    * need js file? OK, change this to true

@@ -1979,10 +1979,10 @@ cross-env@^5.2.0:
   dependencies:
     cross-spawn "^6.0.5"
 
-cross-fetch@^3.0.6:
-  version "3.0.6"
-  resolved "http://registry.m.jd.com/cross-fetch/download/cross-fetch-3.0.6.tgz#3a4040bc8941e653e0e9cf17f29ebcd177d3365c"
-  integrity sha1-OkBAvIlB5lPg6c8X8p680XfTNlw=
+cross-fetch@^3.1.4:
+  version "3.1.4"
+  resolved "http://registry.m.jd.com/cross-fetch/download/cross-fetch-3.1.4.tgz#9723f3a3a247bf8b89039f3a380a9244e8fa2f39"
+  integrity sha1-lyPzo6JHv4uJA586OAqSROj6Lzk=
   dependencies:
     node-fetch "2.6.1"
 

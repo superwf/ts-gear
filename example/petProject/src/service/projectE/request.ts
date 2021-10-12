@@ -51,10 +51,10 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   function request(
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
-    return requester(url, {
+    return (requester(url, {
       method,
       ...option,
-    }) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
+    }) as unknown) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
   /** http method */

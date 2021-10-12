@@ -91,6 +91,13 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
         return mockRequest
       `
     const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
+    const sourceContent = `/* #__PURE__ */ (() => {
+         /** http method */
+         const method = '${httpMethod}'
+         /** request url */
+         const url = '${urlPath}'
+         ${mockFunctionContent}
+    })()`
     source.addVariableStatement({
       declarationKind: 'const' as VariableDeclarationKind.Const,
       docs: assembleDoc(request.schema),
@@ -103,14 +110,9 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
                 httpMethod,
                 pathname: request.pathname,
                 schema: spec,
+                originSource: sourceContent,
               })
-            : `/* #__PURE__ */ (() => {
-              /** http method */
-              const method = '${httpMethod}'
-              /** request url */
-              const url = '${urlPath}'
-              ${mockFunctionContent}
-         })()`,
+            : sourceContent,
         },
       ],
     })
