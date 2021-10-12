@@ -1,5 +1,5 @@
 import { join } from 'path'
-import 'whatwg-fetch'
+import 'isomorphic-fetch'
 import { error, info } from '../tool/log'
 import type { Project } from '../type'
 

@@ -49,9 +49,9 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const requestFunctionSource = sow()
     const requesterStatment = `return requester(url, {${[
       withHost ? `host: '${spec.host}'` : '',
-      withBasePath ? `, basePath: '${spec.basePath}'` : '',
+      withBasePath ? `basePath: '${spec.basePath}'` : '',
       'method',
-      parameterTypeName ? ', ...option' : '',
+      parameterTypeName ? '...option' : '',
     ]
       .filter(Boolean)
       .join(',')}}) as unknown as Promise<${responseType.successTypeName}>`
@@ -72,6 +72,16 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
       })
     }
     requestFunctionSource.addFunction(functionData)
+    const sourceContent = `/* #__PURE__ */ (() => {
+       const method = '${httpMethod}'
+       const url = '${urlPath}'
+       ${harvest(requestFunctionSource)}
+       /** http method */
+       request.method = method
+       /** request url */
+       request.url = url
+       return request
+    })()`
     source.addVariableStatement({
       declarationKind: 'const' as VariableDeclarationKind.Const,
       docs: assembleDoc(request.schema),
@@ -84,17 +94,9 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
                 httpMethod,
                 pathname: request.pathname,
                 schema: spec,
+                originSource: sourceContent,
               })
-            : `/* #__PURE__ */ (() => {
-            const method = '${httpMethod}'
-            const url = '${urlPath}'
-            ${harvest(requestFunctionSource)}
-            /** http method */
-            request.method = method
-            /** request url */
-            request.url = url
-            return request
-         })()`,
+            : sourceContent,
         },
       ],
     })
