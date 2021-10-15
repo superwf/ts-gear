@@ -48,7 +48,7 @@ export function interceptRequest(
   const { requestInit } = option
   try {
     url = parseUrl(url, option)
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(e.message)
   }
   const requestOption: RequestInit = {

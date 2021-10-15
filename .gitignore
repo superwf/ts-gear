@@ -6,3 +6,4 @@ example/service/ignore
 tmp
 coverage
 lib
+.idea

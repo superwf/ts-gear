@@ -18,7 +18,7 @@ export async function translate(text: string, engineName: TranslationEngine) {
       to: 'en',
     })
     return res.result!.join('')
-  } catch (e) {
+  } catch (e: any) {
     throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e.message}`)
   }
 }
