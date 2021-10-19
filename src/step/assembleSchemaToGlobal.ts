@@ -50,17 +50,20 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
   forEach(spec.paths, (pathSchema /** Path */, pathname) => {
     const genFunctionName = project.generateRequestFunctionName || generateRequestFunctionName
     forEach(httpMethods, httpMethod => {
-      const operation = pathSchema[httpMethod]
+      const operation: any = pathSchema[httpMethod]
       if (operation && !operation.deprecated) {
-        let { parameters } = operation
+        // parameters 有可能为空
+        let { parameters = [] } = operation
         /**
          * 兼容openapiv3，将requestBody格式组装成与v2相同的数据结构
          * 这段代码不应该放到这里，以后有空抽离出去单独测试，如果有空的话
          * */
         if ('requestBody' in operation) {
           const v3Parameters = [] as any[]
-          const { content } = (operation as any).requestBody
-          const required = getRequiredDeep((operation as any).requestBody.content)
+          const { requestBody } = operation
+          const { content } = requestBody
+          // openapi3 required in requestBody
+          const required = 'required' in requestBody ? requestBody.required : getRequiredDeep(content)
           const schema = getSchemaDeep(content)
           v3Parameters.push({
             in: content['multipart/form-data'] ? 'formData' : 'body',
@@ -68,7 +71,8 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
             required,
             schema,
           })
-          parameters = v3Parameters
+          // 合并v3参数
+          parameters = parameters.concat(v3Parameters)
         }
         requestMap[
           genFunctionName({

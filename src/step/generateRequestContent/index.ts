@@ -44,7 +44,8 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const responseType = generateResponseType(requestFunctionName, request.responses, project)
     requestTypeScriptContent.push(responseType.responseTypeContent)
     requestTypeScriptContent.push(responseType.successTypeContent)
-    const urlPath = join(spec.basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
+    const basePath = project.withBasePath ? spec.basePath : null
+    const urlPath = join(basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
     const requestFunctionSource = sow()
     const requesterStatment = `return requester(url, {${[
@@ -95,6 +96,10 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
                 pathname: request.pathname,
                 schema: spec,
                 originSource: sourceContent,
+                project,
+                parameterRequired,
+                parameterTypeName,
+                responseSuccessTypeName: responseType.successTypeName,
               })
             : sourceContent,
         },

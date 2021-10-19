@@ -3,7 +3,7 @@ import * as join from 'url-join'
 import type { Spec } from 'swagger-schema-official'
 import type { Project } from '../../type'
 import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPathToRouterPath'
-import { sow, harvest } from '../../source'
+import { harvest, sow } from '../../source'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
 import { config } from '../../constant'
@@ -21,7 +21,6 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
   const { apiFilter } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
-  const { generateRequestFunction } = project
   const { EOL } = config
 
   // const resultContent: string[] = []
@@ -105,14 +104,7 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
       declarations: [
         {
           name: requestFunctionName,
-          initializer: generateRequestFunction
-            ? generateRequestFunction({
-                httpMethod,
-                pathname: request.pathname,
-                schema: spec,
-                originSource: sourceContent,
-              })
-            : sourceContent,
+          initializer: sourceContent,
         },
       ],
     })
