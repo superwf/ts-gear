@@ -3,7 +3,6 @@ import axios from 'axios'
 import type { AxiosInstance, AxiosRequestConfig } from 'axios'
 import { forEach } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
-
 import type { RequestParameter, Requester } from '../type'
 
 /** transform parseUrl('/api/abc/:id', { path: { id: '123' } }) to '/api/abc/123'
@@ -22,11 +21,7 @@ export const parseUrl = (url: string, option?: RequestParameter): string => {
 
 /** assign request body to axios option */
 export function interceptRequest(url: string, option?: RequestParameter): [string, AxiosRequestConfig] {
-  try {
-    url = parseUrl(url, option)
-  } catch (e: any) {
-    throw new Error(e.message)
-  }
+  url = parseUrl(url, option)
   option = option || {}
   const requestOption: AxiosRequestConfig = {
     method: option.method || 'get',
