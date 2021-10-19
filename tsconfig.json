@@ -25,5 +25,5 @@
       "example/*": ["./example/*"]
     }
   },
-  "include": ["src", "__tests__"]
+  "include": ["src", "__tests__", "jest.config.ts"]
 }

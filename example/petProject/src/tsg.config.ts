@@ -22,6 +22,7 @@ const projects: Project[] = [
     // shouldGenerateMock: true,
     // useCache: false,
     EOL: '\n',
+    withBasePath: true,
     // source: 'http://petstore.swagger.io/v2/swagger.json',
   },
   {

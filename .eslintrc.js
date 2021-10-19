@@ -81,6 +81,13 @@ module.exports = {
         tsx: 'never',
       },
     ],
+    'import/no-extraneous-dependencies': [
+      'error',
+      {
+        devDependencies: ['jest.config.ts'],
+        optionalDependencies: false,
+      },
+    ],
 
     // let prettier handle indent
     '@typescript-eslint/indent': 0,

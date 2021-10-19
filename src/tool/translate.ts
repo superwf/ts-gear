@@ -1,5 +1,4 @@
 import { baidu, google } from 'translation.js'
-
 import type { TranslationEngine } from '../type'
 
 export const translateEngines = {
@@ -18,7 +17,10 @@ export async function translate(text: string, engineName: TranslationEngine) {
       to: 'en',
     })
     return res.result!.join('')
-  } catch (e: any) {
-    throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e.message}`)
+  } catch (e) {
+    if (e instanceof Error) {
+      throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e.message}`)
+    }
+    throw e
   }
 }

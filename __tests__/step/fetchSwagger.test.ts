@@ -1,20 +1,22 @@
 import { join } from 'path'
-import { getOnce } from 'fetch-mock'
+import * as fetchMock from 'fetch-mock'
 import * as step from 'src/step'
 import type { Project } from 'src/type'
 
+const getOnce = fetchMock.getOnce.bind(fetchMock)
+
 describe('fetchSwagger', () => {
   const cwd = process.cwd()
-  it('file not ends with json', () => {
+  it('file not ends with json', async () => {
     const project: Project = {
       name: 'abc',
       source: 'abc',
       dest: 'abc',
       importRequesterStatement: 'import { requester } from "ts-gear/requester/fetch"',
     }
-    return step.fetchOpenapiData(project, '').catch(e => {
-      expect(e.message).toBe('user config file should ends with `.json`')
-    })
+    await expect(async () => {
+      await step.fetchOpenapiData(project, '')
+    }).rejects.toThrow('user config file should ends with `.json`')
   })
 
   it('get json', async () => {

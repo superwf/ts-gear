@@ -18,7 +18,7 @@ export const generateResponseType = (
 ): AssembleResponse => {
   const responseTypeName = `${upperFirst(functionName)}Response`
 
-  const shouldExport = !!project.shouldExportResponseType
+  const shouldExport = project.shouldExportResponseType === undefined || !!project.shouldExportResponseType
 
   // use first 2xx response type as success response type
   let successTypeContent = `${shouldExport ? 'export' : ''} type ${responseTypeName}Success = any`

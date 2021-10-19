@@ -1,5 +1,5 @@
 import { join } from 'path'
-import 'cross-fetch/polyfill'
+import 'isomorphic-fetch'
 import { error, info } from '../tool/log'
 import type { Project } from '../type'
 

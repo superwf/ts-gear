@@ -11,7 +11,7 @@ import type {
 } from './definition'
 
 /** @description request parameter type for getApiDatamapFieldDef */
-interface GetApiDatamapFieldDefOption {
+export interface GetApiDatamapFieldDefOption {
   /**
    * @description
    *   创建人
@@ -79,7 +79,7 @@ interface GetApiDatamapFieldDefOption {
 }
 
 /** @description response type for getApiDatamapFieldDef */
-interface GetApiDatamapFieldDefResponse {
+export interface GetApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -102,7 +102,8 @@ interface GetApiDatamapFieldDefResponse {
   404: any
 }
 
-type GetApiDatamapFieldDefResponseSuccess = GetApiDatamapFieldDefResponse[200]
+export type GetApiDatamapFieldDefResponseSuccess =
+  GetApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   分页查询【表字段信息】
@@ -113,7 +114,7 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'get'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as GetApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as GetApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: GetApiDatamapFieldDefOption,
   ): Promise<GetApiDatamapFieldDefResponseSuccess> {
@@ -126,12 +127,12 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for putApiDatamapFieldDef */
-interface PutApiDatamapFieldDefOption {
+export interface PutApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for putApiDatamapFieldDef */
-interface PutApiDatamapFieldDefResponse {
+export interface PutApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -159,7 +160,8 @@ interface PutApiDatamapFieldDefResponse {
   404: any
 }
 
-type PutApiDatamapFieldDefResponseSuccess = PutApiDatamapFieldDefResponse[200]
+export type PutApiDatamapFieldDefResponseSuccess =
+  PutApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   修改
@@ -170,7 +172,7 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'put'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as PutApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as PutApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: PutApiDatamapFieldDefOption,
   ): Promise<PutApiDatamapFieldDefResponseSuccess> {
@@ -183,12 +185,12 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for postApiDatamapFieldDef */
-interface PostApiDatamapFieldDefOption {
+export interface PostApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for postApiDatamapFieldDef */
-interface PostApiDatamapFieldDefResponse {
+export interface PostApiDatamapFieldDefResponse {
   /**
    * @description
    *   Created
@@ -211,7 +213,8 @@ interface PostApiDatamapFieldDefResponse {
   404: any
 }
 
-type PostApiDatamapFieldDefResponseSuccess = PostApiDatamapFieldDefResponse[201]
+export type PostApiDatamapFieldDefResponseSuccess =
+  PostApiDatamapFieldDefResponse[201]
 /**
  * @description
  *   新增
@@ -222,7 +225,7 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'post'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ('' as unknown) as PostApiDatamapFieldDefResponseSuccess
+  const mockData = '' as unknown as PostApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: PostApiDatamapFieldDefOption,
   ): Promise<PostApiDatamapFieldDefResponseSuccess> {
@@ -235,12 +238,12 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for deleteApiDatamapFieldDef */
-interface DeleteApiDatamapFieldDefOption {
+export interface DeleteApiDatamapFieldDefOption {
   body?: string
 }
 
 /** @description response type for deleteApiDatamapFieldDef */
-interface DeleteApiDatamapFieldDefResponse {
+export interface DeleteApiDatamapFieldDefResponse {
   /**
    * @description
    *   OK
@@ -263,7 +266,8 @@ interface DeleteApiDatamapFieldDefResponse {
   403: any
 }
 
-type DeleteApiDatamapFieldDefResponseSuccess = DeleteApiDatamapFieldDefResponse[200]
+export type DeleteApiDatamapFieldDefResponseSuccess =
+  DeleteApiDatamapFieldDefResponse[200]
 /**
  * @description
  *   批量删除
@@ -274,13 +278,13 @@ export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
   const method = 'delete'
   /** request url */
   const url = '/api/datamap/fieldDef'
-  const mockData = ({
+  const mockData = {
     description: 'string',
     fieldId: 'string',
     fieldName: 'name1',
     tableId: 'string',
     type: 'string',
-  } as unknown) as DeleteApiDatamapFieldDefResponseSuccess
+  } as unknown as DeleteApiDatamapFieldDefResponseSuccess
   const mockRequest = function (
     option?: DeleteApiDatamapFieldDefOption,
   ): Promise<DeleteApiDatamapFieldDefResponseSuccess> {

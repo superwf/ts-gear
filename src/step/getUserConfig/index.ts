@@ -1,13 +1,10 @@
 import { join, dirname } from 'path'
 import { writeFileSync, existsSync } from 'fs'
-
 import * as prompts from 'prompts'
-
 import type { Project } from '../../type'
 import { configFileName } from '../../constant'
 import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'
-
 import { getCliOption } from './cliOption'
 
 /** get user config

@@ -6,7 +6,6 @@ import type {
   ClassDeclarationStructure,
 } from 'ts-morph'
 import { Scope } from 'ts-morph'
-
 import { schemaToTypescript } from '../tool/schemaToTypescript'
 import { sow, harvest } from '../source'
 import type { Project } from '../type'
@@ -26,18 +25,18 @@ export const generateDefinitionContent = (project: Project) => {
     if (schema.type === 'object') {
       if (schema.properties) {
         const preferClass = Boolean(project.preferClass)
-        const declarationOptin: OptionalKind<InterfaceDeclarationStructure> &
-          OptionalKind<ClassDeclarationStructure> = {
-          isExported: true,
-          name: title,
-          typeParameters: definition.typeParameters
-            ? definition.typeParameters.map(t => ({
-                name: t,
-                default: 'any',
-              }))
-            : undefined,
-          docs: assembleDoc(schema),
-        }
+        const declarationOptin: OptionalKind<InterfaceDeclarationStructure> & OptionalKind<ClassDeclarationStructure> =
+          {
+            isExported: true,
+            name: title,
+            typeParameters: definition.typeParameters
+              ? definition.typeParameters.map(t => ({
+                  name: t,
+                  default: 'any',
+                }))
+              : undefined,
+            docs: assembleDoc(schema),
+          }
         const klass = preferClass ? source.addClass(declarationOptin) : source.addInterface(declarationOptin)
         Object.getOwnPropertyNames(schema.properties).forEach(name => {
           const property = schema!.properties![name]

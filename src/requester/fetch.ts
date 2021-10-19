@@ -1,10 +1,9 @@
 /** use native fetch to request */
-import * as URL from 'url'
+import { URL } from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 import type { RequestParameter, Requester } from '../type'
-
-const jsonType = 'application/json'
+import { MIME_JSON, MIME_TEXT } from '../constant'
 
 /** add query and path parameters to url
  * e.g.
@@ -18,16 +17,29 @@ export const parseUrl = (url: string, option: RequestParameter): string => {
     url = pathToRegexp.compile(url)(option.path)
   }
   if (option.query) {
-    const urlObject = URL.parse(url, true) // true: let the urlObject.query is object
-    // see url#format, only search is absent, query will be used
-    delete urlObject.search
-    url = URL.format({
-      ...urlObject,
-      query: {
-        ...urlObject.query,
-        ...option.query,
-      },
+    let onlyPathname = false
+    if (!url.startsWith('http:') || !url.startsWith('https:')) {
+      url = `http://localhost${url}`
+      onlyPathname = true
+    }
+    const urlObject = new URL(url)
+    const search = new URLSearchParams(urlObject.search)
+    Object.getOwnPropertyNames(option.query).forEach(k => {
+      const v = option.query[k]
+      if (Array.isArray(v)) {
+        v.forEach((item, i) => {
+          if (i === 0) {
+            search.set(k, item)
+          } else {
+            search.append(k, item)
+          }
+        })
+      } else {
+        search.set(k, v)
+      }
     })
+    const searchString = search.toString()
+    url = `${onlyPathname ? '' : urlObject.origin}${urlObject.pathname}${searchString ? '?' : ''}${searchString}`
   }
   return url
 }
@@ -59,7 +71,7 @@ export function interceptRequest(
     // and auto json stringify the body
     if (isPlainObject(body)) {
       requestOption.headers = {
-        'Content-Type': jsonType,
+        'Content-Type': MIME_JSON,
         ...requestOption.headers,
       }
       body = JSON.stringify(body)
@@ -90,25 +102,30 @@ export function interceptResponse(res: Response) {
   }
   const contentType = res.headers.get('Content-Type')
   if (contentType) {
-    if (contentType.includes(jsonType)) {
+    if (contentType.includes(MIME_JSON)) {
       return res.json()
     }
 
-    if (contentType.includes('text/plain')) {
+    if (contentType.includes(MIME_TEXT)) {
       return res.text()
     }
-    // 在此处添加处理更多的response类型
+    // add more response mime type logic here
+    // 在此处添加处理更多的response类型处理逻辑
   }
   return res
 }
 
 /** native fetch wrappper */
-export const requester = (
-  requestInit?: RequestInit & {
-    baseURL?: string
-  },
-): Requester => async (apiUrl: string, param?: RequestParameter) => {
-  const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
-  const baseURL = (requestInit && requestInit.baseURL) || ''
-  return fetch(`${baseURL}${url}`, option).then(interceptResponse)
-}
+export const requester =
+  (
+    requestInit?: RequestInit & {
+      basePath?: string
+    },
+  ): Requester =>
+  async (apiUrl: string, param?: RequestParameter) => {
+    const [url, option] = interceptRequest(apiUrl, { ...param, requestInit })
+    const basePath = requestInit?.basePath || ''
+    return fetch(`${basePath}${url}`, option).then(interceptResponse)
+  }
+
+export default requester

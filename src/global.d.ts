@@ -1,2 +1,2 @@
 declare module 'url-join'
-declare module 'cross-fetch/polyfill'
+declare module 'whatwg-fetch'

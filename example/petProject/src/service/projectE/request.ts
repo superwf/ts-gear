@@ -6,7 +6,7 @@ import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
-interface DeleteApiDataboardBoardEsOption {
+export interface DeleteApiDataboardBoardEsOption {
   /**
    * @description
    *   索引数组
@@ -15,7 +15,7 @@ interface DeleteApiDataboardBoardEsOption {
 }
 
 /** @description response type for deleteApiDataboardBoardEs */
-interface DeleteApiDataboardBoardEsResponse {
+export interface DeleteApiDataboardBoardEsResponse {
   /**
    * @description
    *   OK
@@ -38,7 +38,8 @@ interface DeleteApiDataboardBoardEsResponse {
   403: any;
 }
 
-type DeleteApiDataboardBoardEsResponseSuccess = DeleteApiDataboardBoardEsResponse[200];
+export type DeleteApiDataboardBoardEsResponseSuccess =
+  DeleteApiDataboardBoardEsResponse[200];
 /**
  * @description
  *   删除索引
@@ -51,10 +52,10 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   function request(
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
-    return (requester(url, {
+    return requester(url, {
       method,
       ...option,
-    }) as unknown) as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
+    }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
   /** http method */
