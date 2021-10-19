@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.1.0](https://github.com/superwf/ts-gear/compare/v4.0.5...v4.1.0) (2021-10-19)
+
+
+### Features
+
+* 修复v3参数问题，增强自定义函数体 ([2688c12](https://github.com/superwf/ts-gear/commit/2688c12aa0e9369f478899b25d4b410214965bd0))
+
+
+### Bug Fixes
+
+* generate requester method ([c71a08e](https://github.com/superwf/ts-gear/commit/c71a08e42b09218570d7e34ce574dc23393c6352))
+* generateRequestContent ([401fb68](https://github.com/superwf/ts-gear/commit/401fb680a4ca191bac123a7fb67d4227ac3eb545))
+
 ### [4.0.5](https://github.com/superwf/ts-gear/compare/v4.0.4...v4.0.5) (2021-10-12)
 
 
