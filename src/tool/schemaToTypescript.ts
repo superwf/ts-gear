@@ -49,7 +49,7 @@ const transform = (schema: SchemaOption): string => {
         return enumValues.join(' | ')
       }
     }
-    return (enumValues as unknown) as string
+    return enumValues as unknown as string
   }
   if (!properties && !discriminator) {
     if (anyOf) {

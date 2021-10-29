@@ -42,7 +42,15 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
  * sequence could not be changed
  * every step depends on the pre step
  * */
-export const run = async (): Promise<void> => {
+export const runByCommand = async (): Promise<void> => {
   const { projects, tsGearConfigPath } = await step.getUserConfig()
   await Promise.all(projects.map(project => processProject(project, tsGearConfigPath)))
+}
+
+/**
+ * same as runByCommand
+ * should be used by nodejs env call
+ * */
+export const run = async ({ projects, appPath }: { projects: Project[]; appPath: string }): Promise<void> => {
+  await Promise.all(projects.map(project => processProject(project, appPath)))
 }

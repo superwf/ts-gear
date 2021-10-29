@@ -1,8 +1,6 @@
 import type { Spec } from 'swagger-schema-official'
 import { get, remove, upperFirst } from 'lodash'
-
 import { httpMethods } from '../type'
-
 import { cleanName } from './cleanName'
 
 const filterPaths = ['definitions', 'properties', 'parameters', 'responses', 'paths']

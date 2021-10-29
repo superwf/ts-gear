@@ -5,7 +5,7 @@ function collectProjects(value: string) {
   return value.split(',')
 }
 
-interface IResult {
+type Result = {
   names: string[]
   init: boolean
   config: string
@@ -16,7 +16,7 @@ const program = new Command()
 /**
  * collect project names from cli
  * */
-export const getCliOption = (): IResult => {
+export const getCliOption = (): Result => {
   // eslint-disable-next-line
   const pkg = require('../../../package.json')
   program
@@ -33,7 +33,7 @@ export const getCliOption = (): IResult => {
 
   const options = program.opts()
 
-  const result: IResult = {
+  const result: Result = {
     names: [],
     init: Boolean(options.init),
     config: '',

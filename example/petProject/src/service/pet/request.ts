@@ -45,8 +45,8 @@ export type PutPetResponseSuccess = any;
  *
  *   Update an existing pet
  * @tags: pet
- * @produces: application／xml,application/json
- * @consumes: application／json,application/xml
+ * @produces: application/xml,application/json
+ * @consumes: application/json,application/xml
  */
 export const putPet = /* #__PURE__ */ (() => {
   const method = "put";
@@ -90,8 +90,8 @@ export type PostPetResponseSuccess = any;
  *
  *   Add a new pet to the store
  * @tags: pet
- * @produces: application／xml,application/json
- * @consumes: application／json,application/xml
+ * @produces: application/xml,application/json
+ * @consumes: application/json,application/xml
  */
 export const postPet = /* #__PURE__ */ (() => {
   const method = "post";
@@ -145,7 +145,7 @@ export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
  *   Multiple status values can be provided with comma separated strings
  *   Finds Pets by status
  * @tags: pet
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getPetFindByStatus = /* #__PURE__ */ (() => {
   const method = "get";
@@ -208,7 +208,7 @@ export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
  *   Returns a single pet
  *   Find pet by ID
  * @tags: pet
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getPetPetId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -275,8 +275,8 @@ export type PostPetPetIdResponseSuccess = any;
  *
  *   Updates a pet in the store with form data
  * @tags: pet
- * @produces: application／xml,application/json
- * @consumes: application／x-www-form-urlencoded
+ * @produces: application/xml,application/json
+ * @consumes: application/x-www-form-urlencoded
  */
 export const postPetPetId = /* #__PURE__ */ (() => {
   const method = "post";
@@ -337,7 +337,7 @@ export type DeletePetPetIdResponseSuccess = any;
  *
  *   Deletes a pet
  * @tags: pet
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const deletePetPetId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -405,8 +405,8 @@ export type PostPetPetIdUploadImageResponseSuccess =
  *
  *   uploads an image
  * @tags: pet
- * @produces: application／json
- * @consumes: multipart／form-data
+ * @produces: application/json
+ * @consumes: multipart/form-data
  */
 export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   const method = "post";
@@ -445,7 +445,7 @@ export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
  *   Returns a map of status codes to quantities
  *   Returns pet inventories by status
  * @tags: store
- * @produces: application／json
+ * @produces: application/json
  */
 export const getStoreInventory = /* #__PURE__ */ (() => {
   const method = "get";
@@ -493,7 +493,7 @@ export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
  *
  *   Place an order for a pet
  * @tags: store
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const postStoreOrder = /* #__PURE__ */ (() => {
   const method = "post";
@@ -557,7 +557,7 @@ export type GetStoreOrderOrderIdResponseSuccess =
  *   For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  *   Find purchase order by ID
  * @tags: store
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -615,7 +615,7 @@ export type DeleteStoreOrderOrderIdResponseSuccess = any;
  *   For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  *   Delete purchase order by ID
  * @tags: store
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -661,7 +661,7 @@ export type PostUserResponseSuccess = PostUserResponse["default"];
  *   This can only be done by the logged in user.
  *   Create user
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const postUser = /* #__PURE__ */ (() => {
   const method = "post";
@@ -706,7 +706,7 @@ export type PostUserCreateWithArrayResponseSuccess =
  *
  *   Creates list of users with given input array
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const postUserCreateWithArray = /* #__PURE__ */ (() => {
   const method = "post";
@@ -753,7 +753,7 @@ export type PostUserCreateWithListResponseSuccess =
  *
  *   Creates list of users with given input array
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const postUserCreateWithList = /* #__PURE__ */ (() => {
   const method = "post";
@@ -802,7 +802,7 @@ export interface GetUserLoginResponse {
   200: string;
   /**
    * @description
-   *   Invalid username／password supplied
+   *   Invalid username/password supplied
    */
   400: any;
 }
@@ -813,7 +813,7 @@ export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
  *
  *   Logs user into the system
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getUserLogin = /* #__PURE__ */ (() => {
   const method = "get";
@@ -850,7 +850,7 @@ export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
  *
  *   Logs out current logged in user session
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getUserLogout = /* #__PURE__ */ (() => {
   const method = "get";
@@ -908,7 +908,7 @@ export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
  *
  *   Get user by user name
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const getUserUsername = /* #__PURE__ */ (() => {
   const method = "get";
@@ -969,7 +969,7 @@ export type PutUserUsernameResponseSuccess = any;
  *   This can only be done by the logged in user.
  *   Updated user
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const putUserUsername = /* #__PURE__ */ (() => {
   const method = "put";
@@ -1025,7 +1025,7 @@ export type DeleteUserUsernameResponseSuccess = any;
  *   This can only be done by the logged in user.
  *   Delete user
  * @tags: user
- * @produces: application／xml,application/json
+ * @produces: application/xml,application/json
  */
 export const deleteUserUsername = /* #__PURE__ */ (() => {
   const method = "delete";

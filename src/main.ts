@@ -3,7 +3,7 @@
 import { register } from 'ts-node'
 import * as tsConfigPaths from 'tsconfig-paths'
 import { getCompilerOptions } from './tool/getCompilerOptions'
-import { run } from './run'
+import { runByCommand } from './run'
 
 const cwd = process.cwd()
 
@@ -25,4 +25,4 @@ register({
   },
 })
 
-run()
+runByCommand()
