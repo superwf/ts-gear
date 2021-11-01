@@ -75,11 +75,9 @@ But in real world, especially in my case, all doc has some definition errors.
 
 A good example is a better doc.
 
-Run it to see how ts-gear works.
+Clone and run to see how `ts-gear` works.
 
-🤖: This is not ready yet.
-
-TODO: prepare an example by create-react-app and ts-gear.
+See [https://github.com/superwf/ts-gear-example](https://github.com/superwf/ts-gear-example)
 
 ## Installation
 
