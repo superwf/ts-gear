@@ -246,6 +246,13 @@ export interface Project {
   translationEngine?: TranslationEngine
 
   /**
+   * serial processing translate words
+   * when too many words should be translate, translate engine will eccor errors higher probability.
+   * set this to true, and try again.
+   */
+  translateSerial?: boolean
+
+  /**
    * generate mock data switch
    * @default false
    * 是否生成mock数据文件

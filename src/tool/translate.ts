@@ -1,5 +1,7 @@
 import { baidu, google } from 'translation.js'
 import type { TranslationEngine } from '../type'
+import { sleep } from './sleep'
+import { info } from './log'
 
 export const translateEngines = {
   baidu,
@@ -11,11 +13,14 @@ export const translateEngines = {
  * */
 export async function translate(text: string, engineName: TranslationEngine) {
   try {
+    await sleep(1000 * Math.random())
+    info(`translating by ${engineName}: "${text}"`)
     const res = await translateEngines[engineName].translate({
       text,
       // from: 'zh-CN',
       to: 'en',
     })
+    info(`translate result: "${String(res.result)}"`)
     return res.result!.join('')
   } catch (e) {
     if (e instanceof Error) {

@@ -230,6 +230,7 @@ export default projects
 | withBasePath | boolean | false | false | request with swagger doc `basePath` in when invoke the `requester` func |
 | keepGeneric | boolean | false | true | try parse available generic type |
 | translationEngine | 'baidu' \| 'google' | false |  | translate special charators in swagger doc definitions |
+| translationSerial | boolean | false |  | translate words serially |
 | shouldGenerateMock | boolean | false | generate mock data switch |
 | shouldExportRequestOptionType | boolean | true | true | should export request function option types |
 | shouldExportResponseType | boolean | true | true | should export request function response types |

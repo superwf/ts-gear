@@ -9,7 +9,7 @@ describe('run', () => {
         {
           name: 'doc',
           dest: 'service',
-          source: '../../fixture/doc.json',
+          source: '../../fixture/pet.json',
           importRequesterStatement: 'import { requester } from "../../requester"',
           EOL: '\n',
           withBasePath: true,
