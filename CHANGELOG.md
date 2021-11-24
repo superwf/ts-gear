@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/superwf/ts-gear/compare/v4.1.0...v4.2.0) (2021-11-24)
+
+
+### Features
+
+* add api call method ([a0c0ce0](https://github.com/superwf/ts-gear/commit/a0c0ce0aaffbeb88d31b1abb8798d7b3690f65b4))
+* add translate serial option ([da3f6d7](https://github.com/superwf/ts-gear/commit/da3f6d7776f5d113842c212493a1f47d7d594bbc))
+
 ## [4.1.0](https://github.com/superwf/ts-gear/compare/v4.0.5...v4.1.0) (2021-10-19)
 
 
