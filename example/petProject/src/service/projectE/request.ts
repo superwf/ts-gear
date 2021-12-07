@@ -11,7 +11,12 @@ export interface DeleteApiDataboardBoardEsOption {
    * @description
    *   索引数组
    */
-  body?: Array<string>;
+  body?: {
+    /**
+        @description
+          索引数组 */
+    indexNames?: Array<string>;
+  };
 }
 
 /** @description response type for deleteApiDataboardBoardEs */

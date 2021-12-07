@@ -29,7 +29,10 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
        * 为兼容openapiv3，在src/step/assembleSchemaToGlobal
        * 将formData的schema也放进来，与body的格式一致
        * */
-    } else if ((parameter.in === 'formData' || parameter.in === 'body') && (parameter as BodyParameter).schema) {
+    } else if (
+      (parameter.in === 'formData' || (parameter.in === 'body' && parameter.name === 'body')) &&
+      (parameter as BodyParameter).schema
+    ) {
       /** remove body nest structure */
       map.body = {
         type: 'object',
