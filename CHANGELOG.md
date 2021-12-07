@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/superwf/ts-gear/compare/v4.2.0...v4.2.1) (2021-12-07)
+
+
+### Bug Fixes
+
+* openapi v2 body parameters ([3b3a369](https://github.com/superwf/ts-gear/commit/3b3a369738c91ba764303a40b675f7eb2a0aa819))
+
 ## [4.2.0](https://github.com/superwf/ts-gear/compare/v4.1.0...v4.2.0) (2021-11-24)
 
 
