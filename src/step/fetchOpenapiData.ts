@@ -1,5 +1,6 @@
 import { join } from 'path'
 import 'isomorphic-fetch'
+import { parse } from 'json5'
 import { error, info } from '../tool/log'
 import type { Project } from '../type'
 
@@ -15,7 +16,7 @@ export const fetchOpenapiData = async (project: Project, tsGearConfigPath: strin
     const verbose = `project: ${project.name} url: ${url}`
     info(`start fetching ${verbose}`)
     const res = await fetch(url, project.fetchApiDocOption)
-    const swaggerSchema = await res.json()
+    const swaggerSchema = parse(await res.text())
     info(`got swagger spec doc from ${verbose}`)
     return swaggerSchema
   }

@@ -1,42 +1,75 @@
 {
   "swagger": "2.0",
-  "info": { "contact": {}, "license": {} },
+  "info": {
+    "contact": {},
+    "license": {}
+  },
   "basePath": "/",
   "paths": {
     "/api/databoard/board/es": {
       "delete": {
-        "tags": ["Es"],
+        "tags": [
+          "Es"
+        ],
         "summary": "删除索引",
         "operationId": "delIndexUsingDELETE",
-        "produces": ["*/*"],
+        "produces": [
+          "*/*"
+        ],
         "parameters": [
           {
             "in": "body",
             "name": "indexNames",
             "description": "索引数组",
             "required": false,
-            "schema": { "type": "array", "items": { "type": "string" } }
+            "schema": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
           }
         ],
         "responses": {
           "200": {
             "description": "OK",
-            "schema": { "$ref": "#/definitions/ReplyVO«int»" }
+            "schema": {
+              "$ref": "#/definitions/ReplyVO«int»"
+            }
           },
-          "204": { "description": "No Content" },
-          "401": { "description": "Unauthorized" },
-          "403": { "description": "Forbidden" }
+          "204": {
+            "description": "No Content"
+          },
+          "401": {
+            "description": "Unauthorized"
+          },
+          "403": {
+            "description": "Forbidden"
+          }
         },
-        "security": [{ "Authorization": ["global"] }],
+        "security": [
+          {
+            "Authorization": [
+              "global"
+            ]
+          }
+        ],
         "deprecated": false
       }
     }
   },
   "securityDefinitions": {
-    "Authorization": { "type": "apiKey", "name": "TOKEN", "in": "header" }
+    "Authorization": {
+      "type": "apiKey",
+      "name": "TOKEN",
+      "in": "header"
+    }
   },
   "definitions": {
-    "BodyBuilder": { "type": "object", "title": "BodyBuilder" },
+    "BodyBuilder": {
+      "type": "object",
+      "title": "BodyBuilder"
+    },
     "PageVO«ListVO»": {
       "type": "object",
       "required": [
@@ -96,9 +129,37 @@
       },
       "title": "PageVO«ListVO»"
     },
+    "数据结构": {
+      "type": "object",
+      "required": [
+        "code",
+        "message"
+      ],
+      "properties": {
+        "code": {
+          "type": "string",
+          "example": "000000",
+          "description": "响应代码【0正确,非0错误】"
+        },
+        "data": {
+          "description": "返回数据",
+          "$ref": "#/definitions/PageVO«FollowRecordVO»",
+          "originalRef": "PageVO«FollowRecordVO»"
+        },
+        "message": {
+          "type": "string",
+          "example": "success",
+          "description": "结果描述"
+        }
+      },
+      "title": "ReplyVO«PageVO«FollowRecordVO»»"
+    },
     "ReplyVO«PageVO«FollowRecordVO»»": {
       "type": "object",
-      "required": ["code", "message"],
+      "required": [
+        "code",
+        "message"
+      ],
       "properties": {
         "code": {
           "type": "string",

@@ -231,6 +231,7 @@ export default projects
 | keepGeneric | boolean | false | true | try parse available generic type |
 | translationEngine | 'baidu' \| 'google' | false |  | translate special charators in swagger doc definitions |
 | translationSerial | boolean | false |  | translate words serially |
+| translateIntervalPerWord | number | false |  | only works when translateSerial is true <br />when too much translate words will definitely result translate request error <br /> add interval time between translate <br />unit=milliseconds <br /> recommand > 2000
 | shouldGenerateMock | boolean | false | generate mock data switch |
 | shouldExportRequestOptionType | boolean | true | true | should export request function option types |
 | shouldExportResponseType | boolean | true | true | should export request function response types |

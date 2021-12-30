@@ -1,5 +1,6 @@
 import { join } from 'path'
 import { existsSync, readFileSync } from 'fs'
+import { parse } from 'json5'
 import appRoot = require('app-root-path')
 import type * as ts from 'typescript'
 
@@ -9,6 +10,6 @@ import type * as ts from 'typescript'
  * */
 export const getCompilerOptions = () => {
   const cwdTsconfigPath = join(appRoot.path, 'tsconfig.json')
-  const tsConfig = existsSync(cwdTsconfigPath) ? JSON.parse(readFileSync(cwdTsconfigPath).toString()) : {}
+  const tsConfig = existsSync(cwdTsconfigPath) ? parse(readFileSync(cwdTsconfigPath).toString()) : {}
   return (tsConfig.compilerOptions || {}) as ts.CompilerOptions
 }

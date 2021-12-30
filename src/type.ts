@@ -253,6 +253,16 @@ export interface Project {
   translateSerial?: boolean
 
   /**
+   * only works when translateSerial is true
+   * when too much translate words will definitely result translate request error
+   * add interval time between translate
+   * unit=milliseconds
+   * recommand > 2000
+   * @default 0
+   */
+  translateIntervalPerWord?: number
+
+  /**
    * generate mock data switch
    * @default false
    * 是否生成mock数据文件

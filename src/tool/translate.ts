@@ -1,4 +1,4 @@
-import { baidu, google } from 'translation.js'
+import { baidu, google } from '../translation'
 import type { TranslationEngine } from '../type'
 import { sleep } from './sleep'
 import { info } from './log'
@@ -8,14 +8,22 @@ export const translateEngines = {
   google,
 }
 
+type Option = {
+  text: string
+  engine: TranslationEngine
+  interval?: number
+}
+
 /** change the engine, the result will definitely be different.
  * better not use this.
  * */
-export async function translate(text: string, engineName: TranslationEngine) {
+export async function translate({ text, engine, interval = 0 }: Option) {
   try {
-    await sleep(1000 * Math.random())
-    info(`translating by ${engineName}: "${text}"`)
-    const res = await translateEngines[engineName].translate({
+    if (interval > 0) {
+      await sleep(interval * Math.random())
+    }
+    info(`translating by ${engine}: "${text}"`)
+    const res = await translateEngines[engine].translate({
       text,
       // from: 'zh-CN',
       to: 'en',
@@ -24,7 +32,7 @@ export async function translate(text: string, engineName: TranslationEngine) {
     return res.result!.join('')
   } catch (e) {
     if (e instanceof Error) {
-      throw new Error(`translate word "${text}" by engine "${engineName}" fail, original error: ${e.message}`)
+      throw new Error(`translate word "${text}" by engine "${engine}" fail, original error: ${e.message}`)
     }
     throw e
   }

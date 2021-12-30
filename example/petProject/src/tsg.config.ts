@@ -32,6 +32,7 @@ const projects: Project[] = [
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
     EOL: '\n',
+    translationEngine: 'baidu',
     // prettierConfig,
   },
   {

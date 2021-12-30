@@ -12,7 +12,7 @@ describe('run', () => {
     process.chdir(join(cwd, 'example', 'petProject'))
     await runByCommand()
     process.chdir(cwd)
-  })
+  }, 999999)
 
   it('use cleaned spec', async () => {
     const spec = {

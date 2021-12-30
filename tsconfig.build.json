@@ -5,8 +5,12 @@
     "noEmit": false,
     "rootDir": "./src",
     "paths": {
-      "src/*": ["someWrongPathToMakeSureNoSrcUsed"]
+      "src/*": [
+        "someWrongPathToMakeSureNoSrcUsed"
+      ]
     }
   },
-  "include": ["src"]
+  "include": [
+    "src"
+  ]
 }

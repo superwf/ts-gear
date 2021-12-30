@@ -7,6 +7,28 @@ export type BodyBuilder = any;
 
 export type PageVOListVO = PageVO<ListVO>;
 export type ReplyVOPageVOFollowRecordVO = ReplyVO<PageVO<FollowRecordVO>>;
+export interface DataStructure {
+  /**
+   * @description
+   *   响应代码【0正确,非0错误】
+   * @example
+   *   000000
+   */
+  code: string;
+  /**
+   * @description
+   *   返回数据
+   */
+  data?: PageVO<FollowRecordVO>;
+  /**
+   * @description
+   *   结果描述
+   * @example
+   *   success
+   */
+  message: string;
+}
+
 export interface PageVO<ListVO = any> {
   /**
    * @description

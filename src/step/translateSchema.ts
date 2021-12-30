@@ -29,9 +29,23 @@ export const gatherNonEnglishWords = (spec: Spec) => {
   return Array.from(originWordSet)
 }
 
-// when the translation result repeat, add a unique number as suffix.
-// make every word uniq.
+/** when the translation result repeat, add a unique number as suffix.
+ * make every word uniq.
+ * 这块过一段时间，自己也看不懂了，特此备注。
+ * 源文字不同，但翻译目标的英文可能会一样
+ * 比如“非常好”,“很好”，都翻译成 "very good"，针对目标英文可能有重复，添加自增后缀数字区分
+ */
 let $wordCount = 1
+
+/**
+ *generateTranslationMap param type
+ * */
+type Option = {
+  words: string[]
+  engine: TranslationEngine
+  interval?: number
+  serial?: boolean
+}
 
 /**
  * generate a translation map, as
@@ -41,32 +55,32 @@ let $wordCount = 1
  *   "结果": "Result",
  * }
  * */
-export const generateTranslationMap = async (originWords: string[], engine: TranslationEngine, serial?: boolean) => {
+export const generateTranslationMap = async ({ words, engine, interval = 0, serial }: Option) => {
   const wordsMap: WordsMap = {}
 
-  if (originWords.length > 0) {
+  if (words.length > 0) {
     if (serial) {
       // eslint-disable-next-line no-restricted-syntax
-      for (const word of originWords) {
+      for (const text of words) {
         // eslint-disable-next-line no-await-in-loop
-        let newWord = String(await translate(word, engine))
+        let newWord = String(await translate({ text, engine, interval }))
         // if translated word repeat, add number as suffix
         if (find(wordsMap, v => v === newWord)) {
           newWord = `${newWord}${$wordCount}`
           $wordCount += 1
         }
-        wordsMap[word] = newWord
+        wordsMap[text] = newWord
       }
     } else {
       await Promise.all(
-        originWords.map(async word => {
-          let newWord = String(await translate(word, engine))
+        words.map(async text => {
+          let newWord = String(await translate({ text, engine, interval }))
           // if translated word repeat, add number as suffix
           if (find(wordsMap, v => v === newWord)) {
             newWord = `${newWord}${$wordCount}`
             $wordCount += 1
           }
-          wordsMap[word] = newWord
+          wordsMap[text] = newWord
         }),
       )
     }
@@ -107,7 +121,12 @@ export const translateSchema = async (spec: Spec, project: Project) => {
   const { translationEngine, translateSerial } = project
   if (translationEngine) {
     const words = gatherNonEnglishWords(spec)
-    const map = await generateTranslationMap(words, translationEngine, translateSerial)
+    const map = await generateTranslationMap({
+      words,
+      engine: translationEngine,
+      interval: project.translateIntervalPerWord,
+      serial: translateSerial,
+    })
     updateSchema(spec, map)
   }
 }

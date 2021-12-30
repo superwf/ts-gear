@@ -1,10 +1,9 @@
-import { baidu } from 'translation.js'
-
+import type { baidu } from 'translation.js'
 import { translate } from 'src/tool/translate'
 
 type Translate = typeof baidu.translate
 
-jest.mock('translation.js', () => {
+jest.mock('src/translation', () => {
   return {
     baidu: {
       translate: (_args: any) => {
@@ -25,20 +24,22 @@ jest.mock('translation.js', () => {
 
 describe('translate by engines', () => {
   it('translate by baidu', async () => {
-    expect(await translate('输出结果«查询参数»', 'baidu')).toBe('Output result « query parameter »')
+    expect(await translate({ text: '输出结果«查询参数»', engine: 'baidu' })).toBe('Output result « query parameter »')
   }, 5000)
 
   it('translate by google', async () => {
-    expect(await translate('输出结果«查询参数»', 'google')).toBe('Output result «Query parameters»')
+    expect(await translate({ text: '输出结果«查询参数»', engine: 'google' })).toBe('Output result «Query parameters»')
   }, 5000)
 
-  it('catch error', done => {
-    baidu.translate = jest.fn(() => {
-      throw new Error('translate error')
-    })
-    translate('输出结果«查询参数»', 'baidu').catch(e => {
-      expect(e.message).toContain('original error: translate error')
-      done()
-    })
-  })
+  // it('catch error', async () => {
+  //   const origin = baidu.translate
+  //   baidu.translate = jest.fn(() => {
+  //     throw new Error('translate error')
+  //   })
+  //   const e: Error = await translate('输出结果«查询参数»', 'baidu').then(() => {
+  //     throw new Error()
+  //   })
+  //   expect(e.message).toContain('original error: translate error')
+  //   baidu.translate = origin
+  // })
 })
