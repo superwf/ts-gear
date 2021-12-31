@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.3.0](https://github.com/superwf/ts-gear/compare/v4.2.1...v4.3.0) (2021-12-31)
+
+
+### Features
+
+* change translateSerial default true ([e286eaa](https://github.com/superwf/ts-gear/commit/e286eaa223c81c9ae1158f10cfc246a8c05b8df2))
+* json5 and translate ([cdbf0bc](https://github.com/superwf/ts-gear/commit/cdbf0bcc1e94cb385bede128d64b999b07fec521))
+
 ### [4.2.1](https://github.com/superwf/ts-gear/compare/v4.2.0...v4.2.1) (2021-12-07)
 
 
