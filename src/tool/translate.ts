@@ -12,23 +12,28 @@ type Option = {
   text: string
   engine: TranslationEngine
   interval?: number
+  debug?: boolean
 }
 
 /** change the engine, the result will definitely be different.
  * better not use this.
  * */
-export async function translate({ text, engine, interval = 0 }: Option) {
+export async function translate({ text, engine, interval = 0, debug = false }: Option) {
   try {
     if (interval > 0) {
       await sleep(interval * Math.random())
     }
-    info(`translating by ${engine}: "${text}"`)
+    if (debug) {
+      info(`translating by ${engine}: "${text}"`)
+    }
     const res = await translateEngines[engine].translate({
       text,
       // from: 'zh-CN',
       to: 'en',
     })
-    info(`translate result: "${String(res.result)}"`)
+    if (debug) {
+      info(`translate result: "${String(res.result)}"`)
+    }
     return res.result!.join('')
   } catch (e) {
     if (e instanceof Error) {

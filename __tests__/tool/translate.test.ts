@@ -1,4 +1,4 @@
-import type { baidu } from 'translation.js'
+import { baidu } from 'src/translation'
 import { translate } from 'src/tool/translate'
 
 type Translate = typeof baidu.translate
@@ -31,15 +31,14 @@ describe('translate by engines', () => {
     expect(await translate({ text: '输出结果«查询参数»', engine: 'google' })).toBe('Output result «Query parameters»')
   }, 5000)
 
-  // it('catch error', async () => {
-  //   const origin = baidu.translate
-  //   baidu.translate = jest.fn(() => {
-  //     throw new Error('translate error')
-  //   })
-  //   const e: Error = await translate('输出结果«查询参数»', 'baidu').then(() => {
-  //     throw new Error()
-  //   })
-  //   expect(e.message).toContain('original error: translate error')
-  //   baidu.translate = origin
-  // })
+  it('catch error', async () => {
+    const origin = baidu.translate
+    baidu.translate = jest.fn(() => {
+      throw new Error('translate error')
+    })
+    await expect(translate({ text: '输出结果«查询参数»', engine: 'baidu' })).rejects.toThrow(
+      'original error: translate error',
+    )
+    baidu.translate = origin
+  })
 })

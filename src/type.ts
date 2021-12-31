@@ -246,21 +246,27 @@ export interface Project {
   translationEngine?: TranslationEngine
 
   /**
+   * works with translationEngine assigned
    * serial processing translate words
    * when too many words should be translate, translate engine will eccor errors higher probability.
-   * set this to true, and try again.
+   * when you do not need this, set this to false, and try again.
+   * @default true
    */
   translateSerial?: boolean
 
   /**
-   * only works when translateSerial is true
    * when too much translate words will definitely result translate request error
    * add interval time between translate
    * unit=milliseconds
    * recommand > 2000
-   * @default 0
+   * @default 2000
    */
   translateIntervalPerWord?: number
+
+  /**
+   * show translate debug info
+   */
+  translateDebug?: boolean
 
   /**
    * generate mock data switch

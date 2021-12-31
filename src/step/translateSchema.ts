@@ -45,6 +45,7 @@ type Option = {
   engine: TranslationEngine
   interval?: number
   serial?: boolean
+  debug?: boolean
 }
 
 /**
@@ -55,15 +56,17 @@ type Option = {
  *   "结果": "Result",
  * }
  * */
-export const generateTranslationMap = async ({ words, engine, interval = 0, serial }: Option) => {
+export const generateTranslationMap = async ({ words, engine, interval = 2000, serial, debug = false }: Option) => {
   const wordsMap: WordsMap = {}
+
+  serial = serial ?? true
 
   if (words.length > 0) {
     if (serial) {
       // eslint-disable-next-line no-restricted-syntax
       for (const text of words) {
         // eslint-disable-next-line no-await-in-loop
-        let newWord = String(await translate({ text, engine, interval }))
+        let newWord = String(await translate({ text, engine, interval, debug }))
         // if translated word repeat, add number as suffix
         if (find(wordsMap, v => v === newWord)) {
           newWord = `${newWord}${$wordCount}`
@@ -74,7 +77,7 @@ export const generateTranslationMap = async ({ words, engine, interval = 0, seri
     } else {
       await Promise.all(
         words.map(async text => {
-          let newWord = String(await translate({ text, engine, interval }))
+          let newWord = String(await translate({ text, engine, interval, debug }))
           // if translated word repeat, add number as suffix
           if (find(wordsMap, v => v === newWord)) {
             newWord = `${newWord}${$wordCount}`
@@ -126,6 +129,7 @@ export const translateSchema = async (spec: Spec, project: Project) => {
       engine: translationEngine,
       interval: project.translateIntervalPerWord,
       serial: translateSerial,
+      debug: project.translateDebug,
     })
     updateSchema(spec, map)
   }
