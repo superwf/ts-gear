@@ -42,7 +42,6 @@ export interface PutPetResponse {
 export type PutPetResponseSuccess = any;
 /**
  * @description
- *
  *   Update an existing pet
  * @tags: pet
  * @produces: application/xml,application/json
@@ -87,7 +86,6 @@ export interface PostPetResponse {
 export type PostPetResponseSuccess = any;
 /**
  * @description
- *
  *   Add a new pet to the store
  * @tags: pet
  * @produces: application/xml,application/json
@@ -272,7 +270,6 @@ export interface PostPetPetIdResponse {
 export type PostPetPetIdResponseSuccess = any;
 /**
  * @description
- *
  *   Updates a pet in the store with form data
  * @tags: pet
  * @produces: application/xml,application/json
@@ -334,7 +331,6 @@ export interface DeletePetPetIdResponse {
 export type DeletePetPetIdResponseSuccess = any;
 /**
  * @description
- *
  *   Deletes a pet
  * @tags: pet
  * @produces: application/xml,application/json
@@ -402,7 +398,6 @@ export type PostPetPetIdUploadImageResponseSuccess =
   PostPetPetIdUploadImageResponse[200];
 /**
  * @description
- *
  *   uploads an image
  * @tags: pet
  * @produces: application/json
@@ -490,7 +485,6 @@ export interface PostStoreOrderResponse {
 export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
  * @description
- *
  *   Place an order for a pet
  * @tags: store
  * @produces: application/xml,application/json
@@ -703,7 +697,6 @@ export type PostUserCreateWithArrayResponseSuccess =
   PostUserCreateWithArrayResponse["default"];
 /**
  * @description
- *
  *   Creates list of users with given input array
  * @tags: user
  * @produces: application/xml,application/json
@@ -750,7 +743,6 @@ export type PostUserCreateWithListResponseSuccess =
   PostUserCreateWithListResponse["default"];
 /**
  * @description
- *
  *   Creates list of users with given input array
  * @tags: user
  * @produces: application/xml,application/json
@@ -810,7 +802,6 @@ export interface GetUserLoginResponse {
 export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
  * @description
- *
  *   Logs user into the system
  * @tags: user
  * @produces: application/xml,application/json
@@ -847,7 +838,6 @@ export interface GetUserLogoutResponse {
 export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
 /**
  * @description
- *
  *   Logs out current logged in user session
  * @tags: user
  * @produces: application/xml,application/json
@@ -905,7 +895,6 @@ export interface GetUserUsernameResponse {
 export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
  * @description
- *
  *   Get user by user name
  * @tags: user
  * @produces: application/xml,application/json

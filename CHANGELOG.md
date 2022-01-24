@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.4.0](https://github.com/superwf/ts-gear/compare/v4.3.0...v4.4.0) (2022-01-24)
+
+
+### Features
+
+* extenal properties starts with "x-" to doc ([4cc8845](https://github.com/superwf/ts-gear/commit/4cc8845d4bf73ff8310d419bc03d498aed8cb95c))
+
 ## [4.3.0](https://github.com/superwf/ts-gear/compare/v4.2.1...v4.3.0) (2021-12-31)
 
 
