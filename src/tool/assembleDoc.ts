@@ -12,10 +12,10 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   const hasDescription = 'description' in schema || 'summary' in schema
   if (hasDescription) {
     docs.push('@description')
-    if ('description' in schema) {
+    if ('description' in schema && schema.description) {
       docs.push(`  ${String(schema.description)}`)
     }
-    if ('summary' in schema) {
+    if ('summary' in schema && schema.summary) {
       docs.push(`  ${String(schema.summary)}`)
     }
   }
@@ -42,10 +42,10 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
       docs.push(`  ${schema.example}`)
     }
     if ('readOnly' in schema) {
-      docs.push(`  ${schema.readOnly}`)
+      docs.push('@readonly')
     }
     if ('writeOnly' in schema) {
-      docs.push(`  ${v3Schema.writeOnly}`)
+      docs.push('@writeonly')
     }
   }
   if ('deprecated' in schema && schema.deprecated) {
@@ -62,6 +62,14 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   }
   if (docs.length === 0) {
     return undefined
+  }
+  const keys = Object.getOwnPropertyNames(schema) as (keyof typeof schema)[]
+  if (keys.some(k => k.startsWith('x-'))) {
+    keys.forEach(k => {
+      if (k.startsWith('x-')) {
+        docs.push(`@${k}: ${JSON.stringify(schema[k])}`)
+      }
+    })
   }
   return [
     docs
