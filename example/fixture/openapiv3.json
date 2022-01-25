@@ -289,8 +289,10 @@
             "description": "Not Found"
           }
         },
-        "x-jimbd": {
-          "xxx业务表": "jjjjj_table"
+        "extensions": {
+          "x-jimbd": {
+            "xxx业务表": "jjjjj_table"
+          }
         },
         "x-mysql": {
           "xxx业务表": "mysql_xxx_xxx",

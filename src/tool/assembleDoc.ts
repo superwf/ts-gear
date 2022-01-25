@@ -63,12 +63,19 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if (docs.length === 0) {
     return undefined
   }
+  // openapi v2 generate external properties starts with "x-"
   const keys = Object.getOwnPropertyNames(schema) as (keyof typeof schema)[]
   if (keys.some(k => k.startsWith('x-'))) {
     keys.forEach(k => {
       if (k.startsWith('x-')) {
         docs.push(`@${k}: ${JSON.stringify(schema[k])}`)
       }
+    })
+  }
+  // openapi v3 generate "extensions" property
+  if (v3Schema.extensions && typeof v3Schema.extensions === 'object') {
+    Object.getOwnPropertyNames(v3Schema.extensions).forEach(k => {
+      docs.push(`@${k}: ${JSON.stringify(v3Schema.extensions[k])}`)
     })
   }
   return [

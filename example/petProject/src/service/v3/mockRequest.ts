@@ -219,8 +219,8 @@ export type PostApiDatamapFieldDefResponseSuccess =
  * @description
  *   新增
  * @tags: 表字段信息
- * @x-jimbd: {"xxx业务表":"jjjjj_table"}
  * @x-mysql: {"xxx业务表":"mysql_xxx_xxx","xxx业务表2":"mysql_xxx_xxx2"}
+ * @x-jimbd: {"xxx业务表":"jjjjj_table"}
  */
 export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   /** http method */
