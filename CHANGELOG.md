@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.5.0](https://github.com/superwf/ts-gear/compare/v4.3.0...v4.5.0) (2022-01-25)
+
+
+### Features
+
+* extenal properties starts with "x-" to doc ([4cc8845](https://github.com/superwf/ts-gear/commit/4cc8845d4bf73ff8310d419bc03d498aed8cb95c))
+
+
+### Bug Fixes
+
+* openapi v3 extensions to comment ([67206ce](https://github.com/superwf/ts-gear/commit/67206cefb7e62cbad0937db56b2e969d4e81c8b9))
+
 ## [4.4.0](https://github.com/superwf/ts-gear/compare/v4.3.0...v4.4.0) (2022-01-24)
 
 
