@@ -76,7 +76,7 @@ describe('transformSwaggerPropertyToTsType', () => {
 /**
 @description
   数据资源类型
-@format: int32
+@format int32
 @example
   1 */
 'X-Tag'?: number

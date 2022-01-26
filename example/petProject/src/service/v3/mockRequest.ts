@@ -107,7 +107,7 @@ export type GetApiDatamapFieldDefResponseSuccess =
 /**
  * @description
  *   分页查询【表字段信息】
- * @tags: 【表字段信息】API
+ * @tags 【表字段信息】API
  */
 export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
   /** http method */
@@ -165,7 +165,7 @@ export type PutApiDatamapFieldDefResponseSuccess =
 /**
  * @description
  *   修改
- * @tags: API
+ * @tags API
  */
 export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
   /** http method */
@@ -218,9 +218,9 @@ export type PostApiDatamapFieldDefResponseSuccess =
 /**
  * @description
  *   新增
- * @tags: 表字段信息
- * @x-mysql: {"xxx业务表":"mysql_xxx_xxx","xxx业务表2":"mysql_xxx_xxx2"}
- * @x-jimbd: {"xxx业务表":"jjjjj_table"}
+ * @tags 表字段信息
+ * @x-mysql {"xxx业务表":"mysql_xxx_xxx","xxx业务表2":"mysql_xxx_xxx2"}
+ * @x-jimbd {"xxx业务表":"jjjjj_table"}
  */
 export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
   /** http method */
@@ -273,7 +273,7 @@ export type DeleteApiDatamapFieldDefResponseSuccess =
 /**
  * @description
  *   批量删除
- * @tags: API
+ * @tags API
  */
 export const deleteApiDatamapFieldDef = /* #__PURE__ */ (() => {
   /** http method */

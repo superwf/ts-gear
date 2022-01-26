@@ -38,7 +38,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   总条数
-   * @format: int32
+   * @format int32
    * @example
    *   100
    */
@@ -46,7 +46,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   开始序号
-   * @format: int32
+   * @format int32
    * @example
    *   0
    */
@@ -54,7 +54,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   结束序号
-   * @format: int32
+   * @format int32
    * @example
    *   10
    */
@@ -62,7 +62,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   总页数
-   * @format: int32
+   * @format int32
    * @example
    *   10
    */
@@ -70,7 +70,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   页码
-   * @format: int32
+   * @format int32
    * @example
    *   1
    */
@@ -78,7 +78,7 @@ export interface PageVO<ListVO = any> {
   /**
    * @description
    *   每页条数
-   * @format: int32
+   * @format int32
    * @example
    *   10
    */

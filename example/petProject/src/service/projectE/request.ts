@@ -48,8 +48,8 @@ export type DeleteApiDataboardBoardEsResponseSuccess =
 /**
  * @description
  *   删除索引
- * @tags: Es
- * @produces: *
+ * @tags Es
+ * @produces *
  */
 export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   const method = "delete";

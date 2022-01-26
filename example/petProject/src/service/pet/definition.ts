@@ -6,25 +6,25 @@ export type GetPetFindByStatusItems = "available" | "pending" | "sold";
 export type OrderStatus = "placed" | "approved" | "delivered";
 export type PetStatus = "available" | "pending" | "sold";
 export interface Order {
-  /** @format: int64 */
+  /** @format int64 */
   id?: number;
-  /** @format: int64 */
+  /** @format int64 */
   petId?: number;
-  /** @format: int32 */
+  /** @format int32 */
   quantity?: number;
-  /** @format: date-time */
+  /** @format date-time */
   shipDate?: string;
   /**
    * @description
    *   Order Status
    */
   status?: OrderStatus;
-  /** @default: false */
+  /** @default false */
   complete?: boolean;
 }
 
 export interface User {
-  /** @format: int64 */
+  /** @format int64 */
   id?: number;
   username?: string;
   firstName?: string;
@@ -35,26 +35,26 @@ export interface User {
   /**
    * @description
    *   User Status
-   * @format: int32
+   * @format int32
    */
   userStatus?: number;
 }
 
 export interface Category {
-  /** @format: int64 */
+  /** @format int64 */
   id?: number;
   pet?: Pet;
   name?: string;
 }
 
 export interface Tag {
-  /** @format: int64 */
+  /** @format int64 */
   id?: number;
   name?: string;
 }
 
 export interface Pet {
-  /** @format: int64 */
+  /** @format int64 */
   id?: number;
   category?: Category;
   /**
@@ -72,7 +72,7 @@ export interface Pet {
 }
 
 export interface ApiResponse {
-  /** @format: int32 */
+  /** @format int32 */
   code?: number;
   type?: string;
   message?: string;

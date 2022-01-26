@@ -20,19 +20,19 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
     }
   }
   if ('format' in schema) {
-    docs.push(`@format: ${schema.format}`)
+    docs.push(`@format ${schema.format}`)
   }
   if ('tags' in schema && schema.tags) {
-    docs.push(`@tags: ${schema.tags.join()}`)
+    docs.push(`@tags ${schema.tags.join()}`)
   }
   if ('default' in schema) {
-    docs.push(`@default: ${schema.default}`)
+    docs.push(`@default ${schema.default}`)
   }
   if ('produces' in schema) {
-    docs.push(`@produces: ${schema.produces}`)
+    docs.push(`@produces ${schema.produces}`)
   }
   if ('consumes' in schema) {
-    docs.push(`@consumes: ${schema.consumes}`)
+    docs.push(`@consumes ${schema.consumes}`)
   }
   const hasExample = 'example' in schema || 'readOnly' in schema || 'writeOnly' in schema
   const v3Schema = schema as SchemaObject
@@ -52,13 +52,13 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
     docs.push('@deprecated')
   }
   if (v3Schema.not) {
-    docs.push(`@not: ${v3Schema.not}`)
+    docs.push(`@not ${v3Schema.not}`)
   }
   if (v3Schema.anyOf) {
-    docs.push(`@anyOf: ${v3Schema.anyOf}`)
+    docs.push(`@anyOf ${v3Schema.anyOf}`)
   }
   if (v3Schema.oneOf) {
-    docs.push(`@oneOf: ${v3Schema.oneOf}`)
+    docs.push(`@oneOf ${v3Schema.oneOf}`)
   }
   if (docs.length === 0) {
     return undefined
@@ -68,14 +68,14 @@ export const assembleDoc = (schema: Schema | Operation | Parameter) => {
   if (keys.some(k => k.startsWith('x-'))) {
     keys.forEach(k => {
       if (k.startsWith('x-')) {
-        docs.push(`@${k}: ${JSON.stringify(schema[k])}`)
+        docs.push(`@${k} ${JSON.stringify(schema[k])}`)
       }
     })
   }
   // openapi v3 generate "extensions" property
   if (v3Schema.extensions && typeof v3Schema.extensions === 'object') {
     Object.getOwnPropertyNames(v3Schema.extensions).forEach(k => {
-      docs.push(`@${k}: ${JSON.stringify(v3Schema.extensions[k])}`)
+      docs.push(`@${k} ${JSON.stringify(v3Schema.extensions[k])}`)
     })
   }
   return [

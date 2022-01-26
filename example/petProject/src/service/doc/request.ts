@@ -43,9 +43,9 @@ export type PutPetResponseSuccess = any;
 /**
  * @description
  *   Update an existing pet
- * @tags: pet
- * @produces: application/xml,application/json
- * @consumes: application/json,application/xml
+ * @tags pet
+ * @produces application/xml,application/json
+ * @consumes application/json,application/xml
  */
 export const putPet = /* #__PURE__ */ (() => {
   const method = "put";
@@ -87,9 +87,9 @@ export type PostPetResponseSuccess = any;
 /**
  * @description
  *   Add a new pet to the store
- * @tags: pet
- * @produces: application/xml,application/json
- * @consumes: application/json,application/xml
+ * @tags pet
+ * @produces application/xml,application/json
+ * @consumes application/json,application/xml
  */
 export const postPet = /* #__PURE__ */ (() => {
   const method = "post";
@@ -142,8 +142,8 @@ export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
  * @description
  *   Multiple status values can be provided with comma separated strings
  *   Finds Pets by status
- * @tags: pet
- * @produces: application/xml,application/json
+ * @tags pet
+ * @produces application/xml,application/json
  */
 export const getPetFindByStatus = /* #__PURE__ */ (() => {
   const method = "get";
@@ -170,13 +170,13 @@ export interface GetPetPetIdOption {
   /**
    * @description
    *   ID of pet to return
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           ID of pet to return
-        @format: int64 */
+        @format int64 */
     petId: number;
   };
 }
@@ -205,8 +205,8 @@ export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
  * @description
  *   Returns a single pet
  *   Find pet by ID
- * @tags: pet
- * @produces: application/xml,application/json
+ * @tags pet
+ * @produces application/xml,application/json
  */
 export const getPetPetId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -233,13 +233,13 @@ export interface PostPetPetIdOption {
   /**
    * @description
    *   ID of pet that needs to be updated
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           ID of pet that needs to be updated
-        @format: int64 */
+        @format int64 */
     petId: number;
   };
   /**
@@ -271,9 +271,9 @@ export type PostPetPetIdResponseSuccess = any;
 /**
  * @description
  *   Updates a pet in the store with form data
- * @tags: pet
- * @produces: application/xml,application/json
- * @consumes: application/x-www-form-urlencoded
+ * @tags pet
+ * @produces application/xml,application/json
+ * @consumes application/x-www-form-urlencoded
  */
 export const postPetPetId = /* #__PURE__ */ (() => {
   const method = "post";
@@ -303,13 +303,13 @@ export interface DeletePetPetIdOption {
   /**
    * @description
    *   Pet id to delete
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           Pet id to delete
-        @format: int64 */
+        @format int64 */
     petId: number;
   };
 }
@@ -332,8 +332,8 @@ export type DeletePetPetIdResponseSuccess = any;
 /**
  * @description
  *   Deletes a pet
- * @tags: pet
- * @produces: application/xml,application/json
+ * @tags pet
+ * @produces application/xml,application/json
  */
 export const deletePetPetId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -360,13 +360,13 @@ export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   ID of pet to update
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           ID of pet to update
-        @format: int64 */
+        @format int64 */
     petId: number;
   };
   /**
@@ -399,9 +399,9 @@ export type PostPetPetIdUploadImageResponseSuccess =
 /**
  * @description
  *   uploads an image
- * @tags: pet
- * @produces: application/json
- * @consumes: multipart/form-data
+ * @tags pet
+ * @produces application/json
+ * @consumes multipart/form-data
  */
 export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   const method = "post";
@@ -439,8 +439,8 @@ export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
  * @description
  *   Returns a map of status codes to quantities
  *   Returns pet inventories by status
- * @tags: store
- * @produces: application/json
+ * @tags store
+ * @produces application/json
  */
 export const getStoreInventory = /* #__PURE__ */ (() => {
   const method = "get";
@@ -486,8 +486,8 @@ export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
  * @description
  *   Place an order for a pet
- * @tags: store
- * @produces: application/xml,application/json
+ * @tags store
+ * @produces application/xml,application/json
  */
 export const postStoreOrder = /* #__PURE__ */ (() => {
   const method = "post";
@@ -514,13 +514,13 @@ export interface GetStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of pet that needs to be fetched
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           ID of pet that needs to be fetched
-        @format: int64 */
+        @format int64 */
     orderId: number;
   };
 }
@@ -550,8 +550,8 @@ export type GetStoreOrderOrderIdResponseSuccess =
  * @description
  *   For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
  *   Find purchase order by ID
- * @tags: store
- * @produces: application/xml,application/json
+ * @tags store
+ * @produces application/xml,application/json
  */
 export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "get";
@@ -578,13 +578,13 @@ export interface DeleteStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of the order that needs to be deleted
-   * @format: int64
+   * @format int64
    */
   path: {
     /**
         @description
           ID of the order that needs to be deleted
-        @format: int64 */
+        @format int64 */
     orderId: number;
   };
 }
@@ -608,8 +608,8 @@ export type DeleteStoreOrderOrderIdResponseSuccess = any;
  * @description
  *   For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
  *   Delete purchase order by ID
- * @tags: store
- * @produces: application/xml,application/json
+ * @tags store
+ * @produces application/xml,application/json
  */
 export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   const method = "delete";
@@ -654,8 +654,8 @@ export type PostUserResponseSuccess = PostUserResponse["default"];
  * @description
  *   This can only be done by the logged in user.
  *   Create user
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const postUser = /* #__PURE__ */ (() => {
   const method = "post";
@@ -698,8 +698,8 @@ export type PostUserCreateWithArrayResponseSuccess =
 /**
  * @description
  *   Creates list of users with given input array
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const postUserCreateWithArray = /* #__PURE__ */ (() => {
   const method = "post";
@@ -744,8 +744,8 @@ export type PostUserCreateWithListResponseSuccess =
 /**
  * @description
  *   Creates list of users with given input array
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const postUserCreateWithList = /* #__PURE__ */ (() => {
   const method = "post";
@@ -803,8 +803,8 @@ export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
  * @description
  *   Logs user into the system
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const getUserLogin = /* #__PURE__ */ (() => {
   const method = "get";
@@ -839,8 +839,8 @@ export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
 /**
  * @description
  *   Logs out current logged in user session
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const getUserLogout = /* #__PURE__ */ (() => {
   const method = "get";
@@ -896,8 +896,8 @@ export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
  * @description
  *   Get user by user name
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const getUserUsername = /* #__PURE__ */ (() => {
   const method = "get";
@@ -957,8 +957,8 @@ export type PutUserUsernameResponseSuccess = any;
  * @description
  *   This can only be done by the logged in user.
  *   Updated user
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const putUserUsername = /* #__PURE__ */ (() => {
   const method = "put";
@@ -1013,8 +1013,8 @@ export type DeleteUserUsernameResponseSuccess = any;
  * @description
  *   This can only be done by the logged in user.
  *   Delete user
- * @tags: user
- * @produces: application/xml,application/json
+ * @tags user
+ * @produces application/xml,application/json
  */
 export const deleteUserUsername = /* #__PURE__ */ (() => {
   const method = "delete";
