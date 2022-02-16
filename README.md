@@ -248,6 +248,7 @@ export default projects
 | transformJS | boolean | false | false | should generate js file |
 | useCache | boolean | false | false | use cache |
 | EOL | string | false | false | custom EOF |
+| nullableAsRequired | boolean | false | false | nullable as required |
 
 ### Requester
 

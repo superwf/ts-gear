@@ -1,0 +1,6830 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "bjrm.ims.api",
+    "version": "v1"
+  },
+  "paths": {
+    "/Check/SaveCheck": {
+      "post": {
+        "tags": [
+          "Check"
+        ],
+        "summary": "保存工单送检记录",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveCheckModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveCheckModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveCheckModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Check/GetCheckList": {
+      "post": {
+        "tags": [
+          "Check"
+        ],
+        "summary": "查询工单送检记录",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCheckListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCheckListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetCheckListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskCheckModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskCheckModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskCheckModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Check/UpdateTaskCheck": {
+      "post": {
+        "tags": [
+          "Check"
+        ],
+        "summary": "更新检验结果",
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "check_code": {
+                    "type": "string",
+                    "description": "送检单code"
+                  },
+                  "checked_count": {
+                    "type": "integer",
+                    "description": "已检数量",
+                    "format": "int32"
+                  },
+                  "check_batch_number": {
+                    "type": "string",
+                    "description": "检验批次号"
+                  },
+                  "rejects_count": {
+                    "type": "integer",
+                    "description": "不良品数量",
+                    "format": "int32"
+                  }
+                }
+              },
+              "encoding": {
+                "check_code": {
+                  "style": "form"
+                },
+                "checked_count": {
+                  "style": "form"
+                },
+                "check_batch_number": {
+                  "style": "form"
+                },
+                "rejects_count": {
+                  "style": "form"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Common/GetManufacturerNumList": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "获取车间列表",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManufacturerModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManufacturerModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ManufacturerModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Common/GetLineList": {
+      "post": {
+        "tags": [
+          "Common"
+        ],
+        "summary": "获取产线列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLineListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLineListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLineListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LineModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProduceAssignmentList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询生产分配列表",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceAssignmentListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceAssignmentListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceAssignmentListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordAssignmentListModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordAssignmentListModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordAssignmentListModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/BatchCreateProducrTask": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "指派生产任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateProducrTaskModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateProducrTaskModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/BatchCreateProducrTaskModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/DeleteProduceTask": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "撤回生产任务",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProduceTask"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProduceTask"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteProduceTask"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProduceTaskDetailList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查看生产任务指派详情\\工单生产任务列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskDetailListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskDetailListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskDetailListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetGetProduceCount": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询工单已经指派生产任务的数量",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetGetProduceCountModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetGetProduceCountModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetGetProduceCountModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/UpdateProduceTaskDate": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "修改生产任务的计划上线日期和计划完成日期",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProduceTaskDateModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProduceTaskDateModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateProduceTaskDateModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProduceTaskList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查看生产任务列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskListModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskListModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskListModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/StarProduceTask": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "开始生产任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/StopProduceTask": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "停止生产任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/StarProduceTaskModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetTaskLogList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询生产任务日志",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskLogListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskLogListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetTaskLogListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskLogListModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskLogListModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskLogListModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/CreateReport": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "报工",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateReportModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetReportList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询报工记录",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetStarTaskList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "产线物料列表",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetStarTaskListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetStarTaskListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetStarTaskListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStarTaskListResultModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStarTaskListResultModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetStarTaskListResultModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/OnLine": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "物料上线",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnLineModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnLineModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OnLineModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/OffLine": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "物料下线",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OffLineModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/OffLineModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/OffLineModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProductList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "生产任务物料明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProductListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProductListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProductListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProduceLineStockListListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProduceLineStockListListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProduceLineStockListListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetBomCoreList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "获取核心零部件列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomCoreListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomCoreListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomCoreListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProduceTaskModel": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询生产任务详情根据task_id",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceTaskModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/SnList": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "SN列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SnListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/CreateAndGetSnRecord": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "创建sn",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnRecordModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnRecordModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnRecordModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/CreateSnDetail": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "关联sn明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnDetailModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnDetailModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSnDetailModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/DeleteSnDetail": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "解绑sn明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSnDetailModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSnDetailModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteSnDetailModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetProduceOtherInfo": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "查询生产任务附加信息",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceOtherInfoRequestModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceOtherInfoRequestModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProduceOtherInfoRequestModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduceOtherInfoModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduceOtherInfoModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProduceOtherInfoModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetBatchInfo": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "获取生产批次号",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchInfoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchInfoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchInfoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBatchInfoResultModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBatchInfoResultModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetBatchInfoResultModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetSerialNumber": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "sn生成序列号",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSerialNumberModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSerialNumberModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSerialNumberModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Produce/GetSnListBySerialNumber": {
+      "post": {
+        "tags": [
+          "Produce"
+        ],
+        "summary": "根据序列号获取sn和核心零部件列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSnListBySerialNumberModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSnListBySerialNumberModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetSnListBySerialNumberModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoSnRecordListModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/SaveWo": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "保存工单",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveWoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveWoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/SaveWoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoCode": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "获取工单号",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/SaveWoBatch": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "批量保存工单",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetBatchWoBomResult": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询批量创建工单结果",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchWoBomResultModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchWoBomResultModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBatchWoBomResultModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/StringReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetRecordModel": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询工单",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetRecordModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetRecordModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetRecordModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetProdInfo": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "获取物料信息",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProdInfoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProdInfoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetProdInfoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProdModelByProdCodeResultModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProdModelByProdCodeResultModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/GetProdModelByProdCodeResultModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoList": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询工单列表",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/UpdateWoState": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "修改工单状态(支持 释放,撤回释放,关闭 操作)",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoStateModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoStateModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoStateModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/DownWoTemplate": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "下载批量创建工单模板",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "下载批量创建工单模板",
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/Wo/GetWoRecordListToSelectModels": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "获取工单列表,选择关联工单时使用",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoRecordListToSelectModelsModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoRecordListToSelectModelsModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoRecordListToSelectModelsModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListToSelectModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListToSelectModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoRecordListToSelectModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/DeleteWo": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "删除工单",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetReportListByWoId": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询报工记录(工单使用)",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListByWoIdModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListByWoIdModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetReportListByWoIdModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskReportListModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoBomSln": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "获取物料配套方案",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomSlnModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomSlnModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomSlnModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoBomBySln": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "根据配套方案查询bom",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomBySlnModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomBySlnModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoBomBySlnModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PKMBomResultModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PKMBomResultModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PKMBomResultModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoSlnAndBom": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "根据工单id获取工单bom配套方案和bom明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoSlnAndBomModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoSlnAndBomModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoSlnAndBomModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnAndBomDetailReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnAndBomDetailReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoBomSlnAndBomDetailReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/UpdateWoBomCount": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "修改工单bom用量",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoBomCountModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoBomCountModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateWoBomCountModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/DeleteWoBomDetail": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "删除工单bom物料",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoBomDetailModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoBomDetailModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/DeleteWoBomDetailModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/CreateBomDetail": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "添加工单子物料",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBomDetailModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBomDetailModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateBomDetailModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetBomProductList": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询物料明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomProductListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomProductListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomProductListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProductListListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProductListListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BomProductListListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/ComplateReport": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "完工/强制完工",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplateReportModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplateReportModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/ComplateReportModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetNoPlanBomSln": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "不使用配套方案(勾选不使用配套方案时调用，返回一个wo_bom_sln_id)",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetNoPlanBomSlnModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetNoPlanBomSlnModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetNoPlanBomSlnModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Int32ReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/SaveWoOther": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "添加工单附加信息,参数id大于0是更新",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoOtherModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoOtherModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoOtherModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetWoOther": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询工单附加信息",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoOtherModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoOtherModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetWoOtherModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoOtherModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoOtherModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoOtherModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetLogList": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "查询日志",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLogListModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLogListModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetLogListModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoLogModelListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoLogModelListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoLogModelListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/Wo/GetBomModelByTaskIdAndProdCode": {
+      "post": {
+        "tags": [
+          "Wo"
+        ],
+        "summary": "根据生产任务和物料号查询bom明细",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomModelByTaskIdAndProdCodeModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomModelByTaskIdAndProdCodeModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/GetBomModelByTaskIdAndProdCodeModel"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplyProductListReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplyProductListReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SupplyProductListReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WoTaskPick/SaveTaskPick": {
+      "post": {
+        "tags": [
+          "WoTaskPick"
+        ],
+        "summary": "保存工单拣货任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModel"
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModel"
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModel"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WoTaskPick/CancelTaskPick": {
+      "post": {
+        "tags": [
+          "WoTaskPick"
+        ],
+        "summary": "取消工单拣货任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BooleanReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WoTaskPick/GetWoTaskPickModel": {
+      "post": {
+        "tags": [
+          "WoTaskPick"
+        ],
+        "summary": "获取工单任务",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelReturnValue"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelReturnValue"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelReturnValue"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/WoTaskPick/GetPickTaskList": {
+      "post": {
+        "tags": [
+          "WoTaskPick"
+        ],
+        "summary": "获取拣货任务列表",
+        "requestBody": {
+          "description": "",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/WoProduceTaskPickPara"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelListReturnModel"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelListReturnModel"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/WoProduceTaskPickModelListReturnModel"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "BatchCreateProducrTaskDetailModel": {
+        "type": "object",
+        "properties": {
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "plan_produce_count": {
+            "type": "integer",
+            "description": "生产数量",
+            "format": "int32"
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "is_ready": {
+            "type": "integer",
+            "description": "是否需要库房备料(0 不需要 1 需要)",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "任务明细"
+      },
+      "BatchCreateProducrTaskModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "detail": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BatchCreateProducrTaskDetailModel"
+            },
+            "description": "任务明细",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "批量创建生产任务"
+      },
+      "BomProduceLineStockList": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          },
+          "allcount": {
+            "type": "number",
+            "description": "线上物料总数",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "线边仓物料明细"
+      },
+      "BomProduceLineStockListListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BomProduceLineStockList"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "BomProductList": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "allcount": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          },
+          "complete_now_count": {
+            "type": "number",
+            "description": "库存齐套数量",
+            "format": "double"
+          },
+          "sequence_now_count": {
+            "type": "number",
+            "description": "库存时序齐套数量",
+            "format": "double"
+          },
+          "type": {
+            "type": "integer",
+            "description": "是否是看板料",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "物料明细"
+      },
+      "BomProductListListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BomProductList"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "BooleanReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "boolean",
+            "description": "返回数据"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "ComplateReportModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "is_force_complate": {
+            "type": "integer",
+            "description": "是否强制完工 0 否 1 是",
+            "format": "int32"
+          },
+          "complate_remark": {
+            "type": "string",
+            "description": "强制完工备注(非强制完工不用填)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "完工/强制完工"
+      },
+      "CreateBomDetailModel": {
+        "type": "object",
+        "properties": {
+          "parent_prod_code": {
+            "type": "string",
+            "description": "父级物料号",
+            "nullable": true
+          },
+          "wo_bom_sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          },
+          "unit": {
+            "type": "string",
+            "description": "计量单位",
+            "nullable": true
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "添加工单bom子物料"
+      },
+      "CreateReportDetailModel": {
+        "type": "object",
+        "properties": {
+          "linkman_id": {
+            "type": "integer",
+            "description": "人员id",
+            "format": "int32"
+          },
+          "linkman_name": {
+            "type": "string",
+            "description": "人员姓名",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "报工参与人"
+      },
+      "CreateReportModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "count": {
+            "type": "integer",
+            "description": "报工数量",
+            "format": "int32"
+          },
+          "remark": {
+            "type": "string",
+            "description": "报工备注",
+            "nullable": true
+          },
+          "batch_id": {
+            "type": "string",
+            "description": "批次ID(零部件报工使用)",
+            "nullable": true
+          },
+          "unit": {
+            "type": "string",
+            "description": "单位(零部件报工使用)",
+            "nullable": true
+          },
+          "other_info": {
+            "type": "string",
+            "description": "其他信息(零部件报工使用)",
+            "nullable": true
+          },
+          "details": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/CreateReportDetailModel"
+            },
+            "description": "报工参与人",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "添加报工记录"
+      },
+      "CreateSnDetailModel": {
+        "type": "object",
+        "properties": {
+          "sn_id": {
+            "type": "integer",
+            "description": "主sn码id",
+            "format": "int32"
+          },
+          "sn": {
+            "type": "string",
+            "description": "明细sn",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "绑定sn信息"
+      },
+      "CreateSnRecordModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "sn": {
+            "type": "string",
+            "description": "sn",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "创建sn码"
+      },
+      "DeleteProduceTask": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "撤回生产任务"
+      },
+      "DeleteSnDetailModel": {
+        "type": "object",
+        "properties": {
+          "detail_id": {
+            "type": "integer",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "解绑sn"
+      },
+      "DeleteWoBomDetailModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "删除工单bom物料"
+      },
+      "DeleteWoModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "删除工单"
+      },
+      "GetBatchInfoModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取生产批次号"
+      },
+      "GetBatchInfoResultModel": {
+        "type": "object",
+        "properties": {
+          "prefix": {
+            "type": "string",
+            "description": "前缀",
+            "nullable": true
+          },
+          "work_shop_shortname": {
+            "type": "string",
+            "description": "分厂简称",
+            "nullable": true
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "date": {
+            "type": "string",
+            "description": "日期",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取批次相关信息"
+      },
+      "GetBatchInfoResultModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/GetBatchInfoResultModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "GetBatchWoBomResultModel": {
+        "type": "object",
+        "properties": {
+          "key": {
+            "type": "string",
+            "description": "guid",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询批量创建工单结果"
+      },
+      "GetBomCoreListModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取核心零部件"
+      },
+      "GetBomModelByTaskIdAndProdCodeModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetBomProductListModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询物料明细"
+      },
+      "GetCheckListModel": {
+        "type": "object",
+        "properties": {
+          "produce_task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询工单送检记录"
+      },
+      "GetGetProduceCountModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetLineListModel": {
+        "type": "object",
+        "properties": {
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetLogListModel": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "integer",
+            "description": "日志类型 1 工单日志 2 生产日志",
+            "format": "int32"
+          },
+          "join_id": {
+            "type": "integer",
+            "description": "关联id  工单id 或者是 生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "日志"
+      },
+      "GetNoPlanBomSlnModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "不使用配套方案"
+      },
+      "GetProdInfoModel": {
+        "type": "object",
+        "properties": {
+          "prod_type": {
+            "type": "integer",
+            "description": "物料类型 0 成品 1 零部件",
+            "format": "int32"
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取物料信息"
+      },
+      "GetProdModelByProdCodeResultModel": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "workshopId": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "prod_spec": {
+            "type": "string",
+            "description": "规格型号",
+            "nullable": true
+          },
+          "prod_other": {
+            "type": "string",
+            "description": "零部件类型或者是系列",
+            "nullable": true
+          },
+          "series_id": {
+            "type": "integer",
+            "description": "系列ID",
+            "format": "int32"
+          },
+          "unit": {
+            "type": "string",
+            "description": "计量单位",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取物料信息返回"
+      },
+      "GetProdModelByProdCodeResultModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetProdModelByProdCodeResultModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "GetProdModelByProdCodeResultModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/GetProdModelByProdCodeResultModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "GetProduceAssignmentListModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "task_code": {
+            "type": "string",
+            "description": "生产任务号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "series_name": {
+            "type": "string",
+            "description": "系列名称",
+            "nullable": true
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "plan_online_date_begin": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_online_date_end": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date_begin": {
+            "type": "string",
+            "description": "计划完工日期",
+            "format": "date-time"
+          },
+          "plan_complete_date_end": {
+            "type": "string",
+            "description": "计划完工日期",
+            "format": "date-time"
+          },
+          "release_state": {
+            "type": "integer",
+            "description": "完工状态 1 已释放, 2 未完工, 3 已完工",
+            "format": "int32"
+          },
+          "wo_type": {
+            "type": "integer",
+            "description": "工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询工单分配列表"
+      },
+      "GetProduceOtherInfoModel": {
+        "type": "object",
+        "properties": {
+          "order_code": {
+            "type": "string",
+            "description": "关联订单",
+            "nullable": true
+          },
+          "wo_code": {
+            "type": "string",
+            "description": "关联工单",
+            "nullable": true
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "客户名称",
+            "nullable": true
+          },
+          "demand_type": {
+            "type": "integer",
+            "description": "需求类型 0 订单需求 1库存需求 2其他需求",
+            "format": "int32"
+          },
+          "produce_remark": {
+            "type": "string",
+            "description": "生产反馈",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单生产任务的附加信息"
+      },
+      "GetProduceOtherInfoModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/GetProduceOtherInfoModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "GetProduceOtherInfoRequestModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询生产任务附加信息"
+      },
+      "GetProduceTaskDetailListModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetProduceTaskListModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "wo_code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "task_code": {
+            "type": "string",
+            "description": "生产任务号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "series_name": {
+            "type": "string",
+            "description": "系列名称",
+            "nullable": true
+          },
+          "plan_online_date_begin": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_online_date_end": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date_begin": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "plan_complete_date_end": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "report_state": {
+            "type": "integer",
+            "description": "完工状态 1 已完工 2 未完工",
+            "format": "int32"
+          },
+          "wo_type": {
+            "type": "integer",
+            "description": "工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询生产任务列表"
+      },
+      "GetProduceTaskModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetProductListModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "线边仓物料明细"
+      },
+      "GetRecordModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询工单"
+      },
+      "GetReportListByWoIdModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询报工记录"
+      },
+      "GetReportListModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetSerialNumberModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "sn": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "sn列表",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "通过sn生成序列号"
+      },
+      "GetSnListBySerialNumberModel": {
+        "type": "object",
+        "properties": {
+          "serial_number": {
+            "type": "string",
+            "description": "序列号",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "根据序列号获取sn和核心零部件"
+      },
+      "GetStarTaskListModel": {
+        "type": "object",
+        "properties": {
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询产线物料列表"
+      },
+      "GetStarTaskListResultModel": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "all_count": {
+            "type": "number",
+            "description": "物料总数量",
+            "format": "double"
+          },
+          "line_count": {
+            "type": "number",
+            "description": "当前线上物料数量",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "线上物料列表"
+      },
+      "GetStarTaskListResultModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/GetStarTaskListResultModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "GetTaskLogListModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "GetWoBomBySlnModel": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "bom_id": {
+            "type": "integer",
+            "description": "BomID",
+            "format": "int32"
+          },
+          "prod_type": {
+            "type": "integer",
+            "description": "物料类型 0 成品 1 零部件",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "根据配套方案获取bom"
+      },
+      "GetWoBomSlnModel": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_type": {
+            "type": "integer",
+            "description": "0成品 1 零部件",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取配套方案"
+      },
+      "GetWoListModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "series_id": {
+            "type": "integer",
+            "description": "系列id",
+            "format": "int32"
+          },
+          "begin": {
+            "type": "string",
+            "description": "开始时间",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "description": "结束时间",
+            "format": "date-time"
+          },
+          "is_asc": {
+            "type": "integer",
+            "description": "是否正序",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "查询工单列表"
+      },
+      "GetWoOtherModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "获取工单附加信息"
+      },
+      "GetWoRecordListToSelectModelsModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "GetWoSlnAndBomModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "Int32ReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "integer",
+            "description": "返回数据",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "LineModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "manufacturer_id": {
+            "type": "integer",
+            "description": "分厂Id",
+            "format": "int32"
+          },
+          "side_location_id": {
+            "type": "integer",
+            "description": "线边仓id",
+            "format": "int32"
+          },
+          "side_location_code": {
+            "type": "string",
+            "description": "线边仓编号",
+            "nullable": true
+          },
+          "line_location_id": {
+            "type": "integer",
+            "description": "产线仓Id",
+            "format": "int32"
+          },
+          "line_location_code": {
+            "type": "string",
+            "description": "产线仓编号",
+            "nullable": true
+          },
+          "product_location_id": {
+            "type": "integer",
+            "description": "成品库位Id",
+            "format": "int32"
+          },
+          "product_location_code": {
+            "type": "string",
+            "description": "成品库位编号",
+            "nullable": true
+          },
+          "linkman_id": {
+            "type": "integer",
+            "description": "产线负责人",
+            "format": "int32"
+          },
+          "linkman_name": {
+            "type": "string",
+            "description": "产线负责人",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "产线"
+      },
+      "LineModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/LineModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "ManufacturerModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "自增ID",
+            "format": "int32"
+          },
+          "manufacturer_name": {
+            "type": "string",
+            "description": "车间名称",
+            "nullable": true
+          },
+          "manufacturer_shortname": {
+            "type": "string",
+            "description": "分厂简称",
+            "nullable": true
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "修改人",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "车间信息"
+      },
+      "ManufacturerModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ManufacturerModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "OffLineDetailModel": {
+        "type": "object",
+        "properties": {
+          "batchId": {
+            "type": "string",
+            "description": "批次编号",
+            "nullable": true
+          },
+          "productCode": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "productName": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "batch": {
+            "type": "string",
+            "description": "批次信息",
+            "nullable": true
+          },
+          "produceOrg": {
+            "type": "string",
+            "description": "生产组织",
+            "nullable": true
+          },
+          "produceDate": {
+            "type": "string",
+            "description": "生产日期",
+            "nullable": true
+          },
+          "supplier": {
+            "type": "string",
+            "description": "供应商",
+            "nullable": true
+          },
+          "team": {
+            "type": "string",
+            "description": "班组",
+            "nullable": true
+          },
+          "num": {
+            "type": "number",
+            "description": "数量",
+            "format": "double"
+          },
+          "unit": {
+            "type": "string",
+            "description": "单位",
+            "nullable": true
+          },
+          "warehouseId": {
+            "type": "integer",
+            "description": "仓库Id",
+            "format": "int32"
+          },
+          "regionId": {
+            "type": "integer",
+            "description": "区域Id",
+            "format": "int32"
+          },
+          "locationId": {
+            "type": "integer",
+            "description": "库位Id",
+            "format": "int32"
+          },
+          "locationCode": {
+            "type": "string",
+            "description": "库位编号",
+            "nullable": true
+          },
+          "parentBatchId": {
+            "type": "string",
+            "description": "父类批次编号",
+            "nullable": true
+          },
+          "relId": {
+            "type": "string",
+            "description": "关联单据Id",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "物料下线明细"
+      },
+      "OffLineModel": {
+        "type": "object",
+        "properties": {
+          "lineId": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "lineName": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "stockPartsBatchModel": {
+            "$ref": "#/components/schemas/OffLineDetailModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "物料下线"
+      },
+      "OnLineModel": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料编号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "package_id": {
+            "type": "string",
+            "description": "包装id",
+            "nullable": true
+          },
+          "sn_number": {
+            "type": "string",
+            "description": "序列号",
+            "nullable": true
+          },
+          "batch_number": {
+            "type": "string",
+            "description": "批号",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "description": "数量",
+            "format": "double"
+          },
+          "source": {
+            "type": "string",
+            "description": "来源",
+            "nullable": true
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "上料"
+      },
+      "PKMBomResultModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "number": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          },
+          "isCore": {
+            "type": "integer",
+            "description": "是否是核心零部件",
+            "format": "int32"
+          },
+          "isCardProduct": {
+            "type": "integer",
+            "description": "是否是看板料",
+            "format": "int32"
+          },
+          "unit": {
+            "type": "string",
+            "description": "单位",
+            "nullable": true
+          },
+          "children": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PKMBomResultModel"
+            },
+            "description": "下级",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "PKMBomResultModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PKMBomResultModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "RequestWoBomSlnModel": {
+        "type": "object",
+        "properties": {
+          "sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "bom_id": {
+            "type": "integer",
+            "description": "BOMID",
+            "format": "int32"
+          },
+          "sln_name": {
+            "type": "string",
+            "description": "配套方案名称",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单配套方案信息"
+      },
+      "SaveCheckModel": {
+        "type": "object",
+        "properties": {
+          "produce_task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "check_count": {
+            "type": "integer",
+            "description": "送检数量",
+            "format": "int32"
+          },
+          "sample_count": {
+            "type": "integer",
+            "description": "抽样数量",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "保存工单送检"
+      },
+      "SaveWoModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "工单Id",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "prod_unit": {
+            "type": "string",
+            "description": "计量单位",
+            "nullable": true
+          },
+          "wo_type": {
+            "type": "integer",
+            "description": "工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单",
+            "format": "int32"
+          },
+          "plan_count": {
+            "type": "integer",
+            "description": "计划生产数量",
+            "format": "int32"
+          },
+          "is_overproduction": {
+            "type": "integer",
+            "description": "是否支持超量生产",
+            "format": "int32"
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期(格式2022-01-20)",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成时间(格式2022-01-20)",
+            "format": "date-time"
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间ID",
+            "format": "int32"
+          },
+          "prod_type": {
+            "type": "integer",
+            "description": "物料类型 0 成品 1 零部件",
+            "format": "int32"
+          },
+          "prod_spec": {
+            "type": "string",
+            "description": "物料规格型号",
+            "nullable": true
+          },
+          "prod_other": {
+            "type": "string",
+            "description": "物料系列或零部件类型",
+            "nullable": true
+          },
+          "series_id": {
+            "type": "integer",
+            "description": "系列ID",
+            "format": "int32"
+          },
+          "bom_list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PKMBomResultModel"
+            },
+            "description": "工单BOM",
+            "nullable": true
+          },
+          "bom_sln": {
+            "$ref": "#/components/schemas/RequestWoBomSlnModel"
+          },
+          "wo_other": {
+            "$ref": "#/components/schemas/WoOtherModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": "创建工单"
+      },
+      "SnListModel": {
+        "type": "object",
+        "properties": {
+          "page": {
+            "type": "integer",
+            "description": "当前页",
+            "format": "int32"
+          },
+          "page_size": {
+            "type": "integer",
+            "description": "页大小",
+            "format": "int32"
+          },
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id(可不传)",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id(可不传)",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "SN列表"
+      },
+      "StarProduceTaskModel": {
+        "type": "object",
+        "properties": {
+          "task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "开始生产任务"
+      },
+      "StringReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "string",
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "SupplyProduct": {
+        "type": "object",
+        "properties": {
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "need_count": {
+            "type": "number",
+            "description": "需求总量",
+            "format": "double"
+          },
+          "prod_unit": {
+            "type": "string",
+            "description": "物料单位",
+            "nullable": true
+          },
+          "receive_count": {
+            "type": "number",
+            "description": "已领数量",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
+      },
+      "SupplyProductListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/SupplyProduct"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "UpdateProduceTaskDateModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完工日期",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
+      "UpdateWoBomCountModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int32"
+          },
+          "count": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false,
+        "description": "修改工单bom用量"
+      },
+      "UpdateWoStateModel": {
+        "type": "object",
+        "properties": {
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "type": {
+            "type": "integer",
+            "description": "工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "修改工单状态"
+      },
+      "WoBomModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "description": "用量",
+            "format": "double"
+          },
+          "parent_prod_code": {
+            "type": "string",
+            "description": "上级物料号",
+            "nullable": true
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          },
+          "is_stock": {
+            "type": "integer",
+            "description": "是否需要查询库存",
+            "format": "int32"
+          },
+          "is_core": {
+            "type": "integer",
+            "description": "是否是核心零部件",
+            "format": "int32"
+          },
+          "is_card_product": {
+            "type": "integer",
+            "description": "是否是看板料",
+            "format": "int32"
+          },
+          "unit": {
+            "type": "string",
+            "description": "计量单位",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单BOM"
+      },
+      "WoBomModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoBomModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoBomSlnAndBomDetail": {
+        "type": "object",
+        "properties": {
+          "sln": {
+            "$ref": "#/components/schemas/WoChildBomSlnModel"
+          },
+          "bom_detail": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/PKMBomResultModel"
+            },
+            "description": "BOM明细",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "返回的工单配套方案和bom明细"
+      },
+      "WoBomSlnAndBomDetailReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoBomSlnAndBomDetail"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoBomSlnModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "bom_id": {
+            "type": "integer",
+            "description": "BOMID",
+            "format": "int32"
+          },
+          "sln_name": {
+            "type": "string",
+            "description": "配套方案名称",
+            "nullable": true
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "修改人",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "修改时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单bom配套方案"
+      },
+      "WoBomSlnModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoBomSlnModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoChildBomSlnModel": {
+        "type": "object",
+        "properties": {
+          "wo_bom_sln_id": {
+            "type": "integer",
+            "description": "配套方案表id",
+            "format": "int32"
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单ID",
+            "format": "int32"
+          },
+          "bom_id": {
+            "type": "integer",
+            "description": "bomid",
+            "format": "int32"
+          },
+          "sln_id": {
+            "type": "integer",
+            "description": "配套方案id",
+            "format": "int32"
+          },
+          "sln_name": {
+            "type": "string",
+            "description": "配套方案名称",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "BOM配套方案"
+      },
+      "WoLogModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "join_id": {
+            "type": "integer",
+            "description": "关联id type = 1 工单id type =2 生产任务id",
+            "format": "int32"
+          },
+          "content": {
+            "type": "string",
+            "description": "操作内容",
+            "nullable": true
+          },
+          "type": {
+            "type": "integer",
+            "description": "日志类型 1 工单日志 2 生产日志",
+            "format": "int32"
+          },
+          "create_username": {
+            "type": "string",
+            "description": "操作人姓名",
+            "nullable": true
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单日志"
+      },
+      "WoLogModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoLogModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoOtherModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "join_order_code": {
+            "type": "string",
+            "description": "关联的订单号",
+            "nullable": true
+          },
+          "join_wo_code": {
+            "type": "string",
+            "description": "关联工单号",
+            "nullable": true
+          },
+          "demand_type": {
+            "type": "integer",
+            "description": "需求类型 0 订单需求 1库存需求 2其他需求",
+            "format": "int32"
+          },
+          "customer_name": {
+            "type": "string",
+            "description": "客户名称",
+            "nullable": true
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单附加信息"
+      },
+      "WoOtherModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoOtherModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskCheckModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "produce_task_id": {
+            "type": "integer",
+            "description": "生产任务id",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "送检单号",
+            "nullable": true
+          },
+          "check_batch_number": {
+            "type": "string",
+            "description": "检验批次号",
+            "nullable": true
+          },
+          "check_count": {
+            "type": "integer",
+            "description": "送检数量",
+            "format": "int32"
+          },
+          "sample_count": {
+            "type": "integer",
+            "description": "抽样数量",
+            "format": "int32"
+          },
+          "checked_count": {
+            "type": "integer",
+            "description": "已检数量",
+            "format": "int32"
+          },
+          "rejects_count": {
+            "type": "integer",
+            "description": "不良品数量",
+            "format": "int32"
+          },
+          "state": {
+            "type": "integer",
+            "description": "检验状态 0 待检验 1 已检验 2 检验中",
+            "format": "int32"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1=删除 0=未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单送检记录"
+      },
+      "WoProduceTaskCheckModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskCheckModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskListModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id 查询工单bom时使用",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "生产任务编号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "workshop_name": {
+            "type": "string",
+            "description": "加工车间",
+            "nullable": true
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "加工产线",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "产品名称",
+            "nullable": true
+          },
+          "prod_series": {
+            "type": "string",
+            "description": "系列",
+            "nullable": true
+          },
+          "produce_rate": {
+            "type": "string",
+            "description": "生产进度",
+            "nullable": true
+          },
+          "wo_type": {
+            "type": "string",
+            "description": "工单类型",
+            "nullable": true
+          },
+          "produce_state": {
+            "type": "string",
+            "description": "生产状态",
+            "nullable": true
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "complete_date": {
+            "type": "string",
+            "description": "实际完工日期",
+            "format": "date-time"
+          },
+          "unqualified_count": {
+            "type": "integer",
+            "description": "不合格品数量",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单生产任务列表"
+      },
+      "WoProduceTaskListModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskListModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskListModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoProduceTaskListModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoProduceTaskLogListModel": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "string",
+            "description": "时间",
+            "format": "date-time"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线",
+            "nullable": true
+          },
+          "username": {
+            "type": "string",
+            "description": "操作人",
+            "nullable": true
+          },
+          "state": {
+            "type": "string",
+            "description": "状态 0 已停止 1 生产中",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "生产任务日志列表"
+      },
+      "WoProduceTaskLogListModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskLogListModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "生产任务编号",
+            "nullable": true
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "line_admin_id": {
+            "type": "integer",
+            "description": "产线负责人id",
+            "format": "int32"
+          },
+          "line_admin_name": {
+            "type": "string",
+            "description": "产线负责人名称",
+            "nullable": true
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "plan_produce_count": {
+            "type": "integer",
+            "description": "计划生产数量",
+            "format": "int32"
+          },
+          "report_produce_count": {
+            "type": "integer",
+            "description": "已报工生产数量",
+            "format": "int32"
+          },
+          "produce_state": {
+            "type": "integer",
+            "description": "生产状态 0 未生产 1 生产中 2 已停止",
+            "format": "int32"
+          },
+          "report_state": {
+            "type": "integer",
+            "description": "报工状态 0 未报工 1 已报工 2 部分报工",
+            "format": "int32"
+          },
+          "pick_state": {
+            "type": "integer",
+            "description": "拣货状态，0未启动，1拣货中，2部分到货，3已完成  4已取消",
+            "format": "int32"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          },
+          "wo_code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "create_user_name": {
+            "type": "string",
+            "description": "创建人姓名",
+            "nullable": true
+          },
+          "line": {
+            "$ref": "#/components/schemas/LineModel"
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单生产任务"
+      },
+      "WoProduceTaskModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoProduceTaskModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskPickDetailModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "task_code": {
+            "type": "string",
+            "description": "生产任务编号",
+            "nullable": true
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "pick_id": {
+            "type": "integer",
+            "description": "拣货任务Id",
+            "format": "int32"
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "prod_unit": {
+            "type": "string",
+            "description": "物料单位",
+            "nullable": true
+          },
+          "count": {
+            "type": "number",
+            "description": "数量",
+            "format": "double"
+          },
+          "pick_count": {
+            "type": "number",
+            "description": "已拣货数量",
+            "format": "double"
+          },
+          "send_count": {
+            "type": "number",
+            "description": "已取货数量",
+            "format": "double"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单-任务拣货任务明细"
+      },
+      "WoProduceTaskPickModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "生产任务拣货编号",
+            "nullable": true
+          },
+          "task_code": {
+            "type": "string",
+            "description": "生产任务编号",
+            "nullable": true
+          },
+          "wo_code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "wo_record_id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "product_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "pick_type": {
+            "type": "integer",
+            "description": "类型  1工单拣货  2看板料拣货  3补料拣货",
+            "format": "int32"
+          },
+          "pick_type_des": {
+            "type": "string",
+            "description": "类型 描述",
+            "nullable": true,
+            "readOnly": true
+          },
+          "line_id": {
+            "type": "integer",
+            "description": "产线id",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "pick_state": {
+            "type": "integer",
+            "description": "拣货状态，0未启动，1拣货中，2部分到货，3已完成  4已取消",
+            "format": "int32"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1=删除 0=未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          },
+          "productList": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskPickDetailModel"
+            },
+            "description": "任务物料列表",
+            "nullable": true
+          },
+          "pick_state_des": {
+            "type": "string",
+            "description": "拣货状态描述",
+            "nullable": true,
+            "readOnly": true
+          },
+          "count": {
+            "type": "number",
+            "description": "总数",
+            "format": "double"
+          },
+          "pick_count": {
+            "type": "number",
+            "description": "拣货总数",
+            "format": "double"
+          },
+          "send_count": {
+            "type": "number",
+            "description": "已到货总数",
+            "format": "double"
+          },
+          "line": {
+            "$ref": "#/components/schemas/LineModel"
+          },
+          "create_user_name": {
+            "type": "string",
+            "description": "创建人姓名",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单任务拣货实体"
+      },
+      "WoProduceTaskPickModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskPickModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskPickModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoProduceTaskPickModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoProduceTaskPickModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoProduceTaskPickModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoProduceTaskPickPara": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "id",
+            "format": "int32"
+          },
+          "page": {
+            "type": "integer",
+            "description": "当前页数",
+            "format": "int32"
+          },
+          "pageSize": {
+            "type": "integer",
+            "description": "每页数量",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "单号",
+            "nullable": true
+          },
+          "woCode": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "createBegin": {
+            "type": "string",
+            "description": "创建开始时间",
+            "format": "date-time"
+          },
+          "taskCode": {
+            "type": "string",
+            "description": "任务号",
+            "nullable": true
+          },
+          "pickState": {
+            "type": "integer",
+            "description": "拣货状态",
+            "format": "int32"
+          },
+          "createEnd": {
+            "type": "string",
+            "description": "创建结束时间",
+            "format": "date-time"
+          },
+          "lineName": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单拣货任务参数"
+      },
+      "WoProduceTaskReportListModel": {
+        "type": "object",
+        "properties": {
+          "task_code": {
+            "type": "string",
+            "description": "生产任务号",
+            "nullable": true
+          },
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "时间",
+            "format": "date-time"
+          },
+          "count": {
+            "type": "integer",
+            "description": "报工数量",
+            "format": "int32"
+          },
+          "line_name": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "batch_number": {
+            "type": "string",
+            "description": "生产批次号",
+            "nullable": true
+          },
+          "instock_state": {
+            "type": "string",
+            "description": "入库状态",
+            "nullable": true
+          },
+          "check_code": {
+            "type": "string",
+            "description": "送检单号",
+            "nullable": true
+          },
+          "instock_code": {
+            "type": "string",
+            "description": "入库申请单号",
+            "nullable": true
+          },
+          "create_username": {
+            "type": "string",
+            "description": "操作人",
+            "nullable": true
+          },
+          "operation_name": {
+            "type": "string",
+            "description": "报工人",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "报工列表"
+      },
+      "WoProduceTaskReportListModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoProduceTaskReportListModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoRecordAssignmentListModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "prod_type": {
+            "type": "integer",
+            "description": "物料类型 0 成品 1 零部件",
+            "format": "int32"
+          },
+          "prod_series": {
+            "type": "string",
+            "description": "系列",
+            "nullable": true
+          },
+          "prod_mttype": {
+            "type": "string",
+            "description": "零部件类型",
+            "nullable": true
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "加工车间",
+            "format": "int32"
+          },
+          "line_names": {
+            "type": "string",
+            "description": "产线名称",
+            "nullable": true
+          },
+          "assignment_info": {
+            "type": "string",
+            "description": "指派进度",
+            "nullable": true
+          },
+          "produce_info": {
+            "type": "string",
+            "description": "生产进度",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "工单类型",
+            "nullable": true
+          },
+          "assignment_state": {
+            "type": "string",
+            "description": "指派状态",
+            "nullable": true
+          },
+          "complete_date": {
+            "type": "string",
+            "description": "实际完成时间",
+            "format": "date-time"
+          },
+          "workshop_name": {
+            "type": "string",
+            "description": "车间名称",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单分配列表"
+      },
+      "WoRecordAssignmentListModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoRecordAssignmentListModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoRecordAssignmentListModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoRecordAssignmentListModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoRecordListModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "description": "工单id",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "workshop_name": {
+            "type": "string",
+            "description": "车间名称",
+            "nullable": true
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间ID",
+            "format": "int32"
+          },
+          "prod_spec": {
+            "type": "string",
+            "description": "规格型号",
+            "nullable": true
+          },
+          "prod_series": {
+            "type": "string",
+            "description": "系列",
+            "nullable": true
+          },
+          "speed": {
+            "type": "string",
+            "description": "生产进度",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "工单类型",
+            "nullable": true
+          },
+          "release_state": {
+            "type": "string",
+            "description": "工单状态",
+            "nullable": true
+          },
+          "assignment_state": {
+            "type": "string",
+            "description": "工单分配生产状态(0未分配 1 已分配 2部分分配)",
+            "nullable": true
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完工时间",
+            "format": "date-time"
+          },
+          "complete_date": {
+            "type": "string",
+            "description": "实际完工时间",
+            "format": "date-time"
+          },
+          "instock_count": {
+            "type": "number",
+            "description": "入库数量",
+            "format": "double"
+          },
+          "instock_state": {
+            "type": "string",
+            "description": "入库状态",
+            "nullable": true
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "join_order_code": {
+            "type": "string",
+            "description": "关联订单",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单列表"
+      },
+      "WoRecordListModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoRecordListModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoRecordListModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoRecordListModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoRecordListToSelectModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料编码",
+            "nullable": true
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完工日期",
+            "format": "date-time"
+          },
+          "release_state": {
+            "type": "string",
+            "description": "工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单列表，选工单时使用"
+      },
+      "WoRecordListToSelectModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoRecordListToSelectModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoRecordListToSelectModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoRecordListToSelectModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoRecordModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "code": {
+            "type": "string",
+            "description": "工单号",
+            "nullable": true
+          },
+          "prod_code": {
+            "type": "string",
+            "description": "物料号",
+            "nullable": true
+          },
+          "prod_name": {
+            "type": "string",
+            "description": "物料名称",
+            "nullable": true
+          },
+          "prod_unit": {
+            "type": "string",
+            "description": "计量单位",
+            "nullable": true
+          },
+          "prod_type": {
+            "type": "integer",
+            "description": "物料类型 0 成品 1 零部件",
+            "format": "int32"
+          },
+          "series_id": {
+            "type": "integer",
+            "description": "系列ID",
+            "format": "int32"
+          },
+          "type": {
+            "type": "integer",
+            "description": "工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单",
+            "format": "int32"
+          },
+          "plan_count": {
+            "type": "integer",
+            "description": "工单计划生产数量",
+            "format": "int32"
+          },
+          "actual_count": {
+            "type": "integer",
+            "description": "实际生产数量(强制完工等操作，会导致生产数量与实际生产数量不符)",
+            "format": "int32"
+          },
+          "release_state": {
+            "type": "integer",
+            "description": "工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭",
+            "format": "int32"
+          },
+          "instock_state": {
+            "type": "integer",
+            "description": "工单入库状态 0 未入库 1 已入库 2 部分入库",
+            "format": "int32"
+          },
+          "assignment_state": {
+            "type": "integer",
+            "description": "工单分配生产状态(0未分配 1 已分配 2部分分配)",
+            "format": "int32"
+          },
+          "is_overproduction": {
+            "type": "integer",
+            "description": "是否支持超量生产 0 不支持 1 支持",
+            "format": "int32"
+          },
+          "plan_online_date": {
+            "type": "string",
+            "description": "计划上线日期",
+            "format": "date-time"
+          },
+          "online_date": {
+            "type": "string",
+            "description": "实际上线日期",
+            "format": "date-time"
+          },
+          "plan_complete_date": {
+            "type": "string",
+            "description": "计划完成日期",
+            "format": "date-time"
+          },
+          "complete_date": {
+            "type": "string",
+            "description": "实际完成时间",
+            "format": "date-time"
+          },
+          "workshop_id": {
+            "type": "integer",
+            "description": "车间id",
+            "format": "int32"
+          },
+          "is_delete": {
+            "type": "integer",
+            "description": "是否删除 1删除 0未删除",
+            "format": "int32"
+          },
+          "create_user": {
+            "type": "integer",
+            "description": "创建人ID",
+            "format": "int32"
+          },
+          "create_time": {
+            "type": "string",
+            "description": "创建时间",
+            "format": "date-time"
+          },
+          "update_user": {
+            "type": "integer",
+            "description": "更新人ID",
+            "format": "int32"
+          },
+          "update_time": {
+            "type": "string",
+            "description": "更新时间",
+            "format": "date-time"
+          },
+          "prod_spec": {
+            "type": "string",
+            "description": "物料规格型号",
+            "nullable": true
+          },
+          "prod_series": {
+            "type": "string",
+            "description": "物料系列",
+            "nullable": true
+          },
+          "prod_mttype": {
+            "type": "string",
+            "description": "零部件类型",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "工单主表"
+      },
+      "WoRecordModelReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoRecordModel"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoSnDetailListModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "detail_sn": {
+            "type": "string",
+            "description": "核心部件sn",
+            "nullable": true
+          },
+          "sn_id": {
+            "type": "integer",
+            "description": "上级id",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false
+      },
+      "WoSnRecordListModel": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "record_sn": {
+            "type": "string",
+            "description": "sn码",
+            "nullable": true
+          },
+          "detail": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoSnDetailListModel"
+            },
+            "description": "核心部件明细",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "sn列表"
+      },
+      "WoSnRecordListModelListReturnData": {
+        "type": "object",
+        "properties": {
+          "list": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoSnRecordListModel"
+            },
+            "description": "",
+            "nullable": true
+          },
+          "recordCount": {
+            "type": "integer",
+            "description": "",
+            "format": "int32"
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      },
+      "WoSnRecordListModelListReturnModel": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "$ref": "#/components/schemas/WoSnRecordListModelListReturnData"
+          }
+        },
+        "additionalProperties": false,
+        "description": "用于返回数据的实体"
+      },
+      "WoSnRecordListModelListReturnValue": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "integer",
+            "description": "返回结果 1.成功 0.失败",
+            "format": "int32"
+          },
+          "msg": {
+            "type": "string",
+            "description": "结果描述",
+            "nullable": true
+          },
+          "entity": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WoSnRecordListModel"
+            },
+            "description": "返回数据",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": ""
+      }
+    }
+  },
+  "tags": [
+    {
+      "name": "Common",
+      "description": "公用接口"
+    },
+    {
+      "name": "Produce",
+      "description": "生产接口"
+    },
+    {
+      "name": "Wo",
+      "description": "工单接口"
+    },
+    {
+      "name": "WoTaskPick",
+      "description": "生产任务"
+    }
+  ]
+}
