@@ -1,5 +1,4 @@
 import type { Spec } from 'swagger-schema-official'
-
 import { traverseSchema } from '../tool/traverseSchema'
 import { cleanName } from '../tool/cleanName'
 import { getDefinition } from '../tool/getDefinition'

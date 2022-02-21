@@ -338,4 +338,11 @@ export interface Project {
    * 如果有特殊原因，可设置为'auto'，则跟随系统，例如windows则为'\r\n'，mac为'\r'
    * */
   EOL?: '\n' | '\r' | '\r\n' | 'auto'
+
+  /**
+   * nullable是否等同于非必填
+   * 在一些后端项目中所有字段都是有的，但是他们用nullable来表示此字段是否必填
+   * 用来影响字段的?生成
+   */
+  nullableAsRequired?: boolean
 }

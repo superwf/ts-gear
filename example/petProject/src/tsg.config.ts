@@ -6,7 +6,6 @@ const prettierConfig: Options = {
   useTabs: false,
   singleQuote: true,
   trailingComma: 'all',
-  jsxBracketSameLine: false,
   // parser: 'babel',
 }
 
@@ -45,6 +44,18 @@ const projects: Project[] = [
     useCache: false,
     prettierConfig,
     EOL: '\n',
+  },
+  {
+    name: 'nullable',
+    dest: 'service',
+    source: '../../fixture/nullable.json',
+    importRequesterStatement: 'import { requester } from "../../requester"',
+    nullableAsRequired: true,
+    // prettierConfig,
+    // shouldExportRequestOptionType: true,
+    // shouldExportResponseType: true,
+    // shouldGenerateMock: true,
+    // useCache: false,
   },
 ]
 

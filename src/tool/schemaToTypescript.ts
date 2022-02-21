@@ -5,11 +5,23 @@ import type { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-
 import { map } from 'lodash'
 import type { SchemaObject } from 'openapi3-ts'
 import { config } from '../constant'
+import { getCurrentProject } from '../projectGlobalVariable'
 import { assembleDoc } from './assembleDoc'
 
 type SchemaOption = Schema | BodyParameter | Response | Parameter
 
 const isBodyParameter = (schema: SchemaOption): schema is Required<BodyParameter | Response> => 'schema' in schema
+export const getHasQuestionToken = (name: string, property: Schema, required?: string[]) => {
+  const isNullableAsRequired = Boolean(getCurrentProject()?.nullableAsRequired)
+  // 先判断required里面是否存在
+  if (required && required.includes(name)) {
+    return false
+  }
+  if (isNullableAsRequired) {
+    return Boolean((property as SchemaObject)?.nullable)
+  }
+  return true
+}
 
 /** generate inline property doc */
 const generatePropertyDoc = (schema: SchemaOption) => {
@@ -123,7 +135,7 @@ const transform = (schema: SchemaOption): string => {
       let objectContent = ''
       if (properties) {
         objectContent = map(properties, (prop, name: string) => {
-          const questionToken = required && required.includes(name) ? '' : '?'
+          const questionToken = getHasQuestionToken(name, prop, required) ? '?' : ''
           /** check discriminator */
           if (name === discriminatorPropertyName) {
             return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${discriminatorTypeString}`

@@ -3,6 +3,8 @@ import { clearObject } from './tool/clearObject'
 
 const projectGlobal: ProjectGlobalMap = {}
 
+let currentProject: Project | undefined
+
 export const getGlobal = (project: Project) => {
   if (!projectGlobal[project.name]) {
     projectGlobal[project.name] = {
@@ -23,4 +25,10 @@ export const restore = (project: Project) => {
   clearObject(g.enumMap)
   g.requestRefSet.clear()
   g.requestEnumSet.clear()
+}
+
+export const getCurrentProject = () => currentProject
+
+export const setCurrentProject = (project: Project) => {
+  currentProject = project
 }

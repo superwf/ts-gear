@@ -6,7 +6,7 @@ import type {
   ClassDeclarationStructure,
 } from 'ts-morph'
 import { Scope } from 'ts-morph'
-import { schemaToTypescript } from '../tool/schemaToTypescript'
+import { getHasQuestionToken, schemaToTypescript } from '../tool/schemaToTypescript'
 import { sow, harvest } from '../source'
 import type { Project } from '../type'
 import { getGlobal } from '../projectGlobalVariable'
@@ -45,7 +45,7 @@ export const generateDefinitionContent = (project: Project) => {
             name,
             type: schemaToTypescript(property),
             scope: preferClass ? Scope.Public : undefined,
-            hasQuestionToken: !schema.required || !schema.required.includes(name),
+            hasQuestionToken: getHasQuestionToken(name, property, schema.required),
             docs: assembleDoc(property),
           }
           /** interface property can not has default value
