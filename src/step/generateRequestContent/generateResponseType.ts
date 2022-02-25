@@ -41,7 +41,7 @@ export const generateResponseType = (
       }
       inter.addProperty({
         name: String(status),
-        type: schemaToTypescript(responses[status]),
+        type: schemaToTypescript(responses[status], project),
         docs: assembleDoc(responses[status]),
       })
     })

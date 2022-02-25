@@ -3,7 +3,7 @@ import type { SchemaObject } from 'openapi3-ts'
 import { config } from '../constant'
 
 /** add many possible properties to doc */
-export const assembleDoc = (schema: Schema | Operation | Parameter) => {
+export const assembleDoc = (schema: Schema | Operation | Parameter | SchemaObject) => {
   const { EOL } = config
   if (typeof schema !== 'object') {
     return undefined

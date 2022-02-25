@@ -343,6 +343,7 @@ export interface Project {
    * nullable是否等同于非必填
    * 在一些后端项目中所有字段都是有的，但是他们用nullable来表示此字段是否必填
    * 用来影响字段的?生成
+   * @default true
    */
-  nullableAsRequired?: boolean
+  nullableFalseAsRequired?: boolean
 }

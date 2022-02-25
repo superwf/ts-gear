@@ -43,9 +43,9 @@ export const generateDefinitionContent = (project: Project) => {
           const propertyStructure: OptionalKind<PropertyDeclarationStructure> &
             OptionalKind<PropertySignatureStructure> = {
             name,
-            type: schemaToTypescript(property),
+            type: schemaToTypescript(property, project),
             scope: preferClass ? Scope.Public : undefined,
-            hasQuestionToken: getHasQuestionToken(name, property, schema.required),
+            hasQuestionToken: getHasQuestionToken(name, property, project, schema.required),
             docs: assembleDoc(property),
           }
           /** interface property can not has default value
@@ -67,7 +67,7 @@ export const generateDefinitionContent = (project: Project) => {
             {
               keyName: 'key',
               keyType: 'string',
-              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties),
+              returnType: additionalProperties === true ? 'any' : schemaToTypescript(additionalProperties, project),
             },
           ],
         })
@@ -75,7 +75,7 @@ export const generateDefinitionContent = (project: Project) => {
         source.addTypeAlias({
           isExported: true,
           name: title,
-          type: schemaToTypescript(schema),
+          type: schemaToTypescript(schema, project),
           docs: assembleDoc(schema),
         })
       }
@@ -83,7 +83,7 @@ export const generateDefinitionContent = (project: Project) => {
       source.addTypeAlias({
         isExported: true,
         name: title,
-        type: schemaToTypescript(schema),
+        type: schemaToTypescript(schema, project),
         docs: assembleDoc(schema),
       })
     }

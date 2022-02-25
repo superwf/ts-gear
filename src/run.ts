@@ -1,10 +1,14 @@
 import * as step from './step'
-import { restore, setCurrentProject } from './projectGlobalVariable'
+import { restore } from './projectGlobalVariable'
 import type { Project } from './type'
 import { info } from './tool/log'
 
+/**
+ * run step by step
+ * sequence could not be changed
+ * every step depends on the pre step
+ * */
 export const processProject = async (project: Project, tsGearConfigPath: string): Promise<void> => {
-  setCurrentProject(project)
   step.processEOL(project)
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchOpenapiData(project, tsGearConfigPath)
@@ -39,18 +43,16 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
 }
 
 /**
- * run step by step
- * sequence could not be changed
- * every step depends on the pre step
+ * run from command line
  * */
 export const runByCommand = async (): Promise<void> => {
   const { projects, tsGearConfigPath } = await step.getUserConfig()
-  const shouldSerial = projects.some(k => k.nullableAsRequired)
-  if (shouldSerial) {
-    await projects.reduce((p, project) => p.then(() => processProject(project, tsGearConfigPath)), Promise.resolve())
-  } else {
-    await Promise.all(projects.map(project => processProject(project, tsGearConfigPath)))
-  }
+  // const shouldSerial = projects.some(k => k.nullableFalseAsRequired)
+  // if (shouldSerial) {
+  //   await projects.reduce((p, project) => p.then(() => processProject(project, tsGearConfigPath)), Promise.resolve())
+  // } else {
+  await Promise.all(projects.map(project => processProject(project, tsGearConfigPath)))
+  // }
 }
 
 /**
@@ -58,10 +60,10 @@ export const runByCommand = async (): Promise<void> => {
  * should be used by nodejs env call
  * */
 export const run = async ({ projects, appPath }: { projects: Project[]; appPath: string }): Promise<void> => {
-  const shouldSerial = projects.some(k => k.nullableAsRequired)
-  if (shouldSerial) {
-    await projects.reduce((p, project) => p.then(() => processProject(project, appPath)), Promise.resolve())
-  } else {
-    await Promise.all(projects.map(project => processProject(project, appPath)))
-  }
+  // const shouldSerial = projects.some(k => k.nullableFalseAsRequired)
+  // if (shouldSerial) {
+  //   await projects.reduce((p, project) => p.then(() => processProject(project, appPath)), Promise.resolve())
+  // } else {
+  await Promise.all(projects.map(project => processProject(project, appPath)))
+  // }
 }

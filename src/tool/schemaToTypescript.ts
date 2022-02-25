@@ -5,20 +5,29 @@ import type { Schema, BodyParameter, Response, Parameter } from 'swagger-schema-
 import { map } from 'lodash'
 import type { SchemaObject } from 'openapi3-ts'
 import { config } from '../constant'
-import { getCurrentProject } from '../projectGlobalVariable'
+import type { Project } from '../type'
 import { assembleDoc } from './assembleDoc'
 
-type SchemaOption = Schema | BodyParameter | Response | Parameter
+type SchemaOption = Schema | BodyParameter | Response | Parameter | SchemaObject
 
 const isBodyParameter = (schema: SchemaOption): schema is Required<BodyParameter | Response> => 'schema' in schema
-export const getHasQuestionToken = (name: string, property: Schema, required?: string[]) => {
-  const isNullableAsRequired = Boolean(getCurrentProject()?.nullableAsRequired)
+
+export const getHasQuestionToken = (
+  name: string,
+  property: Schema | SchemaObject,
+  project: Project,
+  required?: string[],
+) => {
   // 先判断required里面是否存在
   if (required && required.includes(name)) {
     return false
   }
-  if (isNullableAsRequired) {
-    return Boolean((property as SchemaObject)?.nullable)
+  // 再根据 nullable 判断是否允许 optional
+  if (project.nullableFalseAsRequired !== false) {
+    if (!('nullable' in property)) {
+      return true
+    }
+    return (property as SchemaObject)?.nullable
   }
   return true
 }
@@ -30,18 +39,28 @@ const generatePropertyDoc = (schema: SchemaOption) => {
   return docs ? `/**${EOL}${docs.join(EOL)} */${EOL}` : ''
 }
 
+/** compatible with openapi v3 nullable property */
+const withNullType = (typeString: string, nullable: boolean | undefined) => {
+  if (!nullable || typeString === 'any' || typeString.endsWith('| null')) {
+    return typeString
+  }
+  return `${typeString} | null`
+}
+
 /** transform schema to typescript type definition
  * @param schema
  * */
-const transform = (schema: SchemaOption): string => {
+const transform = (schema: SchemaOption, project: Project): string => {
   const { EOL } = config
   if (isBodyParameter(schema)) {
-    return transform(schema.schema)
+    return transform(schema.schema, project)
   }
-  const v3Schema = schema as SchemaObject
-  const { anyOf, oneOf, discriminator } = v3Schema
 
   const {
+    anyOf,
+    oneOf,
+    discriminator,
+    nullable,
     type,
     enum: enumValues,
     items,
@@ -51,50 +70,60 @@ const transform = (schema: SchemaOption): string => {
     required,
     allOf,
     format,
-  } = schema as Schema
+  } = schema as SchemaObject
   if (enumValues) {
+    let typeScring = ''
     if (Array.isArray(enumValues)) {
       if (type === 'string') {
-        return `'${enumValues.join("' | '")}'`
+        typeScring = `'${enumValues.join("' | '")}'`
       }
       if (type === 'integer' || type === 'number') {
-        return enumValues.join(' | ')
+        typeScring = enumValues.join(' | ')
       }
+    } else {
+      typeScring = enumValues as unknown as string
     }
-    return enumValues as unknown as string
+    return withNullType(typeScring, nullable)
   }
   if (!properties && !discriminator) {
+    let typeScring = ''
     if (anyOf) {
-      return `${anyOf.map(prop => transform(prop as Schema)).join(' | ')}`
+      typeScring = `${anyOf.map(prop => transform(prop as Schema, project)).join(' | ')}`
+    } else if (oneOf) {
+      typeScring = `${oneOf.map(prop => transform(prop as Schema, project)).join(' | ')}`
     }
-    if (oneOf) {
-      return `${oneOf.map(prop => transform(prop as Schema)).join(' | ')}`
+    if (typeScring) {
+      return withNullType(typeScring, nullable)
     }
     if (allOf) {
-      return `${allOf.map(prop => transform(prop)).join(' & ')}`
+      typeScring = `${allOf.map(prop => transform(prop as Schema, project)).join(' & ')}`
+      if (nullable) {
+        return withNullType(`(${typeScring})`, nullable)
+      }
+      return typeScring
     }
   }
   if ($ref) {
-    return $ref
+    return withNullType($ref, nullable)
   }
   switch (type) {
     case 'string':
-      return format === 'binary' ? 'File' : 'string'
+      return withNullType(format === 'binary' ? 'File' : 'string', nullable)
     case 'boolean':
-      return 'boolean'
+      return withNullType('boolean', nullable)
     case 'file':
-      return 'File'
+      return withNullType('File', nullable)
     case 'integer':
     case 'number':
-      return 'number'
+      return withNullType('number', nullable)
     case 'array':
       if (Array.isArray(items)) {
-        return `Array<${items.map(item => transform(item)).join(' | ')}>`
+        return withNullType(`Array<${items.map(item => transform(item, project)).join(' | ')}>`, nullable)
       }
       if (!items) {
-        return `Array<any>`
+        return withNullType(`Array<any>`, nullable)
       }
-      return `Array<${transform(items)}>`
+      return withNullType(`Array<${transform(items, project)}>`, nullable)
 
     case 'object': {
       /**
@@ -107,19 +136,23 @@ const transform = (schema: SchemaOption): string => {
        * */
       let discriminatorTypeString = ''
       let discriminatorPropertyName = ''
-      if (v3Schema.discriminator) {
-        const { propertyName, mapping } = v3Schema.discriminator
+      if (discriminator) {
+        const { propertyName, mapping } = discriminator
         if (propertyName) {
           discriminatorPropertyName = propertyName
           if (mapping) {
             discriminatorTypeString = `'${Object.keys(mapping).join("' | '")}'`
           } else if (allOf) {
-            discriminatorTypeString = `'${allOf.map(prop => transform(prop)).join("' & '")}'`
+            discriminatorTypeString = `'${allOf.map(prop => transform(prop, project)).join("' & '")}'`
           } else if (oneOf || anyOf) {
-            discriminatorTypeString = `'${(oneOf || anyOf)!.map(prop => transform(prop as Schema)).join("' | '")}'`
+            discriminatorTypeString = `'${(oneOf || anyOf)!
+              .map(prop => transform(prop as Schema, project))
+              .join("' | '")}'`
           } else {
             discriminatorTypeString = 'string'
           }
+        } else {
+          discriminatorTypeString = 'string'
         }
       }
       if (!properties) {
@@ -135,40 +168,39 @@ const transform = (schema: SchemaOption): string => {
       let objectContent = ''
       if (properties) {
         objectContent = map(properties, (prop, name: string) => {
-          const questionToken = getHasQuestionToken(name, prop, required) ? '?' : ''
+          const questionToken = getHasQuestionToken(name, prop, project, required) ? '?' : ''
           /** check discriminator */
           if (name === discriminatorPropertyName) {
             return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${discriminatorTypeString}`
           }
-          return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${transform(prop)}`
+          return `${generatePropertyDoc(prop)}'${name}'${questionToken}: ${transform(prop, project)}`
         }).join(EOL)
       }
       if (!additionalProperties) {
-        return `{${EOL}${objectContent}${EOL}}`
+        return withNullType(`{${EOL}${objectContent}${EOL}}`, nullable)
       }
       let additionalProps = ''
       additionalProps = `${generatePropertyDoc(schema)}[propertyName: string]: ${
-        additionalProperties === true ? 'any' : transform(additionalProperties)
+        additionalProperties === true
+          ? 'any'
+          : withNullType(
+              transform(additionalProperties, project),
+              typeof additionalProperties === 'object' &&
+                'nullable' in additionalProperties &&
+                additionalProperties.nullable,
+            )
       }`
       if (objectContent) {
-        return `{${EOL}${objectContent}${EOL}} & {${EOL}${additionalProps}${EOL}}`
+        return withNullType(`{${EOL}${objectContent}${EOL}} & {${EOL}${additionalProps}${EOL}}`, nullable)
       }
-      return `{${EOL}${additionalProps}${EOL}}`
+      return withNullType(`{${EOL}${additionalProps}${EOL}}`, nullable)
     }
     default:
       return 'any'
   }
 }
 
-/** compatible with openapi v3 */
-const withNullType = (typeString: string, nullable?: boolean) => {
-  if (!nullable || typeString === 'any') {
-    return typeString
-  }
-  return `${typeString} | null`
-}
-
-export const schemaToTypescript = (schema: Schema) => {
+export const schemaToTypescript = (schema: Schema, project: Project) => {
   const v3Schema = schema as SchemaObject
-  return withNullType(transform(schema), v3Schema.nullable)
+  return withNullType(transform(schema, project), v3Schema.nullable)
 }

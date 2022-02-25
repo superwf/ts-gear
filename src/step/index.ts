@@ -1,4 +1,4 @@
-export * from './processEOF'
+export * from './processEOL'
 export * from './getUserConfig'
 export * from './fetchOpenapiData'
 export * from './checkCache'

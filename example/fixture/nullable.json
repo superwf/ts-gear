@@ -3609,7 +3609,7 @@
               "$ref": "#/components/schemas/GetProdModelByProdCodeResultModel"
             },
             "description": "",
-            "nullable": true
+            "nullable": false
           },
           "recordCount": {
             "type": "integer",

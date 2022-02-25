@@ -26,9 +26,3 @@ export const restore = (project: Project) => {
   g.requestRefSet.clear()
   g.requestEnumSet.clear()
 }
-
-export const getCurrentProject = () => currentProject
-
-export const setCurrentProject = (project: Project) => {
-  currentProject = project
-}

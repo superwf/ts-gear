@@ -7,8 +7,9 @@ import { initConfig } from '../../content/initConfig'
 import { warn } from '../../tool/log'
 import { getCliOption } from './cliOption'
 
-/** get user config
- * filter if any cli option
+/**
+ * get user config
+ * from cli option
  * */
 export const getUserConfig = async () => {
   const cwd = process.cwd()
@@ -34,9 +35,9 @@ export const getUserConfig = async () => {
     }
   }
   const tsGearConfigPath = join(cwd, cliOption.config || join('src', configFileName))
-  /* eslint-disable */
+  /* eslint-disable @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require */
   const config = require(tsGearConfigPath)
-  /* eslint-enable */
+  /* eslint-enable @typescript-eslint/no-var-requires,global-require,import/no-dynamic-require */
   let projects = (config.default ? config.default : config) as Project[]
   const projectNamesFromCommandLine = cliOption.names
   if (projectNamesFromCommandLine.length > 0) {

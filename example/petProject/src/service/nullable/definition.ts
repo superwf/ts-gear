@@ -13,31 +13,31 @@ export interface BatchCreateProducrTaskDetailModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   生产数量
    * @format int32
    */
-  plan_produce_count: number;
+  plan_produce_count?: number;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   是否需要库房备料(0 不需要 1 需要)
    * @format int32
    */
-  is_ready: number;
+  is_ready?: number;
 }
 
 /**
@@ -50,7 +50,7 @@ export interface BatchCreateProducrTaskModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   任务明细
@@ -78,13 +78,13 @@ export interface BomProduceLineStockList {
    *   用量
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   线上物料总数
    * @format double
    */
-  allcount: number;
+  allcount?: number;
 }
 
 /** @description */
@@ -94,7 +94,7 @@ export interface BomProduceLineStockListListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -127,25 +127,25 @@ export interface BomProductList {
    *   用量
    * @format double
    */
-  allcount: number;
+  allcount?: number;
   /**
    * @description
    *   库存齐套数量
    * @format double
    */
-  complete_now_count: number;
+  complete_now_count?: number;
   /**
    * @description
    *   库存时序齐套数量
    * @format double
    */
-  sequence_now_count: number;
+  sequence_now_count?: number;
   /**
    * @description
    *   是否是看板料
    * @format int32
    */
-  type: number;
+  type?: number;
 }
 
 /** @description */
@@ -155,7 +155,7 @@ export interface BomProductListListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -175,7 +175,7 @@ export interface BooleanReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -185,7 +185,7 @@ export interface BooleanReturnValue {
    * @description
    *   返回数据
    */
-  entity: boolean;
+  entity?: boolean;
 }
 
 /**
@@ -198,13 +198,13 @@ export interface ComplateReportModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   是否强制完工 0 否 1 是
    * @format int32
    */
-  is_force_complate: number;
+  is_force_complate?: number;
   /**
    * @description
    *   强制完工备注(非强制完工不用填)
@@ -227,7 +227,7 @@ export interface CreateBomDetailModel {
    *   配套方案id
    * @format int32
    */
-  wo_bom_sln_id: number;
+  wo_bom_sln_id?: number;
   /**
    * @description
    *   物料号
@@ -243,7 +243,7 @@ export interface CreateBomDetailModel {
    *   用量
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   计量单位
@@ -254,7 +254,7 @@ export interface CreateBomDetailModel {
    *   创建人
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
 }
 
 /**
@@ -267,7 +267,7 @@ export interface CreateReportDetailModel {
    *   人员id
    * @format int32
    */
-  linkman_id: number;
+  linkman_id?: number;
   /**
    * @description
    *   人员姓名
@@ -285,13 +285,13 @@ export interface CreateReportModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   报工数量
    * @format int32
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   报工备注
@@ -329,7 +329,7 @@ export interface CreateSnDetailModel {
    *   主sn码id
    * @format int32
    */
-  sn_id: number;
+  sn_id?: number;
   /**
    * @description
    *   明细sn
@@ -347,13 +347,13 @@ export interface CreateSnRecordModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   sn
@@ -371,13 +371,13 @@ export interface DeleteProduceTask {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -386,7 +386,7 @@ export interface DeleteProduceTask {
  */
 export interface DeleteSnDetailModel {
   /** @format int32 */
-  detail_id: number;
+  detail_id?: number;
 }
 
 /**
@@ -399,7 +399,7 @@ export interface DeleteWoBomDetailModel {
    *   id
    * @format int32
    */
-  id: number;
+  id?: number;
 }
 
 /**
@@ -412,7 +412,7 @@ export interface DeleteWoModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -425,7 +425,7 @@ export interface GetBatchInfoModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /**
@@ -462,13 +462,13 @@ export interface GetBatchInfoResultModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: GetBatchInfoResultModel;
+  entity?: GetBatchInfoResultModel;
 }
 
 /**
@@ -493,7 +493,7 @@ export interface GetBomCoreListModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 export interface GetBomModelByTaskIdAndProdCodeModel {
@@ -502,7 +502,7 @@ export interface GetBomModelByTaskIdAndProdCodeModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   物料号
@@ -520,7 +520,7 @@ export interface GetBomProductListModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -533,7 +533,7 @@ export interface GetCheckListModel {
    *   生产任务id
    * @format int32
    */
-  produce_task_id: number;
+  produce_task_id?: number;
 }
 
 export interface GetGetProduceCountModel {
@@ -542,7 +542,7 @@ export interface GetGetProduceCountModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 export interface GetLineListModel {
@@ -551,7 +551,7 @@ export interface GetLineListModel {
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
 }
 
 /**
@@ -564,13 +564,13 @@ export interface GetLogListModel {
    *   日志类型 1 工单日志 2 生产日志
    * @format int32
    */
-  type: number;
+  type?: number;
   /**
    * @description
    *   关联id  工单id 或者是 生产任务id
    * @format int32
    */
-  join_id: number;
+  join_id?: number;
 }
 
 /**
@@ -583,7 +583,7 @@ export interface GetNoPlanBomSlnModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -596,7 +596,7 @@ export interface GetProdInfoModel {
    *   物料类型 0 成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
   /**
    * @description
    *   物料编码
@@ -612,13 +612,13 @@ export interface GetProdInfoModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
 }
 
 /**
@@ -641,7 +641,7 @@ export interface GetProdModelByProdCodeResultModel {
    *   车间id
    * @format int32
    */
-  workshopId: number;
+  workshopId?: number;
   /**
    * @description
    *   规格型号
@@ -657,7 +657,7 @@ export interface GetProdModelByProdCodeResultModel {
    *   系列ID
    * @format int32
    */
-  series_id: number;
+  series_id?: number;
   /**
    * @description
    *   计量单位
@@ -668,12 +668,12 @@ export interface GetProdModelByProdCodeResultModel {
 /** @description */
 export interface GetProdModelByProdCodeResultModelListReturnData {
   /** @description */
-  list?: Array<GetProdModelByProdCodeResultModel> | null;
+  list: Array<GetProdModelByProdCodeResultModel>;
   /**
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -686,13 +686,13 @@ export interface GetProdModelByProdCodeResultModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: GetProdModelByProdCodeResultModelListReturnData;
+  entity?: GetProdModelByProdCodeResultModelListReturnData;
 }
 
 /**
@@ -705,13 +705,13 @@ export interface GetProduceAssignmentListModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
   /**
    * @description
    *   工单号
@@ -737,49 +737,49 @@ export interface GetProduceAssignmentListModel {
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date_begin: string;
+  plan_online_date_begin?: string;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date_end: string;
+  plan_online_date_end?: string;
   /**
    * @description
    *   计划完工日期
    * @format date-time
    */
-  plan_complete_date_begin: string;
+  plan_complete_date_begin?: string;
   /**
    * @description
    *   计划完工日期
    * @format date-time
    */
-  plan_complete_date_end: string;
+  plan_complete_date_end?: string;
   /**
    * @description
    *   完工状态 1 已释放, 2 未完工, 3 已完工
    * @format int32
    */
-  release_state: number;
+  release_state?: number;
   /**
    * @description
    *   工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单
    * @format int32
    */
-  wo_type: number;
+  wo_type?: number;
 }
 
 /**
@@ -807,7 +807,7 @@ export interface GetProduceOtherInfoModel {
    *   需求类型 0 订单需求 1库存需求 2其他需求
    * @format int32
    */
-  demand_type: number;
+  demand_type?: number;
   /**
    * @description
    *   生产反馈
@@ -822,13 +822,13 @@ export interface GetProduceOtherInfoModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: GetProduceOtherInfoModel;
+  entity?: GetProduceOtherInfoModel;
 }
 
 /**
@@ -841,7 +841,7 @@ export interface GetProduceOtherInfoRequestModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 export interface GetProduceTaskDetailListModel {
@@ -850,7 +850,7 @@ export interface GetProduceTaskDetailListModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -863,13 +863,13 @@ export interface GetProduceTaskListModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
   /**
    * @description
    *   工单号
@@ -895,49 +895,49 @@ export interface GetProduceTaskListModel {
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date_begin: string;
+  plan_online_date_begin?: string;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date_end: string;
+  plan_online_date_end?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date_begin: string;
+  plan_complete_date_begin?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date_end: string;
+  plan_complete_date_end?: string;
   /**
    * @description
    *   完工状态 1 已完工 2 未完工
    * @format int32
    */
-  report_state: number;
+  report_state?: number;
   /**
    * @description
    *   工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单
    * @format int32
    */
-  wo_type: number;
+  wo_type?: number;
   /**
    * @description
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
 }
 
 export interface GetProduceTaskModel {
@@ -946,7 +946,7 @@ export interface GetProduceTaskModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /**
@@ -959,7 +959,7 @@ export interface GetProductListModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /**
@@ -972,7 +972,7 @@ export interface GetRecordModel {
    *   工单id
    * @format int32
    */
-  id: number;
+  id?: number;
 }
 
 /**
@@ -985,7 +985,7 @@ export interface GetReportListByWoIdModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 export interface GetReportListModel {
@@ -994,7 +994,7 @@ export interface GetReportListModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /**
@@ -1007,7 +1007,7 @@ export interface GetSerialNumberModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   sn列表
@@ -1037,7 +1037,7 @@ export interface GetStarTaskListModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
 }
 
 /**
@@ -1060,13 +1060,13 @@ export interface GetStarTaskListResultModel {
    *   物料总数量
    * @format double
    */
-  all_count: number;
+  all_count?: number;
   /**
    * @description
    *   当前线上物料数量
    * @format double
    */
-  line_count: number;
+  line_count?: number;
 }
 
 /** @description */
@@ -1076,7 +1076,7 @@ export interface GetStarTaskListResultModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1095,7 +1095,7 @@ export interface GetTaskLogListModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /**
@@ -1113,19 +1113,19 @@ export interface GetWoBomBySlnModel {
    *   配套方案id
    * @format int32
    */
-  sln_id: number;
+  sln_id?: number;
   /**
    * @description
    *   BomID
    * @format int32
    */
-  bom_id: number;
+  bom_id?: number;
   /**
    * @description
    *   物料类型 0 成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
 }
 
 /**
@@ -1143,7 +1143,7 @@ export interface GetWoBomSlnModel {
    *   0成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
 }
 
 /**
@@ -1156,13 +1156,13 @@ export interface GetWoListModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
   /**
    * @description
    *   工单号
@@ -1183,31 +1183,31 @@ export interface GetWoListModel {
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   系列id
    * @format int32
    */
-  series_id: number;
+  series_id?: number;
   /**
    * @description
    *   开始时间
    * @format date-time
    */
-  begin: string;
+  begin?: string;
   /**
    * @description
    *   结束时间
    * @format date-time
    */
-  end: string;
+  end?: string;
   /**
    * @description
    *   是否正序
    * @format int32
    */
-  is_asc: number;
+  is_asc?: number;
 }
 
 /**
@@ -1220,7 +1220,7 @@ export interface GetWoOtherModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /** @description */
@@ -1230,13 +1230,13 @@ export interface GetWoRecordListToSelectModelsModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
   /**
    * @description
    *   工单号
@@ -1256,7 +1256,7 @@ export interface GetWoSlnAndBomModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
 }
 
 /**
@@ -1265,7 +1265,7 @@ export interface GetWoSlnAndBomModel {
  */
 export interface LineModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   产线名称
@@ -1276,13 +1276,13 @@ export interface LineModel {
    *   分厂Id
    * @format int32
    */
-  manufacturer_id: number;
+  manufacturer_id?: number;
   /**
    * @description
    *   线边仓id
    * @format int32
    */
-  side_location_id: number;
+  side_location_id?: number;
   /**
    * @description
    *   线边仓编号
@@ -1293,7 +1293,7 @@ export interface LineModel {
    *   产线仓Id
    * @format int32
    */
-  line_location_id: number;
+  line_location_id?: number;
   /**
    * @description
    *   产线仓编号
@@ -1304,7 +1304,7 @@ export interface LineModel {
    *   成品库位Id
    * @format int32
    */
-  product_location_id: number;
+  product_location_id?: number;
   /**
    * @description
    *   成品库位编号
@@ -1315,7 +1315,7 @@ export interface LineModel {
    *   产线负责人
    * @format int32
    */
-  linkman_id: number;
+  linkman_id?: number;
   /**
    * @description
    *   产线负责人
@@ -1330,7 +1330,7 @@ export interface LineModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1353,7 +1353,7 @@ export interface ManufacturerModel {
    *   自增ID
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   车间名称
@@ -1369,31 +1369,31 @@ export interface ManufacturerModel {
    *   是否删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   修改人
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   修改时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /** @description */
@@ -1403,7 +1403,7 @@ export interface ManufacturerModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1466,7 +1466,7 @@ export interface OffLineDetailModel {
    *   数量
    * @format double
    */
-  num: number;
+  num?: number;
   /**
    * @description
    *   单位
@@ -1477,19 +1477,19 @@ export interface OffLineDetailModel {
    *   仓库Id
    * @format int32
    */
-  warehouseId: number;
+  warehouseId?: number;
   /**
    * @description
    *   区域Id
    * @format int32
    */
-  regionId: number;
+  regionId?: number;
   /**
    * @description
    *   库位Id
    * @format int32
    */
-  locationId: number;
+  locationId?: number;
   /**
    * @description
    *   库位编号
@@ -1517,13 +1517,13 @@ export interface OffLineModel {
    *   产线id
    * @format int32
    */
-  lineId: number;
+  lineId?: number;
   /**
    * @description
    *   产线名称
    */
   lineName?: string | null;
-  stockPartsBatchModel: OffLineDetailModel;
+  stockPartsBatchModel?: OffLineDetailModel;
 }
 
 /**
@@ -1561,7 +1561,7 @@ export interface OnLineModel {
    *   数量
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   来源
@@ -1572,7 +1572,7 @@ export interface OnLineModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   产线名称
@@ -1582,7 +1582,7 @@ export interface OnLineModel {
 
 export interface PKMBomResultModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   物料编码
@@ -1598,19 +1598,19 @@ export interface PKMBomResultModel {
    *   用量
    * @format double
    */
-  number: number;
+  number?: number;
   /**
    * @description
    *   是否是核心零部件
    * @format int32
    */
-  isCore: number;
+  isCore?: number;
   /**
    * @description
    *   是否是看板料
    * @format int32
    */
-  isCardProduct: number;
+  isCardProduct?: number;
   /**
    * @description
    *   单位
@@ -1630,7 +1630,7 @@ export interface PKMBomResultModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1653,13 +1653,13 @@ export interface RequestWoBomSlnModel {
    *   配套方案id
    * @format int32
    */
-  sln_id: number;
+  sln_id?: number;
   /**
    * @description
    *   BOMID
    * @format int32
    */
-  bom_id: number;
+  bom_id?: number;
   /**
    * @description
    *   配套方案名称
@@ -1677,19 +1677,19 @@ export interface SaveCheckModel {
    *   生产任务id
    * @format int32
    */
-  produce_task_id: number;
+  produce_task_id?: number;
   /**
    * @description
    *   送检数量
    * @format int32
    */
-  check_count: number;
+  check_count?: number;
   /**
    * @description
    *   抽样数量
    * @format int32
    */
-  sample_count: number;
+  sample_count?: number;
 }
 
 /**
@@ -1702,7 +1702,7 @@ export interface SaveWoModel {
    *   工单Id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单号
@@ -1728,43 +1728,43 @@ export interface SaveWoModel {
    *   工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单
    * @format int32
    */
-  wo_type: number;
+  wo_type?: number;
   /**
    * @description
    *   计划生产数量
    * @format int32
    */
-  plan_count: number;
+  plan_count?: number;
   /**
    * @description
    *   是否支持超量生产
    * @format int32
    */
-  is_overproduction: number;
+  is_overproduction?: number;
   /**
    * @description
    *   计划上线日期(格式2022-01-20)
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完成时间(格式2022-01-20)
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   车间ID
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   物料类型 0 成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
   /**
    * @description
    *   物料规格型号
@@ -1780,14 +1780,14 @@ export interface SaveWoModel {
    *   系列ID
    * @format int32
    */
-  series_id: number;
+  series_id?: number;
   /**
    * @description
    *   工单BOM
    */
   bom_list?: Array<PKMBomResultModel> | null;
-  bom_sln: RequestWoBomSlnModel;
-  wo_other: WoOtherModel;
+  bom_sln?: RequestWoBomSlnModel;
+  wo_other?: WoOtherModel;
 }
 
 /**
@@ -1800,25 +1800,25 @@ export interface SnListModel {
    *   当前页
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   页大小
    * @format int32
    */
-  page_size: number;
+  page_size?: number;
   /**
    * @description
    *   生产任务id(可不传)
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
   /**
    * @description
    *   产线id(可不传)
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
 }
 
 /**
@@ -1831,7 +1831,7 @@ export interface StarProduceTaskModel {
    *   生产任务id
    * @format int32
    */
-  task_id: number;
+  task_id?: number;
 }
 
 /** @description */
@@ -1841,7 +1841,7 @@ export interface StringReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1870,7 +1870,7 @@ export interface SupplyProduct {
    *   需求总量
    * @format double
    */
-  need_count: number;
+  need_count?: number;
   /**
    * @description
    *   物料单位
@@ -1881,7 +1881,7 @@ export interface SupplyProduct {
    *   已领数量
    * @format double
    */
-  receive_count: number;
+  receive_count?: number;
 }
 
 /** @description */
@@ -1891,7 +1891,7 @@ export interface SupplyProductListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -1910,19 +1910,19 @@ export interface UpdateProduceTaskDateModel {
    *   生产任务id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完工日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
 }
 
 /**
@@ -1935,13 +1935,13 @@ export interface UpdateWoBomCountModel {
    *   id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   用量
    * @format double
    */
-  count: number;
+  count?: number;
 }
 
 /**
@@ -1954,13 +1954,13 @@ export interface UpdateWoStateModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭
    * @format int32
    */
-  type: number;
+  type?: number;
 }
 
 /**
@@ -1969,13 +1969,13 @@ export interface UpdateWoStateModel {
  */
 export interface WoBomModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   配套方案id
    * @format int32
    */
-  sln_id: number;
+  sln_id?: number;
   /**
    * @description
    *   物料编码
@@ -1991,7 +1991,7 @@ export interface WoBomModel {
    *   用量
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   上级物料号
@@ -2002,49 +2002,49 @@ export interface WoBomModel {
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
   /**
    * @description
    *   是否需要查询库存
    * @format int32
    */
-  is_stock: number;
+  is_stock?: number;
   /**
    * @description
    *   是否是核心零部件
    * @format int32
    */
-  is_core: number;
+  is_core?: number;
   /**
    * @description
    *   是否是看板料
    * @format int32
    */
-  is_card_product: number;
+  is_card_product?: number;
   /**
    * @description
    *   计量单位
@@ -2059,7 +2059,7 @@ export interface WoBomModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2077,7 +2077,7 @@ export interface WoBomModelListReturnValue {
  *   返回的工单配套方案和bom明细
  */
 export interface WoBomSlnAndBomDetail {
-  sln: WoChildBomSlnModel;
+  sln?: WoChildBomSlnModel;
   /**
    * @description
    *   BOM明细
@@ -2092,13 +2092,13 @@ export interface WoBomSlnAndBomDetailReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoBomSlnAndBomDetail;
+  entity?: WoBomSlnAndBomDetail;
 }
 
 /**
@@ -2107,25 +2107,25 @@ export interface WoBomSlnAndBomDetailReturnValue {
  */
 export interface WoBomSlnModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   配套方案id
    * @format int32
    */
-  sln_id: number;
+  sln_id?: number;
   /**
    * @description
    *   BOMID
    * @format int32
    */
-  bom_id: number;
+  bom_id?: number;
   /**
    * @description
    *   配套方案名称
@@ -2136,31 +2136,31 @@ export interface WoBomSlnModel {
    *   是否删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   修改人
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   修改时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /** @description */
@@ -2170,7 +2170,7 @@ export interface WoBomSlnModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2193,25 +2193,25 @@ export interface WoChildBomSlnModel {
    *   配套方案表id
    * @format int32
    */
-  wo_bom_sln_id: number;
+  wo_bom_sln_id?: number;
   /**
    * @description
    *   工单ID
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   bomid
    * @format int32
    */
-  bom_id: number;
+  bom_id?: number;
   /**
    * @description
    *   配套方案id
    * @format int32
    */
-  sln_id: number;
+  sln_id?: number;
   /**
    * @description
    *   配套方案名称
@@ -2225,13 +2225,13 @@ export interface WoChildBomSlnModel {
  */
 export interface WoLogModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   关联id type = 1 工单id type =2 生产任务id
    * @format int32
    */
-  join_id: number;
+  join_id?: number;
   /**
    * @description
    *   操作内容
@@ -2242,7 +2242,7 @@ export interface WoLogModel {
    *   日志类型 1 工单日志 2 生产日志
    * @format int32
    */
-  type: number;
+  type?: number;
   /**
    * @description
    *   操作人姓名
@@ -2258,37 +2258,37 @@ export interface WoLogModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /** @description */
@@ -2298,7 +2298,7 @@ export interface WoLogModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2317,13 +2317,13 @@ export interface WoLogModelListReturnValue {
  */
 export interface WoOtherModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   关联的订单号
@@ -2339,7 +2339,7 @@ export interface WoOtherModel {
    *   需求类型 0 订单需求 1库存需求 2其他需求
    * @format int32
    */
-  demand_type: number;
+  demand_type?: number;
   /**
    * @description
    *   客户名称
@@ -2350,31 +2350,31 @@ export interface WoOtherModel {
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /** @description */
@@ -2384,13 +2384,13 @@ export interface WoOtherModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoOtherModel;
+  entity?: WoOtherModel;
 }
 
 /**
@@ -2399,13 +2399,13 @@ export interface WoOtherModelReturnValue {
  */
 export interface WoProduceTaskCheckModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   生产任务id
    * @format int32
    */
-  produce_task_id: number;
+  produce_task_id?: number;
   /**
    * @description
    *   送检单号
@@ -2421,61 +2421,61 @@ export interface WoProduceTaskCheckModel {
    *   送检数量
    * @format int32
    */
-  check_count: number;
+  check_count?: number;
   /**
    * @description
    *   抽样数量
    * @format int32
    */
-  sample_count: number;
+  sample_count?: number;
   /**
    * @description
    *   已检数量
    * @format int32
    */
-  checked_count: number;
+  checked_count?: number;
   /**
    * @description
    *   不良品数量
    * @format int32
    */
-  rejects_count: number;
+  rejects_count?: number;
   /**
    * @description
    *   检验状态 0 待检验 1 已检验 2 检验中
    * @format int32
    */
-  state: number;
+  state?: number;
   /**
    * @description
    *   是否删除 1=删除 0=未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /** @description */
@@ -2485,7 +2485,7 @@ export interface WoProduceTaskCheckModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2504,13 +2504,13 @@ export interface WoProduceTaskCheckModelListReturnValue {
  */
 export interface WoProduceTaskListModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单id 查询工单bom时使用
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   生产任务编号
@@ -2526,13 +2526,13 @@ export interface WoProduceTaskListModel {
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   加工车间
@@ -2543,7 +2543,7 @@ export interface WoProduceTaskListModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   加工产线
@@ -2579,19 +2579,19 @@ export interface WoProduceTaskListModel {
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   实际完工日期
    * @format date-time
    */
-  complete_date: string;
+  complete_date?: string;
   /**
    * @description
    *   不合格品数量
    * @format int32
    */
-  unqualified_count: number;
+  unqualified_count?: number;
 }
 
 /** @description */
@@ -2602,7 +2602,7 @@ export interface WoProduceTaskListModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -2615,13 +2615,13 @@ export interface WoProduceTaskListModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoProduceTaskListModelListReturnData;
+  entity?: WoProduceTaskListModelListReturnData;
 }
 
 /**
@@ -2634,7 +2634,7 @@ export interface WoProduceTaskLogListModel {
    *   时间
    * @format date-time
    */
-  time: string;
+  time?: string;
   /**
    * @description
    *   产线
@@ -2659,7 +2659,7 @@ export interface WoProduceTaskLogListModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2678,7 +2678,7 @@ export interface WoProduceTaskLogListModelListReturnValue {
  */
 export interface WoProduceTaskModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   生产任务编号
@@ -2689,13 +2689,13 @@ export interface WoProduceTaskModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   产线名称
@@ -2706,7 +2706,7 @@ export interface WoProduceTaskModel {
    *   产线负责人id
    * @format int32
    */
-  line_admin_id: number;
+  line_admin_id?: number;
   /**
    * @description
    *   产线负责人名称
@@ -2717,73 +2717,73 @@ export interface WoProduceTaskModel {
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   计划生产数量
    * @format int32
    */
-  plan_produce_count: number;
+  plan_produce_count?: number;
   /**
    * @description
    *   已报工生产数量
    * @format int32
    */
-  report_produce_count: number;
+  report_produce_count?: number;
   /**
    * @description
    *   生产状态 0 未生产 1 生产中 2 已停止
    * @format int32
    */
-  produce_state: number;
+  produce_state?: number;
   /**
    * @description
    *   报工状态 0 未报工 1 已报工 2 部分报工
    * @format int32
    */
-  report_state: number;
+  report_state?: number;
   /**
    * @description
    *   拣货状态，0未启动，1拣货中，2部分到货，3已完成  4已取消
    * @format int32
    */
-  pick_state: number;
+  pick_state?: number;
   /**
    * @description
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
   /**
    * @description
    *   工单号
@@ -2794,13 +2794,13 @@ export interface WoProduceTaskModel {
    *   创建人姓名
    */
   create_user_name?: string | null;
-  line: LineModel;
+  line?: LineModel;
   /**
    * @description
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
 }
 
 /** @description */
@@ -2810,7 +2810,7 @@ export interface WoProduceTaskModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -2830,13 +2830,13 @@ export interface WoProduceTaskModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoProduceTaskModel;
+  entity?: WoProduceTaskModel;
 }
 
 /**
@@ -2845,7 +2845,7 @@ export interface WoProduceTaskModelReturnValue {
  */
 export interface WoProduceTaskPickDetailModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   生产任务编号
@@ -2856,19 +2856,19 @@ export interface WoProduceTaskPickDetailModel {
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   拣货任务Id
    * @format int32
    */
-  pick_id: number;
+  pick_id?: number;
   /**
    * @description
    *   物料号
@@ -2889,49 +2889,49 @@ export interface WoProduceTaskPickDetailModel {
    *   数量
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   已拣货数量
    * @format double
    */
-  pick_count: number;
+  pick_count?: number;
   /**
    * @description
    *   已取货数量
    * @format double
    */
-  send_count: number;
+  send_count?: number;
   /**
    * @description
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
 }
 
 /**
@@ -2943,7 +2943,7 @@ export interface WoProduceTaskPickModel {
    * @description
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   生产任务拣货编号
@@ -2964,7 +2964,7 @@ export interface WoProduceTaskPickModel {
    *   工单id
    * @format int32
    */
-  wo_record_id: number;
+  wo_record_id?: number;
   /**
    * @description
    *   物料号
@@ -2975,7 +2975,7 @@ export interface WoProduceTaskPickModel {
    *   类型  1工单拣货  2看板料拣货  3补料拣货
    * @format int32
    */
-  pick_type: number;
+  pick_type?: number;
   /**
    * @description
    *   类型 描述
@@ -2988,7 +2988,7 @@ export interface WoProduceTaskPickModel {
    *   产线id
    * @format int32
    */
-  line_id: number;
+  line_id?: number;
   /**
    * @description
    *   产线名称
@@ -2999,37 +2999,37 @@ export interface WoProduceTaskPickModel {
    *   拣货状态，0未启动，1拣货中，2部分到货，3已完成  4已取消
    * @format int32
    */
-  pick_state: number;
+  pick_state?: number;
   /**
    * @description
    *   是否删除 1=删除 0=未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
   /**
    * @description
    *   任务物料列表
@@ -3047,20 +3047,20 @@ export interface WoProduceTaskPickModel {
    *   总数
    * @format double
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   拣货总数
    * @format double
    */
-  pick_count: number;
+  pick_count?: number;
   /**
    * @description
    *   已到货总数
    * @format double
    */
-  send_count: number;
-  line: LineModel;
+  send_count?: number;
+  line?: LineModel;
   /**
    * @description
    *   创建人姓名
@@ -3076,7 +3076,7 @@ export interface WoProduceTaskPickModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -3089,13 +3089,13 @@ export interface WoProduceTaskPickModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoProduceTaskPickModelListReturnData;
+  entity?: WoProduceTaskPickModelListReturnData;
 }
 
 /** @description */
@@ -3105,13 +3105,13 @@ export interface WoProduceTaskPickModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoProduceTaskPickModel;
+  entity?: WoProduceTaskPickModel;
 }
 
 /**
@@ -3124,19 +3124,19 @@ export interface WoProduceTaskPickPara {
    *   id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   当前页数
    * @format int32
    */
-  page: number;
+  page?: number;
   /**
    * @description
    *   每页数量
    * @format int32
    */
-  pageSize: number;
+  pageSize?: number;
   /**
    * @description
    *   单号
@@ -3152,7 +3152,7 @@ export interface WoProduceTaskPickPara {
    *   创建开始时间
    * @format date-time
    */
-  createBegin: string;
+  createBegin?: string;
   /**
    * @description
    *   任务号
@@ -3163,13 +3163,13 @@ export interface WoProduceTaskPickPara {
    *   拣货状态
    * @format int32
    */
-  pickState: number;
+  pickState?: number;
   /**
    * @description
    *   创建结束时间
    * @format date-time
    */
-  createEnd: string;
+  createEnd?: string;
   /**
    * @description
    *   产线名称
@@ -3188,19 +3188,19 @@ export interface WoProduceTaskReportListModel {
    */
   task_code?: string | null;
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   报工数量
    * @format int32
    */
-  count: number;
+  count?: number;
   /**
    * @description
    *   产线名称
@@ -3245,7 +3245,7 @@ export interface WoProduceTaskReportListModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -3268,7 +3268,7 @@ export interface WoRecordAssignmentListModel {
    *   工单id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单号
@@ -3289,7 +3289,7 @@ export interface WoRecordAssignmentListModel {
    *   物料类型 0 成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
   /**
    * @description
    *   系列
@@ -3305,19 +3305,19 @@ export interface WoRecordAssignmentListModel {
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   加工车间
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   产线名称
@@ -3348,7 +3348,7 @@ export interface WoRecordAssignmentListModel {
    *   实际完成时间
    * @format date-time
    */
-  complete_date: string;
+  complete_date?: string;
   /**
    * @description
    *   车间名称
@@ -3364,7 +3364,7 @@ export interface WoRecordAssignmentListModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -3377,13 +3377,13 @@ export interface WoRecordAssignmentListModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoRecordAssignmentListModelListReturnData;
+  entity?: WoRecordAssignmentListModelListReturnData;
 }
 
 /**
@@ -3396,7 +3396,7 @@ export interface WoRecordListModel {
    *   工单id
    * @format int32
    */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单号
@@ -3422,7 +3422,7 @@ export interface WoRecordListModel {
    *   车间ID
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   规格型号
@@ -3458,19 +3458,19 @@ export interface WoRecordListModel {
    *   计划完工时间
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   实际完工时间
    * @format date-time
    */
-  complete_date: string;
+  complete_date?: string;
   /**
    * @description
    *   入库数量
    * @format double
    */
-  instock_count: number;
+  instock_count?: number;
   /**
    * @description
    *   入库状态
@@ -3481,7 +3481,7 @@ export interface WoRecordListModel {
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   关联订单
@@ -3497,7 +3497,7 @@ export interface WoRecordListModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -3510,13 +3510,13 @@ export interface WoRecordListModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoRecordListModelListReturnData;
+  entity?: WoRecordListModelListReturnData;
 }
 
 /**
@@ -3539,7 +3539,7 @@ export interface WoRecordListToSelectModel {
    *   计划完工日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭
@@ -3555,7 +3555,7 @@ export interface WoRecordListToSelectModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -3568,13 +3568,13 @@ export interface WoRecordListToSelectModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoRecordListToSelectModelListReturnData;
+  entity?: WoRecordListToSelectModelListReturnData;
 }
 
 /**
@@ -3583,7 +3583,7 @@ export interface WoRecordListToSelectModelListReturnModel {
  */
 export interface WoRecordModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   工单号
@@ -3609,115 +3609,115 @@ export interface WoRecordModel {
    *   物料类型 0 成品 1 零部件
    * @format int32
    */
-  prod_type: number;
+  prod_type?: number;
   /**
    * @description
    *   系列ID
    * @format int32
    */
-  series_id: number;
+  series_id?: number;
   /**
    * @description
    *   工单类型 1=生产工单 2=售后工单 3=返工工单 4=维修工单 5=外协工单 6=其他工单 7=改装工单 8=研发工单
    * @format int32
    */
-  type: number;
+  type?: number;
   /**
    * @description
    *   工单计划生产数量
    * @format int32
    */
-  plan_count: number;
+  plan_count?: number;
   /**
    * @description
    *   实际生产数量(强制完工等操作，会导致生产数量与实际生产数量不符)
    * @format int32
    */
-  actual_count: number;
+  actual_count?: number;
   /**
    * @description
    *   工单状态 0 未释放 1 已释放 2 未完工 3 已完工 4 关闭
    * @format int32
    */
-  release_state: number;
+  release_state?: number;
   /**
    * @description
    *   工单入库状态 0 未入库 1 已入库 2 部分入库
    * @format int32
    */
-  instock_state: number;
+  instock_state?: number;
   /**
    * @description
    *   工单分配生产状态(0未分配 1 已分配 2部分分配)
    * @format int32
    */
-  assignment_state: number;
+  assignment_state?: number;
   /**
    * @description
    *   是否支持超量生产 0 不支持 1 支持
    * @format int32
    */
-  is_overproduction: number;
+  is_overproduction?: number;
   /**
    * @description
    *   计划上线日期
    * @format date-time
    */
-  plan_online_date: string;
+  plan_online_date?: string;
   /**
    * @description
    *   实际上线日期
    * @format date-time
    */
-  online_date: string;
+  online_date?: string;
   /**
    * @description
    *   计划完成日期
    * @format date-time
    */
-  plan_complete_date: string;
+  plan_complete_date?: string;
   /**
    * @description
    *   实际完成时间
    * @format date-time
    */
-  complete_date: string;
+  complete_date?: string;
   /**
    * @description
    *   车间id
    * @format int32
    */
-  workshop_id: number;
+  workshop_id?: number;
   /**
    * @description
    *   是否删除 1删除 0未删除
    * @format int32
    */
-  is_delete: number;
+  is_delete?: number;
   /**
    * @description
    *   创建人ID
    * @format int32
    */
-  create_user: number;
+  create_user?: number;
   /**
    * @description
    *   创建时间
    * @format date-time
    */
-  create_time: string;
+  create_time?: string;
   /**
    * @description
    *   更新人ID
    * @format int32
    */
-  update_user: number;
+  update_user?: number;
   /**
    * @description
    *   更新时间
    * @format date-time
    */
-  update_time: string;
+  update_time?: string;
   /**
    * @description
    *   物料规格型号
@@ -3742,18 +3742,18 @@ export interface WoRecordModelReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoRecordModel;
+  entity?: WoRecordModel;
 }
 
 export interface WoSnDetailListModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   核心部件sn
@@ -3764,7 +3764,7 @@ export interface WoSnDetailListModel {
    *   上级id
    * @format int32
    */
-  sn_id: number;
+  sn_id?: number;
 }
 
 /**
@@ -3773,7 +3773,7 @@ export interface WoSnDetailListModel {
  */
 export interface WoSnRecordListModel {
   /** @format int32 */
-  id: number;
+  id?: number;
   /**
    * @description
    *   sn码
@@ -3794,7 +3794,7 @@ export interface WoSnRecordListModelListReturnData {
    * @description
    * @format int32
    */
-  recordCount: number;
+  recordCount?: number;
 }
 
 /**
@@ -3807,13 +3807,13 @@ export interface WoSnRecordListModelListReturnModel {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
    */
   msg?: string | null;
-  entity: WoSnRecordListModelListReturnData;
+  entity?: WoSnRecordListModelListReturnData;
 }
 
 /** @description */
@@ -3823,7 +3823,7 @@ export interface WoSnRecordListModelListReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -3843,7 +3843,7 @@ export interface IntReturnValue {
    *   返回结果 1.成功 0.失败
    * @format int32
    */
-  code: number;
+  code?: number;
   /**
    * @description
    *   结果描述
@@ -3854,5 +3854,5 @@ export interface IntReturnValue {
    *   返回数据
    * @format int32
    */
-  entity: number;
+  entity?: number;
 }

@@ -30,7 +30,7 @@ export const generateRequestOptionType = (
     }
     inter.addProperty({
       name: position,
-      type: schemaToTypescript(param),
+      type: schemaToTypescript(param, project),
       hasQuestionToken: isEmpty(param.required),
       docs: param.docs,
     })

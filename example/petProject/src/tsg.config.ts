@@ -50,7 +50,7 @@ const projects: Project[] = [
     dest: 'service',
     source: '../../fixture/nullable.json',
     importRequesterStatement: 'import { requester } from "../../requester"',
-    nullableAsRequired: true,
+    nullableFalseAsRequired: true,
     // prettierConfig,
     // shouldExportRequestOptionType: true,
     // shouldExportResponseType: true,
