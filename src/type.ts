@@ -343,7 +343,13 @@ export interface Project {
    * nullable是否等同于非必填
    * 在一些后端项目中所有字段都是有的，但是他们用nullable来表示此字段是否必填
    * 用来影响字段的?生成
-   * @default true
+   *
+   * 参考: https://swagger.io/specification/?sbsearch=nullable
+   * nullable 默认为 false
+   *
+   * 将该项置为 true 后，则所有没有 nullable 或 nullable: false 的字段都会按 required 处理，即属性类型后不带“?”
+   *
+   * @default false
    */
   nullableFalseAsRequired?: boolean
 }

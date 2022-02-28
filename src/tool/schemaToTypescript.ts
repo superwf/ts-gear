@@ -23,11 +23,8 @@ export const getHasQuestionToken = (
     return false
   }
   // 再根据 nullable 判断是否允许 optional
-  if (project.nullableFalseAsRequired !== false) {
-    if (!('nullable' in property)) {
-      return true
-    }
-    return (property as SchemaObject)?.nullable
+  if (project.nullableFalseAsRequired === true) {
+    return Boolean((property as SchemaObject)?.nullable)
   }
   return true
 }

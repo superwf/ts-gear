@@ -175,21 +175,21 @@ export interface PostCheckUpdateTaskCheckOption {
     /**
         @description
           送检单code */
-    check_code?: string;
+    check_code: string;
     /**
         @description
           已检数量
         @format int32 */
-    checked_count?: number;
+    checked_count: number;
     /**
         @description
           检验批次号 */
-    check_batch_number?: string;
+    check_batch_number: string;
     /**
         @description
           不良品数量
         @format int32 */
-    rejects_count?: number;
+    rejects_count: number;
   };
 }
 

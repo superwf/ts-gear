@@ -718,7 +718,7 @@ describe('transformSwaggerPropertyToTsType', () => {
       ).toBe(`{${EOL}'name'?: string${EOL}'petType': string${EOL}} | null`)
     })
 
-    it('project config nullableFalseAsRequired = false', () => {
+    it('project config default nullableFalseAsRequired = false', () => {
       const schema: any = {
         type: 'object',
         properties: {
@@ -739,11 +739,10 @@ describe('transformSwaggerPropertyToTsType', () => {
             properties: {
               name: {
                 type: 'string',
-                nullable: false,
               },
             },
           } as any,
-          project,
+          { ...project, nullableFalseAsRequired: true },
         ),
       ).toBe(`{${EOL}'name': string${EOL}}`)
     })
