@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.6.1](https://github.com/superwf/ts-gear/compare/v4.6.0...v4.6.1) (2022-02-28)
+
+
+### Bug Fixes
+
+* 修正nullableFalseAsRequired参数含义 ([5352c46](https://github.com/superwf/ts-gear/commit/5352c462ecc403775fee00af5f10561e9045f871))
+
 ## [4.6.0](https://github.com/superwf/ts-gear/compare/v4.5.1...v4.6.0) (2022-02-28)
 
 
