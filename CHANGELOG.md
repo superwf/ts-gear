@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.6.0](https://github.com/superwf/ts-gear/compare/v4.5.1...v4.6.0) (2022-02-28)
+
+
+### Features
+
+* 优化nullableFalseAsRequired选项 ([5a34b9e](https://github.com/superwf/ts-gear/commit/5a34b9e091fb208e220289dc26983a2ad6a9c005))
+* 支持使用nullable作为可选符号生成规则 ([e5a24d7](https://github.com/superwf/ts-gear/commit/e5a24d78ed0bbd39a232934ab5179840e6aeb4f0))
+
+
+### Bug Fixes
+
+* checkCache param ([ce1ebc5](https://github.com/superwf/ts-gear/commit/ce1ebc5e1e0585e68d27fce92f5ebb5f2dcf626d))
+
 ### [4.5.1](https://github.com/superwf/ts-gear/compare/v4.5.0...v4.5.1) (2022-01-26)
 
 
