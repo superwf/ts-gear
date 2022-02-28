@@ -12,7 +12,7 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
   step.processEOL(project)
   step.prepareProjectDirectory(project, tsGearConfigPath)
   const spec = await step.fetchOpenapiData(project, tsGearConfigPath)
-  if (project.useCache && step.checkCache(project, tsGearConfigPath, spec)) {
+  if (project.useCache && step.checkCache(project, spec)) {
     info(
       `cache hit, skip regenerate project(${project.name}), add "useCache: false" to your project in "tsg.config.ts" to disable cache`,
     )

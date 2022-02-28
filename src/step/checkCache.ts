@@ -5,7 +5,7 @@ import appRoot = require('app-root-path')
 import { contentHash } from '../tool/contentHash'
 import type { Project } from '../type'
 
-export const checkCache = (project: Project, tsGearConfigPath: string, spec: any): boolean => {
+export const checkCache = (project: Project, spec: any): boolean => {
   const cacheFile = join(appRoot.path, 'node_modules', '.cache')
   const hash = contentHash(JSON.stringify([project, spec]))
   if (!existsSync(cacheFile)) {
