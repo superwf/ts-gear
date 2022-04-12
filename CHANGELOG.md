@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.1](https://github.com/superwf/ts-gear/compare/v4.7.0...v4.7.1) (2022-04-12)
+
+
+### Bug Fixes
+
+* dep cross-fetch ([3385279](https://github.com/superwf/ts-gear/commit/33852797de4d36d5b9d93e9b48ca119ed138108d))
+
 ## [4.7.0](https://github.com/superwf/ts-gear/compare/v4.6.1...v4.7.0) (2022-04-12)
 
 
