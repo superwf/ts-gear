@@ -106,11 +106,9 @@ describe('requester fetch', () => {
     expect(result.data).toEqual({ ok: true })
     const req = moxios.requests.mostRecent()
     expect(req.url).toBe('/abc/111/edit/abc')
-    expect(req.config.data).toEqual(
-      JSON.stringify({
-        name: 'def',
-      }),
-    )
+    expect(JSON.parse(req.config.data)).toEqual({
+      name: 'def',
+    })
     expect(req.config.headers.value).toBe('A')
   })
 
@@ -133,7 +131,7 @@ describe('requester fetch', () => {
     expect(res.data).toBe('ok')
     const mockFormData = new FormData()
     mockFormData.append('formDataKey', 'formDataValue')
-    expect(req.config.data).toEqual(mockFormData)
+    expect(JSON.parse(req.config.data)).toEqual(mockFormData)
 
     delete (global as any).FormData
   })

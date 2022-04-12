@@ -2,7 +2,7 @@
 import { URL } from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
-import type { RequestParameter, Requester } from 'ts-gear'
+import type { RequestParameter, Requester } from '../../../lib'
 
 const jsonType = 'application/json'
 
