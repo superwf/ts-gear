@@ -1,5 +1,5 @@
+import 'cross-fetch/polyfill'
 import * as fetchMock from 'fetch-mock'
-import 'whatwg-fetch'
 import { requester } from 'src/requester/fetch'
 
 const getOnce = fetchMock.getOnce.bind(fetchMock)
