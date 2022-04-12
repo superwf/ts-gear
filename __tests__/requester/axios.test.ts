@@ -109,7 +109,7 @@ describe('requester fetch', () => {
     expect(JSON.parse(req.config.data)).toEqual({
       name: 'def',
     })
-    expect(req.config.headers.value).toBe('A')
+    expect(req.config.headers?.value).toBe('A')
   })
 
   it('put formData', async () => {

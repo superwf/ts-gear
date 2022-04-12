@@ -1,4 +1,4 @@
-import 'isomorphic-fetch'
+import 'cross-fetch/polyfill'
 
 export const fetchBaiduid = async () => {
   fetch('https://www.baidu.com/', {
