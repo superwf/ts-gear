@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.7.0](https://github.com/superwf/ts-gear/compare/v4.6.1...v4.7.0) (2022-04-12)
+
+
+### Features
+
+* add simplifyRequestOption ([b215aa0](https://github.com/superwf/ts-gear/commit/b215aa0c62ab87dcf932120f0b7d60e6f5a6d4e7))
+
 ### [4.6.1](https://github.com/superwf/ts-gear/compare/v4.6.0...v4.6.1) (2022-02-28)
 
 

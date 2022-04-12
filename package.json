@@ -1,6 +1,6 @@
 {
   "name": "ts-gear",
-  "version": "4.6.1",
+  "version": "4.7.0",
   "description": "swagger to typescript with mock data",
   "main": "lib/index.js",
   "bin": {
