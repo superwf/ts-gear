@@ -1,4 +1,4 @@
-import 'whatwg-fetch'
+import 'cross-fetch/polyfill'
 import { deletePetPetId, getUserLogin } from 'example/petProject/src/service/pet/request'
 
 /** 在run的测试用例运行之后，已经生成了pet的service文件 */
@@ -54,9 +54,7 @@ describe('pet methods', () => {
       username: 'a',
       password: 'b',
     }
-    const res = await getUserLogin({
-      query,
-    })
+    const res = await getUserLogin(query)
     expect(mockFetch).toHaveBeenCalledTimes(1)
     expect(mockFetch).toHaveBeenLastCalledWith(`/v2/user/login?${new URLSearchParams(query)}`, {
       method: 'get',

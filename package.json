@@ -12,7 +12,8 @@
     "coverage": "cross-env NODE_ENV=test jest --coverage | ts-node script/coverageReportToMarkdown.ts && jest-coverage-badges output ./badge && open-cli coverage/lcov-report/index.html -- google-chrome",
     "build": "cross-env rimraf lib && cross-env tsc -p tsconfig.build.json && chmod +x lib/main.js",
     "release": "standard-version",
-    "prepublishOnly": "yarn run-s test build release"
+    "prepublishOnly": "yarn run-s test build release",
+    "publish-rc": "yarn test && yarn build && yarn standard-version -- prerelease rc && npm publish --ignore-scripts"
   },
   "types": "./lib/index.d.ts",
   "repository": {
@@ -42,8 +43,7 @@
     "ts-morph": "^11.0.0",
     "ts-node": "^8.8.2",
     "tsconfig-paths": "^3.9.0",
-    "url-join": "^4.0.1",
-    "whatwg-fetch": "^3.4.1"
+    "url-join": "^4.0.1"
   },
   "files": [
     "*.md",

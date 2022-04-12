@@ -1,7 +1,5 @@
 import { join } from 'path'
 import { noop } from 'lodash'
-// import { sync } from 'rimraf'
-
 import { getUserConfig } from 'src/step/getUserConfig'
 import exampleProjects from 'example/petProject/src/tsg.config'
 
@@ -27,7 +25,7 @@ describe('getUserConfig', () => {
       })
       process.argv.push('-p', 'pet,projectE')
       expect(await getUserConfig()).toEqual({
-        projects: [exampleProjects[0], exampleProjects[1]],
+        projects: [exampleProjects[0], exampleProjects[2]],
         tsGearConfigPath: join(process.cwd(), 'src'),
       })
     })

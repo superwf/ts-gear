@@ -211,6 +211,7 @@ export default projects
 | useCache | boolean | false | false | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。                                   |
 | EOL | string | false  | '\n' | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。                                   |
 | nullableFalseAsRequired | boolean | false | false | 是否使用nullable来作为生成`?`的规则                                                                                                      |
+| simplifyRequestOption | boolean | false | false | 是否使用简化模式的请求参数，去掉query 或 body 的层级 |
 
 ### axios
 

@@ -242,6 +242,10 @@ export interface PostPetPetIdOption {
         @format int64 */
     petId: number;
   };
+}
+
+/** @description request parameter type for postPetPetId */
+export interface PostPetPetIdOption {
   /**
    * @description
    *   Updated name of the pet
@@ -300,6 +304,10 @@ export interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
+}
+
+/** @description request parameter type for deletePetPetId */
+export interface DeletePetPetIdOption {
   /**
    * @description
    *   Pet id to delete
@@ -369,6 +377,10 @@ export interface PostPetPetIdUploadImageOption {
         @format int64 */
     petId: number;
   };
+}
+
+/** @description request parameter type for postPetPetIdUploadImage */
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   Additional data to pass to server
@@ -931,6 +943,10 @@ export interface PutUserUsernameOption {
           name that need to be updated */
     username: string;
   };
+}
+
+/** @description request parameter type for putUserUsername */
+export interface PutUserUsernameOption {
   /**
    * @description
    *   Updated user object

@@ -352,4 +352,15 @@ export interface Project {
    * @default false
    */
   nullableFalseAsRequired?: boolean
+
+  /**
+   * simple type of request option, remove query or body level
+   * the old request option type is `{ query: { name: string, age: number } }`
+   * when set this true, the new request option type is `{ name: string, age: number }`
+   *
+   * 当设置为true时，当只有一个请求参数层级时，将去除query和body层级
+   * 当有多个请求参数层级时，例如同时存在path与body，仍为原样需要明确指定path与body各自的值
+   * @default false
+   */
+  simplifyRequestOption?: boolean
 }

@@ -48,11 +48,18 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const urlPath = join(basePath || '/', transformSwaggerPathToRouterPath(String(request.pathname)))
     const source = sow()
     const requestFunctionSource = sow()
+    let simpleOption = ''
+    if (request.parameters) {
+      const positionSet = new Set(request.parameters.map((p: any) => p.in))
+      if (project.simplifyRequestOption && request.parameters && positionSet.size === 1) {
+        simpleOption = `${Array.from(positionSet)[0]}: option`
+      }
+    }
     const requesterStatment = `return requester(url, {${[
       withHost ? `host: '${spec.host}'` : '',
       withBasePath ? `basePath: '${spec.basePath}'` : '',
       'method',
-      parameterTypeName ? '...option' : '',
+      simpleOption || (parameterTypeName ? '...option' : ''),
     ]
       .filter(Boolean)
       .join(',')}}) as unknown as Promise<${responseType.successTypeName}>`

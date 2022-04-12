@@ -249,6 +249,7 @@ export default projects
 | useCache | boolean | false | false | use cache |
 | EOL | string | false | false | custom EOF |
 | nullableFalseAsRequired | boolean | false | false | nullable as required |
+| simplifyRequestOption | boolean | false | false | simple type of request option, remove query or body level |
 
 ### Requester
 

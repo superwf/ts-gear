@@ -1,8 +1,6 @@
 import { writeFileSync, existsSync } from 'fs'
 import { join } from 'path'
-
 import * as prompts from 'prompts'
-
 import { getUserConfig } from 'src/step/getUserConfig'
 
 let overwrite = false
