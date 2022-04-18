@@ -1,0 +1,67 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`response type content response 1`] = `
+Object {
+  "responseTypeContent": "/** @description response type for GetXXX */
+export interface GetXXXResponse {
+    /**
+     * @description
+     *   Invalid input
+     */
+    405: any;
+}
+",
+  "responseTypeName": "GetXXXResponse",
+  "successTypeContent": "export type GetXXXResponseSuccess = any",
+  "successTypeName": "GetXXXResponseSuccess",
+}
+`;
+
+exports[`response type content response 2`] = `
+Object {
+  "responseTypeContent": "/** @description response type for GetXXX */
+export interface GetXXXResponse {
+    /**
+     * @description
+     *   Invalid ID supplied
+     */
+    400: any;
+    /**
+     * @description
+     *   Pet not found
+     */
+    404: any;
+    /**
+     * @description
+     *   Validation exception
+     */
+    405: any;
+}
+",
+  "responseTypeName": "GetXXXResponse",
+  "successTypeContent": "export type GetXXXResponseSuccess = any",
+  "successTypeName": "GetXXXResponseSuccess",
+}
+`;
+
+exports[`response type content response 3`] = `
+Object {
+  "responseTypeContent": "/** @description response type for GetXXX */
+export interface GetXXXResponse {
+    /**
+     * @description
+     *   successful operation
+     */
+    200: Order;
+    /**
+     * @description
+     *   Invalid Order
+     */
+    400: any;
+}
+",
+  "responseTypeName": "GetXXXResponse",
+  "successTypeContent": "export type GetXXXResponseSuccess = GetXXXResponse[200]",
+  "successTypeName": "GetXXXResponseSuccess",
+}
+`;

@@ -4,7 +4,7 @@
 content is generated automatically by `ts-gear`. */
 export type GetPetFindByStatusStatus = "available" | "pending" | "sold";
 export type ComponentsSchemasOrderStatus = "placed" | "approved" | "delivered";
-export type ComponentsSchemasPetStatus = "available" | "pending" | "sold";
+export type ComponentsSchemasPetStatus = GetPetFindByStatusStatus;
 export interface Order {
   /**
    * @format int64

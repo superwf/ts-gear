@@ -1,4 +1,4 @@
-import { forEach, findKey } from 'lodash'
+import { forEach, findKey, isEqual } from 'lodash'
 import type { Spec } from 'swagger-schema-official'
 import { traverseSchema } from '../tool/traverseSchema'
 import { getDefinition } from '../tool/getDefinition'
@@ -9,6 +9,7 @@ import { generateEnumName, generateEnumTypescriptContent } from '../tool/enumTyp
 import { generateRequestFunctionName } from '../tool/generateRequestFunctionName'
 import { getSchemaDeep } from '../tool/getSchemaDeep'
 import { getRequiredDeep } from '../tool/getRequiredDeep'
+import { generateTypeAlias } from '../tool/generateTypeAlias'
 // import type { OperationObject } from 'openapi3-ts'
 
 /**
@@ -21,7 +22,7 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
   traverseSchema(spec, ({ value, key, path, parent }) => {
     if (key === 'enum' && value) {
       const name = generateEnumName(path, spec)
-      const existEnumName = findKey(enumMap, ({ originalContent }) => originalContent === value)
+      const existEnumName = findKey(enumMap, ({ originalContent }) => isEqual(originalContent, value))
       parent[key] = name
       if (path[0] === 'paths') {
         requestEnumSet.add(name)
@@ -30,13 +31,13 @@ export const assembleSchemaToGlobal = (spec: Spec, project: Project) => {
       if (existEnumName) {
         enumMap[name] = {
           originalContent: value,
-          typescriptContent: `export type ${name} = ${existEnumName}`,
+          typescriptContent: generateTypeAlias(name, existEnumName),
         }
       } else {
-        const tsContent = generateEnumTypescriptContent(value)
+        const tsContent = generateEnumTypescriptContent(name, value)
         enumMap[name] = {
           originalContent: value,
-          typescriptContent: `export type ${name} = ${tsContent}`,
+          typescriptContent: tsContent,
         }
       }
     }

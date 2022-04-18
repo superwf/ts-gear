@@ -1,12 +1,14 @@
+import * as ts from 'typescript'
 import type { Spec } from 'swagger-schema-official'
 import { get, remove, upperFirst } from 'lodash'
 import { httpMethods } from '../type'
 import { cleanName } from './cleanName'
+import { tsNodeToString } from './tsNodeToString'
 
 const filterPaths = ['definitions', 'properties', 'parameters', 'responses', 'paths']
 
 /** use traverse spec path to generate an available enum type name */
-export const generateEnumName = (traversePath: string[], spec: Spec) => {
+export const generateEnumName = (traversePath: string[], spec: Spec): string => {
   const path = [...traversePath]
   /** 最后一层是'enum'，该层没用，所以弹出一层 */
   path.pop()
@@ -39,14 +41,25 @@ export const generateEnumName = (traversePath: string[], spec: Spec) => {
 }
 
 /** convert enum member to enum type
- * e.g.
+ * @example
  *   `[1,2,3]` => `1 | 2 | 3`
  *   `['a', 'b', 'c']` => `'a' | 'b' | 'c'`
  * */
-export const generateEnumTypescriptContent = (value: any[]) => {
-  return value
-    .map(v => {
-      return typeof v === 'string' ? `'${v}'` : v
-    })
-    .join('|')
+export const generateEnumTypescriptContent = (name: string, value: any[]) => {
+  const { factory } = ts
+  const contentNode = factory.createUnionTypeNode(
+    value.map(v => {
+      return typeof v === 'number'
+        ? factory.createLiteralTypeNode(factory.createNumericLiteral(v))
+        : factory.createLiteralTypeNode(factory.createStringLiteral(v))
+    }),
+  )
+  const node = factory.createTypeAliasDeclaration(
+    undefined,
+    [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
+    name,
+    undefined,
+    contentNode,
+  )
+  return tsNodeToString(node)
 }

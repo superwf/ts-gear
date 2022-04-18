@@ -1,5 +1,4 @@
-import { Spec } from 'swagger-schema-official'
-
+import type { Spec } from 'swagger-schema-official'
 import * as petSpec from 'example/fixture/pet.json'
 import { generateEnumName, generateEnumTypescriptContent } from 'src/tool/enumType'
 
@@ -10,5 +9,5 @@ it('name', () => {
 })
 
 it('content', () => {
-  expect(generateEnumTypescriptContent([1, 2, 3, 'n'])).toBe("1|2|3|'n'")
+  expect(generateEnumTypescriptContent('EnumA', [1, 2, 3, 'n'])).toBe('export type EnumA = 1 | 2 | 3 | "n";')
 })
