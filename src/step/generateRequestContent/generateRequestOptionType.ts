@@ -24,6 +24,7 @@ export const generateRequestOptionType = (
   if (project.simplifyRequestOption && positionSet.size === 1) {
     const param = assembledParameters[Array.from(positionSet)[0]]!
     source.addTypeAlias({
+      isExported: project.shouldExportRequestOptionType === undefined || !!project.shouldExportRequestOptionType,
       name: parameterTypeName,
       type: schemaToTypescript(param, project),
     })

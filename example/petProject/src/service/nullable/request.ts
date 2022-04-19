@@ -91,7 +91,7 @@ import type {
 } from "./definition";
 
 /** @description request parameter type for postCheckSaveCheck */
-export interface PostCheckSaveCheckOption {
+interface PostCheckSaveCheckOption {
   body?: SaveCheckModel;
 }
 
@@ -130,7 +130,7 @@ export const postCheckSaveCheck = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postCheckGetCheckList */
-export interface PostCheckGetCheckListOption {
+interface PostCheckGetCheckListOption {
   body?: GetCheckListModel;
 }
 
@@ -170,7 +170,7 @@ export const postCheckGetCheckList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postCheckUpdateTaskCheck */
-export interface PostCheckUpdateTaskCheckOption {
+interface PostCheckUpdateTaskCheckOption {
   body?: {
     /**
         @description
@@ -261,7 +261,7 @@ export const postCommonGetManufacturerNumList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postCommonGetLineList */
-export interface PostCommonGetLineListOption {
+interface PostCommonGetLineListOption {
   body?: GetLineListModel;
 }
 
@@ -301,7 +301,7 @@ export const postCommonGetLineList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProduceAssignmentList */
-export interface PostProduceGetProduceAssignmentListOption {
+interface PostProduceGetProduceAssignmentListOption {
   body?: GetProduceAssignmentListModel;
 }
 
@@ -341,7 +341,7 @@ export const postProduceGetProduceAssignmentList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceBatchCreateProducrTask */
-export interface PostProduceBatchCreateProducrTaskOption {
+interface PostProduceBatchCreateProducrTaskOption {
   body?: BatchCreateProducrTaskModel;
 }
 
@@ -381,7 +381,7 @@ export const postProduceBatchCreateProducrTask = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceDeleteProduceTask */
-export interface PostProduceDeleteProduceTaskOption {
+interface PostProduceDeleteProduceTaskOption {
   body?: DeleteProduceTask;
 }
 
@@ -421,7 +421,7 @@ export const postProduceDeleteProduceTask = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProduceTaskDetailList */
-export interface PostProduceGetProduceTaskDetailListOption {
+interface PostProduceGetProduceTaskDetailListOption {
   body?: GetProduceTaskDetailListModel;
 }
 
@@ -461,7 +461,7 @@ export const postProduceGetProduceTaskDetailList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetGetProduceCount */
-export interface PostProduceGetGetProduceCountOption {
+interface PostProduceGetGetProduceCountOption {
   body?: GetGetProduceCountModel;
 }
 
@@ -501,7 +501,7 @@ export const postProduceGetGetProduceCount = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceUpdateProduceTaskDate */
-export interface PostProduceUpdateProduceTaskDateOption {
+interface PostProduceUpdateProduceTaskDateOption {
   body?: UpdateProduceTaskDateModel;
 }
 
@@ -541,7 +541,7 @@ export const postProduceUpdateProduceTaskDate = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProduceTaskList */
-export interface PostProduceGetProduceTaskListOption {
+interface PostProduceGetProduceTaskListOption {
   body?: GetProduceTaskListModel;
 }
 
@@ -581,7 +581,7 @@ export const postProduceGetProduceTaskList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceStarProduceTask */
-export interface PostProduceStarProduceTaskOption {
+interface PostProduceStarProduceTaskOption {
   body?: StarProduceTaskModel;
 }
 
@@ -621,7 +621,7 @@ export const postProduceStarProduceTask = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceStopProduceTask */
-export interface PostProduceStopProduceTaskOption {
+interface PostProduceStopProduceTaskOption {
   body?: StarProduceTaskModel;
 }
 
@@ -661,7 +661,7 @@ export const postProduceStopProduceTask = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetTaskLogList */
-export interface PostProduceGetTaskLogListOption {
+interface PostProduceGetTaskLogListOption {
   body?: GetTaskLogListModel;
 }
 
@@ -701,7 +701,7 @@ export const postProduceGetTaskLogList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceCreateReport */
-export interface PostProduceCreateReportOption {
+interface PostProduceCreateReportOption {
   body?: CreateReportModel;
 }
 
@@ -741,7 +741,7 @@ export const postProduceCreateReport = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetReportList */
-export interface PostProduceGetReportListOption {
+interface PostProduceGetReportListOption {
   body?: GetReportListModel;
 }
 
@@ -781,7 +781,7 @@ export const postProduceGetReportList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetStarTaskList */
-export interface PostProduceGetStarTaskListOption {
+interface PostProduceGetStarTaskListOption {
   body?: GetStarTaskListModel;
 }
 
@@ -821,7 +821,7 @@ export const postProduceGetStarTaskList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceOnLine */
-export interface PostProduceOnLineOption {
+interface PostProduceOnLineOption {
   body?: OnLineModel;
 }
 
@@ -860,7 +860,7 @@ export const postProduceOnLine = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceOffLine */
-export interface PostProduceOffLineOption {
+interface PostProduceOffLineOption {
   body?: OffLineModel;
 }
 
@@ -899,7 +899,7 @@ export const postProduceOffLine = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProductList */
-export interface PostProduceGetProductListOption {
+interface PostProduceGetProductListOption {
   body?: GetProductListModel;
 }
 
@@ -939,7 +939,7 @@ export const postProduceGetProductList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetBomCoreList */
-export interface PostProduceGetBomCoreListOption {
+interface PostProduceGetBomCoreListOption {
   body?: GetBomCoreListModel;
 }
 
@@ -979,7 +979,7 @@ export const postProduceGetBomCoreList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProduceTaskModel */
-export interface PostProduceGetProduceTaskModelOption {
+interface PostProduceGetProduceTaskModelOption {
   body?: GetProduceTaskModel;
 }
 
@@ -1019,7 +1019,7 @@ export const postProduceGetProduceTaskModel = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceSnList */
-export interface PostProduceSnListOption {
+interface PostProduceSnListOption {
   body?: SnListModel;
 }
 
@@ -1058,7 +1058,7 @@ export const postProduceSnList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceCreateAndGetSnRecord */
-export interface PostProduceCreateAndGetSnRecordOption {
+interface PostProduceCreateAndGetSnRecordOption {
   body?: CreateSnRecordModel;
 }
 
@@ -1098,7 +1098,7 @@ export const postProduceCreateAndGetSnRecord = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceCreateSnDetail */
-export interface PostProduceCreateSnDetailOption {
+interface PostProduceCreateSnDetailOption {
   body?: CreateSnDetailModel;
 }
 
@@ -1138,7 +1138,7 @@ export const postProduceCreateSnDetail = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceDeleteSnDetail */
-export interface PostProduceDeleteSnDetailOption {
+interface PostProduceDeleteSnDetailOption {
   body?: DeleteSnDetailModel;
 }
 
@@ -1178,7 +1178,7 @@ export const postProduceDeleteSnDetail = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetProduceOtherInfo */
-export interface PostProduceGetProduceOtherInfoOption {
+interface PostProduceGetProduceOtherInfoOption {
   body?: GetProduceOtherInfoRequestModel;
 }
 
@@ -1218,7 +1218,7 @@ export const postProduceGetProduceOtherInfo = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetBatchInfo */
-export interface PostProduceGetBatchInfoOption {
+interface PostProduceGetBatchInfoOption {
   body?: GetBatchInfoModel;
 }
 
@@ -1258,7 +1258,7 @@ export const postProduceGetBatchInfo = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetSerialNumber */
-export interface PostProduceGetSerialNumberOption {
+interface PostProduceGetSerialNumberOption {
   body?: GetSerialNumberModel;
 }
 
@@ -1298,7 +1298,7 @@ export const postProduceGetSerialNumber = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postProduceGetSnListBySerialNumber */
-export interface PostProduceGetSnListBySerialNumberOption {
+interface PostProduceGetSnListBySerialNumberOption {
   body?: GetSnListBySerialNumberModel;
 }
 
@@ -1338,7 +1338,7 @@ export const postProduceGetSnListBySerialNumber = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoSaveWo */
-export interface PostWoSaveWoOption {
+interface PostWoSaveWoOption {
   body?: SaveWoModel;
 }
 
@@ -1439,7 +1439,7 @@ export const postWoSaveWoBatch = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetBatchWoBomResult */
-export interface PostWoGetBatchWoBomResultOption {
+interface PostWoGetBatchWoBomResultOption {
   body?: GetBatchWoBomResultModel;
 }
 
@@ -1479,7 +1479,7 @@ export const postWoGetBatchWoBomResult = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetRecordModel */
-export interface PostWoGetRecordModelOption {
+interface PostWoGetRecordModelOption {
   body?: GetRecordModel;
 }
 
@@ -1519,7 +1519,7 @@ export const postWoGetRecordModel = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetProdInfo */
-export interface PostWoGetProdInfoOption {
+interface PostWoGetProdInfoOption {
   body?: GetProdInfoModel;
 }
 
@@ -1558,7 +1558,7 @@ export const postWoGetProdInfo = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoList */
-export interface PostWoGetWoListOption {
+interface PostWoGetWoListOption {
   body?: GetWoListModel;
 }
 
@@ -1597,7 +1597,7 @@ export const postWoGetWoList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoUpdateWoState */
-export interface PostWoUpdateWoStateOption {
+interface PostWoUpdateWoStateOption {
   body?: UpdateWoStateModel;
 }
 
@@ -1701,7 +1701,7 @@ export const postWoDownWoTemplate = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoRecordListToSelectModels */
-export interface PostWoGetWoRecordListToSelectModelsOption {
+interface PostWoGetWoRecordListToSelectModelsOption {
   body?: GetWoRecordListToSelectModelsModel;
 }
 
@@ -1741,7 +1741,7 @@ export const postWoGetWoRecordListToSelectModels = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoDeleteWo */
-export interface PostWoDeleteWoOption {
+interface PostWoDeleteWoOption {
   body?: DeleteWoModel;
 }
 
@@ -1780,7 +1780,7 @@ export const postWoDeleteWo = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetReportListByWoId */
-export interface PostWoGetReportListByWoIdOption {
+interface PostWoGetReportListByWoIdOption {
   body?: GetReportListByWoIdModel;
 }
 
@@ -1820,7 +1820,7 @@ export const postWoGetReportListByWoId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoBomSln */
-export interface PostWoGetWoBomSlnOption {
+interface PostWoGetWoBomSlnOption {
   body?: GetWoBomSlnModel;
 }
 
@@ -1859,7 +1859,7 @@ export const postWoGetWoBomSln = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoBomBySln */
-export interface PostWoGetWoBomBySlnOption {
+interface PostWoGetWoBomBySlnOption {
   body?: GetWoBomBySlnModel;
 }
 
@@ -1899,7 +1899,7 @@ export const postWoGetWoBomBySln = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoSlnAndBom */
-export interface PostWoGetWoSlnAndBomOption {
+interface PostWoGetWoSlnAndBomOption {
   body?: GetWoSlnAndBomModel;
 }
 
@@ -1939,7 +1939,7 @@ export const postWoGetWoSlnAndBom = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoUpdateWoBomCount */
-export interface PostWoUpdateWoBomCountOption {
+interface PostWoUpdateWoBomCountOption {
   body?: UpdateWoBomCountModel;
 }
 
@@ -1979,7 +1979,7 @@ export const postWoUpdateWoBomCount = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoDeleteWoBomDetail */
-export interface PostWoDeleteWoBomDetailOption {
+interface PostWoDeleteWoBomDetailOption {
   body?: DeleteWoBomDetailModel;
 }
 
@@ -2019,7 +2019,7 @@ export const postWoDeleteWoBomDetail = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoCreateBomDetail */
-export interface PostWoCreateBomDetailOption {
+interface PostWoCreateBomDetailOption {
   body?: CreateBomDetailModel;
 }
 
@@ -2059,7 +2059,7 @@ export const postWoCreateBomDetail = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetBomProductList */
-export interface PostWoGetBomProductListOption {
+interface PostWoGetBomProductListOption {
   body?: GetBomProductListModel;
 }
 
@@ -2099,7 +2099,7 @@ export const postWoGetBomProductList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoComplateReport */
-export interface PostWoComplateReportOption {
+interface PostWoComplateReportOption {
   body?: ComplateReportModel;
 }
 
@@ -2139,7 +2139,7 @@ export const postWoComplateReport = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetNoPlanBomSln */
-export interface PostWoGetNoPlanBomSlnOption {
+interface PostWoGetNoPlanBomSlnOption {
   body?: GetNoPlanBomSlnModel;
 }
 
@@ -2179,7 +2179,7 @@ export const postWoGetNoPlanBomSln = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoSaveWoOther */
-export interface PostWoSaveWoOtherOption {
+interface PostWoSaveWoOtherOption {
   body?: WoOtherModel;
 }
 
@@ -2218,7 +2218,7 @@ export const postWoSaveWoOther = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetWoOther */
-export interface PostWoGetWoOtherOption {
+interface PostWoGetWoOtherOption {
   body?: GetWoOtherModel;
 }
 
@@ -2257,7 +2257,7 @@ export const postWoGetWoOther = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetLogList */
-export interface PostWoGetLogListOption {
+interface PostWoGetLogListOption {
   body?: GetLogListModel;
 }
 
@@ -2296,7 +2296,7 @@ export const postWoGetLogList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoGetBomModelByTaskIdAndProdCode */
-export interface PostWoGetBomModelByTaskIdAndProdCodeOption {
+interface PostWoGetBomModelByTaskIdAndProdCodeOption {
   body?: GetBomModelByTaskIdAndProdCodeModel;
 }
 
@@ -2336,7 +2336,7 @@ export const postWoGetBomModelByTaskIdAndProdCode = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoTaskPickSaveTaskPick */
-export interface PostWoTaskPickSaveTaskPickOption {
+interface PostWoTaskPickSaveTaskPickOption {
   body?: Array<WoProduceTaskPickModel>;
 }
 
@@ -2376,7 +2376,7 @@ export const postWoTaskPickSaveTaskPick = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoTaskPickCancelTaskPick */
-export interface PostWoTaskPickCancelTaskPickOption {
+interface PostWoTaskPickCancelTaskPickOption {
   body?: WoProduceTaskPickPara;
 }
 
@@ -2416,7 +2416,7 @@ export const postWoTaskPickCancelTaskPick = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoTaskPickGetWoTaskPickModel */
-export interface PostWoTaskPickGetWoTaskPickModelOption {
+interface PostWoTaskPickGetWoTaskPickModelOption {
   body?: WoProduceTaskPickPara;
 }
 
@@ -2456,7 +2456,7 @@ export const postWoTaskPickGetWoTaskPickModel = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postWoTaskPickGetPickTaskList */
-export interface PostWoTaskPickGetPickTaskListOption {
+interface PostWoTaskPickGetPickTaskListOption {
   body?: WoProduceTaskPickPara;
 }
 
