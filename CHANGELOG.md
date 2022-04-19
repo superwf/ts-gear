@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.2](https://github.com/superwf/ts-gear/compare/v4.7.1...v4.7.2) (2022-04-19)
+
+
+### Bug Fixes
+
+* repeat enum to alias ([d26e9cd](https://github.com/superwf/ts-gear/commit/d26e9cd27e3777f5124aa5e83ae1570a14094c5e))
+
 ### [4.7.1](https://github.com/superwf/ts-gear/compare/v4.7.0...v4.7.1) (2022-04-12)
 
 
