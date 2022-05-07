@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.7.4](https://github.com/superwf/ts-gear/compare/v4.7.3...v4.7.4) (2022-05-07)
+
+
+### Bug Fixes
+
+* request option position ([54f674f](https://github.com/superwf/ts-gear/commit/54f674f244d0b4090c776374b85dc9035ad5f788))
+
 ### [4.7.3](https://github.com/superwf/ts-gear/compare/v4.7.2...v4.7.3) (2022-04-19)
 
 
