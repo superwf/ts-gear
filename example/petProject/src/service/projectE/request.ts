@@ -6,7 +6,7 @@ import { requester as requester } from "fffxx";
 import type { ReplyVOInt } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
-interface DeleteApiDataboardBoardEsOption {
+export interface DeleteApiDataboardBoardEsOption {
   /**
    * @description
    *   索引数组

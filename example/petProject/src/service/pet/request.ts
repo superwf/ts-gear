@@ -200,7 +200,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   ID of pet that needs to be updated
@@ -216,7 +216,7 @@ interface PostPetPetIdOption {
 }
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   Updated name of the pet
@@ -271,14 +271,14 @@ export const postPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
 }
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   /**
    * @description
    *   Pet id to delete
@@ -335,7 +335,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   ID of pet to update
@@ -351,7 +351,7 @@ interface PostPetPetIdUploadImageOption {
 }
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   Additional data to pass to server
@@ -845,7 +845,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   name that need to be updated
@@ -859,7 +859,7 @@ interface PutUserUsernameOption {
 }
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   Updated user object

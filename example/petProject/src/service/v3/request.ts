@@ -11,7 +11,7 @@ import type {
 } from './definition'
 
 /** @description request parameter type for getApiDatamapFieldDef */
-interface GetApiDatamapFieldDefOption {
+export interface GetApiDatamapFieldDefOption {
   /**
    * @description
    *   创建人
@@ -129,7 +129,7 @@ export const getApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for putApiDatamapFieldDef */
-interface PutApiDatamapFieldDefOption {
+export interface PutApiDatamapFieldDefOption {
   body?: string
 }
 
@@ -189,7 +189,7 @@ export const putApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for postApiDatamapFieldDef */
-interface PostApiDatamapFieldDefOption {
+export interface PostApiDatamapFieldDefOption {
   body?: string
 }
 
@@ -246,7 +246,7 @@ export const postApiDatamapFieldDef = /* #__PURE__ */ (() => {
 })()
 
 /** @description request parameter type for deleteApiDatamapFieldDef */
-interface DeleteApiDatamapFieldDefOption {
+export interface DeleteApiDatamapFieldDefOption {
   body?: string
 }
 

@@ -12,7 +12,7 @@ import type {
 } from "./definition";
 
 /** @description request parameter type for putPet */
-interface PutPetOption {
+export interface PutPetOption {
   /**
    * @description
    *   Pet object that needs to be added to the store
@@ -66,7 +66,7 @@ export const putPet = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPet */
-interface PostPetOption {
+export interface PostPetOption {
   /**
    * @description
    *   Pet object that needs to be added to the store
@@ -110,7 +110,7 @@ export const postPet = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getPetFindByStatus */
-interface GetPetFindByStatusOption {
+export interface GetPetFindByStatusOption {
   /**
    * @description
    *   Status values that need to be considered for filter
@@ -166,7 +166,7 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getPetPetId */
-interface GetPetPetIdOption {
+export interface GetPetPetIdOption {
   /**
    * @description
    *   ID of pet to return
@@ -229,7 +229,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   ID of pet that needs to be updated
@@ -245,7 +245,7 @@ interface PostPetPetIdOption {
 }
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   Updated name of the pet
@@ -300,14 +300,14 @@ export const postPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   header?: {
     api_key?: string;
   };
 }
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   /**
    * @description
    *   Pet id to delete
@@ -364,7 +364,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   ID of pet to update
@@ -380,7 +380,7 @@ interface PostPetPetIdUploadImageOption {
 }
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   Additional data to pass to server
@@ -472,7 +472,7 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postStoreOrder */
-interface PostStoreOrderOption {
+export interface PostStoreOrderOption {
   /**
    * @description
    *   order placed for purchasing the pet
@@ -522,7 +522,7 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getStoreOrderOrderId */
-interface GetStoreOrderOrderIdOption {
+export interface GetStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of pet that needs to be fetched
@@ -586,7 +586,7 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deleteStoreOrderOrderId */
-interface DeleteStoreOrderOrderIdOption {
+export interface DeleteStoreOrderOrderIdOption {
   /**
    * @description
    *   ID of the order that needs to be deleted
@@ -644,7 +644,7 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUser */
-interface PostUserOption {
+export interface PostUserOption {
   /**
    * @description
    *   Created user object
@@ -688,7 +688,7 @@ export const postUser = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUserCreateWithArray */
-interface PostUserCreateWithArrayOption {
+export interface PostUserCreateWithArrayOption {
   /**
    * @description
    *   List of user object
@@ -734,7 +734,7 @@ export const postUserCreateWithArray = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postUserCreateWithList */
-interface PostUserCreateWithListOption {
+export interface PostUserCreateWithListOption {
   /**
    * @description
    *   List of user object
@@ -780,7 +780,7 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getUserLogin */
-interface GetUserLoginOption {
+export interface GetUserLoginOption {
   /**
    * @description
    *   The user name for login
@@ -872,7 +872,7 @@ export const getUserLogout = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for getUserUsername */
-interface GetUserUsernameOption {
+export interface GetUserUsernameOption {
   /**
    * @description
    *   The name that needs to be fetched. Use user1 for testing.
@@ -932,7 +932,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   name that need to be updated
@@ -946,7 +946,7 @@ interface PutUserUsernameOption {
 }
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   Updated user object
@@ -997,7 +997,7 @@ export const putUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deleteUserUsername */
-interface DeleteUserUsernameOption {
+export interface DeleteUserUsernameOption {
   /**
    * @description
    *   The name that needs to be deleted

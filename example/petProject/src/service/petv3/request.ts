@@ -253,7 +253,7 @@ export const getPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   ID of pet that needs to be updated
@@ -267,7 +267,7 @@ interface PostPetPetIdOption {
 }
 
 /** @description request parameter type for postPetPetId */
-interface PostPetPetIdOption {
+export interface PostPetPetIdOption {
   /**
    * @description
    *   Name of pet that needs to be updated
@@ -320,7 +320,7 @@ export const postPetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   /** @description */
   header?: {
     /**
@@ -330,7 +330,7 @@ interface DeletePetPetIdOption {
 }
 
 /** @description request parameter type for deletePetPetId */
-interface DeletePetPetIdOption {
+export interface DeletePetPetIdOption {
   /**
    * @description
    *   Pet id to delete
@@ -379,7 +379,7 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   ID of pet to update
@@ -393,7 +393,7 @@ interface PostPetPetIdUploadImageOption {
 }
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   /**
    * @description
    *   Additional Metadata
@@ -407,7 +407,7 @@ interface PostPetPetIdUploadImageOption {
 }
 
 /** @description request parameter type for postPetPetIdUploadImage */
-interface PostPetPetIdUploadImageOption {
+export interface PostPetPetIdUploadImageOption {
   body?: File;
 }
 
@@ -843,7 +843,7 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 })();
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   /**
    * @description
    *   name that need to be deleted
@@ -857,7 +857,7 @@ interface PutUserUsernameOption {
 }
 
 /** @description request parameter type for putUserUsername */
-interface PutUserUsernameOption {
+export interface PutUserUsernameOption {
   body?: User;
 }
 
