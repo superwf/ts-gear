@@ -52,7 +52,11 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     if (request.parameters) {
       const positionSet = new Set(request.parameters.map((p: any) => p.in))
       if (project.simplifyRequestOption && request.parameters && positionSet.size === 1) {
-        simpleOption = `${Array.from(positionSet)[0]}: option`
+        let position = Array.from(positionSet)[0]
+        if (position === 'formData') {
+          position = 'body'
+        }
+        simpleOption = `${position}: option`
       }
     }
     const requesterStatment = `return requester(url, {${[
