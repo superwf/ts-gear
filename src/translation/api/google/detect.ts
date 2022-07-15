@@ -1,16 +1,14 @@
-import { StringOrTranslateOptions } from '../types'
+import type { StringOrTranslateOptions } from '../types'
+import request from '../../utils/make-request'
+import getError, { ERROR_CODE } from '../../utils/error'
 import { getRoot } from './state'
 import sign from './sign'
 
-import request from '../../utils/make-request'
-import getError, { ERROR_CODE } from '../../utils/error'
-
-export default async function(options: StringOrTranslateOptions) {
-  const { text, com = false } =
-    typeof options === 'string' ? { text: options } : options
+export default async function (options: StringOrTranslateOptions) {
+  const { text, com = false } = typeof options === 'string' ? { text: options } : options
 
   const result = await request({
-    url: getRoot(com) + '/translate_a/single',
+    url: `${getRoot(com)}/translate_a/single`,
     query: {
       client: 'webapp',
       sl: 'auto',
@@ -20,8 +18,8 @@ export default async function(options: StringOrTranslateOptions) {
       tsel: '0',
       kc: '0',
       tk: await sign(text, com),
-      q: text
-    }
+      q: text,
+    },
   })
 
   const src = result && result[2]
