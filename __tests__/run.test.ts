@@ -7,9 +7,10 @@ describe('run', () => {
     await run({
       projects: [
         {
-          name: 'doc',
+          name: 'projectE',
           dest: 'service',
-          source: '../../fixture/pet.json',
+          source: '../../../example/fixture/projectE.json',
+          // source: '../../../example/fixture/pet.json',
           importRequesterStatement: 'import { requester } from "../../requester"',
           EOL: '\n',
           withBasePath: true,

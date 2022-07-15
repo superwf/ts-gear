@@ -2,7 +2,8 @@ import request from '../../../utils/make-request'
 import { Cookie, fetchCookie } from '../state'
 import getError, { ERROR_CODE } from '../../../utils/error'
 
-const seedReg = /window\.gtk\s=\s'([^']+)';/
+const seedRegDoubleQuote = /window\.gtk\s=\s"([^']+)";/
+const seedRegSingleQuote = /window\.gtk\s=\s'([^']+)';/
 const tokenReg = /token:\s'([^']+)'/
 
 export default async function fetchSeed() {
@@ -17,7 +18,10 @@ export default async function fetchSeed() {
     },
     responseType: 'text',
   })
-  const seed = html.match(seedReg)
+  let seed = html.match(seedRegDoubleQuote)
+  if (!seed) {
+    seed = html.match(seedRegSingleQuote)
+  }
   if (seed) {
     const token = html.match(tokenReg)
     if (token) {

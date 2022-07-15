@@ -3,7 +3,7 @@
 /** Do not modify manually.
 content is generated automatically by `ts-gear`. */
 import { requester as requester } from "fffxx";
-import type { ReplyVOInt } from "./definition";
+import type { ReplyVOInt, DataStructure } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
 export interface DeleteApiDataboardBoardEsOption {
@@ -61,6 +61,75 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
       method,
       ...option,
     }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
+  }
+
+  /** http method */
+  request.method = method;
+  /** request url */
+  request.url = url;
+  return request;
+})();
+
+/** @description request parameter type for postApiCreate */
+export interface PostApiCreateOption {
+  /**
+   * @description
+   *   dto
+   */
+  body: {
+    /**
+        @description
+          dto */
+    dto: DataStructure;
+  };
+}
+
+/** @description response type for postApiCreate */
+export interface PostApiCreateResponse {
+  /**
+   * @description
+   *   OK
+   */
+  200: ReplyVOInt;
+  /**
+   * @description
+   *   Created
+   */
+  201: any;
+  /**
+   * @description
+   *   Unauthorized
+   */
+  401: any;
+  /**
+   * @description
+   *   Forbidden
+   */
+  403: any;
+  /**
+   * @description
+   *   Not Found
+   */
+  404: any;
+}
+
+export type PostApiCreateResponseSuccess = PostApiCreateResponse[200];
+/**
+ * @description
+ *   ooo
+ * @produces *
+ * @consumes application/json
+ */
+export const postApiCreate = /* #__PURE__ */ (() => {
+  const method = "post";
+  const url = "/api/create";
+  function request(
+    option: PostApiCreateOption
+  ): Promise<PostApiCreateResponseSuccess> {
+    return requester(url, {
+      method,
+      ...option,
+    }) as unknown as Promise<PostApiCreateResponseSuccess>;
   }
 
   /** http method */
