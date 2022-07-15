@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.8.0](https://github.com/superwf/ts-gear/compare/v4.7.4...v4.8.0) (2022-07-15)
+
+
+### Features
+
+* add option stripBodyPropWhenOnlyOneBodyProp ([6cde672](https://github.com/superwf/ts-gear/commit/6cde672d6130fa3c95ecb3685c71a7074c685d9e))
+
+
+### Bug Fixes
+
+* baidu translate ([33b1296](https://github.com/superwf/ts-gear/commit/33b1296a3c15a30fbca3ae8c0c21031f6099f5f2))
+
 ### [4.7.4](https://github.com/superwf/ts-gear/compare/v4.7.3...v4.7.4) (2022-05-07)
 
 
