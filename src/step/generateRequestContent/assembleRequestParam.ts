@@ -1,5 +1,5 @@
 import type { Parameter, BodyParameter, Reference } from 'swagger-schema-official'
-import type { ParameterPositionMap } from '../../type'
+import type { ParameterPositionMap, Project } from '../../type'
 import { isReference } from '../../tool/isReference'
 import { assembleDoc } from '../../tool/assembleDoc'
 
@@ -10,7 +10,8 @@ import { assembleDoc } from '../../tool/assembleDoc'
  * remove it to generate as below
  * { body: Pet }
  * */
-export const assembleRequestParam = (parameters: Array<Parameter | Reference>) => {
+export const assembleRequestParam = (parameters: Array<Parameter | Reference>, project: Project) => {
+  const bodyParamCount = parameters.filter(p => 'in' in p && p.in === 'body').length
   return parameters.reduce<ParameterPositionMap>((map, parameter) => {
     // ? TODO never meet this case
     if (isReference(parameter)) {
@@ -31,6 +32,19 @@ export const assembleRequestParam = (parameters: Array<Parameter | Reference>) =
        * */
     } else if (
       (parameter.in === 'formData' || (parameter.in === 'body' && parameter.name === 'body')) &&
+      (parameter as BodyParameter).schema
+    ) {
+      /** remove body nest structure */
+      map.body = {
+        type: 'object',
+        name: 'body',
+        required: parameter.required ? [parameter.name] : [],
+        schema: (parameter as BodyParameter).schema,
+        docs: assembleDoc(parameter),
+      }
+    } else if (
+      (parameter.in === 'formData' ||
+        (parameter.in === 'body' && project.stripBodyPropWhenOnlyOneBodyProp && bodyParamCount === 1)) &&
       (parameter as BodyParameter).schema
     ) {
       /** remove body nest structure */

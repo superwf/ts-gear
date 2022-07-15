@@ -2,7 +2,7 @@
 /* tslint:disable */
 /** Do not modify manually.
 content is generated automatically by `ts-gear`. */
-import { requester as requester } from "fffxx";
+import { requester as requester } from "../../requester";
 import type { ReplyVOInt, DataStructure } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
@@ -11,12 +11,7 @@ export interface DeleteApiDataboardBoardEsOption {
    * @description
    *   索引数组
    */
-  body?: {
-    /**
-        @description
-          索引数组 */
-    indexNames?: Array<string>;
-  };
+  body?: Array<string>;
 }
 
 /** @description response type for deleteApiDataboardBoardEs */
@@ -58,6 +53,7 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
     return requester(url, {
+      basePath: "/",
       method,
       ...option,
     }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
@@ -76,12 +72,7 @@ export interface PostApiCreateOption {
    * @description
    *   dto
    */
-  body: {
-    /**
-        @description
-          dto */
-    dto: DataStructure;
-  };
+  body: DataStructure;
 }
 
 /** @description response type for postApiCreate */
@@ -127,6 +118,7 @@ export const postApiCreate = /* #__PURE__ */ (() => {
     option: PostApiCreateOption
   ): Promise<PostApiCreateResponseSuccess> {
     return requester(url, {
+      basePath: "/",
       method,
       ...option,
     }) as unknown as Promise<PostApiCreateResponseSuccess>;

@@ -212,7 +212,7 @@ export default projects
 | EOL | string | false  | '\n' | 是否生成缓存，为true时会在之后优先使用缓存而不是请求实际的openapi文档，缓存位置为`node_modules/.cache`，参照babel等工具的cache也放在这里。                                   |
 | nullableFalseAsRequired | boolean | false | false | 是否使用nullable来作为生成`?`的规则                                                                                                      |
 | simplifyRequestOption | boolean | false | false | 是否使用简化模式的请求参数，去掉query 或 body 的层级 |
-
+| stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | 当请求的body内只有一个参数时，且该参数是一个schema，则去掉这层参数 |
 ### axios
 
 `ts-gear`内置的`axiosRequester`接受一个`axios`的实例作为参数，如果没有则使用默认的`axios`。

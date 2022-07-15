@@ -36,7 +36,6 @@ export async function translate({ text, engine, interval = 0, debug = false }: O
     }
     return res.result!.join('')
   } catch (e) {
-    console.log(e)
     if (e instanceof Error) {
       throw new Error(`translate word "${text}" by engine "${engine}" fail, original error: ${e.message}`)
     }

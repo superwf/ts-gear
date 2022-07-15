@@ -16,7 +16,7 @@ export const generateRequestOptionType = (
 ) => {
   const source = sow()
   const parameterTypeName = `${upperFirst(functionName)}Option`
-  const assembledParameters = assembleRequestParam(parameters)
+  const assembledParameters = assembleRequestParam(parameters, project)
   let parameterRequired = false
   const positionSet = new Set(
     Object.getOwnPropertyNames(assembledParameters),

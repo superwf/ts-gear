@@ -363,4 +363,20 @@ export interface Project {
    * @default false
    */
   simplifyRequestOption?: boolean
+
+  /**
+   * when request prop only has one prop, and this props is a schema, then remove this level prop.
+   * example:
+   *
+   * ```json
+   * body: {
+   *   dto: Data
+   * }
+   * // to
+   * body: Data
+   * ```
+   *
+   * 当请求的body内只有一个参数时，且该参数是一个schema，则去掉这层参数
+   * */
+  stripBodyPropWhenOnlyOneBodyProp?: boolean
 }

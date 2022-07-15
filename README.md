@@ -250,6 +250,7 @@ export default projects
 | EOL | string | false | false | custom EOF |
 | nullableFalseAsRequired | boolean | false | false | nullable as required |
 | simplifyRequestOption | boolean | false | false | simple type of request option, remove query or body level |
+| stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | when request prop only has one prop, and this props is a schema, then remove this level prop. |
 
 ### Requester
 
