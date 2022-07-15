@@ -16,7 +16,7 @@ describe('run', () => {
           withBasePath: true,
           translationEngine: 'baidu',
           translateSerial: true,
-          stripBodyLevelWhenOnlyOneBodyProp: true,
+          stripBodyPropWhenOnlyOneBodyProp: true,
         },
       ],
       appPath: join(cwd, 'example/petProject/src'),
