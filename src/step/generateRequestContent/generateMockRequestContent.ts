@@ -6,6 +6,7 @@ import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPat
 import { harvest, sow } from '../../source'
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
+import { shouldKeepRequest } from '../../tool/shouldKeepRequest'
 import { config } from '../../constant'
 import { generateMockData } from './generateMockData'
 import { generateResponseType } from './generateResponseType'
@@ -28,14 +29,8 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
-    if (apiFilter) {
-      if (typeof apiFilter === 'function') {
-        if (!apiFilter(request)) {
-          return
-        }
-      } else if (!apiFilter.test(request.pathname)) {
-        return
-      }
+    if (!shouldKeepRequest(request, apiFilter)) {
+      return
     }
 
     let parameterTypeName = ''

@@ -7,6 +7,7 @@ import { transformSwaggerPathToRouterPath } from '../../tool/transformSwaggerPat
 import { getGlobal } from '../../projectGlobalVariable'
 import { assembleDoc } from '../../tool/assembleDoc'
 import { config } from '../../constant'
+import { shouldKeepRequest } from '../../tool/shouldKeepRequest'
 import { generateResponseType } from './generateResponseType'
 import { generateRequestOptionType } from './generateRequestOptionType'
 
@@ -23,14 +24,8 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     const requestTypeScriptContent: string[] = []
     const request = requestMap[requestFunctionName]
     const { httpMethod } = request
-    if (apiFilter) {
-      if (typeof apiFilter === 'function') {
-        if (!apiFilter(request)) {
-          return
-        }
-      } else if (!apiFilter.test(request.pathname)) {
-        return
-      }
+    if (!shouldKeepRequest(request, apiFilter)) {
+      return
     }
 
     let parameterTypeName = ''

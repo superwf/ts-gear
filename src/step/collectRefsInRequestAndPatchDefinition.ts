@@ -2,6 +2,7 @@ import { getGlobal } from '../projectGlobalVariable'
 import { traverse$Ref } from '../tool/traverseSchema'
 import type { Project } from '../type'
 import { patchGlobalDefinitionMap } from '../tool/patchGlobalDefinitionMap'
+import { shouldKeepRequest } from '../tool/shouldKeepRequest'
 
 /**
  * collect refs in paths
@@ -32,14 +33,8 @@ export const collectRefsInRequestAndPatchDefinition = (project: Project) => {
   const { apiFilter } = project
   Object.getOwnPropertyNames(requestMap).forEach(name => {
     const request = requestMap[name]
-    if (apiFilter) {
-      if (typeof apiFilter === 'function') {
-        if (!apiFilter(request)) {
-          return
-        }
-      } else if (!apiFilter.test(request.pathname)) {
-        return
-      }
+    if (!shouldKeepRequest(request, apiFilter)) {
+      return
     }
     const { schema } = request
     traverse$Ref(schema, value => {

@@ -21,7 +21,6 @@
     "url": "https://github.com/superwf/ts-gear.git"
   },
   "peerDependencies": {
-    "axios": "*",
     "typescript": ">=4"
   },
   "dependencies": {
