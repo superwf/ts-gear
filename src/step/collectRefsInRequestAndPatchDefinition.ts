@@ -29,8 +29,19 @@ export const collectRefsInRequestAndPatchDefinition = (project: Project) => {
     }
   })
   // gather ref definition names from paths
+  const { apiFilter } = project
   Object.getOwnPropertyNames(requestMap).forEach(name => {
-    const { schema } = requestMap[name]
+    const request = requestMap[name]
+    if (apiFilter) {
+      if (typeof apiFilter === 'function') {
+        if (!apiFilter(request)) {
+          return
+        }
+      } else if (!apiFilter.test(request.pathname)) {
+        return
+      }
+    }
+    const { schema } = request
     traverse$Ref(schema, value => {
       if (keepGeneric) {
         value
