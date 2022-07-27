@@ -37,9 +37,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
   )
 
   const requestContent = Object.getOwnPropertyNames(requestMap)
-    .map(name => {
-      return requestMap[name].typescriptContent
-    })
+    .map(name => requestMap[name].typescriptContent)
     .join(EOL)
   const requesterResult = requester(project)
   prettierWrite(
@@ -55,9 +53,7 @@ export const writeProject = (project: Project, tsGearConfigPath: string) => {
   )
   if (project.shouldGenerateMock) {
     const mockRequestContent = Object.getOwnPropertyNames(requestMap)
-      .map(name => {
-        return requestMap[name].mockTypescriptContent
-      })
+      .map(name => requestMap[name].mockTypescriptContent)
       .join(EOL)
     prettierWrite(
       [
