@@ -1,4 +1,5 @@
 /** use native fetch to request */
+/* eslint-disable import/no-relative-packages */
 import { URL } from 'url'
 import { forEach, isPlainObject } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'

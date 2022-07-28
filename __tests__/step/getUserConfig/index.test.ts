@@ -1,6 +1,7 @@
+/* eslint-disable import/no-relative-packages */
 import { join } from 'path'
 import { noop } from 'lodash'
-import { getUserConfig } from 'src/step/getUserConfig'
+import { getUserConfig } from '../../../src/step/getUserConfig'
 import exampleProjects from 'example/petProject/src/tsg.config'
 
 describe('getUserConfig', () => {

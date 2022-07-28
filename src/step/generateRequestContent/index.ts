@@ -13,7 +13,7 @@ import { generateRequestOptionType } from './generateRequestOptionType'
 
 /** from swagger spec paths assemble request functions */
 export const generateRequestContent = (spec: Spec, project: Project) => {
-  const { apiFilter, withBasePath, withHost } = project
+  const { apiFilter, withBasePath, withHost, simplifyRequestOption, requestOptionUnionType } = project
   const { requestMap } = getGlobal(project)
   const { EOL } = config
 
@@ -46,7 +46,7 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     let simpleOption = ''
     if (request.parameters) {
       const positionSet = new Set(request.parameters.map((p: any) => p.in))
-      if (project.simplifyRequestOption && request.parameters && positionSet.size === 1) {
+      if (simplifyRequestOption && positionSet.size === 1 && !requestOptionUnionType) {
         let position = Array.from(positionSet)[0]
         if (position === 'formData') {
           position = 'body'
@@ -55,10 +55,10 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
       }
     }
     const requesterStatment = `return requester(url, {${[
-      withHost ? `host: '${spec.host}'` : '',
-      withBasePath ? `basePath: '${spec.basePath}'` : '',
+      withHost && spec.host ? `host: '${spec.host}'` : '',
+      withBasePath && spec.basePath ? `basePath: '${spec.basePath}'` : '',
       'method',
-      simpleOption || (parameterTypeName ? '...option' : ''),
+      simpleOption || (parameterTypeName || requestOptionUnionType ? '...option' : ''),
     ]
       .filter(Boolean)
       .join(',')}}) as unknown as Promise<${responseType.successTypeName}>`
@@ -72,10 +72,17 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
     }
     functionData.parameters = []
     if (parameterTypeName) {
+      const type = requestOptionUnionType ? `${parameterTypeName} & ${requestOptionUnionType}` : parameterTypeName
       functionData.parameters.push({
         hasQuestionToken: !parameterRequired,
         name: 'option',
-        type: parameterTypeName,
+        type,
+      })
+    } else if (requestOptionUnionType) {
+      functionData.parameters.push({
+        hasQuestionToken: true,
+        name: 'option',
+        type: requestOptionUnionType,
       })
     }
     requestFunctionSource.addFunction(functionData)

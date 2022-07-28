@@ -238,19 +238,14 @@ export default projects
 | shouldExportResponseType | boolean | true | true | should export request function response types |
 | prettierConfig | [Options](https://prettier.io/docs/en/options.html) | false | | prettier v2 options |
 | generateRequestFunctionName | (arg: GenerateRequestFunctionNameParameter) => string | false | |  generate request function name method |
-| generateRequestFunction | (arg: GenerateRequestFunctionNameParameter & {
-      parameterRequired: boolean
-      parameterTypeName: string
-      responseSuccessTypeName: string
-      project: Project
-      originSource: string
-    }) => string | false | | use this option to generate your function all by your self |
+| generateRequestFunction | please read the source | false | | use this option to generate your function all by your self |
 | transformJS | boolean | false | false | should generate js file |
 | useCache | boolean | false | false | use cache |
 | EOL | string | false | false | custom EOF |
 | nullableFalseAsRequired | boolean | false | false | nullable as required |
 | simplifyRequestOption | boolean | false | false | simple type of request option, remove query or body level |
 | stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | when request prop only has one prop, and this props is a schema, then remove this level prop. |
+| requestOptionUnionType | string | false | undefined | add an union type to request parameter type, read more from `src/type`, this is conflict with `simplifyRequestOption` and will make `simplifyRequestOption` not work |
 
 ### Requester
 

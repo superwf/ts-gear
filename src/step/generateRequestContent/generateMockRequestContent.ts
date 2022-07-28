@@ -19,7 +19,7 @@ import { generateRequestOptionType } from './generateRequestOptionType'
  * 取消了将mock数据混合到实际请求函数中的做法
  * */
 export const generateMockRequestContent = (spec: Spec, project: Project) => {
-  const { apiFilter } = project
+  const { apiFilter, requestOptionUnionType } = project
   const { requestMap, definitionMap, enumMap } = getGlobal(project)
 
   const { EOL } = config
@@ -56,10 +56,17 @@ export const generateMockRequestContent = (spec: Spec, project: Project) => {
     }
     functionData.parameters = []
     if (parameterTypeName) {
+      const type = requestOptionUnionType ? `${parameterTypeName} & ${requestOptionUnionType}` : parameterTypeName
       functionData.parameters.push({
         hasQuestionToken: !parameterRequired,
         name: 'option',
-        type: parameterTypeName,
+        type,
+      })
+    } else if (requestOptionUnionType) {
+      functionData.parameters.push({
+        hasQuestionToken: true,
+        name: 'option',
+        type: requestOptionUnionType,
       })
     }
     const mockFunctionSource = sow()

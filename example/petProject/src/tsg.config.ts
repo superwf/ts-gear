@@ -1,3 +1,4 @@
+/* eslint-disable import/no-relative-packages */
 import type { Options } from 'prettier'
 import type { Project } from '../../../src/type'
 
@@ -25,9 +26,11 @@ const projects: Project[] = [
     dest: 'service',
     source: 'https://petstore3.swagger.io/api/v3/openapi.json',
     importRequesterStatement: 'import { requester } from "../../requester"',
-    simplifyRequestOption: true,
+    // simplifyRequestOption: true,
+    shouldGenerateMock: true,
     EOL: '\n',
     withBasePath: true,
+    requestOptionUnionType: 'RequestInit',
   },
   {
     name: 'projectE',

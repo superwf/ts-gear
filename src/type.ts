@@ -25,7 +25,7 @@ export type RequestParameterPosition = BaseParameter['in']
 
 /** request parameter option */
 export type RequestParameter = {
-  method?: HttpMethod
+  method?: string
   basePath?: string
   host?: string
 } & {
@@ -379,4 +379,37 @@ export interface Project {
    * 当请求的body内只有一个参数时，且该参数是一个schema，则去掉这层参数
    * */
   stripBodyPropWhenOnlyOneBodyProp?: boolean
+
+  /**
+   * this can NOT be used with `simplifyRequestOption` together
+   * this is useful when work with `fetch`
+   *
+   * without this
+   * @example
+   *   getApiData parameters type is { query: { id: number } }
+   *   getApiData({ query: { id: 1 } })
+   * the function `getApiData` can only accept type `query`,
+   *
+   * with this option as `RequestInit`
+   * @example
+   *   getApiData parameters type is { query: { id: number } } & RequestInit
+   *   getApiData({ query: { id: 1 }, headers: { 'x-http-auth': 'my-auto-code' } })
+   * the function `getApiData` can accept other `RequestInit` type parameters used by `fetch`.
+   *
+   * also this option can use other type as AxiosRequestConfig
+   *
+   * 该参数与simplifyRequestOption参数不可同时使用
+   * 当不使用该参数时，
+   * @example
+   *   getApiData 参数类型为 { query: { id: number } }
+   *   getApiData({ query: { id: 1 } })
+   *   参数只能接受 query 数据
+   * 当指定该参数为 RequestInit
+   * @example
+   *   getApiData 参数类型为 { query: { id: number } } & RequestInit
+   *   getApiData({ query: { id: 1 }, headers: { 'x-http-auth': 'my-auto-code' } })
+   * 参数调用时候可传入 RequestInit 的其他字段
+   * 也可以是 axios 参数类型，例如 AxiosRequestConfig
+   * */
+  requestOptionUnionType?: string
 }

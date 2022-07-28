@@ -5,7 +5,6 @@
 
 import type { Schema } from 'swagger-schema-official'
 import { find, isObject, isFunction, castArray } from 'lodash'
-
 import type { SwaggerRequest, DefinitionMap, EnumMap } from '../../type'
 
 // Deeply strips a specific key from an object.
@@ -31,7 +30,7 @@ export function deeplyStripKey(input: any, keyToStrip: string, predicate: (...ar
 }
 
 function objectify<T>(thing: T): T {
-  if (!isObject(thing)) return ({} as unknown) as T
+  if (!isObject(thing)) return {} as unknown as T
   return thing
 }
 
@@ -78,11 +77,14 @@ export const sampleFromSchema = (schema: Schema, definitionMap: DefinitionMap, e
   const { example, properties, additionalProperties, items, $ref, schema: schemaSchema } = objectify(schema) as any
 
   if (example !== undefined) {
-    const r: any = deeplyStripKey(example, '$$ref', (val: any) => {
-      // do a couple of quick sanity tests to ensure the value
-      // looks like a $$ref that swagger-client generates.
-      return typeof val === 'string' && val.indexOf('#') > -1
-    })
+    const r: any = deeplyStripKey(
+      example,
+      '$$ref',
+      (val: any) =>
+        // do a couple of quick sanity tests to ensure the value
+        // looks like a $$ref that swagger-client generates.
+        typeof val === 'string' && val.indexOf('#') > -1,
+    )
     return r
   }
 

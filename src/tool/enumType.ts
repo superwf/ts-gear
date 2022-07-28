@@ -34,9 +34,7 @@ export const generateEnumName = (traversePath: string[], spec: Spec): string => 
       return false
     })
   }
-  remove(path, p => {
-    return filterPaths.includes(p)
-  })
+  remove(path, p => filterPaths.includes(p))
   return path.map(p => upperFirst(cleanName(p, false))).join('')
 }
 
@@ -48,11 +46,11 @@ export const generateEnumName = (traversePath: string[], spec: Spec): string => 
 export const generateEnumTypescriptContent = (name: string, value: any[]) => {
   const { factory } = ts
   const contentNode = factory.createUnionTypeNode(
-    value.map(v => {
-      return typeof v === 'number'
+    value.map(v =>
+      typeof v === 'number'
         ? factory.createLiteralTypeNode(factory.createNumericLiteral(v))
-        : factory.createLiteralTypeNode(factory.createStringLiteral(v))
-    }),
+        : factory.createLiteralTypeNode(factory.createStringLiteral(v)),
+    ),
   )
   const node = factory.createTypeAliasDeclaration(
     undefined,

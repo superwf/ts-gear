@@ -1,6 +1,6 @@
 /** use axios fetch to request */
 import axios from 'axios'
-import type { AxiosInstance, AxiosRequestConfig } from 'axios'
+import type { Method, AxiosInstance, AxiosRequestConfig } from 'axios'
 import { forEach } from 'lodash'
 import * as pathToRegexp from 'path-to-regexp'
 import type { RequestParameter, Requester } from '../type'
@@ -24,7 +24,7 @@ export function interceptRequest(url: string, option?: RequestParameter): [strin
   url = parseUrl(url, option)
   option = option || {}
   const requestOption: AxiosRequestConfig = {
-    method: option.method || 'get',
+    method: (option.method || 'get') as Method,
   }
   if (option.header) {
     requestOption.headers = option.header
