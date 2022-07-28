@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.9.0](https://github.com/superwf/ts-gear/compare/v4.8.2...v4.9.0) (2022-07-28)
+
+
+### Features
+
+* add requestOptionUnionType option ([a027f5d](https://github.com/superwf/ts-gear/commit/a027f5d52cef05214d28e3b738239ff80743db77))
+
 ### [4.8.2](https://github.com/superwf/ts-gear/compare/v4.8.0...v4.8.2) (2022-07-27)
 
 
