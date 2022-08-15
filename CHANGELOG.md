@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.10.0](https://github.com/superwf/ts-gear/compare/v4.9.0...v4.10.0) (2022-08-15)
+
+
+### Features
+
+* force header option to optional ([0ae0f14](https://github.com/superwf/ts-gear/commit/0ae0f14c9e7b20a79cb6de0d7a5f601bc8fd67a2))
+
+
+### Bug Fixes
+
+* wrong readme text ([8db9a00](https://github.com/superwf/ts-gear/commit/8db9a00da098590b04e9a91d331219d51bb57c9e))
+
 ## [4.9.0](https://github.com/superwf/ts-gear/compare/v4.8.2...v4.9.0) (2022-07-28)
 
 
