@@ -246,6 +246,7 @@ export default projects
 | simplifyRequestOption | boolean | false | false | simple type of request option, remove query or body level |
 | stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | when request prop only has one prop, and this props is a schema, then remove this level prop. |
 | requestOptionUnionType | string | false | undefined | add an union type to request parameter type, read more from `src/type`, this is conflict with `simplifyRequestOption` and will make `simplifyRequestOption` not work |
+| shouldForceSkipRequestHeaderOption | boolean | false | false | should force set the `header` request option to optional |
 
 ### Requester
 
