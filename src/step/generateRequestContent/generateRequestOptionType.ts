@@ -39,10 +39,16 @@ export const generateRequestOptionType = (
         name: parameterTypeName,
         docs: [`@description request parameter type for ${functionName}`],
       })
+      let hasQuestionToken = false
+      if (project.shouldForceSkipRequestHeaderOption && position === 'header') {
+        hasQuestionToken = true
+      } else {
+        hasQuestionToken = isEmpty(param.required)
+      }
       inter.addProperty({
         name: position,
         type: schemaToTypescript(param, project),
-        hasQuestionToken: isEmpty(param.required),
+        hasQuestionToken,
         docs: param.docs,
       })
     })

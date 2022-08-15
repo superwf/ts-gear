@@ -412,4 +412,11 @@ export interface Project {
    * 也可以是 axios 参数类型，例如 AxiosRequestConfig
    * */
   requestOptionUnionType?: string
+
+  /**
+   * 是否强制将生成请求参数中的header部分作为optional
+   * should force set the `header` request option to optional
+   * @default false
+   * */
+  shouldForceSkipRequestHeaderOption?: boolean
 }

@@ -214,6 +214,7 @@ export default projects
 | simplifyRequestOption | boolean | false | false | 是否使用简化模式的请求参数，去掉query 或 body 的层级 |
 | stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | 当请求的body内只有一个参数时，且该参数是一个schema，则去掉这层参数 |
 | requestOptionUnionType | string | false | undefined | 为请求参数的类型添加一个联合类型，具体参阅源码中的`src/type`, 使用该选项将使`simplifyRequestOption`失效 |
+| shouldForceSkipRequestHeaderOption | boolean | false | false | 是否强制将生成请求参数中的header部分作为optional |
 ### axios
 
 `ts-gear`内置的`axiosRequester`接受一个`axios`的实例作为参数，如果没有则使用默认的`axios`。
