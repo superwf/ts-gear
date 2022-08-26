@@ -6,6 +6,4 @@ const printer = ts.createPrinter({
 })
 const file = ts.createSourceFile('someFileName.ts', '', ts.ScriptTarget.Latest, false, ts.ScriptKind.TS)
 
-export const tsNodeToString = (node: ts.Node) => {
-  return printer.printNode(ts.EmitHint.Unspecified, node, file)
-}
+export const tsNodeToString = (node: ts.Node) => printer.printNode(ts.EmitHint.Unspecified, node, file)

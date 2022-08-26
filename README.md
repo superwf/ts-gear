@@ -247,6 +247,7 @@ export default projects
 | stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | when request prop only has one prop, and this props is a schema, then remove this level prop. |
 | requestOptionUnionType | string | false | undefined | add an union type to request parameter type, read more from `src/type`, this is conflict with `simplifyRequestOption` and will make `simplifyRequestOption` not work |
 | shouldForceSkipRequestHeaderOption | boolean | false | false | should force set the `header` request option to optional |
+| hooks | object | false | undefined | see [Hooks](#hooks) |
 
 ### Requester
 
@@ -321,6 +322,14 @@ Note: Important, the requester function must be an async function, or return a p
 Each request function parameter type and return type are mapped to the swagger definition.
 
 If you prefer to use your owne request way, you can only use the `definition.ts` for data type.
+
+## Hooks
+
+Use hooks to inject custom logic between code generate steps.
+
+* beforeWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+
+* afterWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
 
 ## Errata And Feedback
 

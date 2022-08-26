@@ -215,6 +215,7 @@ export default projects
 | stripBodyPropWhenOnlyOneBodyProp | boolean | false | false | 当请求的body内只有一个参数时，且该参数是一个schema，则去掉这层参数 |
 | requestOptionUnionType | string | false | undefined | 为请求参数的类型添加一个联合类型，具体参阅源码中的`src/type`, 使用该选项将使`simplifyRequestOption`失效 |
 | shouldForceSkipRequestHeaderOption | boolean | false | false | 是否强制将生成请求参数中的header部分作为optional |
+| hooks | object | false | undefined | 详见 [Hooks](#hooks) |
 ### axios
 
 `ts-gear`内置的`axiosRequester`接受一个`axios`的实例作为参数，如果没有则使用默认的`axios`。
@@ -251,3 +252,11 @@ export default projects
 每个请求函数的入参与返回数据类型，都会生成确定的ts类型。
 
 如果生成的请求函数不能满足需求，也可以只使用`definition.ts`中的数据类型定义。
+
+## Hooks
+
+为代码生成的生命周期中提供一些中间可以插入的步骤。
+
+* beforeWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+
+* afterWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>

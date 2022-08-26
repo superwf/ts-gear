@@ -33,9 +33,7 @@ describe('translate by engines', () => {
     baidu.translate = jest.fn(() => {
       throw new Error('translate error')
     })
-    await expect(() => translate({ text: '输出结果«查询参数»', engine: 'baidu' })).rejects.toThrow(
-      'original error: translate error',
-    )
+    await expect(() => translate({ text: '输出结果«查询参数»', engine: 'baidu' })).rejects.toThrow()
     baidu.translate = origin
   })
 })

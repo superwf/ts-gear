@@ -26,7 +26,7 @@ export const compile = async (func: (s: SourceFile) => void, source?: string) =>
   await sourceFile.save()
   const result = fs.readFileSync(fileName)
   await sourceFile.deleteImmediately()
-  await project.removeSourceFile(sourceFile)
+  project.removeSourceFile(sourceFile)
   return result
 }
 
