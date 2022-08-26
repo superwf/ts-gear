@@ -112,7 +112,7 @@ generateRequestFunctionName: ({
 
 * generateRequestFunction，生成请求函数体，用这个的话，函数内容ts-gear就不再管了，完全由这个自定义函数生成，慎重使用🙏。
 
-## 测试覆盖约50%，大概🤪，覆盖率统计比实际测试的显示的多。
+## 测试覆盖约50%，大概🤪，覆盖率统计比实际测试的显示的多
 
 ### Statements
 
@@ -186,7 +186,7 @@ export default projects
 
 #### 配置项说明
 
-##### 注意：以下所有配置的相对路径，都是`tsg.config.ts`文件所在的路径。例如该文件位置为`src/tsg.config.ts`，则配置中的路径都是相对`src`路径而定。
+##### 注意：以下所有配置的相对路径，都是`tsg.config.ts`文件所在的路径。例如该文件位置为`src/tsg.config.ts`，则配置中的路径都是相对`src`路径而定
 
 | Option name | type | required | default | description                                                                                                                  |
 |--------|------|---------|----------|------------------------------------------------------------------------------------------------------------------------------|
@@ -257,6 +257,6 @@ export default projects
 
 为代码生成的生命周期中提供一些中间可以插入的步骤。
 
-* beforeWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+* beforeWriteTs: (o: { project: [Project](https://github.com/superwf/ts-gear/blob/master/src/type.ts) } & [PrepareToWrite](https://github.com/superwf/ts-gear/blob/master/src/type.ts)) => Promise<any>
 
-* afterWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+* afterWriteTs: (o: { project: [Project](https://github.com/superwf/ts-gear/blob/master/src/type.ts) } & [PrepareToWrite](https://github.com/superwf/ts-gear/blob/master/src/type.ts)) => Promise<any>

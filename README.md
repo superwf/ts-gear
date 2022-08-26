@@ -215,7 +215,7 @@ const projects: Project[] = [
 export default projects
 ```
 
-#### Config Options
+### Config Options
 
 | Option name | type | required | default | description |
 |--------|------|---------|----------|-------------|
@@ -327,9 +327,9 @@ If you prefer to use your owne request way, you can only use the `definition.ts`
 
 Use hooks to inject custom logic between code generate steps.
 
-* beforeWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+- beforeWriteTs: (o: { project: [Project](https://github.com/superwf/ts-gear/blob/master/src/type.ts) } & [PrepareToWrite](https://github.com/superwf/ts-gear/blob/master/src/type.ts)) => Promise<any>
 
-* afterWriteTs: (o: { project: Project } & PrepareToWrite) => Promise<any>
+- afterWriteTs: (o: { project: [Project](https://github.com/superwf/ts-gear/blob/master/src/type.ts) } & [PrepareToWrite](https://github.com/superwf/ts-gear/blob/master/src/type.ts)) => Promise<any>
 
 ## Errata And Feedback
 
