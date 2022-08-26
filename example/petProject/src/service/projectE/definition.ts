@@ -5,9 +5,7 @@ content is generated automatically by `ts-gear`. */
 
 export type BodyBuilder = any;
 
-export type PageVOListVO = PageVO<ListVO>;
-export type ReplyVOPageVOFollowRecordVO = ReplyVO<PageVO<FollowRecordVO>>;
-export interface DataStructure {
+export interface Data {
   /**
    * @description
    *   响应代码【0正确,非0错误】
@@ -29,6 +27,8 @@ export interface DataStructure {
   message: string;
 }
 
+export type PageVOListVO = PageVO<ListVO>;
+export type ReplyVOPageVOFollowRecordVO = ReplyVO<PageVO<FollowRecordVO>>;
 export interface PageVO<ListVO = any> {
   /**
    * @description

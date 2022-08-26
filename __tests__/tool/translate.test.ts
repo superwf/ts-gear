@@ -1,34 +1,31 @@
 import { baidu } from 'src/translation'
 import { translate } from 'src/tool/translate'
 
-type Translate = typeof baidu.translate
-
-jest.mock('src/translation', () => {
-  return {
-    baidu: {
-      translate: (_args: any) => {
-        return Promise.resolve({
-          result: ['Output result « query parameter »'],
-        }) as ReturnType<Translate>
-      },
-    },
-    google: {
-      translate: (_args: any) => {
-        return Promise.resolve({
-          result: ['Output result «Query parameters»'],
-        }) as ReturnType<Translate>
-      },
-    },
-  }
-})
+// type Translate = typeof baidu.translate
 
 describe('translate by engines', () => {
+  // jest.mock('src/translation', () => ({
+  //   baidu: {
+  //     translate: (_args: any) =>
+  //       Promise.resolve({
+  //         result: ['Output result « query parameters »'],
+  //       }) as ReturnType<Translate>,
+  //   },
+  //   google: {
+  //     translate: (_args: any) =>
+  //       Promise.resolve({
+  //         result: ['Output result'],
+  //       }) as ReturnType<Translate>,
+  //   },
+  // }))
   it('translate by baidu', async () => {
-    expect(await translate({ text: '输出结果«查询参数»', engine: 'baidu' })).toBe('Output result « query parameter »')
+    expect(await translate({ text: '输出结果«查询参数»', engine: 'baidu', debug: true, interval: 2000 })).toBe(
+      'Output result « query parameters »',
+    )
   }, 5000)
 
   it('translate by google', async () => {
-    expect(await translate({ text: '输出结果«查询参数»', engine: 'google' })).toBe('Output result «Query parameters»')
+    expect(await translate({ text: '输出结果', engine: 'google', debug: true })).toBe('Output results')
   }, 5000)
 
   it('catch error', async () => {
@@ -36,7 +33,7 @@ describe('translate by engines', () => {
     baidu.translate = jest.fn(() => {
       throw new Error('translate error')
     })
-    await expect(translate({ text: '输出结果«查询参数»', engine: 'baidu' })).rejects.toThrow(
+    await expect(() => translate({ text: '输出结果«查询参数»', engine: 'baidu' })).rejects.toThrow(
       'original error: translate error',
     )
     baidu.translate = origin

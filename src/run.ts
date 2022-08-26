@@ -34,7 +34,22 @@ export const processProject = async (project: Project, tsGearConfigPath: string)
   if (project.shouldGenerateMock) {
     step.generateMockRequestContent(spec, project)
   }
-  step.writeProject(project, tsGearConfigPath)
+  const writeResult = step.prepareWriteContent(project, tsGearConfigPath)
+  if (project.hooks?.beforeWriteTs) {
+    await project.hooks?.beforeWriteTs({
+      project,
+      ...writeResult,
+    })
+  }
+  step.writeProject(project, writeResult)
+
+  if (project.hooks?.afterWriteTs) {
+    await project.hooks?.afterWriteTs({
+      project,
+      ...writeResult,
+    })
+  }
+
   if (project.transformJS) {
     step.toJS(project, tsGearConfigPath)
   }

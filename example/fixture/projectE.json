@@ -74,8 +74,8 @@
             "description": "dto",
             "required": true,
             "schema": {
-              "originalRef": "数据结构",
-              "$ref": "#/definitions/数据结构"
+              "originalRef": "Data",
+              "$ref": "#/definitions/Data"
             }
           }
         ],
@@ -181,7 +181,7 @@
       },
       "title": "PageVO«ListVO»"
     },
-    "数据结构": {
+    "Data": {
       "type": "object",
       "required": [
         "code",

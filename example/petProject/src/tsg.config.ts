@@ -39,7 +39,8 @@ const projects: Project[] = [
     keepGeneric: true,
     importRequesterStatement: 'import { requester } from "fffxx"',
     EOL: '\n',
-    translationEngine: 'baidu',
+    // translationEngine: 'baidu',
+    // translateIntervalPerWord: 2000,
   },
   {
     name: 'v3',

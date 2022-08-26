@@ -4,12 +4,12 @@ import { format } from 'prettier'
 
 /**
  * read from tsg config project prettier config
- * write formatted typescript content
+ * write formatted typescript data
  * */
-export const prettierWrite = (content: string, destPath: string, option?: Options) => {
+export const prettierWrite = ({ file, data, option }: { file: string; data: string; option?: Options }) => {
   writeFileSync(
-    destPath,
-    format(content, {
+    file,
+    format(data, {
       ...option,
       parser: 'typescript',
     }),

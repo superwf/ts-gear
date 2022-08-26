@@ -3,7 +3,7 @@ import { clearObject } from './tool/clearObject'
 
 const projectGlobal: ProjectGlobalMap = {}
 
-let currentProject: Project | undefined
+// let currentProject: Project | undefined
 
 export const getGlobal = (project: Project) => {
   if (!projectGlobal[project.name]) {

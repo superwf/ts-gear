@@ -9,10 +9,10 @@ import detect from './detect'
 import { standard2custom, root, Cookie, fetchCookie, custom2standard } from './state'
 import type { ResponseSymbol, Response } from './type'
 
-function transformRaw(text: string, body: Response) {
+function transformRaw(text: string, body: Response, from: string, to: string) {
   const transResult = body.trans_result
-  const customFrom = getValue(transResult, 'from')
-  const customTo = getValue(transResult, 'to')
+  const customFrom = getValue(transResult, 'from', from)
+  const customTo = getValue(transResult, 'to', to)
 
   const result: TranslateResult = {
     text,
@@ -48,9 +48,7 @@ function transformRaw(text: string, body: Response) {
 
     // 解析词典数据
     try {
-      result.dict = symbols.parts.map(part => {
-        return (part.part ? `${part.part} ` : '') + part.means.join('；')
-      })
+      result.dict = symbols.parts.map(part => (part.part ? `${part.part} ` : '') + part.means.join('；'))
     } catch (e) {}
   }
 
@@ -70,6 +68,7 @@ export default async function translate(options: StringOrTranslateOptions) {
   if (!Cookie.value) {
     await fetchCookie()
   }
+  // eslint-disable-next-line prefer-const
   let { from = undefined, to = undefined, text } = typeof options === 'string' ? { text: options } : options
 
   if (!from) {
@@ -86,6 +85,15 @@ export default async function translate(options: StringOrTranslateOptions) {
   if (!customFromLang || !customToLang) {
     throw getError(ERROR_CODE.UNSUPPORTED_LANG)
   }
+  const body = {
+    from: customFromLang,
+    to: customToLang,
+    query: text,
+    transtype: 'realtime',
+    simple_means_flag: 3,
+    dimain: 'common',
+    ...(await sign(text)),
+  }
 
   return transformRaw(
     text,
@@ -93,18 +101,13 @@ export default async function translate(options: StringOrTranslateOptions) {
       url: `${root}/v2transapi`,
       type: 'form',
       method: 'post',
-      body: {
-        from: customFromLang,
-        to: customToLang,
-        query: text,
-        transtype: 'translang',
-        simple_means_flag: 3,
-        ...(await sign(text)),
-      },
+      body,
       headers: {
         'X-Requested-With': 'XMLHttpRequest',
         Cookie: Cookie.value,
       },
     }),
+    customFromLang,
+    customToLang,
   )
 }

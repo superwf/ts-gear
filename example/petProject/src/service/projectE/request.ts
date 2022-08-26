@@ -3,7 +3,7 @@
 /** Do not modify manually.
 content is generated automatically by `ts-gear`. */
 import { requester as requester } from "fffxx";
-import type { ReplyVOInt, DataStructure } from "./definition";
+import type { ReplyVOInt, Data } from "./definition";
 
 /** @description request parameter type for deleteApiDataboardBoardEs */
 export interface DeleteApiDataboardBoardEsOption {
@@ -80,7 +80,7 @@ export interface PostApiCreateOption {
     /**
         @description
           dto */
-    dto: DataStructure;
+    dto: Data;
   };
 }
 

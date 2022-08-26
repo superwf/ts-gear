@@ -142,6 +142,17 @@ export interface ProjectGlobalMap {
   [projectName: string]: ProjectGlobal
 }
 
+export type PrepareToWrite = {
+  requestFile: string
+  requestFileContent: string
+  definitionFile: string
+  definitionFileContent: string
+  mockRequestFile: string
+  mockRequestFileContent: string
+  indexFile: string
+  indexFileContent: string
+}
+
 export interface Project {
   /**
    * project name
@@ -419,4 +430,17 @@ export interface Project {
    * @default false
    * */
   shouldForceSkipRequestHeaderOption?: boolean
+
+  /**
+   * 添加一些在生成之后可以调用内部数据的hooks，方便关联生成一些自定义数据
+   * these hooks run in each project life time
+   * */
+  hooks?: {
+    beforeWriteTs?: (
+      o: {
+        project: Project
+      } & PrepareToWrite,
+    ) => Promise<any>
+    afterWriteTs?: (o: { project: Project } & PrepareToWrite) => Promise<any>
+  }
 }
