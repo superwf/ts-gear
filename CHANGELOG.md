@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.11.0](https://github.com/superwf/ts-gear/compare/v4.10.0...v4.11.0) (2022-08-26)
+
+
+### Features
+
+* add config hooks ([19ae106](https://github.com/superwf/ts-gear/commit/19ae1061efbf0fc9c1b46e0385442721fa3b0dbf))
+* hooks ([d11e719](https://github.com/superwf/ts-gear/commit/d11e71928238ac35d27025a4455d81998cbe7d78))
+
 ## [4.10.0](https://github.com/superwf/ts-gear/compare/v4.9.0...v4.10.0) (2022-08-15)
 
 
