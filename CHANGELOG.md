@@ -7,6 +7,13 @@ All notable changes to this project will be documented in this file. See [standa
 
 ### Bug Fixes
 
+* request url and method ([4b51315](https://github.com/superwf/ts-gear/commit/4b51315e23a71c6f2e1421534d4057e4db6ffcc3))
+
+### [4.11.1](https://github.com/superwf/ts-gear/compare/v4.11.0...v4.11.1) (2022-08-31)
+
+
+### Bug Fixes
+
 * request url and method ([de48b6e](https://github.com/superwf/ts-gear/commit/de48b6edb20247592c588e2f3efc7045ee74cb4f))
 
 ## [4.11.0](https://github.com/superwf/ts-gear/compare/v4.10.0...v4.11.0) (2022-08-26)
