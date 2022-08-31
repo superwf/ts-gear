@@ -54,10 +54,10 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
         simpleOption = `${position}: option`
       }
     }
-    const requesterStatment = `return requester(url, {${[
+    const requesterStatment = `return requester(request.url, {${[
       withHost && spec.host ? `host: '${spec.host}'` : '',
       withBasePath && spec.basePath ? `basePath: '${spec.basePath}'` : '',
-      'method',
+      'method: request.method',
       simpleOption || (parameterTypeName || requestOptionUnionType ? '...option' : ''),
     ]
       .filter(Boolean)

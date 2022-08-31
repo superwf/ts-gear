@@ -53,8 +53,8 @@ export const putPet = /* #__PURE__ */ (() => {
   function request(
     option: PutPetOption & RequestInit
   ): Promise<PutPetResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PutPetResponseSuccess>;
   }
@@ -98,8 +98,8 @@ export const postPet = /* #__PURE__ */ (() => {
   function request(
     option: PostPetOption & RequestInit
   ): Promise<PostPetResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostPetResponseSuccess>;
   }
@@ -152,8 +152,8 @@ export const getPetFindByStatus = /* #__PURE__ */ (() => {
   function request(
     option?: GetPetFindByStatusOption & RequestInit
   ): Promise<GetPetFindByStatusResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetPetFindByStatusResponseSuccess>;
   }
@@ -206,8 +206,8 @@ export const getPetFindByTags = /* #__PURE__ */ (() => {
   function request(
     option?: GetPetFindByTagsOption & RequestInit
   ): Promise<GetPetFindByTagsResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetPetFindByTagsResponseSuccess>;
   }
@@ -265,8 +265,8 @@ export const getPetPetId = /* #__PURE__ */ (() => {
   function request(
     option: GetPetPetIdOption & RequestInit
   ): Promise<GetPetPetIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetPetPetIdResponseSuccess>;
   }
@@ -331,8 +331,8 @@ export const postPetPetId = /* #__PURE__ */ (() => {
   function request(
     option: PostPetPetIdOption & RequestInit
   ): Promise<PostPetPetIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostPetPetIdResponseSuccess>;
   }
@@ -389,8 +389,8 @@ export const deletePetPetId = /* #__PURE__ */ (() => {
   function request(
     option: DeletePetPetIdOption & RequestInit
   ): Promise<DeletePetPetIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<DeletePetPetIdResponseSuccess>;
   }
@@ -457,8 +457,8 @@ export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
   function request(
     option: PostPetPetIdUploadImageOption & RequestInit
   ): Promise<PostPetPetIdUploadImageResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostPetPetIdUploadImageResponseSuccess>;
   }
@@ -494,8 +494,8 @@ export const getStoreInventory = /* #__PURE__ */ (() => {
   function request(
     option?: RequestInit
   ): Promise<GetStoreInventoryResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetStoreInventoryResponseSuccess>;
   }
@@ -539,8 +539,8 @@ export const postStoreOrder = /* #__PURE__ */ (() => {
   function request(
     option?: PostStoreOrderOption & RequestInit
   ): Promise<PostStoreOrderResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostStoreOrderResponseSuccess>;
   }
@@ -599,8 +599,8 @@ export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
   function request(
     option: GetStoreOrderOrderIdOption & RequestInit
   ): Promise<GetStoreOrderOrderIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetStoreOrderOrderIdResponseSuccess>;
   }
@@ -653,8 +653,8 @@ export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
   function request(
     option: DeleteStoreOrderOrderIdOption & RequestInit
   ): Promise<DeleteStoreOrderOrderIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<DeleteStoreOrderOrderIdResponseSuccess>;
   }
@@ -693,8 +693,8 @@ export const postUser = /* #__PURE__ */ (() => {
   function request(
     option?: PostUserOption & RequestInit
   ): Promise<PostUserResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostUserResponseSuccess>;
   }
@@ -739,8 +739,8 @@ export const postUserCreateWithList = /* #__PURE__ */ (() => {
   function request(
     option?: PostUserCreateWithListOption & RequestInit
   ): Promise<PostUserCreateWithListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostUserCreateWithListResponseSuccess>;
   }
@@ -796,8 +796,8 @@ export const getUserLogin = /* #__PURE__ */ (() => {
   function request(
     option?: GetUserLoginOption & RequestInit
   ): Promise<GetUserLoginResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetUserLoginResponseSuccess>;
   }
@@ -830,8 +830,8 @@ export const getUserLogout = /* #__PURE__ */ (() => {
   function request(
     option?: RequestInit
   ): Promise<GetUserLogoutResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetUserLogoutResponseSuccess>;
   }
@@ -888,8 +888,8 @@ export const getUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: GetUserUsernameOption & RequestInit
   ): Promise<GetUserUsernameResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<GetUserUsernameResponseSuccess>;
   }
@@ -942,8 +942,8 @@ export const putUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: PutUserUsernameOption & RequestInit
   ): Promise<PutUserUsernameResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PutUserUsernameResponseSuccess>;
   }
@@ -996,8 +996,8 @@ export const deleteUserUsername = /* #__PURE__ */ (() => {
   function request(
     option: DeleteUserUsernameOption & RequestInit
   ): Promise<DeleteUserUsernameResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<DeleteUserUsernameResponseSuccess>;
   }

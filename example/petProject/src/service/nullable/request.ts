@@ -116,8 +116,8 @@ export const postCheckSaveCheck = /* #__PURE__ */ (() => {
   function request(
     option?: PostCheckSaveCheckOption
   ): Promise<PostCheckSaveCheckResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostCheckSaveCheckResponseSuccess>;
   }
@@ -156,8 +156,8 @@ export const postCheckGetCheckList = /* #__PURE__ */ (() => {
   function request(
     option?: PostCheckGetCheckListOption
   ): Promise<PostCheckGetCheckListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostCheckGetCheckListResponseSuccess>;
   }
@@ -215,8 +215,8 @@ export const postCheckUpdateTaskCheck = /* #__PURE__ */ (() => {
   function request(
     option?: PostCheckUpdateTaskCheckOption
   ): Promise<PostCheckUpdateTaskCheckResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostCheckUpdateTaskCheckResponseSuccess>;
   }
@@ -248,8 +248,8 @@ export const postCommonGetManufacturerNumList = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/Common/GetManufacturerNumList";
   function request(): Promise<PostCommonGetManufacturerNumListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
     }) as unknown as Promise<PostCommonGetManufacturerNumListResponseSuccess>;
   }
 
@@ -287,8 +287,8 @@ export const postCommonGetLineList = /* #__PURE__ */ (() => {
   function request(
     option?: PostCommonGetLineListOption
   ): Promise<PostCommonGetLineListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostCommonGetLineListResponseSuccess>;
   }
@@ -327,8 +327,8 @@ export const postProduceGetProduceAssignmentList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProduceAssignmentListOption
   ): Promise<PostProduceGetProduceAssignmentListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProduceAssignmentListResponseSuccess>;
   }
@@ -367,8 +367,8 @@ export const postProduceBatchCreateProducrTask = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceBatchCreateProducrTaskOption
   ): Promise<PostProduceBatchCreateProducrTaskResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceBatchCreateProducrTaskResponseSuccess>;
   }
@@ -407,8 +407,8 @@ export const postProduceDeleteProduceTask = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceDeleteProduceTaskOption
   ): Promise<PostProduceDeleteProduceTaskResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceDeleteProduceTaskResponseSuccess>;
   }
@@ -447,8 +447,8 @@ export const postProduceGetProduceTaskDetailList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProduceTaskDetailListOption
   ): Promise<PostProduceGetProduceTaskDetailListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProduceTaskDetailListResponseSuccess>;
   }
@@ -487,8 +487,8 @@ export const postProduceGetGetProduceCount = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetGetProduceCountOption
   ): Promise<PostProduceGetGetProduceCountResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetGetProduceCountResponseSuccess>;
   }
@@ -527,8 +527,8 @@ export const postProduceUpdateProduceTaskDate = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceUpdateProduceTaskDateOption
   ): Promise<PostProduceUpdateProduceTaskDateResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceUpdateProduceTaskDateResponseSuccess>;
   }
@@ -567,8 +567,8 @@ export const postProduceGetProduceTaskList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProduceTaskListOption
   ): Promise<PostProduceGetProduceTaskListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProduceTaskListResponseSuccess>;
   }
@@ -607,8 +607,8 @@ export const postProduceStarProduceTask = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceStarProduceTaskOption
   ): Promise<PostProduceStarProduceTaskResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceStarProduceTaskResponseSuccess>;
   }
@@ -647,8 +647,8 @@ export const postProduceStopProduceTask = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceStopProduceTaskOption
   ): Promise<PostProduceStopProduceTaskResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceStopProduceTaskResponseSuccess>;
   }
@@ -687,8 +687,8 @@ export const postProduceGetTaskLogList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetTaskLogListOption
   ): Promise<PostProduceGetTaskLogListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetTaskLogListResponseSuccess>;
   }
@@ -727,8 +727,8 @@ export const postProduceCreateReport = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceCreateReportOption
   ): Promise<PostProduceCreateReportResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceCreateReportResponseSuccess>;
   }
@@ -767,8 +767,8 @@ export const postProduceGetReportList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetReportListOption
   ): Promise<PostProduceGetReportListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetReportListResponseSuccess>;
   }
@@ -807,8 +807,8 @@ export const postProduceGetStarTaskList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetStarTaskListOption
   ): Promise<PostProduceGetStarTaskListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetStarTaskListResponseSuccess>;
   }
@@ -846,8 +846,8 @@ export const postProduceOnLine = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceOnLineOption
   ): Promise<PostProduceOnLineResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceOnLineResponseSuccess>;
   }
@@ -885,8 +885,8 @@ export const postProduceOffLine = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceOffLineOption
   ): Promise<PostProduceOffLineResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceOffLineResponseSuccess>;
   }
@@ -925,8 +925,8 @@ export const postProduceGetProductList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProductListOption
   ): Promise<PostProduceGetProductListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProductListResponseSuccess>;
   }
@@ -965,8 +965,8 @@ export const postProduceGetBomCoreList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetBomCoreListOption
   ): Promise<PostProduceGetBomCoreListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetBomCoreListResponseSuccess>;
   }
@@ -1005,8 +1005,8 @@ export const postProduceGetProduceTaskModel = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProduceTaskModelOption
   ): Promise<PostProduceGetProduceTaskModelResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProduceTaskModelResponseSuccess>;
   }
@@ -1044,8 +1044,8 @@ export const postProduceSnList = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceSnListOption
   ): Promise<PostProduceSnListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceSnListResponseSuccess>;
   }
@@ -1084,8 +1084,8 @@ export const postProduceCreateAndGetSnRecord = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceCreateAndGetSnRecordOption
   ): Promise<PostProduceCreateAndGetSnRecordResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceCreateAndGetSnRecordResponseSuccess>;
   }
@@ -1124,8 +1124,8 @@ export const postProduceCreateSnDetail = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceCreateSnDetailOption
   ): Promise<PostProduceCreateSnDetailResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceCreateSnDetailResponseSuccess>;
   }
@@ -1164,8 +1164,8 @@ export const postProduceDeleteSnDetail = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceDeleteSnDetailOption
   ): Promise<PostProduceDeleteSnDetailResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceDeleteSnDetailResponseSuccess>;
   }
@@ -1204,8 +1204,8 @@ export const postProduceGetProduceOtherInfo = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetProduceOtherInfoOption
   ): Promise<PostProduceGetProduceOtherInfoResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetProduceOtherInfoResponseSuccess>;
   }
@@ -1244,8 +1244,8 @@ export const postProduceGetBatchInfo = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetBatchInfoOption
   ): Promise<PostProduceGetBatchInfoResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetBatchInfoResponseSuccess>;
   }
@@ -1284,8 +1284,8 @@ export const postProduceGetSerialNumber = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetSerialNumberOption
   ): Promise<PostProduceGetSerialNumberResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetSerialNumberResponseSuccess>;
   }
@@ -1324,8 +1324,8 @@ export const postProduceGetSnListBySerialNumber = /* #__PURE__ */ (() => {
   function request(
     option?: PostProduceGetSnListBySerialNumberOption
   ): Promise<PostProduceGetSnListBySerialNumberResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostProduceGetSnListBySerialNumberResponseSuccess>;
   }
@@ -1363,8 +1363,8 @@ export const postWoSaveWo = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoSaveWoOption
   ): Promise<PostWoSaveWoResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoSaveWoResponseSuccess>;
   }
@@ -1395,8 +1395,8 @@ export const postWoGetWoCode = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/Wo/GetWoCode";
   function request(): Promise<PostWoGetWoCodeResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
     }) as unknown as Promise<PostWoGetWoCodeResponseSuccess>;
   }
 
@@ -1426,8 +1426,8 @@ export const postWoSaveWoBatch = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/Wo/SaveWoBatch";
   function request(): Promise<PostWoSaveWoBatchResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
     }) as unknown as Promise<PostWoSaveWoBatchResponseSuccess>;
   }
 
@@ -1465,8 +1465,8 @@ export const postWoGetBatchWoBomResult = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetBatchWoBomResultOption
   ): Promise<PostWoGetBatchWoBomResultResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetBatchWoBomResultResponseSuccess>;
   }
@@ -1505,8 +1505,8 @@ export const postWoGetRecordModel = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetRecordModelOption
   ): Promise<PostWoGetRecordModelResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetRecordModelResponseSuccess>;
   }
@@ -1544,8 +1544,8 @@ export const postWoGetProdInfo = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetProdInfoOption
   ): Promise<PostWoGetProdInfoResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetProdInfoResponseSuccess>;
   }
@@ -1583,8 +1583,8 @@ export const postWoGetWoList = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoListOption
   ): Promise<PostWoGetWoListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoListResponseSuccess>;
   }
@@ -1623,8 +1623,8 @@ export const postWoUpdateWoState = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoUpdateWoStateOption
   ): Promise<PostWoUpdateWoStateResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoUpdateWoStateResponseSuccess>;
   }
@@ -1656,8 +1656,8 @@ export const getWoDownWoTemplate = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/Wo/DownWoTemplate";
   function request(): Promise<GetWoDownWoTemplateResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
     }) as unknown as Promise<GetWoDownWoTemplateResponseSuccess>;
   }
 
@@ -1688,8 +1688,8 @@ export const postWoDownWoTemplate = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/Wo/DownWoTemplate";
   function request(): Promise<PostWoDownWoTemplateResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
     }) as unknown as Promise<PostWoDownWoTemplateResponseSuccess>;
   }
 
@@ -1727,8 +1727,8 @@ export const postWoGetWoRecordListToSelectModels = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoRecordListToSelectModelsOption
   ): Promise<PostWoGetWoRecordListToSelectModelsResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoRecordListToSelectModelsResponseSuccess>;
   }
@@ -1766,8 +1766,8 @@ export const postWoDeleteWo = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoDeleteWoOption
   ): Promise<PostWoDeleteWoResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoDeleteWoResponseSuccess>;
   }
@@ -1806,8 +1806,8 @@ export const postWoGetReportListByWoId = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetReportListByWoIdOption
   ): Promise<PostWoGetReportListByWoIdResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetReportListByWoIdResponseSuccess>;
   }
@@ -1845,8 +1845,8 @@ export const postWoGetWoBomSln = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoBomSlnOption
   ): Promise<PostWoGetWoBomSlnResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoBomSlnResponseSuccess>;
   }
@@ -1885,8 +1885,8 @@ export const postWoGetWoBomBySln = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoBomBySlnOption
   ): Promise<PostWoGetWoBomBySlnResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoBomBySlnResponseSuccess>;
   }
@@ -1925,8 +1925,8 @@ export const postWoGetWoSlnAndBom = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoSlnAndBomOption
   ): Promise<PostWoGetWoSlnAndBomResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoSlnAndBomResponseSuccess>;
   }
@@ -1965,8 +1965,8 @@ export const postWoUpdateWoBomCount = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoUpdateWoBomCountOption
   ): Promise<PostWoUpdateWoBomCountResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoUpdateWoBomCountResponseSuccess>;
   }
@@ -2005,8 +2005,8 @@ export const postWoDeleteWoBomDetail = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoDeleteWoBomDetailOption
   ): Promise<PostWoDeleteWoBomDetailResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoDeleteWoBomDetailResponseSuccess>;
   }
@@ -2045,8 +2045,8 @@ export const postWoCreateBomDetail = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoCreateBomDetailOption
   ): Promise<PostWoCreateBomDetailResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoCreateBomDetailResponseSuccess>;
   }
@@ -2085,8 +2085,8 @@ export const postWoGetBomProductList = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetBomProductListOption
   ): Promise<PostWoGetBomProductListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetBomProductListResponseSuccess>;
   }
@@ -2125,8 +2125,8 @@ export const postWoComplateReport = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoComplateReportOption
   ): Promise<PostWoComplateReportResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoComplateReportResponseSuccess>;
   }
@@ -2165,8 +2165,8 @@ export const postWoGetNoPlanBomSln = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetNoPlanBomSlnOption
   ): Promise<PostWoGetNoPlanBomSlnResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetNoPlanBomSlnResponseSuccess>;
   }
@@ -2204,8 +2204,8 @@ export const postWoSaveWoOther = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoSaveWoOtherOption
   ): Promise<PostWoSaveWoOtherResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoSaveWoOtherResponseSuccess>;
   }
@@ -2243,8 +2243,8 @@ export const postWoGetWoOther = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetWoOtherOption
   ): Promise<PostWoGetWoOtherResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetWoOtherResponseSuccess>;
   }
@@ -2282,8 +2282,8 @@ export const postWoGetLogList = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetLogListOption
   ): Promise<PostWoGetLogListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetLogListResponseSuccess>;
   }
@@ -2322,8 +2322,8 @@ export const postWoGetBomModelByTaskIdAndProdCode = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoGetBomModelByTaskIdAndProdCodeOption
   ): Promise<PostWoGetBomModelByTaskIdAndProdCodeResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoGetBomModelByTaskIdAndProdCodeResponseSuccess>;
   }
@@ -2362,8 +2362,8 @@ export const postWoTaskPickSaveTaskPick = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoTaskPickSaveTaskPickOption
   ): Promise<PostWoTaskPickSaveTaskPickResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoTaskPickSaveTaskPickResponseSuccess>;
   }
@@ -2402,8 +2402,8 @@ export const postWoTaskPickCancelTaskPick = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoTaskPickCancelTaskPickOption
   ): Promise<PostWoTaskPickCancelTaskPickResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoTaskPickCancelTaskPickResponseSuccess>;
   }
@@ -2442,8 +2442,8 @@ export const postWoTaskPickGetWoTaskPickModel = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoTaskPickGetWoTaskPickModelOption
   ): Promise<PostWoTaskPickGetWoTaskPickModelResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoTaskPickGetWoTaskPickModelResponseSuccess>;
   }
@@ -2482,8 +2482,8 @@ export const postWoTaskPickGetPickTaskList = /* #__PURE__ */ (() => {
   function request(
     option?: PostWoTaskPickGetPickTaskListOption
   ): Promise<PostWoTaskPickGetPickTaskListResponseSuccess> {
-    return requester(url, {
-      method,
+    return requester(request.url, {
+      method: request.method,
       ...option,
     }) as unknown as Promise<PostWoTaskPickGetPickTaskListResponseSuccess>;
   }
