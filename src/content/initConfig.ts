@@ -63,7 +63,7 @@ const projects: Project[] = [
      * 过滤api路径，比如某些工程中，某些api路径是不需要的，可以通过这个选项过滤掉，也可使用函数
      * */
     // apiFilter: /^\\/api/,
-   * or use function
+    //  or use function
     // apiFilter: ({ pathname }) =>
     //   pathname.startsWith('/api') || pathname.startsWith('/server'),
 
