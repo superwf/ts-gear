@@ -187,7 +187,7 @@ export interface Project {
    * 如果source参数访问的远程接口需要一些认证参数
    * 在这里添加这些需要的参数
    * */
-  fetchApiDocOption?: RequestInit
+  fetchApiDocOption?: RequestInit | (() => RequestInit | Promise<RequestInit>)
 
   /**
    * filter api path

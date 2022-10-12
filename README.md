@@ -222,7 +222,7 @@ export default projects
 | name | string | true | | your project name |
 | dest | string | true | | parent directory of project, relative to `tsg.config.ts` <br /> example: 'service' |
 | source | string | true | | swagger doc url <br /> remote url or local json file |
-| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | request remote openapi doc parameters for `fetch` |
+| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) \| (() =\> RequestInit \| Promise\<RequestInit\>) | false | | request remote openapi doc parameters for `fetch` |
 | apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false | | some project mix too mach useless api<br />use this option could avoid those to be written in your api file |
 | importRequesterStatement | string | true | | example: `import { requester } from "./myCustomRequester"`, make sure provide a `requester`, see [Requester](#requester) |
 | preferClass | boolean | false | false | generate class rather than class |

@@ -193,7 +193,7 @@ export default projects
 | name | string | true | | 项目名称，需符合合法变量名称                                                                                                               |
 | dest | string | true | | 输出文件夹，默认在以`src`中，比如配置为`service`，则实际目录为`src/service`                                                                          |
 | source | string | true | | openapi文档的json定义url <br /> 可以是远程(例如：`http://1.1.1.1/v2/api-docs`)或本地(例如`src/service/api.json`)，如果远程访问有登录或其他网络问题，推荐将定义文档下载到本地 |
-| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) | false | | 配合上个配置项`source`，当远程访问`source`有登录或其他校验需求时，配置该项填写校验信息，该项是原生`fetch`的第二个配置参数。                                                    |
+| fetchApiDocOption | [RequestInit](https://developer.mozilla.org/en-US/docs/Web/API/WindowOrWorkerGlobalScope/fetch#Parameters) \| (() =\> RequestInit \| Promise\<RequestInit\>) | false | | 配合上个配置项`source`，当远程访问`source`有登录或其他校验需求时，配置该项填写校验信息，该项是原生`fetch`的第二个配置参数。                                                    |
 | apiFilter | RegExp \| (({pathname: string, httpMethod: HttpMethod}) => boolean) | false |                                                                                                                              | 生成请求函数的过滤器，一个大的api定义文档中可能大多数都用不到，使用正则或函数可仅生成自己项目需要的api函数，减轻编译负担 |
 | importRequesterStatement | string | true | | 例如:`import axios from "axios"`或`import { request } from '../your/request'`，默认导入或命名导入都可以，如果是命名导入有多个则会使用第一个作为请求函数              |
 | preferClass | boolean | false | false | 会使用class而不是interface生成接口中定义的数据类型（请求参数与返回值类型不会生成）                                                                             |
