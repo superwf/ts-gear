@@ -53,7 +53,6 @@ export const generateEnumTypescriptContent = (name: string, value: any[]) => {
     ),
   )
   const node = factory.createTypeAliasDeclaration(
-    undefined,
     [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
     name,
     undefined,

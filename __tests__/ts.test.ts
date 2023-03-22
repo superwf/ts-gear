@@ -16,7 +16,6 @@ describe('ts', () => {
       factory.createLiteralTypeNode(factory.createStringLiteral('b')),
     ])
     const s2 = factory.createTypeAliasDeclaration(
-      undefined,
       [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
       'TypeA',
       undefined,
@@ -25,7 +24,6 @@ describe('ts', () => {
     expect(printNode(s2)).toBe('export type TypeA = "a" | "b";')
 
     const s3 = factory.createTypeAliasDeclaration(
-      undefined,
       [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
       'TypeB',
       undefined,
