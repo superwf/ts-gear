@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.11.6](https://github.com/superwf/ts-gear/compare/v4.11.5...v4.11.6) (2023-05-15)
+
+
+### Bug Fixes
+
+* ts5.0 adjust verbatimModuleSyntax param ([0fec7f8](https://github.com/superwf/ts-gear/commit/0fec7f85086b783f306751803ab7e9613e3ea791))
+
 ### [4.11.5](https://github.com/superwf/ts-gear/compare/v4.11.4...v4.11.5) (2023-03-22)
 
 ### [4.11.4](https://github.com/superwf/ts-gear/compare/v4.11.3...v4.11.4) (2022-10-12)
