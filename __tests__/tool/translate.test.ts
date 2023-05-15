@@ -20,7 +20,7 @@ describe('translate by engines', () => {
   // }))
   it('translate by baidu', async () => {
     expect(await translate({ text: '输出结果«查询参数»', engine: 'baidu', debug: true, interval: 2000 })).toBe(
-      'Output result « Query parameters »',
+      "Output result 'Query parameters'",
     )
   }, 5000)
 

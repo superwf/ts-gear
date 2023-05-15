@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`response type content response 1`] = `
-Object {
+{
   "responseTypeContent": "/** @description response type for GetXXX */
 export interface GetXXXResponse {
     /**
@@ -18,7 +18,7 @@ export interface GetXXXResponse {
 `;
 
 exports[`response type content response 2`] = `
-Object {
+{
   "responseTypeContent": "/** @description response type for GetXXX */
 export interface GetXXXResponse {
     /**
@@ -45,7 +45,7 @@ export interface GetXXXResponse {
 `;
 
 exports[`response type content response 3`] = `
-Object {
+{
   "responseTypeContent": "/** @description response type for GetXXX */
 export interface GetXXXResponse {
     /**

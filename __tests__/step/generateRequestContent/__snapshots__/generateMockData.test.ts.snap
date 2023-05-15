@@ -1,21 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`sample make sample data 1`] = `
-Array [
-  Object {
-    "category": Object {
+[
+  {
+    "category": {
       "id": 0,
       "name": "string",
       "pet": "",
     },
     "id": 0,
     "name": "doggie",
-    "photoUrls": Array [
+    "photoUrls": [
       "string",
     ],
     "status": "available",
-    "tags": Array [
-      Object {
+    "tags": [
+      {
         "id": 0,
         "name": "string",
       },

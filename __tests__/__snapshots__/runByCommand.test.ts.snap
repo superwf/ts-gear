@@ -1,20 +1,20 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`run use cleaned spec 1`] = `
-Object {
-  "ABCOutputParameters": Object {
-    "schema": Object {
-      "properties": Object {
-        "dueDay": Object {
+{
+  "ABCOutputParameters": {
+    "schema": {
+      "properties": {
+        "dueDay": {
           "description": "开卡日",
           "type": "string",
         },
-        "requestChannel": Object {
+        "requestChannel": {
           "description": "进件渠道",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "dueDay",
         "requestChannel",
       ],
@@ -22,15 +22,15 @@ Object {
     },
     "typeName": "ABCOutputParameters",
   },
-  "DataTransOutput": Object {
-    "schema": Object {
+  "DataTransOutput": {
+    "schema": {
       "description": "带数据的返回数据",
-      "properties": Object {
-        "data": Object {
+      "properties": {
+        "data": {
           "description": "返回数据",
           "type": "object",
         },
-        "transCode": Object {
+        "transCode": {
           "description": "错误码。
 100000 成功
 200000 入参不合法
@@ -39,16 +39,16 @@ Object {
           "format": "int32",
           "type": "integer",
         },
-        "transMessage": Object {
+        "transMessage": {
           "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
           "type": "string",
         },
-        "transMessageDetail": Object {
+        "transMessageDetail": {
           "description": "信息详情”",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "transCode",
         "transMessage",
         "transMessageDetail",
@@ -57,15 +57,15 @@ Object {
     },
     "typeName": "DataTransOutput",
   },
-  "DatatransoutputOutputParameterVO": Object {
-    "schema": Object {
+  "DatatransoutputOutputParameterVO": {
+    "schema": {
       "description": "带数据的返回数据",
-      "properties": Object {
-        "data": Object {
+      "properties": {
+        "data": {
           "$ref": "OutputParameterVo",
           "description": "返回数据",
         },
-        "transCode": Object {
+        "transCode": {
           "description": "错误码。
 100000 成功
 200000 入参不合法
@@ -74,16 +74,16 @@ Object {
           "format": "int32",
           "type": "integer",
         },
-        "transMessage": Object {
+        "transMessage": {
           "description": "错误信息。成功：“成功” 失败：“失败对应的msg”",
           "type": "string",
         },
-        "transMessageDetail": Object {
+        "transMessageDetail": {
           "description": "信息详情”",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "transCode",
         "transMessage",
         "transMessageDetail",
@@ -92,16 +92,16 @@ Object {
     },
     "typeName": "DatatransoutputOutputParameterVO",
   },
-  "GeneralRequestParameterQueryParameter": Object {
+  "GeneralRequestParameterQueryParameter": {
     "originalName": undefined,
     "schema": undefined,
     "typeName": "GeneralRequestParameterQueryParameter",
     "typescriptContent": "export type GeneralRequestParameterQueryParameter = any",
   },
-  "GeneralRequestParameterTokenOutputParameterVO": Object {
-    "schema": Object {
-      "properties": Object {
-        "bizParamVo": Object {
+  "GeneralRequestParameterTokenOutputParameterVO": {
+    "schema": {
+      "properties": {
+        "bizParamVo": {
           "$ref": "OutputParameterVo",
         },
       },
@@ -109,19 +109,19 @@ Object {
     },
     "typeName": "GeneralRequestParameterTokenOutputParameterVO",
   },
-  "MixedChineseAndEnglishWithSpacesVo": Object {
-    "schema": Object {
-      "properties": Object {
-        "dueDay": Object {
+  "MixedChineseAndEnglishWithSpacesVo": {
+    "schema": {
+      "properties": {
+        "dueDay": {
           "description": "开卡日",
           "type": "string",
         },
-        "requestChannel": Object {
+        "requestChannel": {
           "description": "进件渠道",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "dueDay",
         "requestChannel",
       ],
@@ -129,19 +129,19 @@ Object {
     },
     "typeName": "MixedChineseAndEnglishWithSpacesVo",
   },
-  "OutputParameterVo": Object {
-    "schema": Object {
-      "properties": Object {
-        "dueDay": Object {
+  "OutputParameterVo": {
+    "schema": {
+      "properties": {
+        "dueDay": {
           "description": "开卡日",
           "type": "string",
         },
-        "requestChannel": Object {
+        "requestChannel": {
           "description": "进件渠道",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "dueDay",
         "requestChannel",
       ],
@@ -149,26 +149,26 @@ Object {
     },
     "typeName": "OutputParameterVo",
   },
-  "QueryParameters": Object {
-    "schema": Object {
-      "properties": Object {
-        "data": Object {
-          "additionalProperties": Object {
+  "QueryParameters": {
+    "schema": {
+      "properties": {
+        "data": {
+          "additionalProperties": {
             "$ref": "DataTransOutput",
             "type": "array",
           },
           "type": "object",
         },
-        "dueDay": Object {
+        "dueDay": {
           "description": "开卡日",
           "type": "string",
         },
-        "requestChannel": Object {
+        "requestChannel": {
           "description": "进件渠道",
           "type": "string",
         },
       },
-      "required": Array [
+      "required": [
         "dueDay",
         "requestChannel",
       ],
@@ -176,19 +176,19 @@ Object {
     },
     "typeName": "QueryParameters",
   },
-  "ResultListMap": Object {
-    "schema": Object {
-      "properties": Object {
-        "description": Object {
+  "ResultListMap": {
+    "schema": {
+      "properties": {
+        "description": {
           "type": "string",
         },
-        "result": Object {
-          "items": Object {
+        "result": {
+          "items": {
             "$ref": "Map",
           },
           "type": "array",
         },
-        "returnCode": Object {
+        "returnCode": {
           "format": "int32",
           "type": "integer",
         },

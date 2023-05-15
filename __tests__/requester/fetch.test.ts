@@ -42,11 +42,11 @@ describe('requester fetch', () => {
 
   it('intercept request', async () => {
     getOnce('/abc', 200, { overwriteRoutes: true })
-    await expect(async () => {
-      return requester()('/abc/:id/:slot', {
+    await expect(async () =>
+      requester()('/abc/:id/:slot', {
         path: { id: '1' },
-      })
-    }).rejects.toThrow(/Expected/)
+      }),
+    ).rejects.toThrow(/Expected/)
   })
 
   it('response error', async () => {

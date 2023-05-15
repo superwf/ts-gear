@@ -5,19 +5,12 @@ content is generated automatically by `ts-gear`. */
 import { requester as requester } from "fffxx";
 import type { ReplyVOInt, Data } from "./definition";
 
-/** @description request parameter type for deleteApiDataboardBoardEs */
-export interface DeleteApiDataboardBoardEsOption {
+export type DeleteApiDataboardBoardEsOption = {
   /**
-   * @description
-   *   索引数组
-   */
-  body?: {
-    /**
-        @description
-          索引数组 */
-    indexNames?: Array<string>;
-  };
-}
+    @description
+      索引数组 */
+  indexNames?: Array<string>;
+};
 
 /** @description response type for deleteApiDataboardBoardEs */
 export interface DeleteApiDataboardBoardEsResponse {
@@ -59,7 +52,7 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
     return requester(request.url, {
       method: request.method,
-      ...option,
+      body: option,
     }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
@@ -70,19 +63,12 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   return request;
 })();
 
-/** @description request parameter type for postApiCreate */
-export interface PostApiCreateOption {
+export type PostApiCreateOption = {
   /**
-   * @description
-   *   dto
-   */
-  body: {
-    /**
-        @description
-          dto */
-    dto: Data;
-  };
-}
+    @description
+      dto */
+  dto: Data;
+};
 
 /** @description response type for postApiCreate */
 export interface PostApiCreateResponse {
@@ -124,11 +110,11 @@ export const postApiCreate = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/api/create";
   function request(
-    option: PostApiCreateOption
+    option?: PostApiCreateOption
   ): Promise<PostApiCreateResponseSuccess> {
     return requester(request.url, {
       method: request.method,
-      ...option,
+      body: option,
     }) as unknown as Promise<PostApiCreateResponseSuccess>;
   }
 

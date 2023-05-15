@@ -5,18 +5,12 @@ import { getUserConfig } from 'src/step/getUserConfig'
 
 let overwrite = false
 let exists = false
-jest.mock('prompts', () => {
-  return jest.fn(() => {
-    return Promise.resolve({ overwrite })
-  })
-})
+jest.mock('prompts', () => jest.fn(() => Promise.resolve({ overwrite })))
 
-jest.mock('fs', () => {
-  return {
-    writeFileSync: jest.fn(),
-    existsSync: jest.fn(() => exists),
-  }
-})
+jest.mock('fs', () => ({
+  writeFileSync: jest.fn(),
+  existsSync: jest.fn(() => exists),
+}))
 
 describe('init', () => {
   const originLength = process.argv.length

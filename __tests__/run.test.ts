@@ -14,6 +14,7 @@ describe('run', () => {
           importRequesterStatement: 'import { requester } from "../../requester"',
           EOL: '\n',
           withBasePath: true,
+          keepGeneric: true,
           translationEngine: 'baidu',
           translateSerial: true,
           stripBodyPropWhenOnlyOneBodyProp: true,
