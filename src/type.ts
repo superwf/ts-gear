@@ -280,6 +280,12 @@ export interface Project {
   translateDebug?: boolean
 
   /**
+   * custom translate map
+   * use this option, other translate option will be skipped
+   * */
+  translateMap?: WordsMap
+
+  /**
    * generate mock data switch
    * @default false
    * 是否生成mock数据文件

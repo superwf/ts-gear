@@ -123,6 +123,10 @@ export const updateSchema = (spec: Spec, wordsMap: WordsMap) => {
 export const translateSchema = async (spec: Spec, project: Project) => {
   const { translationEngine, translateSerial } = project
   if (translationEngine) {
+    if (project.translateMap) {
+      updateSchema(spec, project.translateMap)
+      return
+    }
     const words = gatherNonEnglishWords(spec)
     const map = await generateTranslationMap({
       words,
