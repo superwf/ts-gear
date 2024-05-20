@@ -905,12 +905,12 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 export interface PutUserUsernameOption {
   /**
    * @description
-   *   name that need to be deleted
+   *   name that needs to be updated
    */
   path: {
     /**
         @description
-          name that need to be deleted */
+          name that needs to be updated */
     username: string;
   };
 }

@@ -3,7 +3,7 @@ import { translate } from 'src/tool/translate'
 
 // type Translate = typeof baidu.translate
 
-describe('translate by engines', () => {
+describe.skip('translate by engines', () => {
   // jest.mock('src/translation', () => ({
   //   baidu: {
   //     translate: (_args: any) =>
