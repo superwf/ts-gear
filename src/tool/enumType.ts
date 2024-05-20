@@ -48,7 +48,14 @@ export const generateEnumTypescriptContent = (name: string, value: any[]) => {
   const contentNode = factory.createUnionTypeNode(
     value.map(v =>
       typeof v === 'number'
-        ? factory.createLiteralTypeNode(factory.createNumericLiteral(v))
+        ? factory.createLiteralTypeNode(
+            v < 0
+              ? factory.createPrefixUnaryExpression(
+                  ts.SyntaxKind.MinusToken,
+                  ts.factory.createNumericLiteral(Math.abs(v)),
+                )
+              : factory.createNumericLiteral(v),
+          )
         : factory.createLiteralTypeNode(factory.createStringLiteral(v)),
     ),
   )
