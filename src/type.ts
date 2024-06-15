@@ -324,6 +324,7 @@ export interface Project {
       responseSuccessTypeName: string
       project: Project
       originSource: string // use reg or ast parse this string and modify as your will
+      simpleOption: string
     },
   ) => string
 
