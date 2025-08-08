@@ -253,6 +253,8 @@ export interface Project {
    * try to use an engine provided by "translation.js"
    * "baidu" or "google"
    * 如果一些定义中有非英文字符，可以尝试添加翻译引擎
+   *
+   * @deprecated dont use
    * */
   translationEngine?: TranslationEngine
 
@@ -262,6 +264,7 @@ export interface Project {
    * when too many words should be translate, translate engine will eccor errors higher probability.
    * when you do not need this, set this to false, and try again.
    * @default true
+   * @deprecated dont use
    */
   translateSerial?: boolean
 

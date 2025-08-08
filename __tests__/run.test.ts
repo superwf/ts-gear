@@ -15,8 +15,6 @@ describe('run', () => {
           EOL: '\n',
           withBasePath: true,
           keepGeneric: true,
-          translationEngine: 'baidu',
-          translateSerial: true,
           stripBodyPropWhenOnlyOneBodyProp: true,
         },
       ],

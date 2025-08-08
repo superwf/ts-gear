@@ -44,20 +44,26 @@ export const generateEnumName = (traversePath: string[], spec: Spec): string => 
  *   `['a', 'b', 'c']` => `'a' | 'b' | 'c'`
  * */
 export const generateEnumTypescriptContent = (name: string, value: any[]) => {
+  value = value.filter(v => v !== null)
+  if (value.length === 0) {
+    return 'any'
+  }
   const { factory } = ts
   const contentNode = factory.createUnionTypeNode(
-    value.map(v =>
-      typeof v === 'number'
-        ? factory.createLiteralTypeNode(
-            v < 0
-              ? factory.createPrefixUnaryExpression(
-                  ts.SyntaxKind.MinusToken,
-                  ts.factory.createNumericLiteral(Math.abs(v)),
-                )
-              : factory.createNumericLiteral(v),
-          )
-        : factory.createLiteralTypeNode(factory.createStringLiteral(v)),
-    ),
+    value
+      .filter(v => v !== null)
+      .map(v =>
+        typeof v === 'number'
+          ? factory.createLiteralTypeNode(
+              v < 0
+                ? factory.createPrefixUnaryExpression(
+                    ts.SyntaxKind.MinusToken,
+                    ts.factory.createNumericLiteral(Math.abs(v)),
+                  )
+                : factory.createNumericLiteral(v),
+            )
+          : factory.createLiteralTypeNode(factory.createStringLiteral(v)),
+      ),
   )
   const node = factory.createTypeAliasDeclaration(
     [factory.createModifier(ts.SyntaxKind.ExportKeyword)],
