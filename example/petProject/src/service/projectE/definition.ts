@@ -2,7 +2,9 @@
 /* tslint:disable */
 /** Do not modify manually.
 content is generated automatically by `ts-gear`. */
-
+export type ReplyVOPageVOFollowRecordVOPetTypeListItems = "A" | "B";
+export type ReplyVOPageVOFollowRecordVOPetTypeList =
+  ReplyVOPageVOFollowRecordVOPetTypeListItems;
 export type BodyBuilder = any;
 
 export interface Data {
@@ -87,6 +89,11 @@ export interface PageVO<ListVO = any> {
 
 export type ListVO = any;
 export interface ReplyVO<PageVOFollowRecordVO = any> {
+  /**
+   * @description
+   *   petTypeList
+   */
+  petTypeList?: ReplyVOPageVOFollowRecordVOPetTypeList[];
   /**
    * @description
    *   响应代码【0正确,非0错误】

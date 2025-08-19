@@ -2,15 +2,17 @@
 /* tslint:disable */
 /** Do not modify manually.
 content is generated automatically by `ts-gear`. */
-import { requester as requester } from "fffxx";
+import { requester as requester } from "../../requester";
 import type { ReplyVOInt, Data } from "./definition";
 
-export type DeleteApiDataboardBoardEsOption = {
+/** @description request parameter type for deleteApiDataboardBoardEs */
+export interface DeleteApiDataboardBoardEsOption {
   /**
-    @description
-      索引数组 */
-  indexNames?: Array<string>;
-};
+   * @description
+   *   索引数组
+   */
+  body?: Array<string>;
+}
 
 /** @description response type for deleteApiDataboardBoardEs */
 export interface DeleteApiDataboardBoardEsResponse {
@@ -51,8 +53,9 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
     option?: DeleteApiDataboardBoardEsOption
   ): Promise<DeleteApiDataboardBoardEsResponseSuccess> {
     return requester(request.url, {
+      basePath: "/",
       method: request.method,
-      body: option,
+      ...option,
     }) as unknown as Promise<DeleteApiDataboardBoardEsResponseSuccess>;
   }
 
@@ -63,12 +66,14 @@ export const deleteApiDataboardBoardEs = /* #__PURE__ */ (() => {
   return request;
 })();
 
-export type PostApiCreateOption = {
+/** @description request parameter type for postApiCreate */
+export interface PostApiCreateOption {
   /**
-    @description
-      dto */
-  dto: Data;
-};
+   * @description
+   *   dto
+   */
+  body: Data;
+}
 
 /** @description response type for postApiCreate */
 export interface PostApiCreateResponse {
@@ -110,11 +115,12 @@ export const postApiCreate = /* #__PURE__ */ (() => {
   const method = "post";
   const url = "/api/create";
   function request(
-    option?: PostApiCreateOption
+    option: PostApiCreateOption
   ): Promise<PostApiCreateResponseSuccess> {
     return requester(request.url, {
+      basePath: "/",
       method: request.method,
-      body: option,
+      ...option,
     }) as unknown as Promise<PostApiCreateResponseSuccess>;
   }
 

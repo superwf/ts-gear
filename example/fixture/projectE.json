@@ -213,6 +213,22 @@
         "message"
       ],
       "properties": {
+        "petTypeList": {
+          "type": "array",
+          "description": "petTypeList",
+          "items": {
+            "type": "string",
+            "description": "petTypeList",
+            "enum": [
+              "A",
+              "B"
+            ]
+          },
+          "enum": [
+            "A",
+            "B"
+          ]
+        },
         "code": {
           "type": "string",
           "example": "000000",

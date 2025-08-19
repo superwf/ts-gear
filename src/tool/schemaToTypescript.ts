@@ -80,7 +80,11 @@ const transform = (schema: SchemaOption, project: Project): string => {
     } else {
       typeScring = enumValues as unknown as string
     }
-    return withNullType(typeScring, nullable)
+    const enumStr = withNullType(typeScring, nullable)
+    if (type === 'array') {
+      return `${enumStr}[]`
+    }
+    return enumStr
   }
   if (!properties && !discriminator) {
     let typeScring = ''
