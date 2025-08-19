@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.13.0](https://github.com/superwf/ts-gear/compare/v4.12.1...v4.13.0) (2025-08-19)
+
+
+### Features
+
+* 优化枚举数组类型 ([ea79adc](https://github.com/superwf/ts-gear/commit/ea79adccaf980bab8009d60fe9123f5331f4bad2))
+
 ### [4.12.1](https://github.com/superwf/ts-gear/compare/v4.12.0...v4.12.1) (2025-08-18)
 
 
