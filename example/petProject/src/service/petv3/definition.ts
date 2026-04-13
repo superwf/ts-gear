@@ -36,44 +36,6 @@ export interface Order {
   complete?: boolean;
 }
 
-export interface Customer {
-  /**
-   * @format int64
-   * @example
-   *   100000
-   */
-  id?: number;
-  /**
-   * @example
-   *   fehguy
-   */
-  username?: string;
-  address?: Array<Address>;
-}
-
-export interface Address {
-  /**
-   * @example
-   *   437 Lytton
-   */
-  street?: string;
-  /**
-   * @example
-   *   Palo Alto
-   */
-  city?: string;
-  /**
-   * @example
-   *   CA
-   */
-  state?: string;
-  /**
-   * @example
-   *   94301
-   */
-  zip?: string;
-}
-
 export interface Category {
   /**
    * @format int64

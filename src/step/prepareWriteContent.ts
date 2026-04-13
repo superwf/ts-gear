@@ -11,12 +11,17 @@ import { importAllDefinition } from './importAllDefinition'
  * gather global typescript content
  */
 export const prepareWriteContent = (project: Project, tsGearConfigPath: string): PrepareToWrite => {
-  const { definitionMap, requestMap, enumMap } = getGlobal(project)
+  const { definitionMap, requestMap, enumMap, requestRefSet } = getGlobal(project)
   const { EOL } = config
   const dest = join(tsGearConfigPath, project.dest, project.name)
 
   const definitionTypeNameSet = new Set<string>()
   const definitionContent = Object.getOwnPropertyNames(definitionMap)
+    .filter(name => {
+      // 只保留在requestRefSet中引用的类型（包括直接和间接引用）
+      const typeName = definitionMap[name].typeName!
+      return requestRefSet.has(typeName)
+    })
     .map(name => {
       // prevent repeat definition
       const typeName = definitionMap[name].typeName!

@@ -37,14 +37,19 @@ export interface PutPetResponse {
    * @description
    *   Validation exception
    */
-  405: any;
+  422: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type PutPetResponseSuccess = PutPetResponse[200];
 /**
  * @description
- *   Update an existing pet by Id
- *   Update an existing pet
+ *   Update an existing pet by Id.
+ *   Update an existing pet.
  * @tags pet
  */
 export const putPet = /* #__PURE__ */ (() => {
@@ -82,14 +87,24 @@ export interface PostPetResponse {
    * @description
    *   Invalid input
    */
-  405: any;
+  400: any;
+  /**
+   * @description
+   *   Validation exception
+   */
+  422: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type PostPetResponseSuccess = PostPetResponse[200];
 /**
  * @description
- *   Add a new pet to the store
- *   Add a new pet to the store
+ *   Add a new pet to the store.
+ *   Add a new pet to the store.
  * @tags pet
  */
 export const postPet = /* #__PURE__ */ (() => {
@@ -117,11 +132,11 @@ export interface GetPetFindByStatusOption {
    * @description
    *   Status values that need to be considered for filter
    */
-  query?: {
+  query: {
     /**
         @description
           Status values that need to be considered for filter */
-    status?: GetPetFindByStatusStatus;
+    status: GetPetFindByStatusStatus;
   };
 }
 
@@ -137,20 +152,25 @@ export interface GetPetFindByStatusResponse {
    *   Invalid status value
    */
   400: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetPetFindByStatusResponseSuccess = GetPetFindByStatusResponse[200];
 /**
  * @description
- *   Multiple status values can be provided with comma separated strings
- *   Finds Pets by status
+ *   Multiple status values can be provided with comma separated strings.
+ *   Finds Pets by status.
  * @tags pet
  */
 export const getPetFindByStatus = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/pet/findByStatus";
   function request(
-    option?: GetPetFindByStatusOption & RequestInit
+    option: GetPetFindByStatusOption & RequestInit
   ): Promise<GetPetFindByStatusResponseSuccess> {
     return requester(request.url, {
       method: request.method,
@@ -171,11 +191,11 @@ export interface GetPetFindByTagsOption {
    * @description
    *   Tags to filter by
    */
-  query?: {
+  query: {
     /**
         @description
           Tags to filter by */
-    tags?: Array<string>;
+    tags: Array<string>;
   };
 }
 
@@ -191,20 +211,25 @@ export interface GetPetFindByTagsResponse {
    *   Invalid tag value
    */
   400: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetPetFindByTagsResponseSuccess = GetPetFindByTagsResponse[200];
 /**
  * @description
  *   Multiple tags can be provided with comma separated strings. Use tag1, tag2, tag3 for testing.
- *   Finds Pets by tags
+ *   Finds Pets by tags.
  * @tags pet
  */
 export const getPetFindByTags = /* #__PURE__ */ (() => {
   const method = "get";
   const url = "/pet/findByTags";
   function request(
-    option?: GetPetFindByTagsOption & RequestInit
+    option: GetPetFindByTagsOption & RequestInit
   ): Promise<GetPetFindByTagsResponseSuccess> {
     return requester(request.url, {
       method: request.method,
@@ -250,13 +275,18 @@ export interface GetPetPetIdResponse {
    *   Pet not found
    */
   404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetPetPetIdResponseSuccess = GetPetPetIdResponse[200];
 /**
  * @description
- *   Returns a single pet
- *   Find pet by ID
+ *   Returns a single pet.
+ *   Find pet by ID.
  * @tags pet
  */
 export const getPetPetId = /* #__PURE__ */ (() => {
@@ -314,15 +344,26 @@ export interface PostPetPetIdOption {
 export interface PostPetPetIdResponse {
   /**
    * @description
+   *   successful operation
+   */
+  200: Pet;
+  /**
+   * @description
    *   Invalid input
    */
-  405: any;
+  400: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
-export type PostPetPetIdResponseSuccess = any;
+export type PostPetPetIdResponseSuccess = PostPetPetIdResponse[200];
 /**
  * @description
- *   Updates a pet in the store with form data
+ *   Updates a pet resource based on the form data.
+ *   Updates a pet in the store with form data.
  * @tags pet
  */
 export const postPetPetId = /* #__PURE__ */ (() => {
@@ -372,15 +413,26 @@ export interface DeletePetPetIdOption {
 export interface DeletePetPetIdResponse {
   /**
    * @description
+   *   Pet deleted
+   */
+  200: any;
+  /**
+   * @description
    *   Invalid pet value
    */
   400: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
-export type DeletePetPetIdResponseSuccess = any;
+export type DeletePetPetIdResponseSuccess = DeletePetPetIdResponse[200];
 /**
  * @description
- *   Deletes a pet
+ *   Delete a pet.
+ *   Deletes a pet.
  * @tags pet
  */
 export const deletePetPetId = /* #__PURE__ */ (() => {
@@ -442,13 +494,29 @@ export interface PostPetPetIdUploadImageResponse {
    *   successful operation
    */
   200: ApiResponse;
+  /**
+   * @description
+   *   No file uploaded
+   */
+  400: any;
+  /**
+   * @description
+   *   Pet not found
+   */
+  404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type PostPetPetIdUploadImageResponseSuccess =
   PostPetPetIdUploadImageResponse[200];
 /**
  * @description
- *   uploads an image
+ *   Upload image of the pet.
+ *   Uploads an image.
  * @tags pet
  */
 export const postPetPetIdUploadImage = /* #__PURE__ */ (() => {
@@ -479,13 +547,18 @@ export interface GetStoreInventoryResponse {
   200: {
     [propertyName: string]: number;
   };
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetStoreInventoryResponseSuccess = GetStoreInventoryResponse[200];
 /**
  * @description
- *   Returns a map of status codes to quantities
- *   Returns pet inventories by status
+ *   Returns a map of status codes to quantities.
+ *   Returns pet inventories by status.
  * @tags store
  */
 export const getStoreInventory = /* #__PURE__ */ (() => {
@@ -523,14 +596,24 @@ export interface PostStoreOrderResponse {
    * @description
    *   Invalid input
    */
-  405: any;
+  400: any;
+  /**
+   * @description
+   *   Validation exception
+   */
+  422: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type PostStoreOrderResponseSuccess = PostStoreOrderResponse[200];
 /**
  * @description
- *   Place a new order in the store
- *   Place an order for a pet
+ *   Place a new order in the store.
+ *   Place an order for a pet.
  * @tags store
  */
 export const postStoreOrder = /* #__PURE__ */ (() => {
@@ -583,6 +666,11 @@ export interface GetStoreOrderOrderIdResponse {
    *   Order not found
    */
   404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetStoreOrderOrderIdResponseSuccess =
@@ -590,7 +678,7 @@ export type GetStoreOrderOrderIdResponseSuccess =
 /**
  * @description
  *   For valid response try integer IDs with value <= 5 or > 10. Other values will generate exceptions.
- *   Find purchase order by ID
+ *   Find purchase order by ID.
  * @tags store
  */
 export const getStoreOrderOrderId = /* #__PURE__ */ (() => {
@@ -630,6 +718,11 @@ export interface DeleteStoreOrderOrderIdOption {
 export interface DeleteStoreOrderOrderIdResponse {
   /**
    * @description
+   *   order deleted
+   */
+  200: any;
+  /**
+   * @description
    *   Invalid ID supplied
    */
   400: any;
@@ -638,13 +731,19 @@ export interface DeleteStoreOrderOrderIdResponse {
    *   Order not found
    */
   404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
-export type DeleteStoreOrderOrderIdResponseSuccess = any;
+export type DeleteStoreOrderOrderIdResponseSuccess =
+  DeleteStoreOrderOrderIdResponse[200];
 /**
  * @description
- *   For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
- *   Delete purchase order by ID
+ *   For valid response try integer IDs with value < 1000. Anything above 1000 or non-integers will generate API errors.
+ *   Delete purchase order by identifier.
  * @tags store
  */
 export const deleteStoreOrderOrderId = /* #__PURE__ */ (() => {
@@ -677,14 +776,19 @@ export interface PostUserResponse {
    * @description
    *   successful operation
    */
-  default: User;
+  200: User;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
-export type PostUserResponseSuccess = PostUserResponse["default"];
+export type PostUserResponseSuccess = PostUserResponse[200];
 /**
  * @description
  *   This can only be done by the logged in user.
- *   Create user
+ *   Create user.
  * @tags user
  */
 export const postUser = /* #__PURE__ */ (() => {
@@ -720,7 +824,7 @@ export interface PostUserCreateWithListResponse {
   200: User;
   /**
    * @description
-   *   successful operation
+   *   Unexpected error
    */
   default: any;
 }
@@ -729,8 +833,8 @@ export type PostUserCreateWithListResponseSuccess =
   PostUserCreateWithListResponse[200];
 /**
  * @description
- *   Creates list of users with given input array
- *   Creates list of users with given input array
+ *   Creates list of users with given input array.
+ *   Creates list of users with given input array.
  * @tags user
  */
 export const postUserCreateWithList = /* #__PURE__ */ (() => {
@@ -782,12 +886,18 @@ export interface GetUserLoginResponse {
    *   Invalid username/password supplied
    */
   400: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetUserLoginResponseSuccess = GetUserLoginResponse[200];
 /**
  * @description
- *   Logs user into the system
+ *   Log into the system.
+ *   Logs user into the system.
  * @tags user
  */
 export const getUserLogin = /* #__PURE__ */ (() => {
@@ -815,13 +925,19 @@ export interface GetUserLogoutResponse {
    * @description
    *   successful operation
    */
+  200: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
   default: any;
 }
 
-export type GetUserLogoutResponseSuccess = GetUserLogoutResponse["default"];
+export type GetUserLogoutResponseSuccess = GetUserLogoutResponse[200];
 /**
  * @description
- *   Logs out current logged in user session
+ *   Log user out of the system.
+ *   Logs out current logged in user session.
  * @tags user
  */
 export const getUserLogout = /* #__PURE__ */ (() => {
@@ -847,12 +963,12 @@ export const getUserLogout = /* #__PURE__ */ (() => {
 export interface GetUserUsernameOption {
   /**
    * @description
-   *   The name that needs to be fetched. Use user1 for testing.
+   *   The name that needs to be fetched. Use user1 for testing
    */
   path: {
     /**
         @description
-          The name that needs to be fetched. Use user1 for testing.  */
+          The name that needs to be fetched. Use user1 for testing */
     username: string;
   };
 }
@@ -874,12 +990,18 @@ export interface GetUserUsernameResponse {
    *   User not found
    */
   404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
 export type GetUserUsernameResponseSuccess = GetUserUsernameResponse[200];
 /**
  * @description
- *   Get user by user name
+ *   Get user detail based on username.
+ *   Get user by user name.
  * @tags user
  */
 export const getUserUsername = /* #__PURE__ */ (() => {
@@ -905,12 +1027,12 @@ export const getUserUsername = /* #__PURE__ */ (() => {
 export interface PutUserUsernameOption {
   /**
    * @description
-   *   name that needs to be updated
+   *   name that need to be deleted
    */
   path: {
     /**
         @description
-          name that needs to be updated */
+          name that need to be deleted */
     username: string;
   };
 }
@@ -926,14 +1048,29 @@ export interface PutUserUsernameResponse {
    * @description
    *   successful operation
    */
+  200: any;
+  /**
+   * @description
+   *   bad request
+   */
+  400: any;
+  /**
+   * @description
+   *   user not found
+   */
+  404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
   default: any;
 }
 
-export type PutUserUsernameResponseSuccess = PutUserUsernameResponse["default"];
+export type PutUserUsernameResponseSuccess = PutUserUsernameResponse[200];
 /**
  * @description
  *   This can only be done by the logged in user.
- *   Update user
+ *   Update user resource.
  * @tags user
  */
 export const putUserUsername = /* #__PURE__ */ (() => {
@@ -973,6 +1110,11 @@ export interface DeleteUserUsernameOption {
 export interface DeleteUserUsernameResponse {
   /**
    * @description
+   *   User deleted
+   */
+  200: any;
+  /**
+   * @description
    *   Invalid username supplied
    */
   400: any;
@@ -981,13 +1123,18 @@ export interface DeleteUserUsernameResponse {
    *   User not found
    */
   404: any;
+  /**
+   * @description
+   *   Unexpected error
+   */
+  default: any;
 }
 
-export type DeleteUserUsernameResponseSuccess = any;
+export type DeleteUserUsernameResponseSuccess = DeleteUserUsernameResponse[200];
 /**
  * @description
  *   This can only be done by the logged in user.
- *   Delete user
+ *   Delete user resource.
  * @tags user
  */
 export const deleteUserUsername = /* #__PURE__ */ (() => {
