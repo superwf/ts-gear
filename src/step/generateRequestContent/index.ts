@@ -113,6 +113,7 @@ export const generateRequestContent = (spec: Spec, project: Project) => {
                 parameterRequired,
                 parameterTypeName,
                 responseSuccessTypeName: responseType.successTypeName,
+                simpleOption,
               })
             : sourceContent,
         },
